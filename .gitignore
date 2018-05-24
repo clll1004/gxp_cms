@@ -1,0 +1,30 @@
+# Logs
+logs
+
+# Dependency directory
+node_modules
+
+# IDEA
+.idea
+*.iml
+
+# MAC
+.DS_Store
+
+# build
+build
+
+# etc
+*.swp
+etc
+temp
+api
+doc
+report
+karma.conf.local.js
+.tern-project
+.tern-port
+*.vim
+.\#*
+.vscode/
+dist/

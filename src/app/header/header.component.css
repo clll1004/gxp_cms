@@ -1,0 +1,13 @@
+/*헤더*/
+.header-sec {overflow: hidden; z-index: 999; width: 100%; height: 65px; border-bottom: 1px solid #ddd; border-top: 2px solid #ff6400; background: #f1f1f1; box-sizing: border-box;}
+.header-sec .logo-sec {height: 65px; background: #f1f1f1; border-bottom: 1px solid #ddd; padding: 10px 20px; box-sizing: border-box;}
+.header-sec .logo-sec img {width: 85px; margin-top: 3px;}
+.header-sec nav.gnb-sec {height: 65px;}
+.header-sec nav.gnb-sec a {display: inline-block; margin: 20px 25px 0; font-size: 14px; color: #ff6400;}
+.header-sec nav.gnb-sec a:hover {border-bottom: 1px solid #ff6400;}
+.header-sec nav.gnb-sec a.on {font-weight: bold; border-bottom: 2px solid #ff6400;}
+.header-sec .user-info-sec {padding: 15px 0; font-size: 13px;}
+.header-sec .user-info-sec a.g-name {color: #777;}
+.header-sec .user-info-sec a.g-name:hover {border-bottom: 1px solid #777;}
+.header-sec .user-info-sec a.g-name img {margin-top: 7px;}
+.header-sec .user-info-sec button {margin-left: 10px;}

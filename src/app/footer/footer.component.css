@@ -1,0 +1,4 @@
+/*푸터*/
+.footer-sec {width: 100%; height: 50px; line-height: 50px; clear: both; box-sizing: border-box; background: #222; }
+.footer-sec address {font-size: 14px; color: #aaa; padding: 0 20px; overflow: hidden;}
+.footer-sec address span {color: #aaa; float: right;}

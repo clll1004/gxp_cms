@@ -1,0 +1,15 @@
+.main-content-sec {padding: 0 20px 100px; background: #fff;}
+.dash-sec {margin-bottom: 50px; box-sizing: border-box;}
+.dash-sec .dash-title {font-size: 16px; margin-bottom: 10px;}
+.dash-sec .dash-data {overflow: hidden; border-top: 2px solid #ff6400; border-bottom: 1px solid #ddd; background: #fafafa;}
+.dash-sec .dash-data .data-sec {float: left; padding: 15px 0; width:33.3%; border-right: 1px solid #ddd; text-align: center; box-sizing: border-box;}
+.dash-sec .dash-data .data-sec:last-child {border-right: none;}
+.dash-sec .dash-data .data-sec .data-title {margin-bottom: 10px; font-weight: bold;}
+.dash-sec .dash-data .data-sec .data-time {margin-bottom: 10px;}
+.dash-sec .dash-data .data-sec .data-time span {font-size: 13px; color: #999;}
+.dash-sec .dash-data .data-sec .data-value,
+.dash-sec .dash-data .data-sec .data-value span {color: #ff6400;}
+.player-dash-sec {border: 1px solid #ddd; background: #fff; margin-top: -1px;}
+.player-dash-sec .dash-sec {padding: 0 20px;}
+.player-dash-sec .data-time {margin: 10px 20px;}
+.player-dash-sec .data-time span {font-size: 13px; color: #999;}
