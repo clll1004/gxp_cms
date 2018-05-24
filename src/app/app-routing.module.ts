@@ -23,9 +23,9 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'contents', component: ContentsComponent },
     { path: 'transcording', component: TranscordingComponent },
+    { path: 'transcording/:id', component: TranscordingComponent },
     { path: 'settings', component: SettingsComponent},
     { path: 'footer', component: FooterComponent },
-
 
     { path: 'transSub0', component: TransSub0Component },
     { path: 'transSub1', component: TransSub1Component },
