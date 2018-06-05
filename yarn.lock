@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@angular/animations@^4.2.0":
-  version "4.4.7"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.4.7.tgz#4d108e89cafe8d0d193385e7aa1b3b00e8199ade"
+"@angular/animations@4.2.0":
+  version "4.2.0"
+  resolved "https://registry.npmjs.org/@angular/animations/-/animations-4.2.0.tgz#e964fc56c9621f28679f24d5e69026e2d1571425"
   dependencies:
     tslib "^1.7.1"
 

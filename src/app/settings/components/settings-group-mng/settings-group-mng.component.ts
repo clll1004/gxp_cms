@@ -1,28 +1,21 @@
 import { Component } from '@angular/core';
 
-interface City {
-    name: string;
-    code: string;
-}
-
-
 @Component({
     selector: 'settings-group-mng',
     templateUrl: './settings-group-mng.component.html',
     styleUrls: ['../../settings.component.css']
 })
 export class SettingsGroupMngComponent {
-    cities: City[];
-    selectedCity: City;
+    cities: any[];
+    selectedCity: any[];
 
     constructor() {
-        console.log('!!');
         this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+            {label:'Select City', value:null},
+            {label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}},
+            {label:'London', value:{id:3, name: 'London', code: 'LDN'}},
+            {label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}},
+            {label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
         ];
     }
 }

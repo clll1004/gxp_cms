@@ -83,8 +83,8 @@
                             <!--<option value="duse">사용안함</option>-->
                         <!--</select>-->
                         <!--<p-dropdown placeholder="사용여부" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>-->
-                        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
-                        <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
+                        <p-dropdown placeholder="사용여부" [options]="cities" [(ngModel)]="selectedCity"></p-dropdown>
+                        <!--<p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>-->
                     </td>
                     <td>
                         <input type="text" title="파일접미어" value="1M" pInputText />
