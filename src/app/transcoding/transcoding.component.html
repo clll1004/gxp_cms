@@ -1,0 +1,14 @@
+<div class="ui-g-2 ui-g-nopad">
+    <nav class="ui-g-12 ui-g-nopad lnb-sec">
+        <ul>
+            <li><a class="on" routerLink="/transcoding/transcoding-progress">변환 진행 목록</a></li>
+            <li><a routerLink="/transcoding/transcoding-request">변환 요청 목록</a></li>
+            <li><a routerLink="/transcoding/transcoding-standby">변환 대기 목록</a></li>
+            <li><a routerLink="/transcoding/transcoding-complete">변환 완료 목록</a></li>
+            <li><a routerLink="/transcoding/transcoding-fail">변환 실패 목록</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="ui-g-10 ui-g-nopad">
+    <transcoding-wrap [params]="params"></transcoding-wrap>
+</div>

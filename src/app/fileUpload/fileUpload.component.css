@@ -1,0 +1,27 @@
+/*로고/워터마크 위치*/
+.content-position {overflow: hidden; border: 1px solid #ddd;}
+.content-position .position {height: 50px; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; background: #f1f1f1; box-sizng: border-box;}
+.content-position .position:hover,
+.content-position .position.on {background: #ff6400;}
+.content-position .position:nth-child(3),
+.content-position .position:nth-child(6),
+.content-position .position:nth-child(9) {border-right: none;}
+.content-position .position:nth-child(7),
+.content-position .position:nth-child(8),
+.content-position .position:nth-child(9) {border-bottom: none;}
+.content-position .position:nth-child(6) {border-left: 1px solid #ddd;}
+.content-position .position:nth-child(8) {border-top: 1px solid #ddd;}
+.content-position .position.empty-position {opacity: 0;}
+
+/*이벤트*/
+.event-list li {padding: 20px; border: 1px solid #ccc;}
+.event-item {position: relative; font-size: 14px;}
+.event-item .event-title .first-pick {color: #c00000;}
+.event-item .event-title .second-pick {color: #002060;}
+.event-item .event-title .third-pick {color: #00b050;}
+.event-item .close-btn {position: absolute; top: 10px; right: 10px; border: none; background: #fff;}
+.event-item .event-time button {width: 25px; height: 25px; border: 1px solid #ddd; background: #f5f5f5; box-sizing: border-box;}
+.event-item .quiz-sec p {margin-left: 113px; margin-top: 10px; color: #999;}
+/*구간선택*/
+.time-sec .timebar-sec {position: relative; height: 6px; background: #eee;}
+.time-sec .timebar-sec .select-sec {position: absolute; left: 10%; width: 13%; height: 100%; background: #ff6400;}

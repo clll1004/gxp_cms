@@ -1,0 +1,52 @@
+<div class="ui-g-12 ui-g-nopad padding-top-20 padding-bottom-50 padding-left-20 padding-right-20">
+    <div class="ui-g-12 ui-g-nopad nobor-table-sec">
+        <table>
+            <caption>로고 테이블</caption>
+            <colgroup>
+                <col style="width: 180px;">
+                <col style="width: auto;">
+            </colgroup>
+            <tr>
+                <th>로고이미지 선택</th>
+                <td>
+                    <label for="logo-search"></label>
+                    <input type="file" id="logo-search" title="로고 파일 찾기" />
+                    <p class="">jpg, png 파일만 등록하실 수 있습니다.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>로고 위치</th>
+                <td>
+                    <div class="ui-g-3 content-position">
+                        <div class="ui-g-4 ui-g-nopad position cur-p"></div>
+                        <div class="ui-g-4 ui-g-nopad position cur-p"></div>
+                        <div class="ui-g-4 ui-g-nopad position cur-p"></div>
+                        <div class="ui-g-4 ui-g-nopad position cur-p"></div>
+                        <div class="ui-g-4 ui-g-nopad position empty-position"></div>
+                        <div class="ui-g-4 ui-g-nopad position cur-p"></div>
+                        <div class="ui-g-4 ui-g-nopad position cur-p"></div>
+                        <div class="ui-g-4 ui-g-nopad position cur-p"></div>
+                        <div class="ui-g-4 ui-g-nopad position cur-p"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>로고 투명도</th>
+                <td>
+                    <p-slider class="dp-inb" [(ngModel)]="opacityval" [style]="{'width':'200px'}"></p-slider> <input type="text" pInputText [(ngModel)]="opacityval" style="width:190px"/>
+                </td>
+            </tr>
+            <tr>
+                <th>미리보기</th>
+                <td>
+                    <img src="../../../../../../assets/images/upload_preivew.png" alt="로고 삽입 미리보기 썸네일" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="ui-g-12 ui-g-nopad margin-top-40 btn-sec txt-center">
+        <button class="orange-btn">적용</button>
+        <button class="white-btn">취소</button>
+    </div>
+</div>

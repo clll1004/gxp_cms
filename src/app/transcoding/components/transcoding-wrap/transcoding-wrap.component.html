@@ -1,0 +1,246 @@
+<div class="ui-g-12 ui-g-nopad content-sec">
+    <div class="ui-g-12 ui-g-nopad page-title-sec">
+        TRANSCODING /
+        <span class="path" *ngIf="params.id === 'transcoding-progress'">트랜스코딩 변환 진행 목록</span>
+        <span class="path" *ngIf="params.id === 'transcoding-request'">트랜스코딩 변환 요청 목록</span>
+        <span class="path" *ngIf="params.id === 'transcoding-standby'">트랜스코딩 변환 대기 목록</span>
+        <span class="path" *ngIf="params.id === 'transcoding-complete'">트랜스코딩 변환 완료 목록</span>
+        <span class="path" *ngIf="params.id === 'transcoding-fail'">트랜스코딩 변환 실패 목록</span>
+    </div>
+    <div class="ui-g-12 ui-g-nopad search-sec margin-bottom-30">
+        <label for="group-key">그룹 선택</label>
+        <!--<select id="group-key">-->
+            <!--<option value="all">전체</option>-->
+        <!--</select>-->
+        <!--<p-dropdown placeholder="그룹 선택"></p-dropdown>-->
+        <label for="file-key">파일명</label>
+        <!--<input type="text" id="file-key" title="파일명 입력"/> <button class="grey-btn">검색</button>-->
+        <input type="text" id="file-key" pInputText placeholder="파일명 입력">
+        <button pButton type="button" label="검색" [style]="{'color': 'white !important', 'background': 'grey'}"></button>
+    </div>
+    <div class="ui-g-12 ui-g-nopad btn-sec margin-bottom-30">
+        <button class="white-btn" *ngIf="!(params.id === 'transcoding-request')">선택 파일 변환 재시작</button>
+        <button class="white-btn">새로고침</button>
+    </div>
+    <div class="ui-g-12 ui-g-nopad row-info-sec margin-bottom-20">
+        ㆍROW 개수
+        <!--<select>-->
+            <!--<option val="20">20</option>-->
+            <!--<option val="40">40</option>-->
+            <!--<option val="60">60</option>-->
+        <!--</select>-->
+        <!--<p-dropdown placeholder="ROW 개수"></p-dropdown>-->
+        ㆍTotal <span class="total-row">1</span>건 (<span class="now-page">1</span>Page / <span class="total-page">1</span>Page)
+    </div>
+
+    <div class="ui-g-12 ui-g-nopad table-sec" *ngIf="params.id === 'transcoding-progress'">
+        <table class="ui-g-12 ui-g-nopad">
+            <caption>변환 진행 목록 테이블</caption>
+            <colgroup>
+                <col style="width: 40px;" />
+                <col style="width: 80px;" />
+                <col style="width: 200px;" />
+                <col style="width: 80px;" />
+                <col style="width: 120px;" />
+                <col style="width: 100px;" />
+                <col style="width: 90px;" />
+                <col style="width: 90px;" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="t-center"><label for="all-check-progress"><p-checkbox id="all-check-progress" name="all-item-chk" value="val0"></p-checkbox></label></th>
+                <th>그룹명</th>
+                <th>변환 파일경로</th>
+                <th>변환 옵션</th>
+                <th>변환 진행률</th>
+                <th>변환 서버</th>
+                <th>변환 시작일</th>
+                <th>최종 작업시간</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="item">
+                <td class="t-center"><label for="chk0_1"><p-checkbox id="chk0_1" name="item-chk" value="val0_1"></p-checkbox></label></td>
+                <td><span>mobile</span></td>
+                <td><span>/vod/28/29cpc/컴퓨터오피스활용_03_1ww.</span></td>
+                <td><span>MQ</span></td>
+                <td><p-progressBar [value]="50" [style]="{'height': '18px', 'font-size': '12px'}"></p-progressBar></td>
+                <td><span>110.93.178.40</span></td>
+                <td><span>20180408145121</span></td>
+                <td><span>20180408145121</span></td>
+            </tr>
+            <tr class="item">
+                <td class="t-center"><label for="chk0_2"><p-checkbox id="chk0_2" name="item-chk" value="val0_2"></p-checkbox></label></td>
+                <td><span>GOM</span></td>
+                <td><span>/vod/28/29cpc/컴퓨터오피스활용_03_1ww.</span></td>
+                <td><span>MQ</span></td>
+                <td><p-progressBar [value]="24" [style]="{'height': '18px', 'font-size': '12px'}"></p-progressBar></td>
+                <td><span>110.93.178.40</span></td>
+                <td><span>20180408145121</span></td>
+                <td><span>20180408145121</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-g-12 ui-g-nopad no-data-sec">
+            표시할 데이터가 없습니다.
+        </div>
+    </div>
+    <div class="ui-g-12 ui-g-nopad table-sec" *ngIf="params.id === 'transcoding-request'">
+        <table class="ui-g-12 ui-g-nopad">
+            <caption>변환 요청 목록 테이블</caption>
+            <colgroup>
+                <col style="width: 40px;" />
+                <col style="width: 110px;" />
+                <col style="width: 300px;" />
+                <col style="width: 90px;" />
+                <col style="width: 110px;" />
+                <col style="width: 110px;" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="t-center"><label for="all-check-request"><p-checkbox id="all-check-request" name="all-item-chk" value="val1"></p-checkbox></label></th>
+                <th>그룹명</th>
+                <th>변환 파일 경로</th>
+                <th>변환 상태</th>
+                <th>등록일</th>
+                <th>수정일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="item">
+                <td class="t-center"><label for="chk1_1"><p-checkbox id="chk1_1" name="item-chk" value="val1_1"></p-checkbox></label></td>
+                <td><span>mobile</span></td>
+                <td><span>/vod/28/29cpc/컴퓨터오피스활용_03_1ww.</span></td>
+                <td><span>변환 완료</span></td>
+                <td><span>20180408145121</span></td>
+                <td><span>20180408145121</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-g-12 ui-g-nopad no-data-sec">
+            표시할 데이터가 없습니다.
+        </div>
+    </div>
+    <div class="ui-g-12 ui-g-nopad table-sec" *ngIf="params.id === 'transcoding-standby'">
+        <table class="ui-g-12 ui-g-nopad">
+            <caption>변환 대기 목록 테이블</caption>
+            <colgroup>
+                <col style="width: 40px;" />
+                <col style="width: 80px;" />
+                <col style="width: 200px;" />
+                <col style="width: 80px;" />
+                <col style="width: 120px;" />
+                <col style="width: 100px;" />
+                <col style="width: 100px;" />
+                <col style="width: 100px;" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="t-center"><label for="all-check-standby"><p-checkbox id="all-check-standby" name="all-item-chk" value="val2"></p-checkbox></label></th>
+                <th>그룹명</th>
+                <th>변환 파일경로</th>
+                <th>변환 옵션</th>
+                <th>변환 진행률</th>
+                <th>변환 서버</th>
+                <th>변환 시작일</th>
+                <th>최종 작업시간</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="item">
+                <td class="t-center"><label for="chk2_1"><p-checkbox id="chk2_1" name="item-chk" value="val2_1"></p-checkbox></label></td>
+                <td><span>mobile</span></td>
+                <td><span>/vod/28/29cpc/컴퓨터오피스활용_03_1ww.</span></td>
+                <td><span>MQ</span></td>
+                <td><p-progressBar [value]="0" [style]="{'height': '18px', 'font-size': '12px'}"></p-progressBar></td>
+                <td><span>110.93.178.40</span></td>
+                <td><span>20180408145121</span></td>
+                <td><span>20180408145121</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-g-12 ui-g-nopad no-data-sec">
+            표시할 데이터가 없습니다.
+        </div>
+    </div>
+    <div class="ui-g-12 ui-g-nopad table-sec" *ngIf="params.id === 'transcoding-complete'">
+        <table class="ui-g-12 ui-g-nopad">
+            <caption>변환 완료 목록 테이블</caption>
+            <colgroup>
+                <col style="width: 40px;" />
+                <col style="width: 110px;" />
+                <col style="width: 300px;" />
+                <col style="width: 90px;" />
+                <col style="width: 110px;" />
+                <col style="width: 110px;" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="t-center"><label for="all-check-complete"><p-checkbox id="all-check-complete" name="all-item-chk" value="val3"></p-checkbox></label></th>
+                <th>그룹명</th>
+                <th>변환 파일 경로</th>
+                <th>변환 상태</th>
+                <th>등록일</th>
+                <th>수정일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="item">
+                <td class="t-center"><label for="chk3_1"><p-checkbox id="chk3_1" name="item-chk" value="val3_1"></p-checkbox></label></td>
+                <td><span>11st</span></td>
+                <td><span>/test/t한글1.mp4</span></td>
+                <td><span>변환 완료</span></td>
+                <td><span>20180408145121</span></td>
+                <td><span>20180408145121</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-g-12 ui-g-nopad no-data-sec">
+            표시할 데이터가 없습니다.
+        </div>
+    </div>
+    <div class="ui-g-12 ui-g-nopad table-sec" *ngIf="params.id === 'transcoding-fail'">
+        <table class="ui-g-12 ui-g-nopad">
+            <caption>변환 실패 \ 목록 테이블</caption>
+            <colgroup>
+                <col style="width: 40px;" />
+                <col style="width: 110px;" />
+                <col style="width: 250px;" />
+                <col style="width: 90px;" />
+                <col style="width: 90px;" />
+                <col style="width: 180px;" />
+                <col style="width: 110px;" />
+                <col style="width: 110px;" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="t-center"><label for="all-check-fail"><p-checkbox id="all-check-fail" name="all-item-chk" value="val4"></p-checkbox></label></th>
+                <th>그룹명</th>
+                <th>변환 파일 경로</th>
+                <th>변환 상태</th>
+                <th>실패 횟수</th>
+                <th>실패 메시지</th>
+                <th>등록일</th>
+                <th>수정일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="item">
+                <td class="t-center"><label for="chk4_1"><p-checkbox id="chk4_1" name="item-chk" value="val4_1"></p-checkbox></label></td>
+                <td><span>11st</span></td>
+                <td><span>/test/t한글1.mp4</span></td>
+                <td><span>변환 실패</span></td>
+                <td><span>1</span></td>
+                <td><span></span></td>
+                <td><span>20180408145121</span></td>
+                <td><span>20180408145121</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-g-12 ui-g-nopad no-data-sec">
+            표시할 데이터가 없습니다.
+        </div>
+    </div>
+
+    <!--<p-paginator class="ui-g-12 ui-g-nopad" [rows]="10" [totalRecords]="120"></p-paginator>-->
+</div>
