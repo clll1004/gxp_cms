@@ -82,9 +82,7 @@
                             <!--<option value="use">사용</option>-->
                             <!--<option value="duse">사용안함</option>-->
                         <!--</select>-->
-                        <!--<p-dropdown placeholder="사용여부" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>-->
-                        <p-dropdown placeholder="사용여부" [options]="cities" [(ngModel)]="selectedCity"></p-dropdown>
-                        <!--<p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>-->
+                        <p-dropdown placeholder="사용여부" [options]="transuse" [(ngModel)]="selectedOption"></p-dropdown>
                     </td>
                     <td>
                         <input type="text" title="파일접미어" value="1M" pInputText />
@@ -95,6 +93,7 @@
                             <!--<option value=""></option>-->
                         <!--</select>-->
                         <!--<p-dropdown placeholder="FPS"></p-dropdown>-->
+                        <p-dropdown placeholder="FPS" [options]="transFPS" [(ngModel)]="selectedFPSOption"></p-dropdown>
                     </td>
                     <td>
                         <input type="text" title="비디오비트율" value="1000" pInputText />
@@ -121,7 +120,7 @@
                             <!--<option value="use">사용</option>-->
                             <!--<option value="duse">사용안함</option>-->
                         <!--</select>-->
-                        <!--<p-dropdown placeholder="사용여부"></p-dropdown>-->
+                        <p-dropdown placeholder="사용여부" [options]="transuse" [(ngModel)]="selectedOption2"></p-dropdown>
                     </td>
                     <td>
                         <input type="text" title="파일접미어" value="1M" pInputText />
@@ -132,6 +131,7 @@
                         <!--<option value=""></option>-->
                         <!--</select>-->
                         <!--<p-dropdown placeholder="FPS"></p-dropdown>-->
+                        <p-dropdown placeholder="FPS" [options]="transFPS" [(ngModel)]="selectedFPSOption2"></p-dropdown>
                     </td>
                     <td>
                         <input type="text" title="비디오비트율" value="1000" pInputText />

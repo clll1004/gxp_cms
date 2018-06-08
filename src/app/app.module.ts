@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
+import { DataTableModule } from "primeng/primeng";
 import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AccordionModule } from 'primeng/accordion';
@@ -26,6 +27,9 @@ import { FileUploadComponent } from "./fileUpload/fileUpload.component";
 import { TranscodingComponent } from "./transcoding/transcoding.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { FooterComponent } from "./footer/footer.component";
+
+import { HttpModule } from "@angular/http";
+
 
 /*HOME*/
 import { HomeDataComponent } from "./home/components/home-data/home-data.component";
@@ -74,12 +78,14 @@ import { AppRoutingModule } from "./app-routing.module";
         ButtonModule,
         InputTextareaModule,
         TableModule,
+        DataTableModule,
         FileUploadModule,
         RadioButtonModule,
         AccordionModule,
         CheckboxModule,
         TreeModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HttpModule
     ],
     declarations: [
         AppComponent,

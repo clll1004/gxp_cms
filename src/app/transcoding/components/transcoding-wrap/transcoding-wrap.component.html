@@ -9,10 +9,7 @@
     </div>
     <div class="ui-g-12 ui-g-nopad search-sec margin-bottom-30">
         <label for="group-key">그룹 선택</label>
-        <!--<select id="group-key">-->
-            <!--<option value="all">전체</option>-->
-        <!--</select>-->
-        <!--<p-dropdown placeholder="그룹 선택"></p-dropdown>-->
+        <p-dropdown placeholder="그룹 선택" [options]="cgroups" [(ngModel)]="selectedGroup"></p-dropdown>
         <label for="file-key">파일명</label>
         <!--<input type="text" id="file-key" title="파일명 입력"/> <button class="grey-btn">검색</button>-->
         <input type="text" id="file-key" pInputText placeholder="파일명 입력">
@@ -24,12 +21,7 @@
     </div>
     <div class="ui-g-12 ui-g-nopad row-info-sec margin-bottom-20">
         ㆍROW 개수
-        <!--<select>-->
-            <!--<option val="20">20</option>-->
-            <!--<option val="40">40</option>-->
-            <!--<option val="60">60</option>-->
-        <!--</select>-->
-        <!--<p-dropdown placeholder="ROW 개수"></p-dropdown>-->
+        <p-dropdown placeholder="ROW 개수" [options]="rowcount" [(ngModel)]="selectedRow"></p-dropdown>
         ㆍTotal <span class="total-row">1</span>건 (<span class="now-page">1</span>Page / <span class="total-page">1</span>Page)
     </div>
 
