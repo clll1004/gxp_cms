@@ -20,7 +20,7 @@ export class ContentListService {
 
     getContent(): Observable<any> {
         // return this.http.get('src/app/contents/components/contents-list-wrap/contents-list-wrap.json');
-        return this.http.get('http://183.110.11.49/adm/customer/list', { withCredentials: true });
+        return this.http.get('http://183.110.11.49/adm/customer/list');
     }
 }
 

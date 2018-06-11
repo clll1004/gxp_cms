@@ -9,16 +9,15 @@ import { ContentListService } from "./contents-list-wrap.service";
 })
 
 export class ContentsListWrapComponent implements OnInit {
-    selectedCars3: any[];
-    contentslists: any[];
-    cols: any[];
+    selectContents: any[];
+    contentsLists: any[];
 
     constructor(private service: ContentListService) {  }
 
     ngOnInit() {
         this.service.getContent().subscribe((cont) => {
-            console.log(cont);
-            // this.contentslists = JSON.parse(cont._body);
+            // console.log(JSON.parse(cont._body).list);
+            this.contentsLists = JSON.parse(cont._body).list;
 
         });
     }

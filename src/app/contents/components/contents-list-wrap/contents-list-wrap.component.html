@@ -36,7 +36,7 @@
         <!--</div>-->
 
 
-        <p-table [value]="contentslists" [(selection)]="selectedCars3" [paginator]="true"  [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" (onRowSelect)="onRowSelect()">
+        <p-table [value]="contentsLists" [(selection)]="selectContents" [paginator]="true"  [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" (onRowSelect)="onRowSelect()">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 2.25em"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
@@ -47,25 +47,25 @@
                     <th>생성날짜</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-contentslist>
+            <ng-template pTemplate="body" let-contentsList>
                 <tr>
                     <td>
-                        <p-tableCheckbox [value]="contentslist" ></p-tableCheckbox>
+                        <p-tableCheckbox [value]="contentsList" ></p-tableCheckbox>
                     </td>
                     <td>
-                        {{ contentslist.title }}
+                        {{ contentsList.cus_nm_ko }}
                     </td>
                     <td>
-                        {{ contentslist.type }}
+                        {{ contentsList.cus_inchg_tel }}
                     </td>
                     <td>
-                        {{ contentslist.size }}
+                        a
                     </td>
                     <td>
-                        {{ contentslist.rate }}
+                        a
                     </td>
                     <td>
-                        {{ contentslist.createDate }}
+                        a
                     </td>
                 </tr>
             </ng-template>
