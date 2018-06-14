@@ -1,0 +1,155 @@
+<div class="ui-g-12 ui-g-nopad content-sec">
+    <div class="ui-g-12 ui-g-nopad page-title-sec">
+        SETTINGS / <span class="path">그룹관리</span>
+    </div>
+    <div class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec">
+        <div class="ui-g-12 ui-g-nopad table-title-sec">
+            <h3>그룹 기본 정보</h3> <a routerLink="/settings/add-group"><button class="orange-btn">하위 그룹 추가</button></a>
+        </div>
+        <table>
+            <caption>그룹 기본 정보 테이블</caption>
+            <colgroup>
+                <col style="width: 200px;" />
+                <col style="width: 500px;" />
+                <col style="width: 200px;" />
+                <col style="width: 500px;" />
+            </colgroup>
+            <tr>
+                <th>그룹명</th>
+                <td><span>GOM</span></td>
+                <th>그룹설명</th>
+                <td><span>HSITX OVP TransCoding Option</span></td>
+            </tr>
+            <tr>
+                <th>등록자</th>
+                <td><span>(From 59.15.239.125)</span></td>
+                <th>등록일</th>
+                <td><span>2018-05-10 16:04:11</span></td>
+            </tr>
+            <tr>
+                <th>수정자</th>
+                <td><span></span></td>
+                <th>수정일</th>
+                <td><span>2018-05-11 18:12:11</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <ul class="ui-g-12 ui-g-nopad tab-sec">
+        <li class="on cur-p">변환옵션</li>
+    </ul>
+    <div class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec">
+        <div class="ui-g-12 ui-g-nopad table-title-sec">
+            <h3>변환옵션 목록</h3>
+        </div>
+        <table>
+            <caption>변환옵션 테이블</caption>
+            <colgroup>
+                <col style="width: 30px;" />
+                <col style="width: 120px;" />
+                <col style="width: 100px;" />
+                <col style="width: 120px;" />
+                <col style="width: 110px;" />
+                <col style="width: 120px;" />
+                <col style="width: 110px;" />
+                <col style="width: 110px;" />
+                <col style="width: 110px;" />
+                <col style="width: 110px;" />
+                <col style="width: 100px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>옵션명</th>
+                    <th>품질</th>
+                    <th>사용여부</th>
+                    <th>파일접미어</th>
+                    <th>FPS</th>
+                    <th>비디오비트율</th>
+                    <th>오디오비트율</th>
+                    <th>해상도(가로)</th>
+                    <th>해상도(세로)</th>
+                    <th>수정</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item">
+                    <td><span>1</span></td>
+                    <td><span>HQ</span></td>
+                    <td><span>high</span></td>
+                    <td>
+                        <!--<select>-->
+                            <!--<option value="use">사용</option>-->
+                            <!--<option value="duse">사용안함</option>-->
+                        <!--</select>-->
+                        <p-dropdown placeholder="사용여부" [options]="transUse" [(ngModel)]="selectedOption"></p-dropdown>
+                    </td>
+                    <td>
+                        <input type="text" title="파일접미어" value="1M" pInputText />
+                    </td>
+                    <td>
+                        <!--<select>-->
+                            <!--<option value="29.97">29.97</option>-->
+                            <!--<option value=""></option>-->
+                        <!--</select>-->
+                        <!--<p-dropdown placeholder="FPS"></p-dropdown>-->
+                        <p-dropdown placeholder="FPS" [options]="transFPS" [(ngModel)]="selectedFPSOption"></p-dropdown>
+                    </td>
+                    <td>
+                        <input type="text" title="비디오비트율" value="1000" pInputText />
+                    </td>
+                    <td>
+                        <input type="text" title="오디오비트율" value="128" pInputText />
+                    </td>
+                    <td>
+                        <input type="text" title="해상도(가로)" value="720" pInputText />
+                    </td>
+                    <td>
+                        <input type="text" title="해상도(세로)" value="480" pInputText />
+                    </td>
+                    <td>
+                        <button class="white-btn">수정</button>
+                    </td>
+                </tr>
+                <tr class="item">
+                    <td><span>2</span></td>
+                    <td><span>MQ</span></td>
+                    <td><span>middle</span></td>
+                    <td>
+                        <!--<select>-->
+                            <!--<option value="use">사용</option>-->
+                            <!--<option value="duse">사용안함</option>-->
+                        <!--</select>-->
+                        <p-dropdown placeholder="사용여부" [options]="transuse" [(ngModel)]="selectedOption2"></p-dropdown>
+                    </td>
+                    <td>
+                        <input type="text" title="파일접미어" value="1M" pInputText />
+                    </td>
+                    <td>
+                        <!--<select>-->
+                        <!--<option value="29.97">29.97</option>-->
+                        <!--<option value=""></option>-->
+                        <!--</select>-->
+                        <!--<p-dropdown placeholder="FPS"></p-dropdown>-->
+                        <p-dropdown placeholder="FPS" [options]="transFPS" [(ngModel)]="selectedFPSOption2"></p-dropdown>
+                    </td>
+                    <td>
+                        <input type="text" title="비디오비트율" value="1000" pInputText />
+                    </td>
+                    <td>
+                        <input type="text" title="오디오비트율" value="128" pInputText />
+                    </td>
+                    <td>
+                        <input type="text" title="해상도(가로)" value="720" pInputText />
+                    </td>
+                    <td>
+                        <input type="text" title="해상도(세로)" value="480" pInputText />
+                    </td>
+                    <td>
+                        <button class="white-btn">수정</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

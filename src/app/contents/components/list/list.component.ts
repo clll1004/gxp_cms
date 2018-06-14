@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'contents-wrap',
-    templateUrl: './contents-wrap.component.html',
+    selector: 'list',
+    templateUrl: './list.component.html',
     styleUrls: ['../../contents.component.css']
 })
-export class ContentsWrapComponent {
+export class ListComponent {
     constructor() {
       // console.log('!!');
     }

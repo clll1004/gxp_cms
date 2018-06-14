@@ -19,6 +19,8 @@ import { AccordionModule } from 'primeng/accordion';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TreeModule } from 'primeng/tree';
 import { AppComponent } from './app.component';
+import { HttpModule } from "@angular/http";
+
 
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
@@ -27,8 +29,9 @@ import { FileUploadComponent } from "./fileUpload/fileUpload.component";
 import { TranscodingComponent } from "./transcoding/transcoding.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { FooterComponent } from "./footer/footer.component";
+import { LoginComponent } from "./login/login.component";
+import { PathComponent } from "./path/path.component";
 
-import { HttpModule } from "@angular/http";
 
 
 /*HOME*/
@@ -36,30 +39,30 @@ import { HomeDataComponent } from "./home/components/home-data/home-data.compone
 import { HomeDataPlayerComponent } from "./home/components/home-data-player/home-data-player.component";
 /*CONTENTS*/
 import { ContentsWrapComponent } from "./contents/components/contents-wrap/contents-wrap.component";
-import { ContentsControllerComponent } from "./contents/components/contents-controller/contents-controller.component";
-import { ContentsListWrapComponent } from "./contents/components/contents-list-wrap/contents-list-wrap.component";
-import { ContentsListComponent } from "./contents/components/contents-list/contents-list.component";
-import { ContentsPreviewWrapComponent } from "./contents/components/contents-preview-wrap/contents-preview-wrap.component";
-import { ContentsPreviewThumbnailComponent } from "./contents/components/contents-preview-thumbnail/contents-preview-thumbnail.component";
-import { ContentsPreviewStatusComponent } from "./contents/components/contents-preview-status/contents-preview-status.component";
-import { ContentsPreviewFInfoComponent } from "./contents/components/contents-preview-fInfo/contents-preview-fInfo.component";
+import { ControllerComponent } from "./contents/components/controller/controller.component";
+import { ListWrapComponent } from "./contents/components/list-wrap/list-wrap.component";
+import { ListComponent } from "./contents/components/list/list.component";
+import { PreviewWrapComponent } from "./contents/components/preview-wrap/preview-wrap.component";
+import { PreviewThumbnailComponent } from "./contents/components/preview-thumbnail/preview-thumbnail.component";
+import { PreviewStatusComponent } from "./contents/components/preview-status/preview-status.component";
+import { PreviewFInfoComponent } from "./contents/components/preview-fInfo/preview-fInfo.component";
 /*FILE UPLOAD*/
-import { FileUploadStdComponent } from "./fileUpload/components/fileUpload-std/fileUpload-std.component";
+import { UpStdComponent } from "./fileUpload/components/up-std/up-std.component";
 import { FileUploadEdtComponent } from "./fileUpload/components/fileUpload-edt/fileUpload-edt.component";
-import { FileUploadEdtPreviewWrapComponent } from "./fileUpload/components/fileUpload-edt/components/fileUpload-edt-preview-wrap/fileUpload-edt-preview-wrap.component";
-import { FileUploadEdtLogoWrapComponent } from "./fileUpload/components/fileUpload-edt/components/fileUpload-edt-logo-wrap/fileUpload-edt-logo-wrap.component";
-import { FileUploadEdtWtmkWrapComponent } from "./fileUpload/components/fileUpload-edt/components/fileUpload-edt-wtmk-wrap/fileUpload-edt-wtmk-wrap.component";
-import { FileUploadEdtEventWrapComponent } from "./fileUpload/components/fileUpload-edt/components/fileUpload-edt-event-wrap/fileUpload-edt-event-wrap.component";
-import { FileUploadEdtEventComponent } from "./fileUpload/components/fileUpload-edt/components/fileUpload-edt-event/fileUpload-edt-event.component";
-import { FileUploadEdtSectionComponent } from "./fileUpload/components/fileUpload-edt/components/fileUpload-edt-section/fileUpload-edt-section.component";
-import { FileUploadEdtSectionWrapComponent } from "./fileUpload/components/fileUpload-edt/components/fileUpload-edt-section-wrap/fileUpload-edt-section-wrap.component";
+import { EdtPreviewWrapComponent } from "./fileUpload/components/fileUpload-edt/components/edt-preview-wrap/edt-preview-wrap.component";
+import { LogoWrapComponent } from "./fileUpload/components/fileUpload-edt/components/logo-wrap/logo-wrap.component";
+import { WtmkWrapComponent } from "./fileUpload/components/fileUpload-edt/components/wtmk-wrap/wtmk-wrap.component";
+import { EventWrapComponent } from "./fileUpload/components/fileUpload-edt/components/event-wrap/event-wrap.component";
+import { EventComponent } from "./fileUpload/components/fileUpload-edt/components/event/event.component";
+import { SelectSectionComponent } from "./fileUpload/components/fileUpload-edt/components/select-section/select-section.component";
+import { SelectSectionWrapComponent } from "./fileUpload/components/fileUpload-edt/components/select-section-wrap/select-section-wrap.component";
 /*transcoding*/
 import { TranscodingWrapComponent } from "./transcoding/components/transcoding-wrap/transcoding-wrap.component";
 /*SETTINGS*/
-import { SettingsAddGroupComponent } from "./settings/components/settings-add-group/settings-add-group.component";
-import { SettingsGroupMngComponent } from "./settings/components/settings-group-mng/settings-group-mng.component";
-import { SettingsUserModifyComponent } from "./settings/components/settings-user-modify/settings-user-modify.component";
-import { SettingsChangePswdComponent } from "./settings/components/settings-change-pswd/settings-change-pswd.component";
+import { AddGroupComponent } from "./settings/components/add-group/add-group.component";
+import { GroupMngComponent } from "./settings/components/group-mng/group-mng.component";
+import { UserModifyComponent } from "./settings/components/user-modify/user-modify.component";
+import { ChangePswdComponent } from "./settings/components/change-pswd/change-pswd.component";
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -96,35 +99,37 @@ import { AppRoutingModule } from "./app-routing.module";
         SettingsComponent,
         TranscodingComponent,
         FooterComponent,
+        LoginComponent,
+        PathComponent,
 
         HomeDataComponent,
         HomeDataPlayerComponent,
 
         ContentsWrapComponent,
-        ContentsControllerComponent,
-        ContentsListWrapComponent,
-        ContentsListComponent,
-        ContentsPreviewWrapComponent,
-        ContentsPreviewThumbnailComponent,
-        ContentsPreviewStatusComponent,
-        ContentsPreviewFInfoComponent,
+        ControllerComponent,
+        ListWrapComponent,
+        ListComponent,
+        PreviewWrapComponent,
+        PreviewThumbnailComponent,
+        PreviewStatusComponent,
+        PreviewFInfoComponent,
 
-        FileUploadStdComponent,
+        UpStdComponent,
         FileUploadEdtComponent,
-        FileUploadEdtPreviewWrapComponent,
-        FileUploadEdtLogoWrapComponent,
-        FileUploadEdtWtmkWrapComponent,
-        FileUploadEdtEventWrapComponent,
-        FileUploadEdtEventComponent,
-        FileUploadEdtSectionWrapComponent,
-        FileUploadEdtSectionComponent,
+        EdtPreviewWrapComponent,
+        LogoWrapComponent,
+        WtmkWrapComponent,
+        EventWrapComponent,
+        EventComponent,
+        SelectSectionWrapComponent,
+        SelectSectionComponent,
 
         TranscodingWrapComponent,
 
-        SettingsAddGroupComponent,
-        SettingsGroupMngComponent,
-        SettingsUserModifyComponent,
-        SettingsChangePswdComponent
+        AddGroupComponent,
+        GroupMngComponent,
+        UserModifyComponent,
+        ChangePswdComponent
     ],
     bootstrap: [ AppComponent ]
 })

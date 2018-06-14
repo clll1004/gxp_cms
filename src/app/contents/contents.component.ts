@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
 })
 export class ContentsComponent {
     constructor() {
-        console.log('!!');
+        // console.log('!!');
     }
 }

@@ -1,13 +1,13 @@
 <div class="ui-g-2 ui-g-nopad">
     <nav class="ui-g-12 ui-g-nopad lnb-sec">
         <ul>
-            <li><a class="on" routerLink="/fileUpload/fileUpload-std">기본파일 올리기</a></li>
+            <li><a class="on" routerLink="/fileUpload/up-std">기본파일 올리기</a></li>
             <li><a routerLink="/fileUpload/fileUpload-edt">편집해서 올리기</a></li>
             <li><a routerLink="/contents">취소</a></li>
         </ul>
     </nav>
 </div>
 <div class="ui-g-10 ui-g-nopad">
-    <fileUpload-std *ngIf="params.id === 'fileUpload-std'"></fileUpload-std>
+    <up-std *ngIf="params.id === 'up-std'"></up-std>
     <fileUpload-edt *ngIf="params.id === 'fileUpload-edt'"></fileUpload-edt>
 </div>

@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class HomeDataComponent {
     constructor() {
-        console.log('!!');
+      // console.log('!!');
     }
 }

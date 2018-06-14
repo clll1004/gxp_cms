@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'fileUpload-edt',
-    templateUrl: './fileUpload-edt.component.html',
+    selector: 'up-std',
+    templateUrl: './up-std.component.html',
     styleUrls: ['../../fileUpload.component.css']
 })
-export class FileUploadEdtComponent {
+export class UpStdComponent {
     constructor() {
       // console.log('!!');
     }

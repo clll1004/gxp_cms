@@ -1,15 +1,15 @@
 <div class="ui-g-2 ui-g-nopad">
     <nav class="ui-g-12 ui-g-nopad lnb-sec">
         <ul>
-            <li><a class="on" routerLink="/settings/settings-group-mng">그룹관리</a></li>
-            <li><a routerLink="/settings/settings-user-modify">개인정보 수정</a></li>
-            <li><a routerLink="/settings/settings-change-pswd">비밀번호 변경</a></li>
+            <li><a class="on" routerLink="/settings/group-mng">그룹관리</a></li>
+            <li><a routerLink="/settings/user-modify">개인정보 수정</a></li>
+            <li><a routerLink="/settings/change-pswd">비밀번호 변경</a></li>
         </ul>
     </nav>
 </div>
 <div class="ui-g-10 ui-g-nopad">
-    <settings-group-mng *ngIf="params.id === 'settings-group-mng'"></settings-group-mng>
-    <settings-add-group *ngIf="params.id === 'settings-add-group'"></settings-add-group>
-    <settings-user-modify *ngIf="params.id === 'settings-user-modify'"></settings-user-modify>
-    <settings-change-pswd *ngIf="params.id === 'settings-change-pswd'"></settings-change-pswd>
+    <group-mng *ngIf="params.id === 'group-mng'"></group-mng>
+    <add-group *ngIf="params.id === 'add-group'"></add-group>
+    <user-modify *ngIf="params.id === 'user-modify'"></user-modify>
+    <change-pswd *ngIf="params.id === 'change-pswd'"></change-pswd>
 </div>

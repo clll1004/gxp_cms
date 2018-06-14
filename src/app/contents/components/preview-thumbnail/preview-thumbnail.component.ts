@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'contents-wrap',
-    templateUrl: './contents-wrap.component.html',
+    selector: 'preview-thumbnail',
+    templateUrl: './preview-thumbnail.component.html',
     styleUrls: ['../../contents.component.css']
 })
-export class ContentsWrapComponent {
+export class PreviewThumbnailComponent {
     constructor() {
       // console.log('!!');
     }

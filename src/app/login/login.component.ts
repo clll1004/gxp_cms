@@ -1,18 +1,28 @@
 import { Component } from '@angular/core';
+import { userData } from "./login-interface.component";
 import { Router } from "@angular/router";
 
 @Component({
-    selector: 'header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css']
+    selector: 'login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
-export class HeaderComponent {
+export class LoginComponent {
     constructor(private router: Router) { }
 
-    logout() {
-        if(this.getCookie('userInfo')) {
-            this.deleteCookie('userInfo');
-            this.router.navigate(['/', 'login']);
+    userData: userData = {
+        userId: '',
+        userPassword: ''
+    };
+
+    login() {
+        const cookieData = this.userData.userId + "/" + this.userData.userPassword ;
+
+        this.setCookie("userInfo", cookieData, 7, true);
+        console.log(this.getCookie('userInfo', true));
+
+        if(this.userData.userId && this.userData.userPassword) {
+            this.router.navigate(['/', 'home']);
         }
     }
 
@@ -22,14 +32,13 @@ export class HeaderComponent {
 
         document.cookie = name + "=" + (isEncoding ? btoa(value) : value) + "; expires=" + date.toUTCString() + "; path=/";
     }
+
     getCookie(name:string, isDecoding:boolean = false) {
         const data = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
         const value = data? data[2] : null;
 
         return isDecoding ? atob(value) : value;
     }
-    deleteCookie(name:string) {
-        this.setCookie(name, '', -1);
-    }
 }
+
 
