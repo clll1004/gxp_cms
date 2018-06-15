@@ -22,24 +22,24 @@ export class AppComponent implements OnChanges, OnInit {
 
         this.router.events.subscribe((event) => {
             if(event instanceof NavigationEnd) {
-                console.log(event.url);
+                // console.log(event.url);
 
                 (event.url == '/login') ? this.isShow = false : this.isShow = true;
             }
         });
 
+        /*쿠키 삭제시 로그아웃처리*/
         if(!(this.getCookie('userInfo'))) {
             this.router.navigate(['/', 'login']);
         }
     }
 
     ngOnInit() {
-        console.log(this.router.url);
-        console.log(this.router);
+        // console.log(this.router);
     }
 
     ngOnChanges() {
-        console.log(this.router.url);
+        // console.log(this.router.url);
     }
 
     getCookie(name:string, isDecoding:boolean = false) {

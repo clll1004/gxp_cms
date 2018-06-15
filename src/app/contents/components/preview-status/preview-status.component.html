@@ -14,12 +14,61 @@
         <tbody>
             <tr>
                 <td>HQ</td>
-                <td>완료 <button class="white-btn">미리보기</button></td>
+                <td>완료 <button class="white-btn" (click)="showDialog()">미리보기</button></td>
             </tr>
             <tr>
                 <td>MQ</td>
-                <td>완료 <button class="white-btn">미리보기</button></td>
+                <td>완료 <button class="white-btn" (click)="showDialog()">미리보기</button></td>
             </tr>
         </tbody>
     </table>
+</div>
+
+
+<div class="ui-g-12 ui-g-nopad">
+    <p-dialog header="변환콘텐츠 미리보기" [(visible)]="display" [width]="650" [modal]="true">
+        <p-panel header="미리보기" [toggleable]="true">
+            <video width="100%" controls="" src="http://183.110.11.128/src/video.mp4"></video>
+        </p-panel>
+        <p-panel header="변환파일 정보" [toggleable]="true" class="panel-css">
+            <div class="table-sec popup-table-sec">
+                <table>
+                    <tr>
+                        <th style="width: 120px;">파일명</th>
+                        <td>교육 6차.mp4</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 120px;">파일크기</th>
+                        <td>641.82MB</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 120px;">파일경로</th>
+                        <td>/path/home/2018/관리/</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 120px;">재생시간</th>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 120px;">해당그룹/폴더</th>
+                        <td>GOM</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 120px;">변환시간</th>
+                        <td>2014-07-29 11:12:38 ~ 2014-07-29 11:27:53</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 120px;">변환상태</th>
+                        <td>완료</td>
+                    </tr>
+                </table>
+            </div>
+        </p-panel>
+
+        <p-footer>
+            <div class="txt-center">
+                <button type="button" class="white-btn" icon="pi pi-check" (click)="display=false" label="confirm">확인</button>
+            </div>
+        </p-footer>
+    </p-dialog>
 </div>

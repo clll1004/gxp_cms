@@ -13,6 +13,8 @@ export class TranscodingComponent {
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe( (params) => {
       this.params = params;
+
+      console.log(this.params.id);
     });
   }
 }

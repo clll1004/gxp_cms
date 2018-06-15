@@ -392,21 +392,31 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 
 .nobor-table-sec table tr th {padding: 10px; font-size: 14px; font-weight: bold; vertical-align: top;}
 .nobor-table-sec table tr td {padding: 10px;}
+.popup-table-sec {border: none;}
 
 /*리스트*/
 .list-sec {border: 1px solid #ddd; border-top: none; border-left: none;}
 .list-sec ul li .list-title {padding: 10px; background: #f1f1f1; border-top: 2px solid #ff6400; border-bottom: 1px solid #ddd; font-size: 14px; font-weight: normal;}
 
 /*lnb*/
-.lnb-sec ul li {height: 55px; border-bottom: 1px solid #ddd; box-sizing: border-box;}
-.lnb-sec ul li a {display: block; line-height: 54px; padding: 0 20px; background: #f3f3f3; font-size: 14px; font-weight: bold;}
+.lnb-sec ul li {height: 55px; border-bottom: 1px solid #ddd;}
+.lnb-sec ul li:first-child {border-top: 1px solid #ddd;}
+.lnb-sec ul li a {display: block; line-height: 55px; padding: 0 20px; background: #f3f3f3; font-size: 14px; font-weight: bold;}
 .lnb-sec ul li a:hover,
 .lnb-sec ul li a.on {background: #eaeaea;}
+
+/*그룹리스트*/
+.group-list-sec .group-list-title .group-icon {color: #ff6400;}
+.group-list-sec .group-list-title strong {font-weight: bold; color: #666;}
+.group-corp .corp_name_sec {padding: 10px 5px; font-size: 15px; font-weight: bold; color: #888;}
+.group-corp .corp_name_sec:hover {background: #efefef;}
+.group-corp .corp_name_sec.on {background: #e5e5e5; color: #777;}
 
 /*아코디언*/
 .accordion-sec li:last-child .accordion-content {border-bottom: 1px solid #ddd;}
 .accordion-sec li .accordion-header {border: 1px solid #ddd; border-top:1px solid #ff6400; background: #f5f5f5;}
 .accordion-sec li .accordion-content {border-left: 1px solid #ddd; border-right: 1px solid #ddd;}
+
 
 .grey-bg {background: #fafafa;}
 .white-bg {background: #fff;}

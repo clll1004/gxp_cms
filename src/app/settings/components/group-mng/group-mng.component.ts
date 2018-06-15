@@ -5,6 +5,8 @@ import { Component } from '@angular/core';
     templateUrl: './group-mng.component.html',
     styleUrls: ['../../settings.component.css']
 })
+
+
 export class GroupMngComponent {
     transUse: any[];
     transFPS: any[];

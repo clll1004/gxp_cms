@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'home-data',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
     styleUrls: ['../../home.component.css']
 })
 export class HomeDataComponent {
+    @Input() params:object;
+
     constructor() {
       // console.log('!!');
     }

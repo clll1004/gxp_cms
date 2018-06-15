@@ -1,7 +1,27 @@
 <div class="ui-g-2 ui-g-nopad">
+    <div class="ui-g-12 ui-g-nopad padding-left-20 padding-right-20 margin-top-20 margin-bottom-50 group-list-sec">
+        <p class="group-list-title margin-bottom-20"><i class="fas fa-users group-icon"></i> <strong>Group List</strong></p>
+
+        <div class="group-corp">
+            <a routerLink="/settings/group-mng">
+                <p class="corp_name_sec">
+                    <i class="fas fa-building"></i> <span class="corp-name">GOM</span>
+                </p>
+            </a>
+            <a routerLink="/settings/group-mng">
+                <p class="corp_name_sec">
+                    <i class="fas fa-building"></i> <span class="corp-name">GVA</span>
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile"
+            (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
+    <div style="margin-top:8px">Selected Node: {{selectedFile ? selectedFile.label : 'none'}}</div>
+
     <nav class="ui-g-12 ui-g-nopad lnb-sec">
         <ul>
-            <li><a class="on" routerLink="/settings/group-mng">그룹관리</a></li>
             <li><a routerLink="/settings/user-modify">개인정보 수정</a></li>
             <li><a routerLink="/settings/change-pswd">비밀번호 변경</a></li>
         </ul>

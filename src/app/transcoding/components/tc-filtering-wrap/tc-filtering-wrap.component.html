@@ -1,0 +1,12 @@
+<div class="ui-g-12 ui-g-nopad margin-bottom-30 search-sec">
+  <label>그룹 선택</label>
+  <p-dropdown placeholder="그룹 선택" [options]="cgroups" [(ngModel)]="selectedGroup"></p-dropdown>
+  <label for="file-key">파일명</label>
+  <!--<input type="text" id="file-key" title="파일명 입력"/> <button class="grey-btn">검색</button>-->
+  <input type="text" id="file-key" pInputText placeholder="파일명 입력">
+  <button pButton type="button" label="검색" [style]="{'color': 'white !important', 'background': 'grey'}"></button>
+</div>
+<div class="ui-g-12 ui-g-nopad btn-sec margin-bottom-30">
+  <button class="white-btn" *ngIf="!(params.id === 'transcoding-request')">선택 파일 변환 재시작</button>
+  <button class="white-btn">새로고침</button>
+</div>

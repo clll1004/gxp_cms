@@ -17,10 +17,11 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AccordionModule } from 'primeng/accordion';
 import { CheckboxModule } from 'primeng/checkbox';
-import { TreeModule } from 'primeng/tree';
 import { AppComponent } from './app.component';
 import { HttpModule } from "@angular/http";
-
+import { DialogModule } from "primeng/primeng";
+import { PanelModule } from "primeng/primeng";
+import { TreeModule } from 'primeng/tree';
 
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
@@ -31,8 +32,6 @@ import { SettingsComponent } from "./settings/settings.component";
 import { FooterComponent } from "./footer/footer.component";
 import { LoginComponent } from "./login/login.component";
 import { PathComponent } from "./path/path.component";
-
-
 
 /*HOME*/
 import { HomeDataComponent } from "./home/components/home-data/home-data.component";
@@ -58,6 +57,7 @@ import { SelectSectionComponent } from "./fileUpload/components/fileUpload-edt/c
 import { SelectSectionWrapComponent } from "./fileUpload/components/fileUpload-edt/components/select-section-wrap/select-section-wrap.component";
 /*transcoding*/
 import { TranscodingWrapComponent } from "./transcoding/components/transcoding-wrap/transcoding-wrap.component";
+import { TcFilteringWrapComponent} from "./transcoding/components/tc-filtering-wrap/tc-filtering-wrap.component";
 /*SETTINGS*/
 import { AddGroupComponent } from "./settings/components/add-group/add-group.component";
 import { GroupMngComponent } from "./settings/components/group-mng/group-mng.component";
@@ -86,9 +86,11 @@ import { AppRoutingModule } from "./app-routing.module";
         RadioButtonModule,
         AccordionModule,
         CheckboxModule,
-        TreeModule,
         AppRoutingModule,
-        HttpModule
+        HttpModule,
+        DialogModule,
+        PanelModule,
+        TreeModule
     ],
     declarations: [
         AppComponent,
@@ -125,6 +127,7 @@ import { AppRoutingModule } from "./app-routing.module";
         SelectSectionComponent,
 
         TranscodingWrapComponent,
+        TcFilteringWrapComponent,
 
         AddGroupComponent,
         GroupMngComponent,

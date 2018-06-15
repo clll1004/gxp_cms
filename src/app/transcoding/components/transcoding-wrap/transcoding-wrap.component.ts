@@ -26,12 +26,10 @@ export class TranscodingWrapComponent {
     }
 
     constructor() {
-        console.log(this.params);
-
         this.cgroups = [
             {label:'전체', value:'all'},
             {label:'GOM', value:'GOM'},
-            {label:'mobile', value:'mobile'}
+            {label:'GVA', value:'GVA'}
         ];
 
         this.rowcount = [

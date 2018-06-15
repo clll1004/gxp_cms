@@ -25,5 +25,7 @@ export class ListWrapComponent implements OnInit {
     onRowSelect() {
         console.log(this);
     }
+
+
 }
 
