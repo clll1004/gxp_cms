@@ -16,13 +16,15 @@ export class SettingsComponent implements OnInit {
 
     public params:Params;
 
+    files: TreeNode[];
+    selectedFile: TreeNode;
+
     constructor(private activatedRoute: ActivatedRoute, private http: Http) {
         this.activatedRoute.params.subscribe( (params) => {
             this.params = params;
         });
 
         let obj:any;
-
         this.getFiles().subscribe((data) => {
             obj = data;
         }, error => {
@@ -31,12 +33,12 @@ export class SettingsComponent implements OnInit {
     }
 
     getFiles(): Observable<any> {
-        return this.http.get('src/app/settings/components/group-mng/group-data.json');
+        return this.http.get('src/app/settings/group-data.json');
         // .toPromise()
         // .then(res => <TreeNode[]> res.json().data);
     }
 
     ngOnInit() {
-        this.getFiles()
+        this.getFiles().then(files => this.files = files);
     }
 }
