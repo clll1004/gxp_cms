@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContentListService } from "./list-wrap.service";
 
 @Component({
@@ -23,7 +23,7 @@ export class ListWrapComponent implements OnInit {
     }
 
     onRowSelect() {
-        console.log(this);
+        //console.log(this);
     }
 
 

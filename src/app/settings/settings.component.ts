@@ -39,6 +39,6 @@ export class SettingsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getFiles().then(files => this.files = files);
+        // this.getFiles().then(files => this.files = files);
     }
 }

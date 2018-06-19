@@ -19,7 +19,7 @@ export class PathComponent {
         }
 
         // console.log(this.router.url.includes('transcoding-request'));
-        console.log(this.params);
+        // console.log(this.params);
 
         if (this.router.url.includes('home')) {
             this.path = '대시보드';

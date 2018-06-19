@@ -14,7 +14,7 @@ export class TranscodingComponent {
     this.activatedRoute.params.subscribe( (params) => {
       this.params = params;
 
-      console.log(this.params.id);
+      //console.log(this.params.id);
     });
   }
 }
