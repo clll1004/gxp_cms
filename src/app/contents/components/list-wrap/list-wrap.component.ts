@@ -25,10 +25,10 @@ export class ListWrapComponent implements OnInit {
     }
 
     onRowSelect() {
-        this.listService.addItem(this.selectContents);
+        this.listService.syncItem(this.selectContents);
     }
     onRowUnselect() {
-        this.listService.addItem(this.selectContents);
+        this.listService.syncItem(this.selectContents);
     }
 }
 
