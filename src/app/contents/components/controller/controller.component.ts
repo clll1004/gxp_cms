@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Http } from "@angular/http";
+import { Observable } from "rxjs/Observable";
 
 @Component({
-    selector: 'controller',
+    selector: 'contents-with-tools',
     templateUrl: './controller.component.html',
     styleUrls: ['../../contents.component.css']
 })
+
 export class ControllerComponent {
-    constructor() {
-      // console.log('!!');
+    @Input() selectRows: any[];
+
+    constructor(private http: Http) { }
+
+    deleteRows() {
+        console.log(this.selectRows);
+        // return this.http.delete(url + "/?" + key + "=" + val);
     }
 }

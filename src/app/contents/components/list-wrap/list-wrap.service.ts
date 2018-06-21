@@ -5,22 +5,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/Rx';
 
-
 @Injectable()
 export class ContentListService {
-    constructor(private http: Http) {
-        let obj:any;
+    public url:string = 'http://183.110.11.49/adm/customer/list?page=1&row=10';
 
-        this.getContent().subscribe((data) => {
-            obj = data;
-        }, error => {
-            console.log(error);
-        });
-    }
+    constructor(private http: Http) {  }
 
     getContent(): Observable<any> {
         // return this.http.get('src/app/contents/components/list-wrap/list-wrap.json');
-        return this.http.get('http://183.110.11.49/adm/customer/list');
+        return this.http.get(this.url);
     }
 }
 

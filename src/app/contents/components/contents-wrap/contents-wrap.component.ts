@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
     styleUrls: ['../../contents.component.css']
 })
 export class ContentsWrapComponent {
-    constructor() {
-      // console.log('!!');
-    }
+    selectRows:any[] = [];
+
+    constructor() {  }
+
 }
