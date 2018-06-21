@@ -1,6 +1,6 @@
 <div class="ui-g-12 ui-g-nopad">
     <div class="ui-g-12 ui-g-nopad table-sec">
-        <p-table  [value]="contentsLists" [(selection)]="selectContents" [paginator]="true"  [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" (onRowSelect)="onRowSelect()">
+        <p-table  [value]="contentsLists" [(selection)]="selectContents" [paginator]="true"  [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowUnselect()">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 2.25em"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>

@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ContentListService } from "./list-wrap.service";
 import { Input } from "@angular/core";
-
+import { ListService } from "../../../services/list/list.service";
 
 @Component({
     selector: 'list-wrap',
@@ -16,7 +16,7 @@ export class ListWrapComponent implements OnInit {
     public contentsLists: any[];
     @Input() selectRows: any[];
 
-    constructor(private contentListService: ContentListService) {  }
+    constructor(private contentListService: ContentListService, private listService: ListService) {}
 
     ngOnInit() {
         this.contentListService.getContent().subscribe((cont) => {
@@ -25,10 +25,10 @@ export class ListWrapComponent implements OnInit {
     }
 
     onRowSelect() {
-      this.selectRows.length = 0;
-      this.selectContents.forEach((row) => {
-          this.selectRows.push(row);
-      });
+        this.listService.addItem(this.selectContents);
+    }
+    onRowUnselect() {
+        this.listService.addItem(this.selectContents);
     }
 }
 

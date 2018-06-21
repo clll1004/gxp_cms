@@ -33,6 +33,8 @@ import { FooterComponent } from "./footer/footer.component";
 import { LoginComponent } from "./login/login.component";
 import { PathComponent } from "./path/path.component";
 
+import { ListService } from "./services/list/list.service";
+
 /*HOME*/
 import { HomeDataComponent } from "./home/components/home-data/home-data.component";
 import { HomeDataPlayerComponent } from "./home/components/home-data-player/home-data-player.component";
@@ -133,6 +135,9 @@ import { AppRoutingModule } from "./app-routing.module";
         GroupMngComponent,
         UserModifyComponent,
         ChangePswdComponent
+    ],
+    providers: [
+        ListService
     ],
     bootstrap: [ AppComponent ]
 })
