@@ -1,14 +1,18 @@
 <div class="ui-g-2 ui-g-nopad">
     <nav class="ui-g-12 ui-g-nopad lnb-sec">
         <ul>
-            <li><a class="on" routerLink="/transcoding/transcoding-progress">변환 진행 목록</a></li>
-            <li><a routerLink="/transcoding/transcoding-request">변환 요청 목록</a></li>
-            <li><a routerLink="/transcoding/transcoding-standby">변환 대기 목록</a></li>
-            <li><a routerLink="/transcoding/transcoding-complete">변환 완료 목록</a></li>
-            <li><a routerLink="/transcoding/transcoding-fail">변환 실패 목록</a></li>
+            <li><a routerLink="/transcoding/tcStandByMT">변환 대기 목록</a></li>
+            <li><a routerLink="/transcoding/tcRequestMT">변환 요청 목록</a></li>
+            <li><a routerLink="/transcoding/tcProgressMT">변환 진행 목록</a></li>
+            <li><a routerLink="/transcoding/tcCompleteMT">변환 완료 목록</a></li>
+            <li><a routerLink="/transcoding/tcFailMT">변환 실패 목록</a></li>
         </ul>
     </nav>
 </div>
 <div class="ui-g-10 ui-g-nopad content-sec">
-    <transcoding-wrap [params]="params"></transcoding-wrap>
+    <div class="ui-g-12 ui-g-nopad page-title-sec margin-bottom-40">
+        TRANSCODING / <span class="path"> {{ pageName }} </span>
+    </div>
+
+    <tcListContainer [params]="params"></tcListContainer>
 </div>

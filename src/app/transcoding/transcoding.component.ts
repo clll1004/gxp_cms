@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 
 @Component({
@@ -6,15 +6,25 @@ import { ActivatedRoute, Params} from "@angular/router";
     templateUrl: './transcoding.component.html',
     styleUrls: ['./transcoding.component.css']
 })
-export class TranscodingComponent {
-
+export class TranscodingComponent implements OnInit {
   public params:Params;
 
-  constructor(private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.params.subscribe( (params) => {
-      this.params = params;
+  /*for path*/
+  public pagePath = {
+    tcStandByMT: '변환 대기 모니터링',
+    tcRequestMT: '변환 요청 모니터링',
+    tcProgressMT: '변환 진행 모니터링',
+    tcCompleteMT: '변환 완료 모니터링',
+    tcFailMT: '변환 실패 모니터링'
+  };
+  public pageName: string = '';
 
-      //console.log(this.params.id);
+  constructor(private activatedRoute: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.params = params;
+      this.pageName = this.pagePath[this.params.id];
     });
   }
 }

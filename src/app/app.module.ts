@@ -58,8 +58,7 @@ import { EventComponent } from "./fileUpload/components/fileUpload-edt/component
 import { SelectSectionComponent } from "./fileUpload/components/fileUpload-edt/components/select-section/select-section.component";
 import { SelectSectionWrapComponent } from "./fileUpload/components/fileUpload-edt/components/select-section-wrap/select-section-wrap.component";
 /*transcoding*/
-import { TranscodingWrapComponent } from "./transcoding/components/transcoding-wrap/transcoding-wrap.component";
-import { TcFilteringWrapComponent} from "./transcoding/components/tc-filtering-wrap/tc-filtering-wrap.component";
+import { TcListContainerComponent} from "./transcoding/tcListContainer/tcListContainer.component";
 /*SETTINGS*/
 import { AddGroupComponent } from "./settings/components/add-group/add-group.component";
 import { GroupMngComponent } from "./settings/components/group-mng/group-mng.component";
@@ -128,8 +127,7 @@ import { AppRoutingModule } from "./app-routing.module";
         SelectSectionWrapComponent,
         SelectSectionComponent,
 
-        TranscodingWrapComponent,
-        TcFilteringWrapComponent,
+        TcListContainerComponent,
 
         AddGroupComponent,
         GroupMngComponent,
