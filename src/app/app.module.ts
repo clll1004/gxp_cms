@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SliderModule } from "primeng/slider";
 import { TabViewModule } from 'primeng/tabview';
 import { PaginatorModule } from 'primeng/paginator';
@@ -71,6 +71,7 @@ import { AppRoutingModule } from "./app-routing.module";
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         SliderModule,
         TabViewModule,
         PaginatorModule,
@@ -91,7 +92,7 @@ import { AppRoutingModule } from "./app-routing.module";
         HttpModule,
         DialogModule,
         PanelModule,
-        TreeModule
+        TreeModule,
     ],
     declarations: [
         AppComponent,

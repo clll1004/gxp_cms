@@ -14,6 +14,10 @@ export class LoginService {
         if(id && password) {
             const cookieData = id + "/" + password ;
             this.setCookie("userInfo", cookieData, 7, true);
+            this.setCookie("cid", 'GXP', 7);
+            this.setCookie("gid", 'GXP', 7);
+            this.setCookie("grp_seq", '1', 7);
+            this.setCookie("grp_basic_yn", 'Y', 7);
             this.router.navigate(['/', 'home']);
         }
     }
@@ -22,6 +26,10 @@ export class LoginService {
     logout() {
         if(this.getCookie('userInfo')) {
             this.deleteCookie('userInfo');
+            this.deleteCookie('cid');
+            this.deleteCookie('gid');
+            this.deleteCookie('grp_seq');
+            this.deleteCookie('grp_basic_yn');
             this.router.navigate(['/', 'login']);
         }
     }
