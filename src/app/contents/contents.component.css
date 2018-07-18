@@ -27,3 +27,9 @@ td {
   word-break: break-all;
   cursor: pointer;
 }
+
+.showEmpty {
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+}

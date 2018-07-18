@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
 @Component({
     selector: 'contents',
@@ -17,6 +17,7 @@ export class ContentsComponent implements OnInit {
     public selectItems:any[] = [];
     public searchKey: string = '';
 
+    public showInfos: boolean = false;
     public transcodingStatus: any[] = [];
     public originFileInfo: any[] = [];
 
@@ -64,7 +65,23 @@ export class ContentsComponent implements OnInit {
     }
 
     changeStatusRestart() {
-        console.log(this.selectItems);
+        let newItemArray:any[] = [];
+        let itemObject:any = {};
+        this.selectItems.forEach((item) => {
+            itemObject = {};
+            itemObject.fo_seq = item.fo_seq;
+            newItemArray.push(itemObject);
+        });
+
+        let headers:Headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+        return this.http.put('http://183.110.11.49/cms/contents', newItemArray, { headers: headers })
+          .toPromise()
+          .then(() => {window.location.reload();})
+          .catch((error:any) => {
+              console.log(error);
+          });
     }
     changeStatusDelete() {
         console.log(this.selectItems);
@@ -79,7 +96,10 @@ export class ContentsComponent implements OnInit {
     }
 
     showPreview(item:any) {
+        this.showInfos = true;
         /*썸네일 미리보기*/
+        /*원본 파일 정보*/
+        this.originFileInfo = item;
 
         /*트랜스코딩 진행상황*/
         this.transcodingStatus = [];
@@ -106,7 +126,6 @@ export class ContentsComponent implements OnInit {
                   }
               });
           });
-        /*원본 파일 정보*/
-        this.originFileInfo = item;
+
     }
 }

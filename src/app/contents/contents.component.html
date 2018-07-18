@@ -73,15 +73,18 @@
             <ul class="ui-g-12 ui-g-nopad">
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title">썸네일 미리보기</h3>
-                    <preview-thumbnail class="ui-g-12 ui-g-nopad"></preview-thumbnail>
+                    <preview-thumbnail class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" *ngIf="showInfos"></preview-thumbnail>
+                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfos">데이터가 없습니다.</div>
                 </li>
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title">트랜스코딩 진행상황</h3>
-                    <preview-status class="ui-g-12 ui-g-nopad" [transcodingStatus]="transcodingStatus"></preview-status>
+                    <preview-status class="ui-g-12 ui-g-nopad" [transcodingStatus]="transcodingStatus" *ngIf="showInfos"></preview-status>
+                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfos">데이터가 없습니다.</div>
                 </li>
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title">원본 파일정보</h3>
-                    <preview-fInfo class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo"></preview-fInfo>
+                    <preview-fInfo class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" *ngIf="showInfos"></preview-fInfo>
+                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfos">데이터가 없습니다.</div>
                 </li>
             </ul>
         </div>

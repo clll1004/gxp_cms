@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'preview-thumbnail',
-    templateUrl: './preview-thumbnail.component.html',
-    styleUrls: ['../../contents.component.css']
+    templateUrl: './preview-thumbnail.component.html'
 })
 export class PreviewThumbnailComponent {
-    constructor() {
-      // console.log('!!');
+    @Input() originFileInfo:object;
+
+    constructor() { }
+
+    changeStatusRestart() {
+        console.log(this.originFileInfo);
+    }
+    changeStatusDelete() {
+        console.log(this.originFileInfo);
     }
 }
