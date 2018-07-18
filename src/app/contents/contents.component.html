@@ -2,8 +2,89 @@
     <div class="btn-sec txt-center margin-top-30 margin-bottom-30">
         <a routerLink="/fileUpload/up-std"><button class="orange-btn big-btn">파일 업로드</button></a>
     </div>
+
+    <p-tree [value]="groupList" selectionMode="single" [(selection)]="selectGroup" (onNodeSelect)="getGroupSeq()" class="ui-g-12 ui-g-nopad"></p-tree>
 </div>
 <div class="ui-g-10 ui-g-nopad">
-    <contents-wrap></contents-wrap>
+    <div class="ui-g-12 ui-g-nopad content-sec">
+        <path></path>
+        <!--버튼-->
+        <div class="ui-g-12 ui-g-nopad tctr-sec margin-bottom-30">
+            <button class="white-btn">+ 새폴더</button>
+            <div class="file-path dp-inb">
+                <span class="path">Group1</span><span class="path">Work</span>
+            </div>
+            <div class="filter-sec f-right">
+                <div class="fbtn-sec">
+                    <button class="white-btn" (click)="changeStatusRestart()">변환 재시작</button>
+                    <button class="white-btn" (click)="changeStatusDelete()">삭제</button>
+
+                    <label for="file-key"></label><input type="text" id="file-key" [(ngModel)]="searchKey" pInputText placeholder="파일명 입력">
+                    <button pButton type="button" label="검색" (click)="filterSearch()"></button>
+
+                    <!--<div class="vbtn-sec dp-inb">-->
+                    <!--<button class="vbtn f-left list-mode on"><i class="fas fa-bars"></i> <span class="blind">리스트 스타일 보기</span></button>-->
+                    <!--<button class="vbtn f-left icon-mode"><i class="fab fa-microsoft"></i> <span class="blind">아이콘 스타일 보기</span></button>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <!--리스트-->
+        <div class="ui-g-9 ui-g-nopad">
+            <div class="ui-g-12 ui-g-nopad table-sec">
+                <p-table [value]="filtercontentsLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50]" [(selection)]="selectItems" >
+                    <ng-template pTemplate="colgroup" let-columns>
+                        <colgroup>
+                            <col *ngFor="let col of contentCols" [style.width]="col.width">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 2.25em">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                            <th>제목</th>
+                            <th>종류</th>
+                            <th>크기</th>
+                            <th>전체 변환율</th>
+                            <th>생성날짜</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-contentsList>
+                        <tr [pSelectableRow]="contentsList" (click)="showPreview(contentsList)">
+                            <td><p-tableCheckbox [value]="contentsList" ></p-tableCheckbox></td>
+                            <td>{{ contentsList.fo_nm }}</td>
+                            <td>{{ contentsList.fo_size }}</td>
+                            <td>{{ contentsList.fo_size }}</td>
+                            <td>{{ contentsList.fo_tot_progress }}</td>
+                            <td>{{ contentsList.fo_reg_dtm }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="6"> 표시할 데이터가 없습니다. </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <!--미리보기-->
+        <div class="ui-g-3 ui-g-nopad list-sec contents-preview-sec">
+            <ul class="ui-g-12 ui-g-nopad">
+                <li>
+                    <h3 class="ui-g-12 ui-g-nopad list-title">썸네일 미리보기</h3>
+                    <preview-thumbnail class="ui-g-12 ui-g-nopad"></preview-thumbnail>
+                </li>
+                <li>
+                    <h3 class="ui-g-12 ui-g-nopad list-title">트랜스코딩 진행상황</h3>
+                    <preview-status class="ui-g-12 ui-g-nopad" [transcodingStatus]="transcodingStatus"></preview-status>
+                </li>
+                <li>
+                    <h3 class="ui-g-12 ui-g-nopad list-title">원본 파일정보</h3>
+                    <preview-fInfo class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo"></preview-fInfo>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 

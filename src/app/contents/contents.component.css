@@ -14,3 +14,16 @@
 
 
 .contents-preview-sec {border-left: 1px solid #ddd;}
+
+tr:hover {
+  background: #efefef;
+}
+tr:active {
+  background: #ededed;
+}
+td {
+  padding: 10px!important;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  cursor: pointer;
+}

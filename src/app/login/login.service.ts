@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { Http, Headers } from '@angular/http';
+import { Md5 } from 'ts-md5/dist/md5'
 
 @Injectable()
 export class LoginService {
-    constructor(private router: Router) {}
+    constructor(private http: Http, private router: Router) {}
 
     getLoginStatus () {
         return !!this.getCookie('userInfo');
@@ -11,6 +13,13 @@ export class LoginService {
 
     /* login function */
     login(id:string, password:string) {
+        const data:any = {};
+        data.usr_id = id;
+        data.usr_pw = Md5.hashStr(password);
+
+        let headers:Headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
         if(id && password) {
             const cookieData = id + "/" + password ;
             this.setCookie("userInfo", cookieData, 7, true);
@@ -20,6 +29,17 @@ export class LoginService {
             this.setCookie("grp_basic_yn", 'Y', 7);
             this.router.navigate(['/', 'home']);
         }
+        // return this.http.post('http://183.110.11.49/cms/login', data, { headers: headers })
+        //   .toPromise()
+        //   .then((data) => {
+        //       const cookieData = id + "/" + password ;
+        //       this.setCookie("userInfo", cookieData, 7, true);
+        //       this.router.navigate(['/', 'home']);
+        //   })
+        //   .catch((error) => {
+        //       alert('로그인 정보를 확인해주세요.');
+        //       console.log(error);
+        //   });
     }
 
     /* logout function */

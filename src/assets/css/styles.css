@@ -393,6 +393,7 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .nobor-table-sec table tr th {padding: 10px; font-size: 14px; font-weight: bold; vertical-align: top;}
 .nobor-table-sec table tr td {padding: 10px;}
 .popup-table-sec {border: none;}
+.popup-table-sec table tr th {border: none; background: none; font-weight: bold;}
 
 /*리스트*/
 .list-sec {border: 1px solid #ddd; border-top: none; border-left: none;}

@@ -39,11 +39,6 @@ import { ListService } from "./services/list/list.service";
 import { HomeDataComponent } from "./home/components/home-data/home-data.component";
 import { HomeDataPlayerComponent } from "./home/components/home-data-player/home-data-player.component";
 /*CONTENTS*/
-import { ContentsWrapComponent } from "./contents/components/contents-wrap/contents-wrap.component";
-import { ControllerComponent } from "./contents/components/controller/controller.component";
-import { ListWrapComponent } from "./contents/components/list-wrap/list-wrap.component";
-import { ListComponent } from "./contents/components/list/list.component";
-import { PreviewWrapComponent } from "./contents/components/preview-wrap/preview-wrap.component";
 import { PreviewThumbnailComponent } from "./contents/components/preview-thumbnail/preview-thumbnail.component";
 import { PreviewStatusComponent } from "./contents/components/preview-status/preview-status.component";
 import { PreviewFInfoComponent } from "./contents/components/preview-fInfo/preview-fInfo.component";
@@ -109,11 +104,6 @@ import { AppRoutingModule } from "./app-routing.module";
         HomeDataComponent,
         HomeDataPlayerComponent,
 
-        ContentsWrapComponent,
-        ControllerComponent,
-        ListWrapComponent,
-        ListComponent,
-        PreviewWrapComponent,
         PreviewThumbnailComponent,
         PreviewStatusComponent,
         PreviewFInfoComponent,

@@ -14,7 +14,7 @@ import '../assets/css/styles.css';
 
 export class AppComponent implements OnInit {
     public data: any;
-    public isShow: boolean = true;
+    public isShow: boolean = false;
 
     constructor(private router: Router, private loginService: LoginService) {}
 
