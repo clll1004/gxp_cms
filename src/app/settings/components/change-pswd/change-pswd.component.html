@@ -6,30 +6,48 @@
     <div class="ui-g-12 ui-g-nopad form-info-sec">
         ㆍ <span class="req">*</span> 는 필수입력 항목입니다.<br />
     </div>
-    <form class="ui-g-12 ui-g-nopad form-sec">
-        <div class="ui-g-12 ui-g-nopad table-sec">
-            <table>
-                <caption>비밀번호 변경 테이블</caption>
-                <colgroup>
-                    <col style="width: 260px;">
-                    <col style="width: auto;">
-                </colgroup>
-                <tr>
-                    <th><label for="now-pswd">현재 비밀번호</label> <span class="req">*</span></th>
-                    <td><input type="password" id="now-pswd" title="현재 비밀번호 입력" value="" required="required" pPassword /></td>
-                </tr>
-                <tr>
-                    <th><label for="new-pswd">새로운 비밀번호</label> <span class="req">*</span></th>
-                    <td><input type="password" id="new-pswd" title="새로운 비밀번호 입력" value="" required="required" pPassword /></td>
-                </tr>
-                <tr>
-                    <th><label for="new-pswd-comfirm">새로운 비밀번호 확인</label> <span class="req">*</span></th>
-                    <td><input type="password" id="new-pswd-comfirm" title="새로운 비밀번호 확인 입력" value="" required="required" pPassword /></td>
-                </tr>
-            </table>
-        </div>
-        <div class="ui-g-12 ui-g-nopad btn-sec">
-            <button class="white-btn">수정</button>
-        </div>
+    <form [formGroup]="changePasswordform" (ngSubmit)="onSubmit(changePasswordform.value)" class="ui-g-12 ui-g-nopad form-sec">
+        <fieldset>
+            <div class="ui-g-12 ui-g-nopad table-sec">
+                <table>
+                    <caption>비밀번호 변경 테이블</caption>
+                    <colgroup>
+                        <col style="width: 260px;">
+                        <col style="width: auto;">
+                    </colgroup>
+                    <tr>
+                        <th><label for="usr_pw_old">현재 비밀번호</label> <span class="req">*</span></th>
+                        <td>
+                            <input pPassword [feedback]="false" type="password" id="usr_pw_old" title="현재 패스워드 입력" formControlName="usr_pw_old" value="" />
+                            <div *ngIf="!changePasswordform.controls['usr_pw_old'].valid && changePasswordform.controls['usr_pw_old'].dirty">
+                                <p class="req info-txt margin-top-10" *ngIf="changePasswordform.controls['usr_pw_old'].errors['required']">필수입력 사항 입니다</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="usr_pw">새로운 비밀번호</label> <span class="req">*</span></th>
+                        <td>
+                            <input pPassword [feedback]="false" type="password" id="usr_pw" title="현재 패스워드 입력" formControlName="usr_pw" value="" />
+                            <div *ngIf="!changePasswordform.controls['usr_pw'].valid && changePasswordform.controls['usr_pw'].dirty">
+                                <p class="req info-txt margin-top-10" *ngIf="changePasswordform.controls['usr_pw'].errors['required']">필수입력 사항 입니다</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="usr_pw_cf">새로운 비밀번호 확인</label> <span class="req">*</span></th>
+                        <td>
+                            <input pPassword [feedback]="false" type="password" id="usr_pw_cf" title="현재 패스워드 입력" formControlName="usr_pw_cf" value="" />
+                            <div *ngIf="!changePasswordform.controls['usr_pw_cf'].valid && changePasswordform.controls['usr_pw_cf'].dirty">
+                                <p class="req info-txt margin-top-10" *ngIf="changePasswordform.controls['usr_pw_cf'].errors['required']">필수입력 사항 입니다</p>
+                                <p class="req info-txt margin-top-10" *ngIf="changePasswordform.controls['usr_pw_cf'].errors['checkPassword']">패스워드가 일치하지 않습니다</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="ui-g-12 ui-g-nopad btn-sec">
+                <button pButton type="submit" label="수정" [disabled]="!changePasswordform.valid"></button>
+            </div>
+        </fieldset>
     </form>
 </div>

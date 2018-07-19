@@ -65,7 +65,7 @@ export class UserModifyComponent implements OnInit {
         let headers:Headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-        return this.http.put('http://183.110.11.49/adm/user', newData, { headers: headers })
+        return this.http.put('http://183.110.11.49/cms/setting/user', newData, { headers: headers })
           .toPromise()
           .then(() => {window.location.reload();})
           .then(() => {alert('수정 완료되었습니다.');})
