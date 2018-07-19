@@ -15,32 +15,25 @@ export class LoginService {
     login(id:string, password:string) {
         const data:any = {};
         data.usr_id = id;
-        data.usr_pw = Md5.hashStr(password);
+        data.usr_pw = password;
+        // data.usr_pw = Md5.hashStr(password);
 
         let headers:Headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-        if(id && password) {
-            const cookieData = id + "/" + password ;
-            this.setCookie("userInfo", cookieData, 1, true);
-            this.setCookie("cid", 'GXP', 1);
-            this.setCookie("gid", 'GXP', 1);
-            this.setCookie("usr_seq", '1', 1);
-            this.setCookie("grp_seq", '1', 1);
-            this.setCookie("grp_basic_yn", 'Y', 1);
-            this.router.navigate(['/', 'home']);
-        }
-        // return this.http.post('http://183.110.11.49/cms/login', data, { headers: headers })
-        //   .toPromise()
-        //   .then((data) => {
-        //       const cookieData = id + "/" + password ;
-        //       this.setCookie("userInfo", cookieData, 7, true);
-        //       this.router.navigate(['/', 'home']);
-        //   })
-        //   .catch((error) => {
-        //       alert('로그인 정보를 확인해주세요.');
-        //       console.log(error);
-        //   });
+        return this.http.post('http://183.110.11.49/cms/login', data, { headers: headers })
+          .toPromise()
+          .then((data) => {
+              const cookieData = id + "/" + password ;
+              this.setCookie("userInfo", cookieData, 7, true);
+              this.setCookie("usr_seq", JSON.parse(data['_body']).usr_seq, 1);
+              this.setCookie("grp_seq", JSON.parse(data['_body']).grp_seq, 1);
+              this.router.navigate(['/', 'home']);
+          })
+          .catch((error) => {
+              alert('로그인 정보를 확인해주세요.');
+              console.log(error);
+          });
     }
 
     /* logout function */
@@ -49,6 +42,7 @@ export class LoginService {
             this.deleteCookie('userInfo');
             this.deleteCookie('cid');
             this.deleteCookie('gid');
+            this.deleteCookie('usr_seq');
             this.deleteCookie('grp_seq');
             this.deleteCookie('grp_basic_yn');
             this.router.navigate(['/', 'login']);

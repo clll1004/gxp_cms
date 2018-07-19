@@ -86,7 +86,7 @@ export class TcListContainerComponent implements OnInit {
 
       this.tcMonitoringLists = [];
       if (this.params['id'] === 'tcStandByMT') {
-        this.url = 'http://183.110.11.49/cms/transcoding/list?page=1&row=1000&ft_status=TR&grp_seq=' + this.groupSeq;
+        this.url = 'http://183.110.11.49/cms/transcoding/list?page=1&row=1000&ft_status=U&grp_seq=' + this.groupSeq;
       } else if (this.params['id'] === 'tcRequestMT') {
         this.url = 'http://183.110.11.49/cms/transcoding/list?page=1&row=1000&ft_status=TR&grp_seq=' + this.groupSeq;
       } else if (this.params['id'] === 'tcProgressMT') {
@@ -104,10 +104,10 @@ export class TcListContainerComponent implements OnInit {
             this.tcMonitoringLists = JSON.parse(cont['_body']);
             this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
             this.gettotalListLength = this.filterTcMonitoringLists.length;
-            this.setTableIndex();
           } else {
             console.log('데이터가 없습니다.');
           }
+          this.setTableIndex();
         })
         .catch((error) => {
           console.log(error);
