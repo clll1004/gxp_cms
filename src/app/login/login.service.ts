@@ -22,11 +22,12 @@ export class LoginService {
 
         if(id && password) {
             const cookieData = id + "/" + password ;
-            this.setCookie("userInfo", cookieData, 7, true);
-            this.setCookie("cid", 'GXP', 7);
-            this.setCookie("gid", 'GXP', 7);
-            this.setCookie("grp_seq", '1', 7);
-            this.setCookie("grp_basic_yn", 'Y', 7);
+            this.setCookie("userInfo", cookieData, 1, true);
+            this.setCookie("cid", 'GXP', 1);
+            this.setCookie("gid", 'GXP', 1);
+            this.setCookie("usr_seq", '1', 1);
+            this.setCookie("grp_seq", '1', 1);
+            this.setCookie("grp_basic_yn", 'Y', 1);
             this.router.navigate(['/', 'home']);
         }
         // return this.http.post('http://183.110.11.49/cms/login', data, { headers: headers })

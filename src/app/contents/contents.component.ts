@@ -110,8 +110,6 @@ export class ContentsComponent implements OnInit {
 
               this.transcodingStatus.forEach((item) => {
                   if(item.ft_status == 'U') {
-                      item.statusLabel = '업로드완료';
-                  } else if(item.ft_status == 'U') {
                       item.statusLabel = '변환요청';
                   } else if(item.ft_status == 'TR') {
                       item.statusLabel = '변환중';

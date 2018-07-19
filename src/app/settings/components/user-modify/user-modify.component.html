@@ -6,38 +6,46 @@
     <div class="ui-g-12 ui-g-nopad form-info-sec">
         ㆍ <span class="req">*</span> 는 필수입력 항목입니다.<br />
     </div>
-    <form class="ui-g-12 ui-g-nopad form-sec">
-        <div class="ui-g-12 ui-g-nopad table-sec">
-            <table>
-                <caption>개인정보 수정 테이블</caption>
-                <colgroup>
-                    <col style="width: 260px;">
-                    <col style="width: auto;">
-                </colgroup>
-                <tr>
-                    <th>ID <span class="req">*</span></th>
-                    <td><span>admin@gomcorp.com</span></td>
-                </tr>
-                <tr>
-                    <th>사용자이름 <span class="req">*</span></th>
-                    <td><span>GOM 관리자</span></td>
-                </tr>
-                <tr>
-                    <th><label for="phone">핸드폰번호</label></th>
-                    <td><input type="text" id="phone" title="휴대폰 입력" value="" pInputText autocomplete="off" /></td>
-                </tr>
-                <tr>
-                    <th><label for="phone2">직장번호</label></th>
-                    <td><input type="text" id="phone2" title="유선전화 입력" value="" pInputText autocomplete="off" /></td>
-                </tr>
-                <tr>
-                    <th><label for="address">주소</label></th>
-                    <td><input type="text" id="address" title="주소 입력" value="" pInputText autocomplete="off" /></td>
-                </tr>
-            </table>
-        </div>
-        <div class="ui-g-12 ui-g-nopad btn-sec">
-            <button class="white-btn">수정</button>
-        </div>
+    <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)" class="ui-g-12 ui-g-nopad form-sec">
+        <fieldset>
+            <div class="ui-g-12 ui-g-nopad table-sec">
+                <table>
+                    <caption>개인정보 수정 테이블</caption>
+                    <colgroup>
+                        <col style="width: 260px;">
+                        <col style="width: auto;">
+                    </colgroup>
+                    <tr>
+                        <th>ID <span class="req">*</span></th>
+                        <td>{{ userform.value['usr_id']}}</td>
+                    </tr>
+                    <tr>
+                        <th>사용자이름 <span class="req">*</span></th>
+                        <td>{{ userform.value['usr_nm']}}</td>
+                    </tr>
+                    <tr>
+                        <th><label for="usr_mobile">핸드폰번호</label></th>
+                        <td>
+                            <input pInputText type="text" id="usr_mobile" class="margin-right-10" formControlName="usr_mobile" title="핸드폰 번호 입력" autocomplete="off" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="usr_tel">직장번호</label></th>
+                        <td>
+                            <input pInputText type="text" id="usr_tel" class="margin-right-10" formControlName="usr_tel" title="직장번호 입력" autocomplete="off" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="usr_remark">비고</label></th>
+                        <td>
+                            <input pInputText type="text" id="usr_remark" class="margin-right-10" formControlName="usr_remark" title="비고 입력" autocomplete="off" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="ui-g-12 ui-g-nopad btn-sec">
+                <button pButton type="submit" label="수정" [disabled]="!userform.valid"></button>
+            </div>
+        </fieldset>
     </form>
 </div>
