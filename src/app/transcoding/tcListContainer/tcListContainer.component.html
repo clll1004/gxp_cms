@@ -8,7 +8,6 @@
   </div>
   <div class="ui-g-12 ui-g-nopad btn-sec margin-bottom-30">
     <button class="btn white-btn margin-right-5" (click)="changeStatus()">선택 파일 변환 재시작</button>
-    <button class="btn white-btn margin-right-5" *ngIf="params['id'] === 'tcFailMT'" (click)="changeStatus()">선택 파일 임시 삭제</button>
     <button class="btn white-btn margin-right-5" (click)="refresh()">새로고침</button>
   </div>
 
@@ -39,7 +38,11 @@
           <td>{{ filterTcMonitoringList.grp_nm }}</td>
           <td>{{ filterTcMonitoringList.ft_path }}</td>
           <td>{{ filterTcMonitoringList.ft_reg_dtm }}</td>
-          <td></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -67,7 +70,11 @@
           <td>{{ filterTcMonitoringList.grp_nm }}</td>
           <td>{{ filterTcMonitoringList.ft_path }}</td>
           <td>{{ filterTcMonitoringList.ft_reg_dtm }}</td>
-          <td></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -100,7 +107,11 @@
           <td>{{ filterTcMonitoringList.ft_reg_dtm }}</td>
           <td>{{ filterTcMonitoringList.ft_start_dtm }}</td>
           <td>{{ filterTcMonitoringList.ft_end_dtm }}</td>
-          <td></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="10" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -131,7 +142,11 @@
           <td>{{ filterTcMonitoringList.ft_reg_dtm }}</td>
           <td>{{ filterTcMonitoringList.ft_start_dtm }}</td>
           <td>{{ filterTcMonitoringList.ft_end_dtm }}</td>
-          <td></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -162,7 +177,11 @@
           <td>{{ filterTcMonitoringList.ft_fail_cnt }}</td>
           <td>{{ filterTcMonitoringList.ft_msg }}</td>
           <td>{{ filterTcMonitoringList.ft_end_dtm }}</td>
-          <td></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>

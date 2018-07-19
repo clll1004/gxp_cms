@@ -1,5 +1,7 @@
 <div class="ui-g-2 ui-g-nopad">
-    <p-tree [value]="groupList" selectionMode="single" [(selection)]="selectGroup" (onNodeSelect)="getGroupSeq()" class="ui-g-12 ui-g-nopad"></p-tree>
+    <a routerLink="/settings/group-mng">
+        <p-tree [value]="groupList" selectionMode="single" [(selection)]="selectGroup" (onNodeSelect)="getGroupSeq()" class="ui-g-12 ui-g-nopad"></p-tree>
+    </a>
 
     <nav class="ui-g-12 ui-g-nopad lnb-sec">
         <ul>
