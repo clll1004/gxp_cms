@@ -40,11 +40,8 @@ export class LoginService {
     logout() {
         if(this.getCookie('userInfo')) {
             this.deleteCookie('userInfo');
-            this.deleteCookie('cid');
-            this.deleteCookie('gid');
             this.deleteCookie('usr_seq');
             this.deleteCookie('grp_seq');
-            this.deleteCookie('grp_basic_yn');
             this.router.navigate(['/', 'login']);
         }
     }

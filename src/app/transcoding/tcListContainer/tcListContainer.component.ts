@@ -83,6 +83,7 @@ export class TcListContainerComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
       this.selectItems = [];
+      this.gettotalListLength = 0;
 
       this.tcMonitoringLists = [];
       if (this.params['id'] === 'tcStandByMT') {

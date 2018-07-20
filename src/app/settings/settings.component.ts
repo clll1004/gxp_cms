@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { Http } from "@angular/http";
 import { TreeNode } from 'primeng/api';
+import { LoginService } from "../login/login.service";
 
 @Component({
     selector: 'settings',
     templateUrl: './settings.component.html',
-    styleUrls: ['./settings.component.css']
+    styleUrls: ['./settings.component.css'],
+    providers: [ LoginService ]
 })
 
 export class SettingsComponent implements OnInit {
@@ -14,10 +16,12 @@ export class SettingsComponent implements OnInit {
     public selectGroup: TreeNode;
     public groupData: any[] = [];
     public transOptions: any[] = [];
-    public groupSeq:string = '1';
+    public groupSeq:string = this.loginService.getCookie('grp_seq');
     public params:Params;
+    public tempTreeData:any[] = [];
+    public treeData:any[] = [];
 
-    constructor(private activatedRoute: ActivatedRoute, private http: Http) {
+    constructor(private activatedRoute: ActivatedRoute, private http: Http, private loginService: LoginService) {
         this.activatedRoute.params.subscribe( (params) => {
             this.params = params;
         });
@@ -33,18 +37,34 @@ export class SettingsComponent implements OnInit {
     }
 
     loadGroupList() {
-        return this.http.get('http://localhost:8080/src/app/settings/group-data.json')
+        // return this.http.get('http://localhost:8080/src/app/settings/group-data.json')
+        //   .toPromise()
+        //   .then((res) => {
+        //       this.groupList = <TreeNode[]> res.json().data;
+        //   });
+
+        return this.http.get('http://183.110.11.49/cms/folder/list/' + this.groupSeq)
           .toPromise()
           .then((res) => {
-              this.groupList = <TreeNode[]> res.json().data;
+              this.tempTreeData = JSON.parse(res['_body']);
+              if(this.tempTreeData['grp']) {
+                  this.tempTreeData['grp'].forEach((grpItem:any) => {
+                      const grp:object = {};
+
+                      grp['grp_seq'] = grpItem.grp_seq;
+                      grp['label'] = grpItem.grp_nm;
+                      grp['data'] = grpItem.grp_nm;
+                      grp['expandedIcon'] = 'far fa-building';
+                      grp['collapsedIcon'] = 'far fa-building';
+
+                      this.treeData.push(grp);
+                  });
+                  this.groupList = <TreeNode[]> this.treeData;
+              }
           });
     }
     getGroupSeq() {
-        if (this.selectGroup.label === 'GXP') {
-            this.groupSeq = '1';
-        } else if (this.selectGroup.label === 'grp2') {
-            this.groupSeq = '2';
-        }
+        this.groupSeq = this.selectGroup['grp_seq'];
         this.loadGroupData();
     }
 

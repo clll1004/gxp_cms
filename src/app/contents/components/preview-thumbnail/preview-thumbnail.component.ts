@@ -36,6 +36,11 @@ export class PreviewThumbnailComponent implements OnInit {
 
     loadThumbnail() {
         this.pvImg = document.getElementById('pvThumbnail');
-        this.pvImg.src = this.originFileInfo['fo_thumb_path'];
+        if(this.originFileInfo['fo_thumb_path']) {
+            this.pvImg.src = 'http://' + this.originFileInfo['fo_thumb_path'];
+        } else {
+            this.pvImg.src = 'http://183.110.11.128/src/ci_gomc.jpg';
+        }
+
     }
 }

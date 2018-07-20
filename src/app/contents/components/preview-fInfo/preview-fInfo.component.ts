@@ -6,8 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PreviewFInfoComponent implements OnInit {
     @Input() originFileInfo:object;
+    @Input() groupName:string;
+    @Input() folderName:string;
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit() { }
 }

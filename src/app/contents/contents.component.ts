@@ -12,6 +12,8 @@ export class ContentsComponent implements OnInit {
     public groupList: TreeNode[];
     public selectGroup: TreeNode;
     public groupSeq:string;
+    public groupName:string;
+    public folderName:string;
 
     public dummy = [
         {
@@ -57,9 +59,6 @@ export class ContentsComponent implements OnInit {
     ];
 
     public tempTreeData:any[] = [];
-    public treeData:any[] = [];
-    public folderData:any[] = [];
-    public tempFolderData:any[] = [];
 
     public contentsLists: any[] = [];
     public filtercontentsLists: any[] = [];
@@ -94,65 +93,59 @@ export class ContentsComponent implements OnInit {
         return this.http.get('http://183.110.11.49/cms/folder/list/' + this.groupSeq)
           .toPromise()
           .then((res) => {
-               this.tempTreeData = JSON.parse(res['_body']);
+              this.tempTreeData = JSON.parse(res['_body']);
               this.groupList = <TreeNode[]> this.dummy;
-              // if(this.tempTreeData['grp']) {
-              //     this.tempTreeData['grp'].forEach((grpItem:any) => {
-              //         const grp:object = {};
-              //
-              //         grp['label'] = grpItem.grp_nm;
-              //         grp['data'] = grpItem.grp_nm;
-              //         grp['expandedIcon'] = 'far fa-building';
-              //         grp['collapsedIcon'] = 'far fa-building';
-              //
-              //         this.folderData = this.tempTreeData['fol'];
-              //         this.convertTreeData(this.folderData);
-              //
-              //         grp['children'] = this.tempFolderData;
-              //         this.treeData.push(grp);
-              //     });
-              //     this.groupList = <TreeNode[]> this.treeData;
-              // }
+
+              // console.log(this.convertTreeData(this.tempTreeData));
           });
     }
 
-    convertTreeData(folderData:any[]) {
-        // if(tempTreeData['fol']) {
-        //     const fol = tempTreeData['fol'].filter((folItem:any) => {
-        //         folItem['label'] = folItem.gf_nm;
-        //         folItem['data'] = folItem.gf_nm;
-        //         folItem['expandedIcon'] = 'fa fa-folder-open';
-        //         folItem['collapsedIcon'] = 'fa fa-folder';
-        //         return grpItem.grp_seq === folItem.gf_grp_seq && (folItem.gf_prnt_seq === '0');
-        //     });
-        //
-        //     grp['children'] = fol;
-        // }
-        if(folderData.length !== 0) {  //?
-            folderData.forEach((item:any) => {
-                item['label'] = item.gf_nm;
-                item['data'] = item.gf_nm;
-                item['expandedIcon'] = 'fa fa-folder-open';
-                item['collapsedIcon'] = 'fa fa-folder';
+    convertTreeData(treeData:any[]) {
+        let tempTreeArray:any[] = [];
 
-                if(item.gf_prnt_seq === '0') {
-                    this.tempFolderData.push(item);
-                } else {
-                    // fdD.for it2 {
-                    //     템프[gf_seq - 1][children] = it1.grseq === it2.gf_prnt_seq
-                    //     데이터.push(템프)
-                    // }
+        let folderTree:any = function (folderArray:any[], rootId:any, grp_seq:any) {
+            let rootNodes:any[] = [];
+            const convert:any = function (nodes:any[], item:any, index:any) {
+                if(nodes instanceof Array) {
+                    return nodes.some(function (node) {
+                        if (node.gf_seq === item.gf_prnt_seq) {
+                            node.children = node.children || [];
+                            return node.children.push(folderArray.splice(index, 1)[0]);
+                        }
+                        return convert(node.children, item, index);
+                    })
                 }
-            });
-            // this.convertTreeData(this.folderData);
-        }
+            };
 
+            while(folderArray.length > 0) {
+                folderArray.some(function (item, index) {
+                    if(item.gf_prnt_seq === rootId && item.grp_seq === grp_seq) {
+                        return rootNodes.push(folderArray.splice(index, 1)[0]);
+                    }
+                    return convert(rootNodes, item, index);
+                });
+            }
+            return tempTreeArray;
+        };
+
+        treeData['grp'].forEach((grpItem:any) => {
+            const fol = treeData['fol'].filter((folItem:any) => {
+                return grpItem.grp_seq === folItem.gf_grp_seq;
+            });
+
+            if(fol.length) {
+                grpItem['children'] = folderTree(fol, "0", grpItem.grp_seq);
+            }
+            tempTreeArray.push(grpItem);
+        });
     }
     getGroupSeq() {
         this.groupSeq = this.loginService.getCookie('grp_seq');
     }
     getFolderSeq() {
         this.loadContent(this.selectGroup['gf_seq']);
+        this.groupName = this.selectGroup['parent']['label'];
+        this.folderName = this.selectGroup['label'];
     }
     loadContent(folderSeq:string) {
         return this.http.get('http://183.110.11.49/cms/contents/list?page=1&row=10000&gf_seq=' + folderSeq)

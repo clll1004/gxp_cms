@@ -7,6 +7,8 @@ import { Http } from '@angular/http';
 })
 export class PreviewStatusComponent implements OnInit {
     @Input() transcodingStatus: object;
+    @Input() groupName:string;
+    @Input() folderName:string;
     public transcodingItemInfo: any[] = [];
     public pvVideo:any;
 
