@@ -143,6 +143,8 @@ export class ContentsComponent implements OnInit {
         this.groupSeq = this.loginService.getCookie('grp_seq');
     }
     getFolderSeq() {
+        this.originFileInfo = [];
+        this.showInfos = false;
         this.loadContent(this.selectGroup['gf_seq']);
         this.groupName = this.selectGroup['parent']['label'];
         this.folderName = this.selectGroup['label'];
