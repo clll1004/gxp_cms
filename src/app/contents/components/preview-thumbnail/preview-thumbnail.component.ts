@@ -25,7 +25,7 @@ export class PreviewThumbnailComponent implements OnInit {
 
         return this.http.put('http://183.110.11.49/cms/contents', newItemArray, { headers: headers })
           .toPromise()
-          .then(() => {location.reload();})
+          .then(() => {alert('변환이 재시작 됩니다.');})
           .catch((error:any) => {
               console.log(error);
           });

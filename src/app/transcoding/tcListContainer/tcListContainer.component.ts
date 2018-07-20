@@ -175,7 +175,7 @@ export class TcListContainerComponent implements OnInit {
 
     return this.http.put('http://183.110.11.49/cms/transcoding', newData, { headers: headers})
       .toPromise()
-      .then(() => {window.location.reload();})
+      .then(() => {alert('변환이 재시작 됩니다.');})
       .catch((error) => {
         console.log(error);
       });

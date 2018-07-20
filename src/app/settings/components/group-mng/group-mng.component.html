@@ -5,7 +5,7 @@
 
     <div class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec">
         <div class="ui-g-12 ui-g-nopad table-title-sec">
-            <h3>그룹 기본 정보</h3> <a routerLink="/settings/add-group"></a><!--<button class="orange-btn">하위 그룹 추가</button>-->
+            <h3>그룹 기본 정보</h3> <a routerLink="/settings/add-group"></a>
         </div>
         <table>
             <caption>그룹 기본 정보 테이블</caption>
@@ -17,19 +17,11 @@
             </colgroup>
             <tr>
                 <th>그룹명</th>
-                <td>{{groupData.grp_nm}}</td>
-                <th>그룹설명</th>
-                <td></td>
+                <td colspan="3">{{groupData.grp_nm}}</td>
             </tr>
             <tr>
-                <th>등록자</th>
-                <td></td>
                 <th>등록일</th>
                 <td>{{groupData.grp_reg_dtm}}</td>
-            </tr>
-            <tr>
-                <th>수정자</th>
-                <td></td>
                 <th>수정일</th>
                 <td>{{groupData.grp_upd_dtm}}</td>
             </tr>
@@ -54,17 +46,23 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-transOption >
-                <tr>
+                <tr class="settingOptionTr">
                     <td>{{ transOption.gto_seq }}</td>
                     <td>{{ transOption.gto_nm }}</td>
-                    <td>{{ transOption.gto_use_yn }}</td>
-                    <td>{{ transOption.gto_file_suffix }}</td>
-                    <td>{{ transOption.gto_frame_rate }}</td>
-                    <td>{{ transOption.gto_video_bitrate }}</td>
-                    <td>{{ transOption.gto_audio_bitrate }}</td>
-                    <td>{{ transOption.gto_dst_width }}</td>
-                    <td>{{ transOption.gto_dst_height }}</td>
-                    <!--<td><button type="button" class="white-btn">수정</button></td>--><td></td>
+                    <td>
+                        {{ transOption.gto_use_yn }}
+                        <!--<p-dropdown placeholder="사용여부" [options]="transUse" [(ngModel)]="selectedOption"></p-dropdown>-->
+                    </td>
+                    <td><input type="text" id='fileSuffix' value="{{transOption.gto_file_suffix}}"></td>
+                    <td>
+                        {{ transOption.gto_frame_rate }}
+                        <!--<input type="text" id='frameRate' value="{{transOption.gto_frame_rate}}"> -->
+                    </td>
+                    <td><input type="text" id='videoBit' value="{{transOption.gto_video_bitrate}}"></td>
+                    <td><input type="text" id='audioBit' value="{{transOption.gto_audio_bitrate}}"></td>
+                    <td><input type="text" id='dstWidth' value="{{transOption.gto_dst_width}}"></td>
+                    <td><input type="text" id='dstHeight' value="{{transOption.gto_dst_height}}"></td>
+                    <td><button type="button" class="white-btn" (click)="changeOption()">수정</button></td>
                 </tr>
             </ng-template>
         </p-table>
