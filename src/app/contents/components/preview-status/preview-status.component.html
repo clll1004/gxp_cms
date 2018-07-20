@@ -22,7 +22,7 @@
 
 <p-dialog header="변환콘텐츠 미리보기" [(visible)]="display" [width]="650" [modal]="true">
     <p-panel header="미리보기" [toggleable]="true">
-        <video width="100%" controls="" src="http://183.110.11.128/src/video.mp4"></video>
+        <video id="previewVideo" width="100%" controls="" src="http://183.110.11.128/src/video.mp4"></video>
     </p-panel>
     <p-panel header="변환파일 정보" [toggleable]="true" class="panel-css">
         <div class="table-sec popup-table-sec">
@@ -43,17 +43,17 @@
                     <th style="width: 120px;">재생시간</th>
                     <td>{{transcodingItemInfo.ft_runtime}}</td>
                 </tr>
-                <tr>
-                    <th style="width: 120px;">해당그룹/폴더</th>
-                    <td></td>
-                </tr>
+                <!--<tr>-->
+                    <!--<th style="width: 120px;">해당그룹/폴더</th>-->
+                    <!--<td></td>-->
+                <!--</tr>-->
                 <tr>
                     <th style="width: 120px;">변환시간</th>
                     <td>{{transcodingItemInfo.ft_end_dtm}}</td>
                 </tr>
                 <tr>
                     <th style="width: 120px;">변환상태</th>
-                    <td>{{transcodingItemInfo.ft_status}}</td>
+                    <td>{{transcodingItemInfo.statusLabel}}</td>
                 </tr>
             </table>
         </div>

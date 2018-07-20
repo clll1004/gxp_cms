@@ -19,8 +19,13 @@ export class AppComponent implements OnInit {
     constructor(private router: Router, private loginService: LoginService) {}
 
     ngOnInit() {
+        this.load();
         this.loginService.checkUserInfo();
         this.initLayoutStatus();
+    }
+
+    load() {
+        this.isShow = false;
     }
 
     initLayoutStatus() {

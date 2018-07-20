@@ -3,23 +3,23 @@
         <a routerLink="/fileUpload/up-std"><button class="orange-btn big-btn">파일 업로드</button></a>
     </div>
 
-    <p-tree [value]="groupList" selectionMode="single" [(selection)]="selectGroup" (onNodeSelect)="getGroupSeq()" class="ui-g-12 ui-g-nopad"></p-tree>
+    <p-tree [value]="groupList" selectionMode="single" [(selection)]="selectGroup" (onNodeSelect)="getFolderSeq()" class="ui-g-12 ui-g-nopad"></p-tree>
 </div>
 <div class="ui-g-10 ui-g-nopad">
     <div class="ui-g-12 ui-g-nopad content-sec">
         <path></path>
         <!--버튼-->
         <div class="ui-g-12 ui-g-nopad tctr-sec margin-bottom-30">
-            <button class="white-btn">+ 새폴더</button>
-            <div class="file-path dp-inb">
-                <span class="path">Group1</span><span class="path">Work</span>
-            </div>
+            <!--<button class="white-btn">+ 새폴더</button>-->
+            <!--<div class="file-path dp-inb">-->
+                <!--<span class="path">Group1</span><span class="path">Work</span>-->
+            <!--</div>-->
             <div class="filter-sec f-right">
                 <div class="fbtn-sec">
                     <button class="white-btn" (click)="changeStatusRestart()">변환 재시작</button>
                     <button class="white-btn" (click)="changeStatusDelete()">삭제</button>
 
-                    <label for="file-key"></label><input type="text" id="file-key" [(ngModel)]="searchKey" pInputText placeholder="파일명 입력">
+                    <label for="file-key"></label><input type="text" id="file-key" [(ngModel)]="searchKey" pInputText placeholder="파일명 입력" autocomplete="off">
                     <button pButton type="button" label="검색" (click)="filterSearch()"></button>
 
                     <!--<div class="vbtn-sec dp-inb">-->
@@ -56,7 +56,7 @@
                             <td>{{ contentsList.fo_nm }}</td>
                             <td>{{ contentsList.fo_size }}</td>
                             <td>{{ contentsList.fo_size }}</td>
-                            <td>{{ contentsList.fo_tot_progress }}</td>
+                            <td>{{ contentsList.statusLabel }}</td>
                             <td>{{ contentsList.fo_reg_dtm }}</td>
                         </tr>
                     </ng-template>
@@ -75,6 +75,16 @@
                     <h3 class="ui-g-12 ui-g-nopad list-title">썸네일 미리보기</h3>
                     <preview-thumbnail class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" *ngIf="showInfos"></preview-thumbnail>
                     <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfos">데이터가 없습니다.</div>
+
+                    <!--<div *ngIf="showInfos">-->
+                        <!--<div class="ui-g-12 ui-g-nopad" id="thumbnailArea">-->
+                            <!--<img src="../../assets/images/preview.png" id="pvThumbnail" alt="썸네일 미리보기" class="ui-g-12 ui-g-nopad margin-bottom-30"  />-->
+                            <!--<div class="btn-sec txt-center margin-bottom-30">-->
+                                <!--<button type="button" class="orange-btn">변환 재시작</button>-->
+                                <!--<button type="button" class="orange-btn">삭제</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </li>
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title">트랜스코딩 진행상황</h3>

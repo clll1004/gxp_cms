@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Http, Headers } from '@angular/http';
+import { LoginService } from "../login/login.service";
 
 @Component({
     selector: 'contents',
@@ -10,7 +11,55 @@ import { Http, Headers } from '@angular/http';
 export class ContentsComponent implements OnInit {
     public groupList: TreeNode[];
     public selectGroup: TreeNode;
-    public groupSeq:string = '1';
+    public groupSeq:string;
+
+    public dummy = [
+        {
+            'label': 'GXP', // grp_nm
+            'data': 'grp_nm', // grp_nm
+            'expandedIcon': 'far fa-building',
+            'collapsedIcon': 'far fa-building',
+            'children': [
+                {
+                    'label': 'fol1', // gf_nm
+                    'data': 'fol1', // gf_nm
+                    'gf_seq': '1', // gf_seq
+                    'expandedIcon': 'fa fa-folder-open',
+                    'collapsedIcon': 'fa fa-folder',
+                    'children': [
+                        {
+                            'label': 'fol2-1', // gf_nm
+                            'data': 'fol2-1', // gf_nm
+                            'gf_seq': '2', // gf_seq
+                            'expandedIcon': 'fa fa-folder-open',
+                            'collapsedIcon': 'fa fa-folder',
+                            'children': [
+                                {
+                                    'label': 'fol3', // gf_nm
+                                    'data': 'fol3', // gf_nm
+                                    'gf_seq': '3', // gf_seq
+                                    'expandedIcon': 'fa fa-folder-open',
+                                    'collapsedIcon': 'fa fa-folder'
+                                }
+                            ]
+                        },
+                        {
+                            'label': 'fol2-3', // gf_nm
+                            'data': 'fol2-3', // gf_nm
+                            'gf_seq': '4', // gf_seq
+                            'expandedIcon': 'fa fa-folder-open',
+                            'collapsedIcon': 'fa fa-folder'
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+
+    public tempTreeData:any[] = [];
+    public treeData:any[] = [];
+    public folderData:any[] = [];
+    public tempFolderData:any[] = [];
 
     public contentsLists: any[] = [];
     public filtercontentsLists: any[] = [];
@@ -30,36 +79,105 @@ export class ContentsComponent implements OnInit {
         {field: '', header: '생성 날짜', width: '20%'},
     ];
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private loginService: LoginService) { }
     ngOnInit() {
         this.load();
     }
 
     load() {
+        this.getGroupSeq();
         this.loadGroupList();
-        this.loadContent();
+        this.loadContent('');
     }
 
     loadGroupList() {
-        return this.http.get('http://localhost:8080/src/app/contents/data.json')
+        return this.http.get('http://183.110.11.49/cms/folder/list/' + this.groupSeq)
           .toPromise()
           .then((res) => {
-              this.groupList = <TreeNode[]> res.json().data;
+               this.tempTreeData = JSON.parse(res['_body']);
+              this.groupList = <TreeNode[]> this.dummy;
+              // if(this.tempTreeData['grp']) {
+              //     this.tempTreeData['grp'].forEach((grpItem:any) => {
+              //         const grp:object = {};
+              //
+              //         grp['label'] = grpItem.grp_nm;
+              //         grp['data'] = grpItem.grp_nm;
+              //         grp['expandedIcon'] = 'far fa-building';
+              //         grp['collapsedIcon'] = 'far fa-building';
+              //
+              //         this.folderData = this.tempTreeData['fol'];
+              //         this.convertTreeData(this.folderData);
+              //
+              //         grp['children'] = this.tempFolderData;
+              //         this.treeData.push(grp);
+              //     });
+              //     this.groupList = <TreeNode[]> this.treeData;
+              // }
           });
     }
-    getGroupSeq() {
-        if (this.selectGroup.label === 'Work') {
-            this.groupSeq = '1';
-        } else if (this.selectGroup.label === 'Sub') {
-            this.groupSeq = '2';
+
+    convertTreeData(folderData:any[]) {
+        // if(tempTreeData['fol']) {
+        //     const fol = tempTreeData['fol'].filter((folItem:any) => {
+        //         folItem['label'] = folItem.gf_nm;
+        //         folItem['data'] = folItem.gf_nm;
+        //         folItem['expandedIcon'] = 'fa fa-folder-open';
+        //         folItem['collapsedIcon'] = 'fa fa-folder';
+        //         return grpItem.grp_seq === folItem.gf_grp_seq && (folItem.gf_prnt_seq === '0');
+        //     });
+        //
+        //     grp['children'] = fol;
+        // }
+        if(folderData.length !== 0) {  //?
+            folderData.forEach((item:any) => {
+                item['label'] = item.gf_nm;
+                item['data'] = item.gf_nm;
+                item['expandedIcon'] = 'fa fa-folder-open';
+                item['collapsedIcon'] = 'fa fa-folder';
+
+                if(item.gf_prnt_seq === '0') {
+                    this.tempFolderData.push(item);
+                } else {
+                    // fdD.for it2 {
+                    //     템프[gf_seq - 1][children] = it1.grseq === it2.gf_prnt_seq
+                    //     데이터.push(템프)
+                    // }
+                }
+            });
+            // this.convertTreeData(this.folderData);
         }
-        this.loadContent();
+
     }
-    loadContent() {
-        return this.http.get('http://183.110.11.49/cms/contents/list?page=1&row=100&gf_seq=' + this.groupSeq)
+    getGroupSeq() {
+        this.groupSeq = this.loginService.getCookie('grp_seq');
+    }
+    getFolderSeq() {
+        this.loadContent(this.selectGroup['gf_seq']);
+    }
+    loadContent(folderSeq:string) {
+        return this.http.get('http://183.110.11.49/cms/contents/list?page=1&row=10000&gf_seq=' + folderSeq)
           .toPromise()
           .then((cont) => {
               this.contentsLists = JSON.parse(cont['_body']).list;
+              if(this.contentsLists) {
+                  this.contentsLists.forEach((item) => {
+                      if (item.fo_status == 'U') {
+                          item.statusLabel = '업로드완료';
+                      } else if (item.fo_status == 'TR') {
+                          item.statusLabel = '변환요청';
+                      } else if (item.fo_status == 'OF') {
+                          item.statusLabel = '대기중';
+                      } else if (item.fo_status == 'TT') {
+                          item.statusLabel = '변환중';
+                      } else if (item.fo_status == 'TF') {
+                          item.statusLabel = '변환실패';
+                      } else if (item.fo_status == 'SS') {
+                          item.statusLabel = '전송완료';
+                      } else if (item.fo_status == 'SF') {
+                          item.statusLabel = '전송실패';
+                      }
+                  });
+              }
               this.filtercontentsLists = this.contentsLists;
           });
     }
@@ -78,7 +196,7 @@ export class ContentsComponent implements OnInit {
 
         return this.http.put('http://183.110.11.49/cms/contents', newItemArray, { headers: headers })
           .toPromise()
-          .then(() => {window.location.reload();})
+          .then(() => {location.reload();})
           .catch((error:any) => {
               console.log(error);
           });
@@ -107,22 +225,25 @@ export class ContentsComponent implements OnInit {
           .toPromise()
           .then((cont) => {
               this.transcodingStatus = JSON.parse(cont['_body']);
-
-              this.transcodingStatus.forEach((item) => {
-                  if(item.ft_status == 'U') {
-                      item.statusLabel = '변환요청';
-                  } else if(item.ft_status == 'TR') {
-                      item.statusLabel = '변환중';
-                  } else if(item.ft_status == 'TT') {
-                      item.statusLabel = '변환완료';
-                  } else if(item.ft_status == 'TS') {
-                      item.statusLabel = '변환실패';
-                  } else if(item.ft_status == 'SS') {
-                      item.statusLabel = '전송완료';
-                  } else if(item.ft_status == 'SF') {
-                      item.statusLabel = '전송실패';
-                  }
-              });
+              if(this.transcodingStatus) {
+                  this.transcodingStatus.forEach((item) => {
+                      if (item.ft_status == 'U') {
+                          item.statusLabel = '업로드완료';
+                      } else if (item.ft_status == 'TR') {
+                          item.statusLabel = '변환요청';
+                      } else if (item.ft_status == 'TT') {
+                          item.statusLabel = '변환중';
+                      } else if (item.ft_status == 'TS') {
+                          item.statusLabel = '변환완료';
+                      } else if (item.ft_status == 'TF') {
+                          item.statusLabel = '변환실패';
+                      } else if (item.ft_status == 'SS') {
+                          item.statusLabel = '전송완료';
+                      } else if (item.ft_status == 'SF') {
+                          item.statusLabel = '전송실패';
+                      }
+                  });
+              }
           });
 
     }
