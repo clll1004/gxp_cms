@@ -44,7 +44,6 @@
                                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                             </th>
                             <th>제목</th>
-                            <th>종류</th>
                             <th>크기</th>
                             <th>전체 변환율</th>
                             <th>생성날짜</th>
@@ -54,15 +53,14 @@
                         <tr [pSelectableRow]="contentsList" (click)="showPreview(contentsList)">
                             <td><p-tableCheckbox [value]="contentsList" ></p-tableCheckbox></td>
                             <td>{{ contentsList.fo_nm }}</td>
-                            <td>{{ contentsList.fo_size }}</td>
-                            <td>{{ contentsList.fo_size }}</td>
+                            <td>{{ contentsList.fo_size }} MB</td>
                             <td>{{ contentsList.statusLabel }}</td>
                             <td>{{ contentsList.fo_reg_dtm }}</td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
                         <tr>
-                            <td colspan="6"> 표시할 데이터가 없습니다. </td>
+                            <td colspan="5"> 표시할 데이터가 없습니다. </td>
                         </tr>
                     </ng-template>
                 </p-table>

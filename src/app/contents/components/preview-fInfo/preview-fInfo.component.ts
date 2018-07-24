@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
     selector: 'preview-fInfo',
-    templateUrl: './preview-fInfo.component.html'
+    templateUrl: './preview-fInfo.component.html',
+    styleUrls: ['../../contents.component.css']
 })
 export class PreviewFInfoComponent implements OnInit {
     @Input() originFileInfo:object;

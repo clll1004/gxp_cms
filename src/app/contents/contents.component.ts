@@ -29,7 +29,6 @@ export class ContentsComponent implements OnInit {
     public contentCols: any[] = [
         {field: '', header: '', width: '5%'},
         {field: '', header: '제목', width: '30%'},
-        {field: '', header: '종류', width: '10%'},
         {field: '', header: '크기', width: '15%'},
         {field: '', header: '전체 변환율', width: '20%'},
         {field: '', header: '생성 날짜', width: '20%'},
