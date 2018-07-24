@@ -42,7 +42,7 @@ export class PreviewStatusComponent implements OnInit {
               }
 
               this.pvVideo = document.getElementById('previewVideo');
-              this.pvVideo.src = 'http://' + this.transcodingItemInfo['ft_path'];
+              this.pvVideo.src = 'http://' + this.transcodingItemInfo['ft_svc_path'];
           });
     }
 }
