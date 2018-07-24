@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Http, Headers } from '@angular/http';
 import { LoginService } from "../login/login.service";
+import {stringify} from "querystring";
 
 @Component({
     selector: 'contents',
@@ -117,8 +118,15 @@ export class ContentsComponent implements OnInit {
         this.originFileInfo = [];
         this.showInfos = false;
         this.loadContent(this.selectGroup['gf_seq']);
-        this.groupName = this.selectGroup['parent']['label'];
-        this.folderName = this.selectGroup['label'];
+        this.getGroupName(this.selectGroup['gf_grp_seq']);
+        this.folderName = this.selectGroup['gf_nm'];
+    }
+    getGroupName(item:string):any {
+        this.groupList.forEach((item2) => {
+            if(item2['grp_seq'] === item) {
+                this.groupName = item2['grp_nm'];
+            }
+        })
     }
     loadContent(folderSeq:string) {
         return this.http.get('http://183.110.11.49/cms/contents/list?page=1&row=10000&gf_seq=' + folderSeq)
