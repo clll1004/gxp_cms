@@ -15,49 +15,6 @@ export class ContentsComponent implements OnInit {
     public groupName:string;
     public folderName:string;
 
-    public dummy = [
-        {
-            'label': 'GXP', // grp_nm
-            'data': 'grp_nm', // grp_nm
-            'expandedIcon': 'far fa-building',
-            'collapsedIcon': 'far fa-building',
-            'children': [
-                {
-                    'label': 'fol1', // gf_nm
-                    'data': 'fol1', // gf_nm
-                    'gf_seq': '1', // gf_seq
-                    'expandedIcon': 'fa fa-folder-open',
-                    'collapsedIcon': 'fa fa-folder',
-                    'children': [
-                        {
-                            'label': 'fol2-1', // gf_nm
-                            'data': 'fol2-1', // gf_nm
-                            'gf_seq': '2', // gf_seq
-                            'expandedIcon': 'fa fa-folder-open',
-                            'collapsedIcon': 'fa fa-folder',
-                            'children': [
-                                {
-                                    'label': 'fol3', // gf_nm
-                                    'data': 'fol3', // gf_nm
-                                    'gf_seq': '3', // gf_seq
-                                    'expandedIcon': 'fa fa-folder-open',
-                                    'collapsedIcon': 'fa fa-folder'
-                                }
-                            ]
-                        },
-                        {
-                            'label': 'fol2-3', // gf_nm
-                            'data': 'fol2-3', // gf_nm
-                            'gf_seq': '4', // gf_seq
-                            'expandedIcon': 'fa fa-folder-open',
-                            'collapsedIcon': 'fa fa-folder'
-                        }
-                    ]
-                }
-            ]
-        }
-    ];
-
     public tempTreeData:any[] = [];
 
     public contentsLists: any[] = [];
@@ -94,20 +51,31 @@ export class ContentsComponent implements OnInit {
           .toPromise()
           .then((res) => {
               this.tempTreeData = JSON.parse(res['_body']);
-              this.groupList = <TreeNode[]> this.dummy;
-
-              // console.log(this.convertTreeData(this.tempTreeData));
+              this.groupList = <TreeNode[]> this.convertTreeData(this.tempTreeData);
           });
     }
 
     convertTreeData(treeData:any[]) {
+        treeData['grp'].map((item:any) => {
+            item.label = item.grp_nm;
+            item.data = item.grp_nm;
+            item.expandedIcon = 'far fa-building';
+            item.collapsedIcon = 'far fa-building';
+        });
+        treeData['fol'].map((item:any) => {
+            item.label = item.gf_nm;
+            item.data = item.gf_nm;
+            item.expandedIcon = 'fa fa-folder-open';
+            item.collapsedIcon = 'fa fa-folder';
+        });
+
         let tempTreeArray:any[] = [];
 
-        let folderTree:any = function (folderArray:any[], rootId:any, grp_seq:any) {
+        let folderTree:any = (folderArray:any[], rootId:string, grp_seq:string) => {
             let rootNodes:any[] = [];
-            const convert:any = function (nodes:any[], item:any, index:any) {
-                if(nodes instanceof Array) {
-                    return nodes.some(function (node) {
+            let convert:any = (nodes:any[], item:any, index:any) => {
+                if (nodes instanceof Array) {
+                    return nodes.some((node) => {
                         if (node.gf_seq === item.gf_prnt_seq) {
                             node.children = node.children || [];
                             return node.children.push(folderArray.splice(index, 1)[0]);
@@ -118,14 +86,15 @@ export class ContentsComponent implements OnInit {
             };
 
             while(folderArray.length > 0) {
-                folderArray.some(function (item, index) {
-                    if(item.gf_prnt_seq === rootId && item.grp_seq === grp_seq) {
+                folderArray.some((item, index) => {
+                    if (item.gf_prnt_seq === rootId && item.gf_grp_seq === grp_seq) {
                         return rootNodes.push(folderArray.splice(index, 1)[0]);
                     }
                     return convert(rootNodes, item, index);
                 });
             }
-            return tempTreeArray;
+
+            return rootNodes;
         };
 
         treeData['grp'].forEach((grpItem:any) => {
@@ -138,7 +107,10 @@ export class ContentsComponent implements OnInit {
             }
             tempTreeArray.push(grpItem);
         });
+
+        return tempTreeArray;
     }
+
     getGroupSeq() {
         this.groupSeq = this.loginService.getCookie('grp_seq');
     }
