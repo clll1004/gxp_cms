@@ -3,12 +3,14 @@ import { Http } from '@angular/http';
 
 @Component({
     selector: 'preview-status',
-    templateUrl: './preview-status.component.html'
+    templateUrl: './preview-status.component.html',
+    styleUrls: ['../../contents.component.css']
 })
 export class PreviewStatusComponent implements OnInit {
     @Input() transcodingStatus: object;
     @Input() groupName:string;
     @Input() folderName:string;
+    @Input() isShowDialogBtn:boolean;
     public transcodingItemInfo: any[] = [];
     public pvVideo:any;
 
@@ -25,6 +27,7 @@ export class PreviewStatusComponent implements OnInit {
           .toPromise()
           .then((cont) => {
               this.transcodingItemInfo = JSON.parse(cont['_body']);
+              // this.isDialogBtnShow = this.transcodingItemInfo['ft_status'] === 'SS';
               if (this.transcodingItemInfo['ft_status'] == 'U') {
                   this.transcodingItemInfo['statusLabel'] = '업로드완료';
               } else if (this.transcodingItemInfo['ft_status'] == 'TR') {

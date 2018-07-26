@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Http, Headers } from '@angular/http';
 import { LoginService } from "../login/login.service";
-import {stringify} from "querystring";
 
 @Component({
     selector: 'contents',
@@ -25,6 +24,7 @@ export class ContentsComponent implements OnInit {
 
     public showInfos: boolean = false;
     public transcodingStatus: any[] = [];
+    public isShowDialogBtn: boolean = false;
     public originFileInfo: any[] = [];
 
     public contentCols: any[] = [
@@ -45,7 +45,6 @@ export class ContentsComponent implements OnInit {
         this.loadGroupList();
         this.loadContent('');
     }
-
     loadGroupList() {
         return this.http.get('http://183.110.11.49/cms/folder/list/' + this.groupSeq)
           .toPromise()
@@ -54,7 +53,6 @@ export class ContentsComponent implements OnInit {
               this.groupList = <TreeNode[]> this.convertTreeData(this.tempTreeData);
           });
     }
-
     convertTreeData(treeData:any[]) {
         treeData['grp'].map((item:any) => {
             item.label = item.grp_nm;
@@ -140,15 +138,15 @@ export class ContentsComponent implements OnInit {
                       } else if (item.fo_status == 'TR') {
                           item.statusLabel = '변환요청';
                       } else if (item.fo_status == 'OF') {
-                          item.statusLabel = '대기중';
+                          item.statusLabel = '원본전송실패';
                       } else if (item.fo_status == 'TT') {
                           item.statusLabel = '변환중';
                       } else if (item.fo_status == 'TF') {
                           item.statusLabel = '변환실패';
-                      } else if (item.fo_status == 'SS') {
-                          item.statusLabel = '전송완료';
                       } else if (item.fo_status == 'SF') {
-                          item.statusLabel = '전송실패';
+                          item.statusLabel = '배포실패';
+                      } else if (item.fo_status == 'SS') {
+                          item.statusLabel = '완료';
                       }
                   });
               }
@@ -178,6 +176,7 @@ export class ContentsComponent implements OnInit {
     changeStatusDelete() {
         console.log(this.selectItems);
     }
+
     filterSearch() {
         this.filtercontentsLists = [];
         this.contentsLists.filter((item) => {
@@ -201,24 +200,41 @@ export class ContentsComponent implements OnInit {
               this.transcodingStatus = JSON.parse(cont['_body']);
               if(this.transcodingStatus) {
                   this.transcodingStatus.forEach((item) => {
+                      this.isShowDialogBtn = false;
                       if (item.ft_status == 'U') {
                           item.statusLabel = '업로드완료';
                       } else if (item.ft_status == 'TR') {
                           item.statusLabel = '변환요청';
+                      } else if (item.ft_status == 'OF') {
+                          item.statusLabel = '원본전송실패';
                       } else if (item.ft_status == 'TT') {
                           item.statusLabel = '변환중';
-                      } else if (item.ft_status == 'TS') {
-                          item.statusLabel = '변환완료';
                       } else if (item.ft_status == 'TF') {
                           item.statusLabel = '변환실패';
-                      } else if (item.ft_status == 'SS') {
-                          item.statusLabel = '전송완료';
                       } else if (item.ft_status == 'SF') {
-                          item.statusLabel = '전송실패';
+                          item.statusLabel = '배포실패';
+                      } else if (item.ft_status == 'SS') {
+                          this.isShowDialogBtn = true;
+                          item.statusLabel = '완료';
                       }
                   });
               }
           });
+    }
+    changeStatusRestartItem() {
+        let newItemArray:any[] = [{'fo_seq': this.originFileInfo['fo_seq']}];
 
+        let headers:Headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+        return this.http.put('http://183.110.11.49/cms/contents', newItemArray, { headers: headers })
+          .toPromise()
+          .then(() => {alert('변환이 재시작 됩니다.');})
+          .catch((error:any) => {
+              console.log(error);
+          });
+    }
+    changeStatusDeleteItem() {
+        console.log(this.originFileInfo);
     }
 }

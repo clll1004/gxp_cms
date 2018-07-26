@@ -9,7 +9,7 @@
         <ng-template pTemplate="body" let-transcodingStatus >
             <tr>
                 <td>{{ transcodingStatus.gto_nm }}</td>
-                <td>{{ transcodingStatus.statusLabel }} <button type="button" class="white-btn" (click)="showDialog(transcodingStatus)">미리보기</button></td>
+                <td>{{ transcodingStatus.statusLabel }} <button type="button" class="white-btn" *ngIf="isShowDialogBtn" (click)="showDialog(transcodingStatus)">미리보기</button></td>
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">

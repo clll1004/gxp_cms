@@ -11,21 +11,30 @@
 .tctr-sec .vbtn-sec .vbtn:hover {background: #f5f5f5; color: #ff6400;}
 .tctr-sec .vbtn-sec .vbtn i {vertical-align: middle;}
 
+.contents-preview-sec {border: none;}
+.contents-preview-sec ul {border: 1px solid #ddd;}
 
-
-.contents-preview-sec {border-left: 1px solid #ddd;}
-
-tr:hover {
-  background: #efefef;
+th {
+  padding: 10px !important;
 }
-tr:active {
+tr.contentLists:hover {
+  background: #efefef;
+  cursor: pointer;
+}
+tr.contentLists:active {
   background: #ededed;
+  cursor: pointer;
 }
 td {
-  padding: 10px!important;
+  padding: 10px !important;
   -ms-word-break: break-all;
   word-break: break-all;
-  cursor: pointer;
+}
+td.emptyMessage {
+  padding: 30px !important;
+  text-align: center;
+  color: #999;
+  cursor: auto;
 }
 
 .showEmpty {
