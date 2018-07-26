@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from "../../../login/login.service";
-import { Http, Headers } from "@angular/http";
 import { PasswordFormValidator } from './passwordVaildator';
-import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { Md5 } from 'ts-md5/dist/md5'
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Md5 } from 'ts-md5/dist/md5';
+import { LoginService } from "../../../login/login.service";
+import { SettingsService } from '../../../services/apis/cms/settings/settings.service';
+import { CmsApis } from '../../../services/apis/apis';
 
 @Component({
     selector: 'change-pswd',
@@ -16,7 +17,10 @@ export class ChangePswdComponent implements OnInit {
     public changePasswordform: FormGroup;
     public submitted: boolean;
 
-    constructor(private formBuilder: FormBuilder, private loginService: LoginService, private http: Http) { }
+    constructor(private formBuilder: FormBuilder,
+                private loginService: LoginService,
+                private settingsService: SettingsService,
+                private cmsApis: CmsApis) { }
 
     ngOnInit() {
         this.load();
@@ -43,25 +47,18 @@ export class ChangePswdComponent implements OnInit {
         valueObject['usr_pw_old'] = Md5.hashStr(value.usr_pw_old);
         valueObject['usr_pw'] = Md5.hashStr(value.usr_pw);
 
-        this.updatePassword(valueObject);
-    }
-
-    updatePassword(newData:any) {
-        let headers:Headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
-        return this.http.put('http://183.110.11.49/cms/setting/user/password', newData, { headers: headers })
+        this.settingsService.updateData(this.cmsApis.updatePassword, valueObject)
           .toPromise()
           .then((data) => {
               if(data.status == 200) {
                   window.location.reload();
                   alert('수정 완료되었습니다.');
               } else if (data.status == 204) {
-                  alert('잘못된 비밀번호 입니다.');
+                  alert('현재 비밀번호를 확인해주세요.');
               }
           })
           .catch((error) => {
               console.log(error);
-          })
+          });
     }
 }

@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-import { Http } from "@angular/http";
 import { TreeNode } from 'primeng/api';
 import { LoginService } from "../login/login.service";
+import { SettingsService } from '../services/apis/cms/settings/settings.service';
+import { CmsApis } from '../services/apis/apis';
 
 @Component({
     selector: 'settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.css'],
-    providers: [ LoginService ]
+    providers: [ LoginService, SettingsService, CmsApis ]
 })
 
 export class SettingsComponent implements OnInit {
@@ -21,11 +22,13 @@ export class SettingsComponent implements OnInit {
     public tempTreeData:any[] = [];
     public treeData:any[] = [];
 
-    constructor(private activatedRoute: ActivatedRoute, private http: Http, private loginService: LoginService) {
+    constructor(private activatedRoute: ActivatedRoute,
+                private loginService: LoginService,
+                private settingsService: SettingsService,
+                private cmsApis: CmsApis) {
         this.activatedRoute.params.subscribe( (params) => {
             this.params = params;
         });
-
     }
     ngOnInit() {
         this.load();
@@ -37,30 +40,21 @@ export class SettingsComponent implements OnInit {
     }
 
     loadGroupList() {
-        // return this.http.get('http://localhost:8080/src/app/settings/group-data.json')
-        //   .toPromise()
-        //   .then((res) => {
-        //       this.groupList = <TreeNode[]> res.json().data;
-        //   });
-
-        return this.http.get('http://183.110.11.49/cms/folder/list/' + this.groupSeq)
+        return this.settingsService.getLists(this.cmsApis.loadFolderList + this.groupSeq)
           .toPromise()
           .then((res) => {
               this.tempTreeData = JSON.parse(res['_body']);
-              if(this.tempTreeData['grp']) {
-                  this.tempTreeData['grp'].forEach((grpItem:any) => {
-                      const grp:object = {};
+              this.tempTreeData['grp'].map((item:any) => {
+                  item.label = item.grp_nm;
+                  item.data = item.grp_nm;
+                  item.expandedIcon = 'far fa-building';
+                  item.collapsedIcon = 'far fa-building';
+              });
+              this.tempTreeData['grp'].forEach((grpItem:any) => {
+                  this.treeData.push(grpItem);
+              });
 
-                      grp['grp_seq'] = grpItem.grp_seq;
-                      grp['label'] = grpItem.grp_nm;
-                      grp['data'] = grpItem.grp_nm;
-                      grp['expandedIcon'] = 'far fa-building';
-                      grp['collapsedIcon'] = 'far fa-building';
-
-                      this.treeData.push(grp);
-                  });
-                  this.groupList = <TreeNode[]> this.treeData;
-              }
+              this.groupList = <TreeNode[]> this.treeData;
           });
     }
     getGroupSeq() {
@@ -69,7 +63,7 @@ export class SettingsComponent implements OnInit {
     }
 
     loadGroupData() {
-        return this.http.get('http://183.110.11.49/cms/setting/group/' + this.groupSeq)
+        return this.settingsService.getLists(this.cmsApis.loadGroupMng + this.groupSeq)
           .toPromise()
           .then((cont) => {
               this.groupData = JSON.parse(cont['_body']).grp;

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from "../../../login/login.service";
-import { Http, Headers } from "@angular/http";
 import { FormControl, FormGroup, FormBuilder  } from '@angular/forms';
+import { SettingsService } from '../../../services/apis/cms/settings/settings.service';
+import { CmsApis } from '../../../services/apis/apis';
 
 @Component({
     selector: 'user-modify',
     templateUrl: './user-modify.component.html',
     styleUrls: ['../../settings.component.css'],
-    providers: [ LoginService ]
+    providers: [ LoginService, SettingsService, CmsApis ]
 })
 export class UserModifyComponent implements OnInit {
     public userSeq:string = '';
@@ -15,7 +16,10 @@ export class UserModifyComponent implements OnInit {
     public userform: FormGroup;
     public submitted: boolean;
 
-    constructor(private formBuilder: FormBuilder, private loginService: LoginService, private http: Http) { }
+    constructor(private formBuilder: FormBuilder,
+                private loginService: LoginService,
+                private settingsService: SettingsService,
+                private cmsApis: CmsApis) { }
 
     ngOnInit() {
         this.userform = this.formBuilder.group({
@@ -33,10 +37,9 @@ export class UserModifyComponent implements OnInit {
     load() {
         this.loadUserInfo();
     }
-
     loadUserInfo() {
         this.userSeq = this.loginService.getCookie('usr_seq');
-        return this.http.get('http://183.110.11.49/cms/setting/user/' + this.userSeq)
+        return this.settingsService.getLists(this.cmsApis.loadUserInfo + this.userSeq)
           .toPromise()
           .then((cont) => {
               const getData:any[] = JSON.parse(cont['_body']);
@@ -58,19 +61,14 @@ export class UserModifyComponent implements OnInit {
         valueObject['usr_tel'] = value.usr_tel;
         valueObject['usr_remark'] = value.usr_remark;
 
-        this.updateUserInfo(valueObject);
-    }
-
-    updateUserInfo(newData:any) {
-        let headers:Headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
-        return this.http.put('http://183.110.11.49/cms/setting/user', newData, { headers: headers })
+        this.settingsService.updateData(this.cmsApis.updateUserInfo, valueObject)
           .toPromise()
-          .then(() => {window.location.reload();})
-          .then(() => {alert('수정 완료되었습니다.');})
+          .then(() => {
+            alert('수정 완료되었습니다.');
+            window.location.reload();
+           })
           .catch((error) => {
-              console.log(error);
-          })
+            console.log(error);
+          });
     }
 }
