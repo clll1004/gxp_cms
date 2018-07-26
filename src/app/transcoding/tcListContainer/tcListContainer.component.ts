@@ -3,13 +3,15 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { Http, Headers } from "@angular/http";
 import { LoginService } from "../../login/login.service";
+import { TranscodingService } from '../../services/apis/cms/transcoding/transcoding.service';
+import { CmsApis } from '../../services/apis/apis';
 
 @Component({
   selector: 'tcListContainer',
   templateUrl: './tcListContainer.component.html',
-  styleUrls: ['../transcoding.component.css']
+  styleUrls: ['../transcoding.component.css'],
+  providers: [ TranscodingService, CmsApis ]
 })
 export class TcListContainerComponent implements OnInit {
   @Input() params: object;
@@ -76,7 +78,10 @@ export class TcListContainerComponent implements OnInit {
     {field: 'ft_end_dtm', header: '변환최종일시', width: '10%'}
   ];
 
-  constructor(private activatedRoute: ActivatedRoute, private loginService: LoginService, private http: Http) { }
+  constructor(private activatedRoute: ActivatedRoute,
+              private loginService: LoginService,
+              private transcodingService: TranscodingService,
+              private cmsApis: CmsApis) { }
   ngOnInit() {
     this.load();
 
@@ -87,28 +92,29 @@ export class TcListContainerComponent implements OnInit {
 
       this.tcMonitoringLists = [];
       if (this.params['id'] === 'tcStandByMT') {
-        this.url = 'http://183.110.11.49/cms/transcoding/list?page=1&row=1000&ft_status=U&grp_seq=' + this.groupSeq;
+        this.url = this.cmsApis.loadStandbyList + this.groupSeq;
       } else if (this.params['id'] === 'tcRequestMT') {
-        this.url = 'http://183.110.11.49/cms/transcoding/list?page=1&row=1000&ft_status=TR&grp_seq=' + this.groupSeq;
+        this.url = this.cmsApis.loadRequestList + this.groupSeq;
       } else if (this.params['id'] === 'tcProgressMT') {
-        this.url = 'http://183.110.11.49/cms/transcoding/list?page=1&row=1000&ft_status=TT&grp_seq=' + this.groupSeq;
+        this.url = this.cmsApis.loadProgressList + this.groupSeq;
       } else if (this.params['id'] === 'tcCompleteMT') {
-        this.url = 'http://183.110.11.49/cms/transcoding/list?page=1&row=1000&ft_status=TS&grp_seq=' + this.groupSeq;
+        this.url = this.cmsApis.loadCompleteList + this.groupSeq;
       } else if (this.params['id'] === 'tcFailMT') {
-        this.url = 'http://183.110.11.49/cms/transcoding/list?page=1&row=1000&ft_status=TD&grp_seq=' + this.groupSeq;
+        this.url = this.cmsApis.loadFailList + this.groupSeq;
       }
 
-      this.http.get(this.url)
+      this.transcodingService.getLists(this.url)
         .toPromise()
         .then((cont:any) => {
           if(cont.status !== 0) {
             this.tcMonitoringLists = JSON.parse(cont['_body']);
             this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
-            this.gettotalListLength = this.filterTcMonitoringLists.length;
-          } else {
-            console.log('데이터가 없습니다.');
+
+            if(this.filterTcMonitoringLists) {
+              this.gettotalListLength = this.filterTcMonitoringLists.length;
+              this.setTableIndex();
+            }
           }
-          this.setTableIndex();
         })
         .catch((error) => {
           console.log(error);
@@ -123,7 +129,7 @@ export class TcListContainerComponent implements OnInit {
   loadGroupList() {
     this.selectedGroupOptions = [];
     let list;
-    this.http.get('http://183.110.11.49/cms/transcoding/list/group/' + this.groupSeq)
+    this.transcodingService.getLists(this.cmsApis.loadTranscodingGroupNames + this.groupSeq)
       .toPromise()
       .then((cont) => {
         list = JSON.parse(cont['_body']);
@@ -132,13 +138,17 @@ export class TcListContainerComponent implements OnInit {
           item.value = item.grp_nm;
           this.selectedGroupOptions.push(item);
         });
-      });
+      })
+      .catch((error) => { console.log(error); });
   }
   loadGroupSeq() {
     this.groupSeq = this.loginService.getCookie('grp_seq');
   }
 
   filterSearch() {
+    if(!this.filterTcMonitoringLists) {
+      return false;
+    }
     this.filterTcMonitoringLists = [];
     this.tcMonitoringLists['list'].filter((item:any) => {
       if (!this.searchKey && item.grp_nm && (item.grp_nm === this.selectedGroup)) {
@@ -149,14 +159,20 @@ export class TcListContainerComponent implements OnInit {
         this.filterTcMonitoringLists.push(item);
       }
     });
-    this.gettotalListLength = this.filterTcMonitoringLists.length;
-    this.setTableIndex();
+    if(this.filterTcMonitoringLists) {
+      this.gettotalListLength = this.filterTcMonitoringLists.length;
+      this.setTableIndex();
+    }
   }
   refresh() {
     window.location.reload();
   }
 
   changeStatus() {
+    if(!this.selectItems.length) {
+      return false;
+    }
+
     let newItemArray:any[] = [];
     let itemObject:any = {};
     this.selectItems.forEach((item) => {
@@ -164,21 +180,18 @@ export class TcListContainerComponent implements OnInit {
       itemObject.ft_seq = item.ft_seq;
       newItemArray.push(itemObject);
     });
-    this.updateTranscodingStatus(newItemArray);
 
-    this.gettotalListLength = this.filterTcMonitoringLists.length;
-    this.setTableIndex();
-  }
-  updateTranscodingStatus (newData: any[]) {
-    let headers:Headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
-    return this.http.put('http://183.110.11.49/cms/transcoding', newData, { headers: headers})
+    this.transcodingService.updateData(this.cmsApis.restartTranscoding, newItemArray)
       .toPromise()
-      .then(() => {alert('변환이 재시작 됩니다.');})
+      .then(() => { alert('변환이 재시작 됩니다.'); })
       .catch((error) => {
         console.log(error);
       });
+
+    if(this.filterTcMonitoringLists) {
+      this.gettotalListLength = this.filterTcMonitoringLists.length;
+      this.setTableIndex();
+    }
   }
 
   setTableIndex() {

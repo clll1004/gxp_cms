@@ -3,7 +3,7 @@
     <label for="group-key" class="margin-right-10">변환 그룹 선택</label>
     <p-dropdown id="group-key" placeholder="그룹 선택" [options]="selectedGroupOptions" [(ngModel)]="selectedGroup" class="margin-right-20"></p-dropdown>
     <label for="file-key" class="margin-right-10">파일명</label>
-    <input type="text" id="file-key" pInputText placeholder="파일명 입력" [(ngModel)]="searchKey" class="margin-right-20">
+    <input type="text" id="file-key" pInputText placeholder="파일명 입력" [(ngModel)]="searchKey" class="margin-right-20" autocomplete="off">
     <button pButton type="button" label="검색" (click)="filterSearch()"></button>
   </div>
   <div class="ui-g-12 ui-g-nopad btn-sec margin-bottom-30">
@@ -42,7 +42,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
+          <td colspan="5" class="emptyMessage">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -74,7 +74,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
+          <td colspan="5" class="emptyMessage">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -111,7 +111,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="10" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
+          <td colspan="10" class="emptyMessage">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -146,7 +146,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="8" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
+          <td colspan="8" class="emptyMessage">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -181,12 +181,9 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="8" style="padding: 30px; text-align: center; font-size: 14px; color: #999;">표시할 데이터가 없습니다.</td>
+          <td colspan="8" class="emptyMessage">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>
-  </div>
-  <div *ngIf="isShow">
-
   </div>
 </div>
