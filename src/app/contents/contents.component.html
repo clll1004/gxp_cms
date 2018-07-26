@@ -86,7 +86,7 @@
                 </li>
             </ul>
 
-            <div class="btn-sec txt-center margin-bottom-30">
+            <div class="btn-sec txt-center margin-bottom-30" *ngIf="showInfos">
                 <button type="button" class="orange-btn" (click)="changeStatusRestartItem()">변환 재시작</button>
                 <button type="button" class="orange-btn" (click)="changeStatusDeleteItem()">삭제</button>
             </div>

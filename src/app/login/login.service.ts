@@ -28,7 +28,7 @@ export class LoginService {
               this.setCookie("userInfo", cookieData, 7, true);
               this.setCookie("usr_seq", JSON.parse(data['_body']).usr_seq, 1);
               this.setCookie("grp_seq", JSON.parse(data['_body']).grp_seq, 1);
-              this.router.navigate(['/', 'home']);
+              this.router.navigate(['/', 'contents']);
           })
           .catch((error) => {
               alert('로그인 정보를 확인해주세요.');
