@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Http, Headers } from '@angular/http';
 import { LoginService } from "../login/login.service";
+import { FolderService } from '../services/apis/cms/folder/folder.service';
+import { ContentsService } from '../services/apis/cms/contents/contents.service';
+import { CmsApis } from '../services/apis/apis'
 
 @Component({
     selector: 'contents',
     templateUrl: './contents.component.html',
-    styleUrls: ['./contents.component.css']
+    styleUrls: ['./contents.component.css'],
+    providers: [ FolderService, ContentsService, CmsApis ]
 })
 export class ContentsComponent implements OnInit {
     public groupList: TreeNode[];
@@ -35,7 +38,11 @@ export class ContentsComponent implements OnInit {
         {field: '', header: '생성 날짜', width: '20%'},
     ];
 
-    constructor(private http: Http, private loginService: LoginService) { }
+    constructor(private loginService: LoginService,
+                private folderService: FolderService,
+                private contentsService: ContentsService,
+                private cmsApis: CmsApis) { }
+
     ngOnInit() {
         this.load();
     }
@@ -46,7 +53,7 @@ export class ContentsComponent implements OnInit {
         this.loadContent('');
     }
     loadGroupList() {
-        return this.http.get('http://183.110.11.49/cms/folder/list/' + this.groupSeq)
+        return this.folderService.getLists(this.cmsApis.loadFolderList + this.groupSeq)
           .toPromise()
           .then((res) => {
               this.tempTreeData = JSON.parse(res['_body']);
@@ -127,7 +134,7 @@ export class ContentsComponent implements OnInit {
         })
     }
     loadContent(folderSeq:string) {
-        return this.http.get('http://183.110.11.49/cms/contents/list?page=1&row=10000&gf_seq=' + folderSeq)
+        return this.contentsService.getLists(this.cmsApis.loadContentList + folderSeq)
           .toPromise()
           .then((cont) => {
               this.contentsLists = JSON.parse(cont['_body']).list;
@@ -163,12 +170,9 @@ export class ContentsComponent implements OnInit {
             newItemArray.push(itemObject);
         });
 
-        let headers:Headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
-        return this.http.put('http://183.110.11.49/cms/contents', newItemArray, { headers: headers })
+        return this.contentsService.updateData(this.cmsApis.restartContentsTranscoding, newItemArray)
           .toPromise()
-          .then(() => {location.reload();})
+          .then(() => {alert('변환이 재시작됩니다.');})
           .catch((error:any) => {
               console.log(error);
           });
@@ -194,7 +198,7 @@ export class ContentsComponent implements OnInit {
 
         /*트랜스코딩 진행상황*/
         this.transcodingStatus = [];
-        this.http.get('http://183.110.11.49/cms/contents/list/tcd/' + item.fo_seq)
+        this.contentsService.getLists(this.cmsApis.loadItemTranscodingList + item.fo_seq)
           .toPromise()
           .then((cont) => {
               this.transcodingStatus = JSON.parse(cont['_body']);
@@ -224,10 +228,7 @@ export class ContentsComponent implements OnInit {
     changeStatusRestartItem() {
         let newItemArray:any[] = [{'fo_seq': this.originFileInfo['fo_seq']}];
 
-        let headers:Headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
-        return this.http.put('http://183.110.11.49/cms/contents', newItemArray, { headers: headers })
+        return this.contentsService.updateData(this.cmsApis.restartContentsTranscoding, newItemArray)
           .toPromise()
           .then(() => {alert('변환이 재시작 됩니다.');})
           .catch((error:any) => {

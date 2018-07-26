@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 
 @Component({
     selector: 'preview-thumbnail',
@@ -9,7 +8,7 @@ export class PreviewThumbnailComponent implements OnInit {
     @Input() originFileInfo:object;
     public pvImg:any;
 
-    constructor(private http: Http) { }
+    constructor() { }
 
     ngOnInit() {
         this.loadThumbnail();
