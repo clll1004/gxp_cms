@@ -149,17 +149,19 @@ export class ContentsComponent implements OnInit {
         }
     }
     confirmFolderName() {
-        this.showFolderNameDupMsg = true;
-        const InputFolderName:string = this.folderform.value['gf_nm'];
-        const url = this.cmsApis.checkDupFolderName + "gf_grp_seq=" + this.selectGroup['gf_grp_seq'] + "&gf_level=" + String(Number(this.selectGroup['gf_level']) + 1) + "&gf_nm=" + InputFolderName;
-        this.contentsService.getLists(url)
-          .toPromise()
-          .then((res) => {
-            this.ableFolderName = JSON.parse(res['_body']) === true;
-          })
-          .catch((error) => {
-            console.log(error);
-          })
+        const inputFolderName:string = this.folderform.value['gf_nm'];
+        if(!!inputFolderName) {
+            this.showFolderNameDupMsg = true;
+            const url = this.cmsApis.checkDupFolderName + "gf_grp_seq=" + this.selectGroup['gf_grp_seq'] + "&gf_level=" + String(Number(this.selectGroup['gf_level']) + 1) + "&gf_nm=" + inputFolderName;
+            this.contentsService.getLists(url)
+              .toPromise()
+              .then((res) => {
+                  this.ableFolderName = JSON.parse(res['_body']) === true;
+              })
+              .catch((error) => {
+                  console.log(error);
+              })
+        }
     }
     initDupFolderName() {
         this.showFolderNameDupMsg = false;
@@ -307,5 +309,11 @@ export class ContentsComponent implements OnInit {
     }
     changeStatusDeleteItem() {
         console.log(this.originFileInfo);
+    }
+
+    /*다이얼로그*/
+    isModalDisplay: boolean = false;
+    fileUploadDisplay(item:any) {
+        this.isModalDisplay = true;
     }
 }

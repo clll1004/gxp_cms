@@ -178,6 +178,7 @@ export class TcListContainerComponent implements OnInit {
     this.selectItems.forEach((item) => {
       itemObject = {};
       itemObject.ft_seq = item.ft_seq;
+      itemObject.fo_status = item.fo_status;
       newItemArray.push(itemObject);
     });
 

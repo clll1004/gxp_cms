@@ -9,7 +9,7 @@
         <ng-template pTemplate="body" let-transcodingStatus >
             <tr>
                 <td>{{ transcodingStatus.gto_nm }}</td>
-                <td>{{ transcodingStatus.statusLabel }} <button type="button" class="white-btn" *ngIf="isShowDialogBtn" (click)="showDialog(transcodingStatus)">미리보기</button></td>
+                <td>{{ transcodingStatus.statusLabel }} <button type="button" class="btn margin-left-5" *ngIf="isShowDialogBtn" (click)="showDialog(transcodingStatus)"><i class="fas fa-clone"></i> 미리보기</button></td>
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
@@ -61,7 +61,7 @@
 
     <p-footer>
         <div class="txt-center">
-            <button type="button" class="white-btn" icon="pi pi-check" (click)="display=false" label="confirm">확인</button>
+            <button type="button" class="btn" icon="pi pi-check" (click)="display=false" label="confirm"><i class="fas fa-check"></i> 확인</button>
         </div>
     </p-footer>
 </p-dialog>

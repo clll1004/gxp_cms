@@ -1,9 +1,11 @@
 
 /*테이블*/
 .groupMng-table-sec {margin-bottom: 50px;}
-.groupMng-table-sec .table-title-sec {overflow: hidden; height: 50px; line-height: 50px; padding: 0 10px; background: #f1f1f1; border-bottom: 1px solid #ddd; box-sizing: border-box;}
+.groupMng-table-sec .table-title-sec {overflow: hidden; height: 50px; line-height: 50px; padding: 0 10px; background: #ebedf0; border-bottom: 1px solid #ddd; box-sizing: border-box;}
 .groupMng-table-sec .table-title-sec h3 {float: left; font-size: 15px;}
 .groupMng-table-sec .table-title-sec .orange-btn {float: right; line-height: 20px; margin-top: 10px;}
+.groupMng-table-sec table tr th {background: #fcfcfc;}
+.groupMng-table-sec table tr td {background: #fff;}
 .groupMng-table-sec table tr td input,
 .groupMng-table-sec table tr td select {max-width: 60px;}
 
@@ -18,3 +20,5 @@
 td {padding: 10px 5px !important;}
 
 .settingOptionTr td input {width: 80px; height: 25px; }
+
+.btn {padding: 10px;}
