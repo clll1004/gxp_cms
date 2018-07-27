@@ -2,7 +2,8 @@
 .file-path .path::after {content: " / ";}
 .file-path .path:last-child::after {content: "";}
 .fbtn-sec * {vertical-align: top;}
-.tctr-sec {overflow: hidden;}
+.tctr-sec {overflow: hidden; height: 60px}
+.tctr-sec button {vertical-align: top;}
 .tctr-sec .vbtn-sec {overflow: hidden;}
 .tctr-sec .vbtn-sec .vbtn {width:30px; height: 30px; line-height: 30px; padding: 0; border: 1px solid #ddd; border-right: none; background: #fff; text-align: center;}
 .tctr-sec .vbtn-sec .vbtn:first-child {border-radius: 10px 0 0 10px;}
@@ -42,3 +43,8 @@ td.emptyMessage {
   font-size: 14px;
   color: #999;
 }
+
+.addFolderForm {display: inline-block;}
+.req {color: #f52727;}
+.pass {color: #2399e5;}
+.info-txt {font-size: 13px;}

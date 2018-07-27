@@ -13,6 +13,7 @@ export class CmsApis {
   /**** CONTENTS ****/
   /* 폴더 */
   public loadFolderList = this.ip + 'cms/folder/list/';
+  public checkDupFolderName = this.ip + '/cms/folder/check?';
   public postFolder = this.ip + 'cms/folder';
   /* 콘텐츠 */
   public loadContentList = this.ip + 'cms/contents/list?page=1&row=10000&gf_seq=';

@@ -9,8 +9,23 @@
     <div class="ui-g-12 ui-g-nopad content-sec">
         <path></path>
         <!--버튼-->
-        <div class="ui-g-12 ui-g-nopad tctr-sec margin-bottom-30">
-            <!--<button class="white-btn">+ 새폴더</button>-->
+        <div class="ui-g-12 ui-g-nopad tctr-sec margin-bottom-10">
+            <button type="button" class="white-btn" *ngIf="selectGroup" (click)="addFolderTree()">+ 새폴더</button>
+            <form [formGroup]="folderform" (ngSubmit)="onSubmit(folderform.value)" *ngIf="showAddFolderForm" class="addFolderForm">
+                <fieldset>
+                    <label for="gf_nm"></label>
+                    <input pInputText type="text" id="gf_nm" formControlName="gf_nm" title="폴더명 입력" autocomplete="off" maxlength="21" (change)="initDupFolderName()" />
+                    <button pButton type="button" label="중복확인" (click)="confirmFolderName()"></button>
+                    <button pButton type="submit" label="추가" [disabled]="!folderform.valid || !ableFolderName"></button>
+                    <div *ngIf="showFolderNameDupMsg">
+                        <p class="pass info-txt margin-top-5" *ngIf="ableFolderName">사용가능한 폴더명입니다.</p>
+                        <p class="req info-txt margin-top-5" *ngIf="!ableFolderName">사용중인 폴더명입니다.</p>
+                    </div>
+                    <div *ngIf="!folderform.get('gf_nm').valid && folderform.get('gf_nm').dirty" class="addFolderFormErrorMessage">
+                        <p class="req info-txt margin-top-5" *ngIf="folderform.get('gf_nm').errors['maxlength']"> 20자 이내로 입력해주세요</p>
+                    </div>
+                </fieldset>
+            </form>
             <!--<div class="file-path dp-inb">-->
                 <!--<span class="path">Group1</span><span class="path">Work</span>-->
             <!--</div>-->

@@ -3,7 +3,8 @@ import { TreeNode } from 'primeng/api';
 import { LoginService } from "../login/login.service";
 import { FolderService } from '../services/apis/cms/folder/folder.service';
 import { ContentsService } from '../services/apis/cms/contents/contents.service';
-import { CmsApis } from '../services/apis/apis'
+import { CmsApis } from '../services/apis/apis';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'contents',
@@ -30,6 +31,11 @@ export class ContentsComponent implements OnInit {
     public isShowDialogBtn: boolean = false;
     public originFileInfo: any[] = [];
 
+    public showAddFolderForm: boolean = false;
+    public folderform: FormGroup;
+    public ableFolderName: boolean = false;
+    public showFolderNameDupMsg: boolean = false;
+
     public contentCols: any[] = [
         {field: '', header: '', width: '5%'},
         {field: '', header: '제목', width: '30%'},
@@ -38,19 +44,25 @@ export class ContentsComponent implements OnInit {
         {field: '', header: '생성 날짜', width: '20%'},
     ];
 
-    constructor(private loginService: LoginService,
+    constructor(private formBuilder: FormBuilder,
+                private loginService: LoginService,
                 private folderService: FolderService,
                 private contentsService: ContentsService,
                 private cmsApis: CmsApis) { }
 
     ngOnInit() {
         this.load();
+        this.folderform = this.formBuilder.group({
+            'gf_grp_seq': new FormControl(null),
+            'gf_nm': new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(20)])),
+            'gf_prnt_seq': new FormControl(null),
+            'gf_level': new FormControl(null)
+        });
     }
 
     load() {
         this.getGroupSeq();
         this.loadGroupList();
-        this.loadContent('');
     }
     loadGroupList() {
         return this.folderService.getLists(this.cmsApis.loadFolderList + this.groupSeq)
@@ -58,6 +70,11 @@ export class ContentsComponent implements OnInit {
           .then((res) => {
               this.tempTreeData = JSON.parse(res['_body']);
               this.groupList = <TreeNode[]> this.convertTreeData(this.tempTreeData);
+
+              this.groupList.forEach((item) => {
+                  item.expanded = true;
+              });
+              // if(!!this.selectGroup) {  }
           });
     }
     convertTreeData(treeData:any[]) {
@@ -116,6 +133,50 @@ export class ContentsComponent implements OnInit {
         return tempTreeArray;
     }
 
+    /*새폴더 추가*/
+    addFolderTree() {
+        this.showAddFolderForm = true;
+        if(this.selectGroup['gf_grp_seq']) {
+            this.folderform.get('gf_grp_seq').setValue(this.selectGroup['gf_grp_seq']);
+            this.folderform.get('gf_nm').setValue(null);
+            this.folderform.get('gf_prnt_seq').setValue(this.selectGroup['gf_seq']);
+            this.folderform.get('gf_level').setValue(String(Number(this.selectGroup['gf_level']) + 1));
+        } else {
+            this.folderform.get('gf_grp_seq').setValue(this.selectGroup['grp_seq']);
+            this.folderform.get('gf_nm').setValue(null);
+            this.folderform.get('gf_prnt_seq').setValue('0');
+            this.folderform.get('gf_level').setValue('1');
+        }
+    }
+    confirmFolderName() {
+        this.showFolderNameDupMsg = true;
+        const InputFolderName:string = this.folderform.value['gf_nm'];
+        const url = this.cmsApis.checkDupFolderName + "gf_grp_seq=" + this.selectGroup['gf_grp_seq'] + "&gf_level=" + String(Number(this.selectGroup['gf_level']) + 1) + "&gf_nm=" + InputFolderName;
+        this.contentsService.getLists(url)
+          .toPromise()
+          .then((res) => {
+            this.ableFolderName = JSON.parse(res['_body']) === true;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+    }
+    initDupFolderName() {
+        this.showFolderNameDupMsg = false;
+        this.ableFolderName = false;
+    }
+    onSubmit(formObject:any) {
+        this.contentsService.postData(this.cmsApis.postFolder, formObject)
+          .toPromise()
+          .then(() => {
+              this.showAddFolderForm = false;
+              this.loadGroupList();
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+    }
+
     getGroupSeq() {
         this.groupSeq = this.loginService.getCookie('grp_seq');
     }
@@ -134,6 +195,9 @@ export class ContentsComponent implements OnInit {
         })
     }
     loadContent(folderSeq:string) {
+        this.showAddFolderForm = false;
+        this.showFolderNameDupMsg = false;
+        this.ableFolderName = false;
         return this.contentsService.getLists(this.cmsApis.loadContentList + folderSeq)
           .toPromise()
           .then((cont) => {
@@ -162,6 +226,9 @@ export class ContentsComponent implements OnInit {
     }
 
     changeStatusRestart() {
+        if(!this.selectItems.length || !this.filtercontentsLists) {
+            return false;
+        }
         let newItemArray:any[] = [];
         let itemObject:any = {};
         this.selectItems.forEach((item) => {
@@ -182,6 +249,9 @@ export class ContentsComponent implements OnInit {
     }
 
     filterSearch() {
+        if(!this.searchKey || !this.filtercontentsLists) {
+            return false;
+        }
         this.filtercontentsLists = [];
         this.contentsLists.filter((item) => {
             if(this.searchKey && item.fo_nm && item.fo_nm.indexOf(this.searchKey) >= 0) {

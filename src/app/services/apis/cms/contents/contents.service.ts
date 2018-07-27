@@ -13,6 +13,13 @@ export class ContentsService {
     return this.http.get(listUrl);
   }
 
+  postData(url:string, data:any) {
+    let headers:Headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    return this.http.post(url, data, { headers: headers });
+  }
+
   updateData(url:string, newData:any[]) {
     let headers:Headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
