@@ -356,8 +356,8 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .btn:hover {background: #fbfbfb;}
 .btn:disabled {opacity: 0.5; cursor: auto;}
 .btn i {margin-top: 3px;}
-.btn.big-btn {width: 90%; height: 45px; border: 1px solid #ccc; box-sizing: border-box; font-size: 15px; color: #666; background: #fff;}
-.btn.big-btn:hover {background: #fbfbfb;}
+.big-btn {width: 90%; height: 45px; border: 1px solid #ccc; box-sizing: border-box; font-size: 15px; color: #666; background: #fff;}
+.big-btn:hover {background: #fbfbfb;}
 
 
 .white-btn {padding: 5px 10px; border: 1px solid #ccc; border-radius: 50px; background: rgba(255,255,255,1); color: #777;}
