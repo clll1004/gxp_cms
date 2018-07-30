@@ -19,7 +19,7 @@ export class CmsApis {
   public loadContentList = this.ip + 'cms/contents/list?page=1&row=10000&gf_seq=';
   public loadItemTranscodingList = this.ip + 'cms/contents/list/tcd/';
   public loadPreview = this.ip + 'cms/contents/preview/';
-  public restartContentsTranscoding = this.ip + 'cms/contents';
+  public updateContentsStatus = this.ip + 'cms/contents';
 
   /**** TRANSCODING ****/
   /* 변환 정보 */

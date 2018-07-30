@@ -38,6 +38,7 @@
 
                     <label for="file-key"></label><input type="text" id="file-key" [(ngModel)]="searchKey" pInputText placeholder="파일명 입력" autocomplete="off">
                     <button type="button" class="btn" (click)="filterSearch()"><i class="fas fa-search"></i> 검색</button>
+                    <button type="button" class="btn" (click)="resetFilter()" [disabled]="!filterStatus"><i class="fas fa-history"></i> 초기화</button>
 
                     <!--<div class="vbtn-sec dp-inb">-->
                     <!--<button class="vbtn f-left list-mode on"><i class="fas fa-bars"></i> <span class="blind">리스트 스타일 보기</span></button>-->

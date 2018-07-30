@@ -25,6 +25,7 @@ export class ContentsComponent implements OnInit {
     public filtercontentsLists: any[] = [];
     public selectItems:any[] = [];
     public searchKey: string = '';
+    public filterStatus: boolean = false;
 
     public showInfos: boolean = false;
     public transcodingStatus: any[] = [];
@@ -239,7 +240,7 @@ export class ContentsComponent implements OnInit {
             newItemArray.push(itemObject);
         });
 
-        return this.contentsService.updateData(this.cmsApis.restartContentsTranscoding, newItemArray)
+        return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
           .toPromise()
           .then(() => {alert('변환이 재시작됩니다.');})
           .catch((error:any) => {
@@ -247,19 +248,43 @@ export class ContentsComponent implements OnInit {
           });
     }
     changeStatusDelete() {
-        console.log(this.selectItems);
+        if(!this.selectItems.length || !this.filtercontentsLists) {
+            return false;
+        }
+        let newItemArray:any[] = [];
+        let itemObject:any = {};
+        this.selectItems.forEach((item) => {
+            itemObject = {};
+            itemObject.fo_seq = item.fo_seq;
+            newItemArray.push(itemObject);
+        });
+
+        return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
+          .toPromise()
+          .then(() => {
+              alert('파일이 삭제되었습니다.');
+              this.loadContent(this.selectGroup['gf_seq']);
+            })
+          .catch((error:any) => {
+            console.log(error);
+          });
     }
 
     filterSearch() {
         if(!this.searchKey || !this.filtercontentsLists) {
             return false;
         }
+        this.filterStatus = true;
         this.filtercontentsLists = [];
         this.contentsLists.filter((item) => {
             if(this.searchKey && item.fo_nm && item.fo_nm.indexOf(this.searchKey) >= 0) {
                 this.filtercontentsLists.push(item);
             }
         });
+    }
+    resetFilter() {
+        this.filterStatus = false;
+        this.filtercontentsLists = this.contentsLists;
     }
 
     showPreview(item:any) {
@@ -300,7 +325,7 @@ export class ContentsComponent implements OnInit {
     changeStatusRestartItem() {
         let newItemArray:any[] = [{'fo_seq': this.originFileInfo['fo_seq']}];
 
-        return this.contentsService.updateData(this.cmsApis.restartContentsTranscoding, newItemArray)
+        return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
           .toPromise()
           .then(() => {alert('변환이 재시작 됩니다.');})
           .catch((error:any) => {
@@ -308,7 +333,17 @@ export class ContentsComponent implements OnInit {
           });
     }
     changeStatusDeleteItem() {
-        console.log(this.originFileInfo);
+        let newItemArray:any[] = [{'fo_seq': this.originFileInfo['fo_seq']}];
+
+        return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
+          .toPromise()
+          .then(() => {
+             alert('파일이 삭제됩니다.');
+             this.loadContent(this.selectGroup['gf_seq']);
+          })
+          .catch((error:any) => {
+              console.log(error);
+          });
     }
 
     /*다이얼로그*/
