@@ -27,7 +27,7 @@ export class CmsApis {
   public loadStandbyList = this.ip + 'cms/transcoding/list?page=1&row=1000&ft_status=U&grp_seq=';
   public loadRequestList = this.ip + 'cms/transcoding/list?page=1&row=1000&ft_status=TR&grp_seq=';
   public loadProgressList = this.ip + 'cms/transcoding/list?page=1&row=1000&ft_status=TT&grp_seq=';
-  public loadCompleteList = this.ip + 'cms/transcoding/list?page=1&row=1000&ft_status=TS&grp_seq=';
+  public loadCompleteList = this.ip + 'cms/transcoding/list?page=1&row=1000&ft_status=SS&grp_seq=';
   public loadFailList = this.ip + 'cms/transcoding/list?page=1&row=1000&ft_status=TF&grp_seq=';
   public restartTranscoding = this.ip + 'cms/transcoding';
 
