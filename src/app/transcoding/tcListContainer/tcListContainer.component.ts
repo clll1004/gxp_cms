@@ -165,7 +165,22 @@ export class TcListContainerComponent implements OnInit {
     }
   }
   refresh() {
-    window.location.reload();
+    this.transcodingService.getLists(this.url)
+      .toPromise()
+      .then((cont:any) => {
+        if(cont.status !== 0) {
+          this.tcMonitoringLists = JSON.parse(cont['_body']);
+          this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
+
+          if(this.filterTcMonitoringLists) {
+            this.gettotalListLength = this.filterTcMonitoringLists.length;
+            this.setTableIndex();
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   changeStatus() {
