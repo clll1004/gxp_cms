@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Http, Headers } from '@angular/http';
-import { Md5 } from "ts-md5/dist/md5";
 
 @Injectable()
 export class LoginService {
-    constructor(private http: Http, private router: Router) {}
+    constructor(private http: Http, private router: Router) { }
 
     getLoginStatus () {
         return !!this.getCookie('userInfo');
@@ -16,15 +15,18 @@ export class LoginService {
         const data:any = {};
         data.usr_id = id;
         data.usr_pw = password;
-        // data.usr_pw = Md5.hashStr(password);
 
+        this.requestLogin(data);
+    }
+
+    requestLogin(data:object) {
         let headers:Headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-        return this.http.post('http://183.110.11.49/cms/login', data, { headers: headers })
+        this.http.post('http://183.110.11.49/cms/login', data, { headers: headers })
           .toPromise()
           .then((data) => {
-              const cookieData = id + "/" + password ;
+              const cookieData = data['usr_id'] + "/" + data['usr_pw'] ;
               this.setCookie("userInfo", cookieData, 7, true);
               this.setCookie("usr_seq", JSON.parse(data['_body']).usr_seq, 1);
               this.setCookie("grp_seq", JSON.parse(data['_body']).grp_seq, 1);
