@@ -153,7 +153,17 @@ export class ContentsComponent implements OnInit {
         const inputFolderName:string = this.folderform.value['gf_nm'];
         if(!!inputFolderName) {
             this.showFolderNameDupMsg = true;
-            const url = this.cmsApis.checkDupFolderName + "gf_grp_seq=" + this.selectGroup['gf_grp_seq'] + "&gf_level=" + String(Number(this.selectGroup['gf_level']) + 1) + "&gf_nm=" + inputFolderName;
+            let gf_grp_seq: string = '';
+            let gf_prnt_seq: string = '';
+            if(this.selectGroup['gf_prnt_seq']) {
+                gf_grp_seq = this.selectGroup['gf_grp_seq'];
+                gf_prnt_seq = this.selectGroup['gf_seq'];
+            } else {
+                gf_grp_seq = this.selectGroup['grp_seq'];
+                gf_prnt_seq = '0';
+            }
+            const url = this.cmsApis.checkDupFolderName + "gf_grp_seq=" + gf_grp_seq + "&gf_prnt_seq=" + gf_prnt_seq + "&gf_nm=" + inputFolderName;
+
             this.contentsService.getLists(url)
               .toPromise()
               .then((res) => {
