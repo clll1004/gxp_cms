@@ -12,16 +12,11 @@ import '../assets/css/styles.css';
     providers: [ LoginService ]
 })
 
-@HostListener('window:onbeforeunload', ['$event'])
-
 export class AppComponent implements OnInit {
     public data: any;
     public isShow: boolean = false;
 
-    constructor(private router: Router, private loginService: LoginService) {
-        this.onBeforeUnload();
-    }
-
+    constructor(private router: Router, private loginService: LoginService) { }
     ngOnInit() {
         this.load();
         this.loginService.checkUserInfo();
@@ -40,10 +35,6 @@ export class AppComponent implements OnInit {
         });
     }
 
-    onBeforeUnload() {
-        this.loginService.deleteCookie('userInfo');
-        this.loginService.deleteCookie('usr_seq');
-        this.loginService.deleteCookie('grp_seq');
-    }
+
 }
 

@@ -18,7 +18,7 @@ export class PreviewThumbnailComponent implements OnInit {
         if(this.originFileInfo['fo_thumb_path'] !== '0') {
             this.pvImg.src = 'http://' + this.originFileInfo['fo_thumb_path'];
         } else {
-            this.pvImg.src = 'http://183.110.11.128/src/ci_gomc.jpg';
+            this.pvImg.src = 'http://str.gomgxp.com/src/ci_gomc.jpg';
         }
     }
 }
