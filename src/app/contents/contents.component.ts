@@ -358,7 +358,7 @@ export class ContentsComponent implements OnInit {
 
     /*다이얼로그*/
     isModalDisplay: boolean = false;
-    fileUploadDisplay(item:any) {
+    fileUploadDisplay() {
         this.isModalDisplay = true;
     }
 }

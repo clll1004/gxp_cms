@@ -26,7 +26,7 @@ import { TreeModule } from 'primeng/tree';
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { ContentsComponent } from "./contents/contents.component";
-import { FileUploadComponent } from "./fileUpload/fileUpload.component";
+// import { FileUploadEdtComponennt } from "./fileUpload/fileUpload.component";
 import { TranscodingComponent } from "./transcoding/transcoding.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { FooterComponent } from "./footer/footer.component";
@@ -41,15 +41,15 @@ import { PreviewThumbnailComponent } from "./contents/components/preview-thumbna
 import { PreviewStatusComponent } from "./contents/components/preview-status/preview-status.component";
 import { PreviewFInfoComponent } from "./contents/components/preview-fInfo/preview-fInfo.component";
 /*FILE UPLOAD*/
-import { UpStdComponent } from "./fileUpload/components/up-std/up-std.component";
-import { FileUploadEdtComponent } from "./fileUpload/components/fileUpload-edt/fileUpload-edt.component";
-import { EdtPreviewWrapComponent } from "./fileUpload/components/fileUpload-edt/components/edt-preview-wrap/edt-preview-wrap.component";
-import { LogoWrapComponent } from "./fileUpload/components/fileUpload-edt/components/logo-wrap/logo-wrap.component";
-import { WtmkWrapComponent } from "./fileUpload/components/fileUpload-edt/components/wtmk-wrap/wtmk-wrap.component";
-import { EventWrapComponent } from "./fileUpload/components/fileUpload-edt/components/event-wrap/event-wrap.component";
-import { EventComponent } from "./fileUpload/components/fileUpload-edt/components/event/event.component";
-import { SelectSectionComponent } from "./fileUpload/components/fileUpload-edt/components/select-section/select-section.component";
-import { SelectSectionWrapComponent } from "./fileUpload/components/fileUpload-edt/components/select-section-wrap/select-section-wrap.component";
+// import { UpStdComponent } from "./fileUpload/components/up-std/up-std.component";
+// import { FileUploadEdtComponent } from "./fileUpload/components/fileUpload-edt/fileUpload-edt.component";
+// import { EdtPreviewWrapComponent } from "./fileUpload/components/fileUpload-edt/components/edt-preview-wrap/edt-preview-wrap.component";
+// import { LogoWrapComponent } from "./fileUpload/components/fileUpload-edt/components/logo-wrap/logo-wrap.component";
+// import { WtmkWrapComponent } from "./fileUpload/components/fileUpload-edt/components/wtmk-wrap/wtmk-wrap.component";
+// import { EventWrapComponent } from "./fileUpload/components/fileUpload-edt/components/event-wrap/event-wrap.component";
+// import { EventComponent } from "./fileUpload/components/fileUpload-edt/components/event/event.component";
+// import { SelectSectionComponent } from "./fileUpload/components/fileUpload-edt/components/select-section/select-section.component";
+// import { SelectSectionWrapComponent } from "./fileUpload/components/fileUpload-edt/components/select-section-wrap/select-section-wrap.component";
 /*transcoding*/
 import { TcListContainerComponent} from "./transcoding/tcListContainer/tcListContainer.component";
 /*SETTINGS*/
@@ -92,7 +92,7 @@ import { AppRoutingModule } from "./app-routing.module";
         HeaderComponent,
         HomeComponent,
         ContentsComponent,
-        FileUploadComponent,
+        // FileUploadComponent,
         SettingsComponent,
         TranscodingComponent,
         FooterComponent,
@@ -106,15 +106,15 @@ import { AppRoutingModule } from "./app-routing.module";
         PreviewStatusComponent,
         PreviewFInfoComponent,
 
-        UpStdComponent,
-        FileUploadEdtComponent,
-        EdtPreviewWrapComponent,
-        LogoWrapComponent,
-        WtmkWrapComponent,
-        EventWrapComponent,
-        EventComponent,
-        SelectSectionWrapComponent,
-        SelectSectionComponent,
+        // UpStdComponent,
+        // FileUploadEdtComponent,
+        // EdtPreviewWrapComponent,
+        // LogoWrapComponent,
+        // WtmkWrapComponent,
+        // EventWrapComponent,
+        // EventComponent,
+        // SelectSectionWrapComponent,
+        // SelectSectionComponent,
 
         TcListContainerComponent,
 

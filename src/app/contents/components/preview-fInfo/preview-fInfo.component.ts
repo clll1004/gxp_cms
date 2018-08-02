@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['../../contents.component.css']
 })
 export class PreviewFInfoComponent implements OnInit {
-    @Input() originFileInfo:object;
+    @Input() originFileInfo:any;
     @Input() groupName:string;
     @Input() folderName:string;
 

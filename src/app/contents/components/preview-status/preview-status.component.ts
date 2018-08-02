@@ -14,7 +14,7 @@ export class PreviewStatusComponent implements OnInit {
     @Input() folderName:string;
     @Input() isShowDialogBtn:boolean;
 
-    public transcodingItemInfo: any[] = [];
+    public transcodingItemInfo: any = {};
     public pvVideo:any;
 
     constructor(private contentsService: ContentsService, private cmsApis: CmsApis) { }

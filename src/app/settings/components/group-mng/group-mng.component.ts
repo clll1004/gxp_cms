@@ -8,7 +8,7 @@ import { Http, Headers } from "@angular/http";
 })
 
 export class GroupMngComponent implements OnInit {
-    @Input() groupData: any[];
+    @Input() groupData: any = {};
     @Input() transOptions: any[] = [];
 
     public fileSuffix:any;
