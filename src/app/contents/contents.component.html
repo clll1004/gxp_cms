@@ -118,7 +118,7 @@
 
 <p-dialog header="파일업로드" [(visible)]="isModalDisplay" [width]="900" [modal]="true">
     <div class="ui-g-12 ui-g-nopad margin-top-50 margin-bottom-50">
-        <p-fileUpload name="files[]" multiple="multiple" customUpload="true" (uploadHandler)="fileUplod($event)"></p-fileUpload>
+        <p-fileUpload name="files[]" multiple="multiple" customUpload="true" #form (uploadHandler)="fileUplod($event, form)"></p-fileUpload>
     </div>
 
     <p-footer>

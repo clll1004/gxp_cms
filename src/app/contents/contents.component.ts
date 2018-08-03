@@ -431,6 +431,7 @@ export class ContentsComponent implements OnInit {
 
     /*다이얼로그*/
     public isModalDisplay: boolean = false;
+    public isButtonsDisable: boolean = false;
     /*파일 업로드 다이얼로그*/
     public cid: string = '';
     public gid: string = '';
@@ -443,7 +444,8 @@ export class ContentsComponent implements OnInit {
         this.isModalDisplay = true;
     }
 
-    fileUplod(event: any) {
+    fileUplod(event: any, form:any) {
+        this.isButtonsDisable = true;
         this.groupList.forEach((item) => {
             if (this.selectGroup['gf_grp_seq'] === item['grp_seq']) {
                 this.gid = item['grp_nm'];
@@ -461,8 +463,16 @@ export class ContentsComponent implements OnInit {
             formData.append('file', files[i]);
         }
 
-        this.contentsService.uploadFile(this.ownpath, this.pathString, this.authKey, formData);
-
+        this.contentsService.uploadFile(this.ownpath, this.pathString, this.authKey, formData)
+          .toPromise()
+          .then(() => {
+             alert('파일 업로드가 완료되었습니다');
+             form.clear();
+             this.isModalDisplay = false;
+          })
+          .catch((err) => {
+              console.log(err);
+          })
 
     }
 }

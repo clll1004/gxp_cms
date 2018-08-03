@@ -44,11 +44,6 @@ export class ContentsService {
 
     let options = new RequestOptions({headers: headers});
 
-    this.http.post('http://stg.gomgxp.com/gxp/upload', formData, options)//'http://stg.gomgxp.com/gxp/upload'
-      .toPromise()
-      .then(() => {})
-      .catch((err) => {
-        console.log(err);
-      })
+    return this.http.post('http://stg.gomgxp.com/gxp/upload', formData, options);//'http://stg.gomgxp.com/gxp/upload'
   }
 }
