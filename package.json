@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "GXP-CMS for GOMPlayer",
   "scripts": {
-    "dev": "rimraf dist && webpack -w --config webpack.config.js --env.development --progress --profile --bail",
-    "build": "rimraf dist && webpack --config webpack.config.js --env.production --progress --profile --bail",
+    "dev": "webpack -w --config webpack.config.js --env.development --progress --profile --bail",
+    "build": "webpack --config webpack.config.js --env.production --progress --profile --bail",
     "server": "webpack-dashboard -- webpack-dev-server --config webpack.config.js --env.development --content-base ./dist"
   },
   "license": "MIT",

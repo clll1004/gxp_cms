@@ -1,6 +1,7 @@
 <div class="ui-g-2 ui-g-nopad">
     <div class="btn-sec txt-center margin-top-30 margin-bottom-30">
-        <button class="btn big-btn" (click)="fileUploadDisplay()"><i class="fas fa-upload margin-right-5"></i> 파일 업로드</button>
+        <button class="btn big-btn" (click)="fileUploadDisplay()" [disabled]="!selectGroup || selectGroup['grp_seq']"><i class="fas fa-upload margin-right-5"></i> 파일 업로드</button>
+
         <!--<a routerLink="/fileUpload/up-std"></a>-->
     </div>
 
@@ -89,7 +90,10 @@
             <ul class="ui-g-12 ui-g-nopad margin-bottom-25">
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-search"></i> 썸네일 미리보기</h3>
-                    <preview-thumbnail class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" *ngIf="showInfos"></preview-thumbnail>
+                    <!--<preview-thumbnail class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" *ngIf="showInfos"></preview-thumbnail>-->
+                    <div class="ui-g-12 ui-g-nopad" id="thumbArea" [ngStyle]="{'display': showInfos === true ? 'block' : 'none'}">
+                        <img src="" id="pvThumbnail" alt="썸네일 이미지" title="썸네일 이미지" class="ui-g-12 ui-g-nopad padding-top-10 padding-bottom-10" />
+                    </div>
                     <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfos">데이터가 없습니다.</div>
                 </li>
                 <li>
@@ -114,7 +118,7 @@
 
 <p-dialog header="파일업로드" [(visible)]="isModalDisplay" [width]="900" [modal]="true">
     <div class="ui-g-12 ui-g-nopad margin-top-50 margin-bottom-50">
-        <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="video/*"></p-fileUpload>
+        <p-fileUpload name="files[]" multiple="multiple" customUpload="true" (uploadHandler)="fileUplod($event)"></p-fileUpload>
     </div>
 
     <p-footer>

@@ -2,8 +2,7 @@
  * Created by GRE511 on 2018-07-26.
  */
 import { Injectable } from '@angular/core';
-import {Http, Headers, RequestOptions} from '@angular/http';
-
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
 export class ContentsService {
@@ -35,5 +34,21 @@ export class ContentsService {
       headers: headers,
       body: data
     }));
+  }
+
+  uploadFile(ownpath, pathString, authKey, formData:FormData) {
+    let headers = new Headers();
+    headers.append('authKey', authKey);
+    headers.append('ownpath', ownpath);
+    headers.append('lastpath', pathString);
+
+    let options = new RequestOptions({headers: headers});
+
+    this.http.post('http://stg.gomgxp.com/gxp/upload', formData, options)//'http://stg.gomgxp.com/gxp/upload'
+      .toPromise()
+      .then(() => {})
+      .catch((err) => {
+        console.log(err);
+      })
   }
 }
