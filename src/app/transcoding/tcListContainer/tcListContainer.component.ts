@@ -131,11 +131,11 @@ export class TcListContainerComponent implements OnInit {
   }
   loadGroupList() {
     this.selectedGroupOptions = [];
-    let list;
+    this.selectedGroupOptions.push({label: '전체 그룹', value: 'allGroup'});
     this.transcodingService.getLists(this.cmsApis.loadTranscodingGroupNames + this.groupSeq)
       .toPromise()
       .then((cont) => {
-        list = JSON.parse(cont['_body']);
+        let list = JSON.parse(cont['_body']);
         list.forEach((item:any) => {
           item.label = item.grp_nm;
           item.value = item.grp_nm;
@@ -154,11 +154,13 @@ export class TcListContainerComponent implements OnInit {
     }
     this.filterTcMonitoringLists = [];
     this.tcMonitoringLists['list'].filter((item:any) => {
-      if (!this.searchKey && item.grp_nm && (item.grp_nm === this.selectedGroup)) {
+      if (this.selectedGroup === 'allGroup' && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
         this.filterTcMonitoringLists.push(item);
-      } else if (!this.selectedGroup && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
+      } else if (this.selectedGroup === 'allGroup' && !this.searchKey) {
         this.filterTcMonitoringLists.push(item);
-      } else if(item.grp_nm && (item.grp_nm === this.selectedGroup) && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
+      } else if (item.grp_nm && (item.grp_nm === this.selectedGroup) && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
+        this.filterTcMonitoringLists.push(item);
+      } else if (item.grp_nm && (item.grp_nm === this.selectedGroup) && !this.searchKey) {
         this.filterTcMonitoringLists.push(item);
       }
     });
