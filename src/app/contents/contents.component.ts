@@ -484,9 +484,10 @@ export class ContentsComponent implements OnInit {
         this.contentsService.uploadFile(this.ownpath, this.pathString, this.authKey, formData)
           .toPromise()
           .then(() => {
-             alert('파일 업로드가 완료되었습니다');
+             alert('파일 업로드가 완료되었습니다. \n목록 반영까지 1~3분 소요됩니다.');
              form.clear();
              this.isModalDisplay = false;
+             this.loadContent(this.selectGroup['gf_seq']);
           })
           .catch((err) => {
               console.log(err);
