@@ -462,9 +462,6 @@ export class ContentsComponent implements OnInit {
     }
 
     fileUplod(event: any, form:any) {
-        this.pathArray = [];
-        this.pathString = '/';
-
         this.isButtonsDisable = true;
         this.groupList.forEach((item) => {
             if (this.selectGroup['gf_grp_seq'] === item['grp_seq']) {
@@ -472,6 +469,7 @@ export class ContentsComponent implements OnInit {
             }
         });
         this.ownpath = '/' + this.cid + '/' + this.gid + '/';
+        this.pathString = '/';
         this.pathArray.forEach((item) => {
             this.pathString += item + "/";
         });
@@ -493,6 +491,5 @@ export class ContentsComponent implements OnInit {
           .catch((err) => {
               console.log(err);
           })
-
     }
 }

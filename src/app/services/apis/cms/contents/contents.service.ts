@@ -43,7 +43,6 @@ export class ContentsService {
     headers.append('lastpath', pathString);
 
     let options = new RequestOptions({headers: headers});
-
     return this.http.post('http://stg.gomgxp.com/gxp/upload', formData, options);//'http://stg.gomgxp.com/gxp/upload'
   }
 }
