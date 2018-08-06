@@ -162,6 +162,8 @@ export class TcListContainerComponent implements OnInit {
         this.filterTcMonitoringLists.push(item);
       } else if (item.grp_nm && (item.grp_nm === this.selectedGroup) && !this.searchKey) {
         this.filterTcMonitoringLists.push(item);
+      } else if (!this.selectedGroup && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
+        this.filterTcMonitoringLists.push(item);
       }
     });
     if(this.filterTcMonitoringLists) {
