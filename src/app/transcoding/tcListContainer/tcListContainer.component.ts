@@ -103,23 +103,26 @@ export class TcListContainerComponent implements OnInit {
         this.url = this.cmsApis.loadFailList + this.groupSeq;
       }
 
-      this.transcodingService.getLists(this.url)
-        .toPromise()
-        .then((cont:any) => {
-          if(cont.status !== 0) {
-            this.tcMonitoringLists = JSON.parse(cont['_body']);
-            this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
-
-            if(this.filterTcMonitoringLists) {
-              this.gettotalListLength = this.filterTcMonitoringLists.length;
-              this.setTableIndex();
-            }
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.loadTranscodingList();
     });
+  }
+  loadTranscodingList() {
+    this.transcodingService.getLists(this.url)
+      .toPromise()
+      .then((cont:any) => {
+        if(cont.status !== 0) {
+          this.tcMonitoringLists = JSON.parse(cont['_body']);
+          this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
+
+          if(this.filterTcMonitoringLists) {
+            this.gettotalListLength = this.filterTcMonitoringLists.length;
+            this.setTableIndex();
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   load() {
@@ -184,29 +187,36 @@ export class TcListContainerComponent implements OnInit {
   }
 
   changeStatus() {
-    if(!this.selectItems.length) {
+    if(this.selectItems.length) {
+      let isChangeStatus = confirm('변환을 재시작 하시겠습니까?');
+      if(isChangeStatus) {
+        let newItemArray:any[] = [];
+        let itemObject:any = {};
+        this.selectItems.forEach((item) => {
+          itemObject = {};
+          itemObject.ft_seq = item.ft_seq;
+          itemObject.ft_status = item.ft_status;
+          newItemArray.push(itemObject);
+        });
+
+        this.transcodingService.updateData(this.cmsApis.restartTranscoding, newItemArray)
+          .toPromise()
+          .then(() => {
+            alert('변환이 재시작 됩니다.');
+            this.selectItems = [];
+            this.loadTranscodingList();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        if(this.filterTcMonitoringLists) {
+          this.gettotalListLength = this.filterTcMonitoringLists.length;
+          this.setTableIndex();
+        }
+      }
+    } else {
       return false;
-    }
-
-    let newItemArray:any[] = [];
-    let itemObject:any = {};
-    this.selectItems.forEach((item) => {
-      itemObject = {};
-      itemObject.ft_seq = item.ft_seq;
-      itemObject.ft_status = item.ft_status;
-      newItemArray.push(itemObject);
-    });
-
-    this.transcodingService.updateData(this.cmsApis.restartTranscoding, newItemArray)
-      .toPromise()
-      .then(() => { alert('변환이 재시작 됩니다.'); })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    if(this.filterTcMonitoringLists) {
-      this.gettotalListLength = this.filterTcMonitoringLists.length;
-      this.setTableIndex();
     }
   }
 
