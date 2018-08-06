@@ -35,14 +35,14 @@ export class TcListContainerComponent implements OnInit {
     {field: '', header: '', width: '5%'},
     {field: '', header: 'No', width: '5%'},
     {field: 'grp_nm', header: '그룹명', width: '25%'},
-    {field: 'ft_path', header: '파일 경로', width: '25%'},
+    {field: 'ft_path', header: '원본 경로', width: '25%'},
     {field: 'ft_reg_dtm', header: '등록일', width: '20%'}
   ];
   public tcRequestCols = [
     {field: '', header: '', width: '5%'},
     {field: '', header: 'No', width: '5%'},
     {field: 'grp_nm', header: '그룹명', width: '25%'},
-    {field: 'ft_path', header: '파일 경로', width: '25%'},
+    {field: 'ft_path', header: '원본 경로', width: '25%'},
     {field: 'ft_reg_dtm', header: '등록일', width: '20%'}
   ];
   public tcProgressCols = [
