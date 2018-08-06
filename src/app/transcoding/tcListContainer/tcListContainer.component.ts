@@ -20,7 +20,7 @@ export class TcListContainerComponent implements OnInit {
   public url: string = '';
   /*for dropdown*/
   public selectedGroupOptions: any[] = [];
-  public selectedGroup: any[];
+  public selectedGroup: string;
 
   /*for Table*/
   public gettotalListLength: number = 0;
@@ -154,9 +154,9 @@ export class TcListContainerComponent implements OnInit {
     }
     this.filterTcMonitoringLists = [];
     this.tcMonitoringLists['list'].filter((item:any) => {
-      if (this.selectedGroup['value'] === 'allGroup' && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
+      if (this.selectedGroup === 'allGroup' && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
         this.filterTcMonitoringLists.push(item);
-      } else if (this.selectedGroup['value'] === 'allGroup' && !this.searchKey) {
+      } else if (this.selectedGroup === 'allGroup' && !this.searchKey) {
         this.filterTcMonitoringLists.push(item);
       } else if (item.grp_nm && (item.grp_nm === this.selectedGroup) && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
         this.filterTcMonitoringLists.push(item);
