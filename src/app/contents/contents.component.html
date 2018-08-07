@@ -1,12 +1,10 @@
 <div class="ui-g-2 ui-g-nopad">
     <div class="btn-sec txt-center margin-top-30 margin-bottom-30">
         <button class="btn big-btn" (click)="fileUploadDisplay()" [disabled]="!selectGroup || selectGroup['grp_seq']"><i class="fas fa-upload margin-right-5"></i> 파일 업로드</button>
-
-        <!--<a routerLink="/fileUpload/up-std"></a>-->
     </div>
 
     <p class="group-list-title margin-bottom-10 padding-left-10"><i class="fas fa-users"></i> 그룹 리스트</p>
-    <p-tree [value]="groupList" selectionMode="single" [(selection)]="selectGroup" (onNodeSelect)="getFolderSeq()" class="ui-g-12 ui-g-nopad"></p-tree>
+    <p-tree [value]="groupList" selectionMode="single" [(selection)]="selectGroup" (onNodeSelect)="getFolderSeq()" class="ui-g-12 ui-g-nopad" [style]="{width: '100%'}"></p-tree>
 </div>
 <div class="ui-g-10 ui-g-nopad">
     <div class="ui-g-12 ui-g-nopad content-sec">
@@ -120,7 +118,6 @@
     <div class="ui-g-12 ui-g-nopad margin-top-50 margin-bottom-50">
         <p-fileUpload name="files[]" multiple="multiple" customUpload="true" #form (uploadHandler)="fileUplod($event, form)"></p-fileUpload>
     </div>
-
     <p-footer>
         <div class="txt-center">
             <button type="button" class="btn" (click)="isModalDisplay=false;" label="confirm"><i class="fas fa-times"></i> 닫기</button>
