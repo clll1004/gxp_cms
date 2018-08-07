@@ -398,7 +398,16 @@ export class ContentsComponent implements OnInit {
                 this.thumbPath +=  pathItem + '/';
             });
             this.thumbPath = this.thumbPath.substring(0, this.thumbPath.length-1);
-            this.pvImg.src = 'http://' + this.thumbPath;
+
+            this.contentsService.getLists('http://' + this.thumbPath)
+              .toPromise()
+              .then(() => {
+                  this.pvImg.src = 'http://' + this.thumbPath;
+              })
+              .catch(() => {
+                  this.pvImg.src = 'http://str.gomgxp.com/src/ci_gomc.jpg';
+              })
+
         } else if(this.thumbpathArray[1] === 'gxthm') {
             this.thumbpathArray.pop();
             this.thumbpathArray.push('thumb-1000-w600-h390.jpg');
@@ -408,7 +417,6 @@ export class ContentsComponent implements OnInit {
             this.thumbPath = this.thumbPath.substring(0, this.thumbPath.length-1);
             this.pvImg.src = 'http://' + this.thumbPath;
         }
-        console.log(this.pvImg.src);
 
     }
 
