@@ -153,7 +153,7 @@ export class ContentsComponent implements OnInit {
         return tempTreeArray;
     }
 
-    /*새폴더 추가*/
+    /*** 새폴더 추가 ***/
     addFolderTree() {
         this.showAddFolderForm = true;
         if (this.selectGroup['gf_grp_seq']) {
@@ -168,7 +168,7 @@ export class ContentsComponent implements OnInit {
             this.folderform.get('gf_level').setValue('1');
         }
     }
-
+    /*폴더명 중복확인*/
     confirmFolderName() {
         const inputFolderName: string = this.folderform.value['gf_nm'];
         if (!!inputFolderName) {
@@ -194,12 +194,11 @@ export class ContentsComponent implements OnInit {
               })
         }
     }
-
     initDupFolderName() {
         this.showFolderNameDupMsg = false;
         this.ableFolderName = false;
     }
-
+    /*폴더 생성*/
     onSubmit(formObject: any) {
         this.contentsService.postData(this.cmsApis.postFolder, formObject)
           .toPromise()
@@ -215,7 +214,6 @@ export class ContentsComponent implements OnInit {
     getGroupSeq() {
         this.groupSeq = this.loginService.getCookie('grp_seq');
     }
-
     getFolderSeq() {
         this.originFileInfo = [];
         this.showInfos = false;
@@ -224,7 +222,6 @@ export class ContentsComponent implements OnInit {
         this.folderName = this.selectGroup['gf_nm'];
         this.pathArray = this.getPath(this.selectGroup);
     }
-
     getPath(data:TreeNode) {
         let path: any[] = [];
         const pathfn = (data: TreeNode) => {
@@ -236,7 +233,6 @@ export class ContentsComponent implements OnInit {
         pathfn(data);
         return path.reverse();
     }
-
     getGroupName(item: string): any {
         this.groupList.forEach((item2) => {
             if (item2['grp_seq'] === item) {
@@ -244,7 +240,6 @@ export class ContentsComponent implements OnInit {
             }
         })
     }
-
     loadContent(folderSeq: string) {
         this.showAddFolderForm = false;
         this.showFolderNameDupMsg = false;
@@ -276,61 +271,6 @@ export class ContentsComponent implements OnInit {
           });
     }
 
-    changeStatusRestart() {
-        if (this.selectItems.length && this.filtercontentsLists) {
-            let isChangeStatus = confirm('변환을 재시작 하시겠습니까?');
-            if(isChangeStatus) {
-                let newItemArray: any[] = [];
-                let itemObject: any = {};
-                this.selectItems.forEach((item) => {
-                    itemObject = {};
-                    itemObject.fo_seq = item.fo_seq;
-                    newItemArray.push(itemObject);
-                });
-
-                return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
-                  .toPromise()
-                  .then(() => {
-                      alert('변환이 재시작됩니다.');
-                      this.selectItems = [];
-                      this.loadContent(this.selectGroup['gf_seq']);
-                  })
-                  .catch((error: any) => {
-                      console.log(error);
-                  });
-            }
-        } else {
-            return false;
-        }
-    }
-
-    changeStatusDelete() {
-        if (this.selectItems.length && this.filtercontentsLists) {
-            let isChangeStatus = confirm('삭제하시겠습니까?');
-            if (isChangeStatus) {
-                let newItemArray: any[] = [];
-                let itemObject: any = {};
-                this.selectItems.forEach((item) => {
-                    itemObject = {};
-                    itemObject.fo_seq = item.fo_seq;
-                    newItemArray.push(itemObject);
-                });
-
-                return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
-                  .toPromise()
-                  .then(() => {
-                      alert('파일이 삭제되었습니다.');
-                      this.loadContent(this.selectGroup['gf_seq']);
-                  })
-                  .catch((error: any) => {
-                      console.log(error);
-                  });
-            }
-        } else {
-            return false;
-        }
-    }
-
     filterSearch() {
         if (!this.searchKey || !this.filtercontentsLists) {
             return false;
@@ -343,7 +283,6 @@ export class ContentsComponent implements OnInit {
             }
         });
     }
-
     resetFilter() {
         this.filterStatus = false;
         this.filtercontentsLists = this.contentsLists;
@@ -420,6 +359,59 @@ export class ContentsComponent implements OnInit {
 
     }
 
+    changeStatusRestart() {
+        if (this.selectItems.length && this.filtercontentsLists) {
+            let isChangeStatus = confirm('변환을 재시작 하시겠습니까?');
+            if(isChangeStatus) {
+                let newItemArray: any[] = [];
+                let itemObject: any = {};
+                this.selectItems.forEach((item) => {
+                    itemObject = {};
+                    itemObject.fo_seq = item.fo_seq;
+                    newItemArray.push(itemObject);
+                });
+
+                return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
+                  .toPromise()
+                  .then(() => {
+                      alert('변환이 재시작됩니다.');
+                      this.selectItems = [];
+                      this.loadContent(this.selectGroup['gf_seq']);
+                  })
+                  .catch((error: any) => {
+                      console.log(error);
+                  });
+            }
+        } else {
+            return false;
+        }
+    }
+    changeStatusDelete() {
+        if (this.selectItems.length && this.filtercontentsLists) {
+            let isChangeStatus = confirm('삭제하시겠습니까?');
+            if (isChangeStatus) {
+                let newItemArray: any[] = [];
+                let itemObject: any = {};
+                this.selectItems.forEach((item) => {
+                    itemObject = {};
+                    itemObject.fo_seq = item.fo_seq;
+                    newItemArray.push(itemObject);
+                });
+
+                return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
+                  .toPromise()
+                  .then(() => {
+                      alert('파일이 삭제되었습니다.');
+                      this.loadContent(this.selectGroup['gf_seq']);
+                  })
+                  .catch((error: any) => {
+                      console.log(error);
+                  });
+            }
+        } else {
+            return false;
+        }
+    }
     changeStatusRestartItem() {
         let isChangeStatus = confirm('변환을 재시작 하시겠습니까?');
         if(isChangeStatus) {
@@ -436,7 +428,6 @@ export class ContentsComponent implements OnInit {
               });
         }
     }
-
     changeStatusDeleteItem() {
         let isChangeStatus = confirm('삭제하시겠습니까?');
         if(isChangeStatus) {
@@ -456,7 +447,7 @@ export class ContentsComponent implements OnInit {
 
     /*다이얼로그*/
     public isModalDisplay: boolean = false;
-    public isButtonsDisable: boolean = false;
+    public isConfirmMessage: boolean = false;
     /*파일 업로드 다이얼로그*/
     public cid: string = '';
     public gid: string = '';
@@ -464,13 +455,15 @@ export class ContentsComponent implements OnInit {
     public pathArray: any[] = [];
     public pathString: string = '/';
     public authKey: string = '5C8F8FD268A6D8FD2D38C5140D533D2A4F85D362F43BFEA69B5E593024CC7B88';
+    public uploadFiles: any[] = [];
+    public isUploading:boolean = false;
+    public progressPercent:number = 0;
 
     fileUploadDisplay() {
         this.isModalDisplay = true;
     }
-
     fileUplod(event: any, form:any) {
-        this.isButtonsDisable = true;
+        /*setting for Header*/
         this.groupList.forEach((item) => {
             if (this.selectGroup['gf_grp_seq'] === item['grp_seq']) {
                 this.gid = item['grp_nm'];
@@ -482,23 +475,44 @@ export class ContentsComponent implements OnInit {
             this.pathString += item + "/";
         });
 
-        let files: FileList = event.files;
+        /*setting for Data*/
+        this.uploadFiles = event.files;
         let formData: FormData = new FormData();
-
-        for (let i = 0; i < files.length; i++) {
-            formData.append('file', files[i]);
+        for (let i = 0; i < this.uploadFiles.length; i++) {
+            formData.append('file', this.uploadFiles[i]);
         }
 
+        /*setting for loading status*/
+        this.progressPercent = 0;
+        this.isUploading = true;
+        let loadingInterval = setInterval(() => {
+            if(this.progressPercent < 50) {
+                this.progressPercent += Math.floor(Math.random() * ((10-5)+1) + 5); // 5-10 랜덤
+            }
+        }, 500);
+
+        /*post Data*/
         this.contentsService.uploadFile(this.ownpath, this.pathString, this.authKey, formData)
           .toPromise()
           .then(() => {
-             alert('파일 업로드가 완료되었습니다. \n목록 반영까지 1~3분 소요됩니다.');
-             form.clear();
-             this.isModalDisplay = false;
-             this.loadContent(this.selectGroup['gf_seq']);
+              clearInterval(loadingInterval);
+              this.progressPercent = 100;
+
+              /*if loading value = 100 */
+              form.clear();
+              this.isConfirmMessage = true;
+              this.loadContent(this.selectGroup['gf_seq']);
           })
           .catch((err) => {
               console.log(err);
           })
+    }
+
+    setDialog() {
+        let test = document.getElementById('uploadDailog-container');
+        test.children[0].children[0].children[1].setAttribute("style", "height: 250px; overflow-y: scroll;");
+    }
+    closeDialog() {
+        this.uploadFiles = [];
     }
 }

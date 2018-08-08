@@ -20,8 +20,8 @@
     </p-table>
 </div>
 
-<p-dialog header="변환콘텐츠 미리보기" [(visible)]="display" [width]="650" [modal]="true">
-    <p-panel header="미리보기" [toggleable]="true">
+<p-dialog header="변환콘텐츠 미리보기" [(visible)]="display" [width]="650" [modal]="true" [style]="{'max-height':'800px', 'overflow-y': 'scroll'}">
+    <p-panel header="미리보기" [toggleable]="true" >
         <video id="previewVideo" width="100%" controls="" src="http://183.110.11.128/src/video.mp4"></video>
     </p-panel>
     <p-panel header="변환파일 정보" [toggleable]="true" class="panel-css">

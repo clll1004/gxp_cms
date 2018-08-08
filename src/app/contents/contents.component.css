@@ -49,3 +49,33 @@ td.emptyMessage {
 .req {color: #f52727;}
 .pass {color: #2399e5;}
 .info-txt {font-size: 13px;}
+
+.uploadDailog-container {
+  position: relative;
+}
+.progress-group {
+  position: absolute;
+  top: 46px;
+  width: 850px; height: 296px;
+  background: rgba(0,0,0,.4);
+}
+.progress-group p.info-txt {
+  position: absolute;
+  top: 115px; left: 30px;
+  color: #fff;
+}
+.progress-group .progress-bar {
+  position: absolute;
+  top: 145px; left: 30px;
+  width: 790px; height: 15px;
+  overflow: hidden;
+  background: rgba(255,255,255,.5);
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 10px;
+}
+.progress-group .progress-bar .progress {
+  width: 0; height: 100%;
+  background: #1f89ce;
+  opacity: .7;
+  transition-duration: 1s;
+}
