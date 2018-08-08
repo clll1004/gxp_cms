@@ -241,6 +241,7 @@ export class ContentsComponent implements OnInit {
         })
     }
     loadContent(folderSeq: string) {
+        this.selectItems = [];
         this.showAddFolderForm = false;
         this.showFolderNameDupMsg = false;
         this.ableFolderName = false;
