@@ -148,15 +148,15 @@
         </div>
     </p-footer>
 </p-dialog>
-<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" (onHide)="isUploading = false" [showHeader]="false">
+<p-dialog [(visible)]="isShowUploadMessage" [width]="400" [modal]="true" (onHide)="isUploading = false" [showHeader]="false">
     <p class="txt-center margin-top-15 margin-bottom-20">파일 업로드가 완료되었습니다. <br>목록 반영까지 1~3분 소요됩니다.</p>
     <div class="txt-center">
-        <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+        <button type="button" class="btn" (click)="isShowUploadMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
     </div>
 </p-dialog>
-<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">
+<p-dialog [(visible)]="isShowFolderMessage" [width]="400" [modal]="true" [showHeader]="false">
     <p class="txt-center margin-top-15 margin-bottom-30"> 폴더 추가는 8개까지 하실 수 있습니다.</p>
     <div class="txt-center">
-        <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+        <button type="button" class="btn" (click)="isShowFolderMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
     </div>
 </p-dialog>

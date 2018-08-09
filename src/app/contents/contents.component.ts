@@ -42,6 +42,7 @@ export class ContentsComponent implements OnInit {
     public transcodingStatus: any[] = [];
     public originFileInfo: any[] = [];
 
+    public isShowFolderMessage: boolean = false;
     public showAddFolderForm: boolean = false;
     public folderform: FormGroup;
     public ableFolderName: boolean = false;
@@ -57,7 +58,7 @@ export class ContentsComponent implements OnInit {
 
     /*다이얼로그*/
     public isModalDisplay: boolean = false;
-    public isShowMessage: boolean = false;
+    public isShowUploadMessage: boolean = false;
     /*파일 업로드 세팅*/
     public cid: string = '';
     public gid: string = '';
@@ -314,7 +315,7 @@ export class ContentsComponent implements OnInit {
 
     showFolderForm() {
         if(Number(this.selectGroup['gf_level']) >= 8) {
-            this.isShowMessage = true;
+            this.isShowFolderMessage = true;
         } else {
             this.showAddFolderForm = true;
             if (this.selectGroup['gf_grp_seq']) { // 폴더인 경우
@@ -450,7 +451,7 @@ export class ContentsComponent implements OnInit {
           .toPromise()
           .then(() => {
               this.progressPercent = 100;
-              this.isShowMessage = true;
+              this.isShowUploadMessage = true;
               this.loadContent(this.selectGroup['gf_seq']);
               form.clear();
           })
