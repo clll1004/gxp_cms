@@ -3,15 +3,16 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { CmsApis } from '../../services/apis/apis';
 import { LoginService } from "../../login/login.service";
 import { TranscodingService } from '../../services/apis/cms/transcoding/transcoding.service';
-import { CmsApis } from '../../services/apis/apis';
+import { ConfirmationService } from 'primeng/components/common/api';
 
 @Component({
   selector: 'tcListContainer',
   templateUrl: './tcListContainer.component.html',
   styleUrls: ['../transcoding.component.css'],
-  providers: [ TranscodingService, CmsApis ]
+  providers: [ TranscodingService, CmsApis, ConfirmationService ]
 })
 export class TcListContainerComponent implements OnInit {
   @Input() params: object;
@@ -20,7 +21,7 @@ export class TcListContainerComponent implements OnInit {
   public url: string = '';
   /*for dropdown*/
   public selectedGroupOptions: any[] = [];
-  public selectedGroup: string;
+  public selectedGroup: string ='';
 
   /*for Table*/
   public gettotalListLength: number = 0;
@@ -81,57 +82,39 @@ export class TcListContainerComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private loginService: LoginService,
               private transcodingService: TranscodingService,
-              private cmsApis: CmsApis) { }
-  ngOnInit() {
-    this.load();
+              private cmsApis: CmsApis,
+              private confirmationService: ConfirmationService) { }
 
+  public urlList: object = {
+    'tcStandByMT': this.cmsApis.loadStandbyList,
+    'tcRequestMT': this.cmsApis.loadRequestList,
+    'tcProgressMT': this.cmsApis.loadProgressList,
+    'tcCompleteMT': this.cmsApis.loadCompleteList,
+    'tcFailMT': this.cmsApis.loadFailList
+  };
+
+
+  ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
-      this.selectItems = [];
-      this.gettotalListLength = 0;
-
-      this.tcMonitoringLists = [];
-      if (this.params['id'] === 'tcStandByMT') {
-        this.url = this.cmsApis.loadStandbyList + this.groupSeq;
-      } else if (this.params['id'] === 'tcRequestMT') {
-        this.url = this.cmsApis.loadRequestList + this.groupSeq;
-      } else if (this.params['id'] === 'tcProgressMT') {
-        this.url = this.cmsApis.loadProgressList + this.groupSeq;
-      } else if (this.params['id'] === 'tcCompleteMT') {
-        this.url = this.cmsApis.loadCompleteList + this.groupSeq;
-      } else if (this.params['id'] === 'tcFailMT') {
-        this.url = this.cmsApis.loadFailList + this.groupSeq;
-      }
-
+      this.load();
+      this.pageInit();
       this.loadTranscodingList();
     });
-  }
-  loadTranscodingList() {
-    this.transcodingService.getLists(this.url)
-      .toPromise()
-      .then((cont:any) => {
-        if(cont.status !== 0) {
-          this.tcMonitoringLists = JSON.parse(cont['_body']);
-          this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
-
-          if(this.filterTcMonitoringLists) {
-            this.gettotalListLength = this.filterTcMonitoringLists.length;
-            this.setTableIndex();
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
 
   load() {
     this.loadGroupSeq();
     this.loadGroupList();
   }
+
+  loadGroupSeq() {
+    this.groupSeq = this.loginService.getCookie('grp_seq');
+  }
+
   loadGroupList() {
+    this.selectedGroup = '';
     this.selectedGroupOptions = [];
-    this.selectedGroupOptions.push({label: '전체 그룹', value: 'allGroup'});
     this.transcodingService.getLists(this.cmsApis.loadTranscodingGroupNames + this.groupSeq)
       .toPromise()
       .then((cont) => {
@@ -141,11 +124,51 @@ export class TcListContainerComponent implements OnInit {
           item.value = item.grp_nm;
           this.selectedGroupOptions.push(item);
         });
+
+        this.selectedGroupOptions.forEach((item) => {
+          if(item.grp_seq === this.groupSeq) {
+            this.selectedGroup = item.grp_nm;
+          }
+        })
       })
       .catch((error) => { console.log(error); });
   }
-  loadGroupSeq() {
-    this.groupSeq = this.loginService.getCookie('grp_seq');
+
+  pageInit() {
+    this.searchKey = '';
+    this.selectItems = [];
+    this.tcMonitoringLists = [];
+    this.gettotalListLength = 0;
+    if(this.urlList.hasOwnProperty(this.params['id'])) {
+      this.url = this.urlList[this.params['id']] + this.groupSeq;
+    }
+  }
+
+  loadTranscodingList() {
+    this.transcodingService.getLists(this.url)
+      .toPromise()
+      .then((cont:any) => {
+        if(cont.status !== 0) {
+          this.tcMonitoringLists = JSON.parse(cont['_body']);
+          this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
+          this.tableInit();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  tableInit() {
+    if(this.filterTcMonitoringLists) {
+      this.gettotalListLength = this.filterTcMonitoringLists.length;
+      this.setTableIndex();
+    }
+  }
+
+  refresh() {
+    this.searchKey = '';
+    this.loadTranscodingList();
   }
 
   filterSearch() {
@@ -154,11 +177,7 @@ export class TcListContainerComponent implements OnInit {
     }
     this.filterTcMonitoringLists = [];
     this.tcMonitoringLists['list'].filter((item:any) => {
-      if (this.selectedGroup === 'allGroup' && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
-        this.filterTcMonitoringLists.push(item);
-      } else if (this.selectedGroup === 'allGroup' && !this.searchKey) {
-        this.filterTcMonitoringLists.push(item);
-      } else if (item.grp_nm && (item.grp_nm === this.selectedGroup) && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
+      if (item.grp_nm && (item.grp_nm === this.selectedGroup) && item.ft_path && (item.ft_path.indexOf(this.searchKey) >= 0)) {
         this.filterTcMonitoringLists.push(item);
       } else if (item.grp_nm && (item.grp_nm === this.selectedGroup) && !this.searchKey) {
         this.filterTcMonitoringLists.push(item);
@@ -166,61 +185,36 @@ export class TcListContainerComponent implements OnInit {
         this.filterTcMonitoringLists.push(item);
       }
     });
-    if(this.filterTcMonitoringLists) {
-      this.gettotalListLength = this.filterTcMonitoringLists.length;
-      this.setTableIndex();
-    }
-  }
-  refresh() {
-    this.transcodingService.getLists(this.url)
-      .toPromise()
-      .then((cont:any) => {
-        if(cont.status !== 0) {
-          this.tcMonitoringLists = JSON.parse(cont['_body']);
-          this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
-
-          if(this.filterTcMonitoringLists) {
-            this.gettotalListLength = this.filterTcMonitoringLists.length;
-            this.setTableIndex();
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.tableInit();
   }
 
-  changeStatus() {
-    if(this.selectItems.length) {
-      let isChangeStatus = confirm('변환을 재시작 하시겠습니까?');
-      if(isChangeStatus) {
-        let newItemArray:any[] = [];
-        let itemObject:any = {};
-        this.selectItems.forEach((item) => {
-          itemObject = {};
-          itemObject.ft_seq = item.ft_seq;
-          itemObject.ft_status = item.ft_status;
-          newItemArray.push(itemObject);
-        });
-
-        this.transcodingService.updateData(this.cmsApis.restartTranscoding, newItemArray)
-          .toPromise()
-          .then(() => {
-            alert('변환이 재시작 됩니다.');
-            this.selectItems = [];
-            this.loadTranscodingList();
-          })
-          .catch((error) => {
-            console.log(error);
+  changeStatusRestart() {
+    if (this.selectItems.length && this.filterTcMonitoringLists) {
+      this.confirmationService.confirm({
+        message: '변환을 재시작 하시겠습니까?',
+        accept: () => {
+          let newItemArray: any[] = [];
+          let itemObject: any = {};
+          this.selectItems.forEach((item) => {
+            itemObject = {};
+            itemObject.ft_seq = item.ft_seq;
+            itemObject.ft_status = item.ft_status;
+            newItemArray.push(itemObject);
           });
 
-        if(this.filterTcMonitoringLists) {
-          this.gettotalListLength = this.filterTcMonitoringLists.length;
-          this.setTableIndex();
+          this.transcodingService.updateData(this.cmsApis.restartTranscoding, newItemArray)
+            .toPromise()
+            .then(() => {
+              this.selectItems = [];
+              this.loadTranscodingList();
+              this.gettotalListLength = this.filterTcMonitoringLists.length;
+              this.setTableIndex();
+            })
+            .catch((error: any) => {
+              console.log(error);
+            });
         }
-      }
-    } else {
-      return false;
+      });
     }
   }
 
