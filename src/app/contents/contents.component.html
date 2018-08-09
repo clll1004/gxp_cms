@@ -131,7 +131,12 @@
         </p-fileUpload>
     </div>
     <div class="progress-group" [ngStyle]="{'display': isUploading ? 'block' : 'none'}">
-        <p class="info-txt"><i class="fa fa-spinner fa-spin"></i> 업로드가 진행 중 입니다. </p>
+        <p class="info-txt" *ngIf="progressPercent < 100">
+            <i class="fa fa-spinner fa-spin"></i> 업로드가 진행 중 입니다.
+        </p>
+        <p class="info-txt" *ngIf="progressPercent === 100">
+            <i class="fas fa-check"></i> 업로드가 완료 되었습니다.
+        </p>
 
         <div class="progress-bar">
             <div class="progress" id="progress" [ngStyle]="{'width': progressPercent + '%'}"></div>
@@ -144,11 +149,9 @@
         </div>
     </p-footer>
 </p-dialog>
-<p-dialog [(visible)]="isConfirmMessage" [width]="400" [modal]="true" (onHide)="isUploading = false">
-    <p>파일 업로드가 완료되었습니다. <br>목록 반영까지 1~3분 소요됩니다.</p>
-    <p-footer>
-        <div class="txt-center">
-            <button type="button" class="btn" (click)="isConfirmMessage=false;" label="confirm"><i class="fas fa-times"></i> 닫기</button>
-        </div>
-    </p-footer>
+<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" (onHide)="isUploading = false" [showHeader]="false">
+    <p class="txt-center margin-top-15 margin-bottom-20">파일 업로드가 완료되었습니다. <br>목록 반영까지 1~3분 소요됩니다.</p>
+    <div class="txt-center">
+        <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+    </div>
 </p-dialog>

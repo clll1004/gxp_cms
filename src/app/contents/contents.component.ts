@@ -57,7 +57,7 @@ export class ContentsComponent implements OnInit {
 
     /*다이얼로그*/
     public isModalDisplay: boolean = false;
-    public isConfirmMessage: boolean = false;
+    public isShowMessage: boolean = false;
     /*파일 업로드 세팅*/
     public cid: string = '';
     public gid: string = '';
@@ -446,7 +446,7 @@ export class ContentsComponent implements OnInit {
           .toPromise()
           .then(() => {
               this.progressPercent = 100;
-              this.isConfirmMessage = true;
+              this.isShowMessage = true;
               this.loadContent(this.selectGroup['gf_seq']);
               form.clear();
           })
