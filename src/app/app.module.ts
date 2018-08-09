@@ -20,6 +20,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { AppComponent } from './app.component';
 import { HttpModule } from "@angular/http";
 import { DialogModule } from "primeng/primeng";
+import { ConfirmDialogModule } from 'primeng/primeng';
 import { PanelModule } from "primeng/primeng";
 import { TreeModule } from 'primeng/tree';
 
@@ -84,6 +85,7 @@ import { AppRoutingModule } from "./app-routing.module";
         AppRoutingModule,
         HttpModule,
         DialogModule,
+        ConfirmDialogModule,
         PanelModule,
         TreeModule,
     ],

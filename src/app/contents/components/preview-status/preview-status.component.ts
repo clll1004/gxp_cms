@@ -10,9 +10,7 @@ import { CmsApis } from '../../../services/apis/apis';
 })
 export class PreviewStatusComponent implements OnInit {
     @Input() transcodingStatus: object;
-    @Input() groupName:string;
-    @Input() folderName:string;
-    @Input() isShowDialogBtn:boolean;
+    @Input() folderPath: any;
 
     public transcodingItemInfo: any = {};
     public pvVideo:any;

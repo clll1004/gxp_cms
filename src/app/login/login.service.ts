@@ -29,6 +29,7 @@ export class LoginService {
               const cookieData = data['usr_id'] + "/" + data['usr_pw'] ;
               this.setCookie("userInfo", cookieData, 7, true);
               this.setCookie("usr_seq", JSON.parse(data['_body']).usr_seq, 1);
+              this.setCookie("usr_nm", JSON.parse(data['_body']).usr_nm, 1);
               this.setCookie("grp_seq", JSON.parse(data['_body']).grp_seq, 1);
               this.router.navigate(['/', 'contents']);
           })
@@ -43,6 +44,7 @@ export class LoginService {
         if(this.getCookie('userInfo')) {
             this.deleteCookie('userInfo');
             this.deleteCookie('usr_seq');
+            this.deleteCookie('usr_nm');
             this.deleteCookie('grp_seq');
             this.router.navigate(['/', 'login']);
         }

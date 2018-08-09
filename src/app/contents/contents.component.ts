@@ -1,40 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { CmsApis } from '../services/apis/apis';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from "../login/login.service";
 import { FolderService } from '../services/apis/cms/folder/folder.service';
 import { ContentsService } from '../services/apis/cms/contents/contents.service';
-import { CmsApis } from '../services/apis/apis';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Http } from "@angular/http";
+import { ConfirmationService } from 'primeng/components/common/api';
 
 @Component({
     selector: 'contents',
     templateUrl: './contents.component.html',
     styleUrls: ['./contents.component.css'],
-    providers: [ FolderService, ContentsService, CmsApis ]
+    providers: [ FolderService, ContentsService, CmsApis, ConfirmationService ]
 })
 export class ContentsComponent implements OnInit {
     public groupList: TreeNode[];
     public selectGroup: TreeNode;
-    public groupSeq: string;
-    public groupName: string;
-    public folderName: string;
-
     public tempTreeData: any[] = [];
+    public groupSeq: string = '';
+    public folderPath: object = {};
 
+    public transcodingStatusValue: object = {
+        'U': '업로드 완료',
+        'TR': '변환 요청',
+        'OF': '원본전송실패',
+        'TT': '변환중',
+        'TF': '변환실패',
+        'SF': '배포실패',
+        'SS': '완료'
+    };
     public contentsLists: any[] = [];
     public filtercontentsLists: any[] = [];
     public selectItems: any[] = [];
     public searchKey: string = '';
     public filterStatus: boolean = false;
 
+    public showInfos: boolean = false;
     public pvImg:any;
     public thumbpathArray:any[] = [];
     public thumbPath:string = '';
-
-    public showInfos: boolean = false;
     public transcodingStatus: any[] = [];
-    public isShowDialogBtn: boolean = false;
     public originFileInfo: any[] = [];
 
     public showAddFolderForm: boolean = false;
@@ -50,12 +55,27 @@ export class ContentsComponent implements OnInit {
         {field: '', header: '생성 날짜', width: '20%'},
     ];
 
+    /*다이얼로그*/
+    public isModalDisplay: boolean = false;
+    public isConfirmMessage: boolean = false;
+    /*파일 업로드 세팅*/
+    public cid: string = '';
+    public gid: string = '';
+    public ownpath: string = '';
+    public pathArray: any[] = [];
+    public pathString: string = '/';
+    public authKey: string = '5C8F8FD268A6D8FD2D38C5140D533D2A4F85D362F43BFEA69B5E593024CC7B88';
+    public uploadFiles: any[] = [];
+    public uploadFormData: FormData = new FormData();
+    public isUploading:boolean = false;
+    public progressPercent:number = 0;
+
     constructor(private formBuilder: FormBuilder,
                 private loginService: LoginService,
                 private folderService: FolderService,
                 private contentsService: ContentsService,
                 private cmsApis: CmsApis,
-                private http: Http) { }
+                private confirmationService: ConfirmationService) { }
 
     ngOnInit() {
         this.load();
@@ -70,14 +90,10 @@ export class ContentsComponent implements OnInit {
     load() {
         this.getGroupSeq();
         this.loadGroupList();
-        this.init();
     }
 
-    init() {
-        this.cid = '';
-        this.gid = '';
-        this.ownpath = '';
-        this.pathString = '/';
+    getGroupSeq() {
+        this.groupSeq = this.loginService.getCookie('grp_seq');
     }
 
     loadGroupList() {
@@ -86,13 +102,10 @@ export class ContentsComponent implements OnInit {
           .then((res) => {
               this.tempTreeData = JSON.parse(res['_body']);
               this.cid = this.tempTreeData['cus_nm_en'];
-
               this.groupList = <TreeNode[]> this.convertTreeData(this.tempTreeData);
-
               this.groupList.forEach((item) => {
                   item.expanded = true;
               });
-              // if(!!this.selectGroup) {  }
           });
     }
 
@@ -153,36 +166,174 @@ export class ContentsComponent implements OnInit {
         return tempTreeArray;
     }
 
-    /*** 새폴더 추가 ***/
-    addFolderTree() {
-        this.showAddFolderForm = true;
-        if (this.selectGroup['gf_grp_seq']) {
-            this.folderform.get('gf_grp_seq').setValue(this.selectGroup['gf_grp_seq']);
-            this.folderform.get('gf_nm').setValue(null);
-            this.folderform.get('gf_prnt_seq').setValue(this.selectGroup['gf_seq']);
-            this.folderform.get('gf_level').setValue(String(Number(this.selectGroup['gf_level']) + 1));
-        } else {
-            this.folderform.get('gf_grp_seq').setValue(this.selectGroup['grp_seq']);
-            this.folderform.get('gf_nm').setValue(null);
-            this.folderform.get('gf_prnt_seq').setValue('0');
-            this.folderform.get('gf_level').setValue('1');
+    loadFolder() {
+        this.getFolderPath();
+        this.loadContent(this.selectGroup['gf_seq']);
+        this.previewInit();
+    }
+
+    getFolderPath() {
+        let path: any[] = [];
+        const getFolderPath = (data: TreeNode) => {
+            if (data['gr_prnt_seq'] !== '0' && data['parent']) {
+                path.push(data['gf_nm']);
+                getFolderPath(data.parent);
+            }
+        };
+        getFolderPath(this.selectGroup);
+
+        this.pathArray = path.reverse();
+        this.folderPath['folderName'] = this.pathArray[this.pathArray.length-1];
+        this.tempTreeData['grp'].forEach((item) => {
+            if(item.grp_seq === this.selectGroup['gf_seq']) {
+                this.folderPath['groupName'] = item.grp_nm;
+            }
+        });
+    }
+
+    loadContent(folderSeq: string) {
+        this.showAddFolderForm = false;
+        this.showFolderNameDupMsg = false;
+        this.ableFolderName = false;
+        this.contentsService.getLists(this.cmsApis.loadContentList + folderSeq)
+          .toPromise()
+          .then((cont) => {
+              this.contentsLists = JSON.parse(cont['_body']).list;
+              if (this.contentsLists) {
+                  this.contentsLists.forEach((item) => {
+                      if (this.transcodingStatusValue.hasOwnProperty(item.fo_status)) {
+                          item.statusLabel = this.transcodingStatusValue[item.fo_status];
+                      } else {
+                          item.statusLabel = '실패'
+                      }
+                  });
+              }
+              this.filtercontentsLists = this.contentsLists;
+          });
+    }
+
+    previewInit() {
+        this.selectItems = [];
+        this.originFileInfo = [];
+        this.showInfos = false;
+    }
+
+    changeStatusRestart() {
+        if (this.selectItems.length && this.filtercontentsLists) {
+            this.confirmationService.confirm({
+                message: '변환을 재시작 하시겠습니까?',
+                accept: () => {
+                    let newItemArray: any[] = [];
+                    let itemObject: any = {};
+                    this.selectItems.forEach((item) => {
+                        itemObject = {};
+                        itemObject.fo_seq = item.fo_seq;
+                        newItemArray.push(itemObject);
+                    });
+
+                    return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
+                      .toPromise()
+                      .then(() => {
+                          this.selectItems = [];
+                          this.loadContent(this.selectGroup['gf_seq']);
+                      })
+                      .catch((error: any) => {
+                          console.log(error);
+                      });
+                }
+            });
         }
     }
-    /*폴더명 중복확인*/
-    confirmFolderName() {
+
+    changeStatusDelete() {
+        if (this.selectItems.length && this.filtercontentsLists) {
+            this.confirmationService.confirm({
+                message: '삭제하시겠습니까?',
+                accept: () => {
+                    let newItemArray: any[] = [];
+                    let itemObject: any = {};
+                    this.selectItems.forEach((item) => {
+                        itemObject = {};
+                        itemObject.fo_seq = item.fo_seq;
+                        newItemArray.push(itemObject);
+                    });
+
+                    return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
+                      .toPromise()
+                      .then(() => {
+                          this.selectItems = [];
+                          this.loadContent(this.selectGroup['gf_seq']);
+                          this.previewInit();
+                      })
+                      .catch((error: any) => {
+                          console.log(error);
+                      });
+                }
+            });
+        }
+    }
+
+    changeStatusRestartItem() {
+        this.confirmationService.confirm({
+            message: '변환을 재시작 하시겠습니까?',
+            accept: () => {
+                let newItemArray: any[] = [{'fo_seq': this.originFileInfo['fo_seq']}];
+
+                return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
+                  .toPromise()
+                  .then(() => {
+                      this.selectItems = [];
+                      this.loadContent(this.selectGroup['gf_seq']);
+                  })
+                  .catch((error: any) => {
+                      console.log(error);
+                  });
+            }
+        });
+    }
+
+    changeStatusDeleteItem() {
+        this.confirmationService.confirm({
+            message: '삭제하시겠습니까?',
+            accept: () => {
+                let newItemArray: any[] = [{'fo_seq': this.originFileInfo['fo_seq']}];
+
+                return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
+                  .toPromise()
+                  .then(() => {
+                      this.selectItems = [];
+                      this.loadContent(this.selectGroup['gf_seq']);
+                      this.previewInit();
+                  })
+                  .catch((error: any) => {
+                      console.log(error);
+                  });
+            }
+        });
+    }
+
+    showFolderForm() {
+        this.showAddFolderForm = true;
+        if (this.selectGroup['gf_grp_seq']) { // 폴더인 경우
+            this.folderFormInit(this.selectGroup['gf_grp_seq'], null, this.selectGroup['gf_seq'], String(Number(this.selectGroup['gf_level']) + 1));
+        } else { // 그룹인 경우
+            this.folderFormInit(this.selectGroup['grp_seq'], null, '0', '1');
+        }
+    }
+
+    folderFormInit(grp_seq:string, gf_nm:string, gf_prnt_seq:string, gf_level:string) {
+        this.folderform.get('gf_grp_seq').setValue(grp_seq);
+        this.folderform.get('gf_nm').setValue(gf_nm);
+        this.folderform.get('gf_prnt_seq').setValue(gf_prnt_seq);
+        this.folderform.get('gf_level').setValue(gf_level);
+    }
+
+    DupFolderName() {
         const inputFolderName: string = this.folderform.value['gf_nm'];
         if (!!inputFolderName) {
             this.showFolderNameDupMsg = true;
-            let gf_grp_seq: string = '';
-            let gf_prnt_seq: string = '';
-            if (this.selectGroup['gf_prnt_seq']) {
-                gf_grp_seq = this.selectGroup['gf_grp_seq'];
-                gf_prnt_seq = this.selectGroup['gf_seq'];
-            } else {
-                gf_grp_seq = this.selectGroup['grp_seq'];
-                gf_prnt_seq = '0';
-            }
-            const url = this.cmsApis.checkDupFolderName + "gf_grp_seq=" + gf_grp_seq + "&gf_prnt_seq=" + gf_prnt_seq + "&gf_nm=" + inputFolderName;
+
+            const url = this.cmsApis.checkDupFolderName + "gf_grp_seq=" + this.folderform.get('gf_grp_seq').value + "&gf_prnt_seq=" + this.folderform.get('gf_prnt_seq').value + "&gf_nm=" + inputFolderName;
 
             this.contentsService.getLists(url)
               .toPromise()
@@ -194,12 +345,13 @@ export class ContentsComponent implements OnInit {
               })
         }
     }
+
     initDupFolderName() {
         this.showFolderNameDupMsg = false;
         this.ableFolderName = false;
     }
-    /*폴더 생성*/
-    onSubmit(formObject: any) {
+
+    addFolder(formObject: any) {
         this.contentsService.postData(this.cmsApis.postFolder, formObject)
           .toPromise()
           .then(() => {
@@ -211,68 +363,7 @@ export class ContentsComponent implements OnInit {
           });
     }
 
-    getGroupSeq() {
-        this.groupSeq = this.loginService.getCookie('grp_seq');
-    }
-    getFolderSeq() {
-        this.originFileInfo = [];
-        this.showInfos = false;
-        this.loadContent(this.selectGroup['gf_seq']);
-        this.getGroupName(this.selectGroup['gf_grp_seq']);
-        this.folderName = this.selectGroup['gf_nm'];
-        this.pathArray = this.getPath(this.selectGroup);
-    }
-    getPath(data:TreeNode) {
-        let path: any[] = [];
-        const pathfn = (data: TreeNode) => {
-            if (data['gr_prnt_seq'] !== '0' && data['parent']) {
-                path.push(data['gf_nm']);
-                pathfn(data.parent);
-            }
-        };
-        pathfn(data);
-        return path.reverse();
-    }
-    getGroupName(item: string): any {
-        this.groupList.forEach((item2) => {
-            if (item2['grp_seq'] === item) {
-                this.groupName = item2['grp_nm'];
-            }
-        })
-    }
-    loadContent(folderSeq: string) {
-        this.selectItems = [];
-        this.showAddFolderForm = false;
-        this.showFolderNameDupMsg = false;
-        this.ableFolderName = false;
-        return this.contentsService.getLists(this.cmsApis.loadContentList + folderSeq)
-          .toPromise()
-          .then((cont) => {
-              this.contentsLists = JSON.parse(cont['_body']).list;
-              if (this.contentsLists) {
-                  this.contentsLists.forEach((item) => {
-                      if (item.fo_status == 'U') {
-                          item.statusLabel = '업로드완료';
-                      } else if (item.fo_status == 'TR') {
-                          item.statusLabel = '변환요청';
-                      } else if (item.fo_status == 'OF') {
-                          item.statusLabel = '원본전송실패';
-                      } else if (item.fo_status == 'TT') {
-                          item.statusLabel = '변환중';
-                      } else if (item.fo_status == 'TF') {
-                          item.statusLabel = '변환실패';
-                      } else if (item.fo_status == 'SF') {
-                          item.statusLabel = '배포실패';
-                      } else if (item.fo_status == 'SS') {
-                          item.statusLabel = '완료';
-                      }
-                  });
-              }
-              this.filtercontentsLists = this.contentsLists;
-          });
-    }
-
-    filterSearch() {
+    contentSearch() {
         if (!this.searchKey || !this.filtercontentsLists) {
             return false;
         }
@@ -284,6 +375,7 @@ export class ContentsComponent implements OnInit {
             }
         });
     }
+
     resetFilter() {
         this.filterStatus = false;
         this.filtercontentsLists = this.contentsLists;
@@ -291,10 +383,8 @@ export class ContentsComponent implements OnInit {
 
     showPreview(item: any) {
         this.showInfos = true;
-        /*썸네일 미리보기*/
-        /*원본 파일 정보*/
         this.originFileInfo = item;
-        this.thumbnailView(item);
+        this.loadPreviewThumbnail(item);
 
         /*트랜스코딩 진행상황*/
         this.transcodingStatus = [];
@@ -304,28 +394,17 @@ export class ContentsComponent implements OnInit {
               this.transcodingStatus = JSON.parse(cont['_body']);
               if (this.transcodingStatus) {
                   this.transcodingStatus.forEach((item) => {
-                      this.isShowDialogBtn = false;
-                      if (item.ft_status == 'U') {
-                          item.statusLabel = '업로드완료';
-                      } else if (item.ft_status == 'TR') {
-                          item.statusLabel = '변환요청';
-                      } else if (item.ft_status == 'OF') {
-                          item.statusLabel = '원본전송실패';
-                      } else if (item.ft_status == 'TT') {
-                          item.statusLabel = '변환중';
-                      } else if (item.ft_status == 'TF') {
-                          item.statusLabel = '변환실패';
-                      } else if (item.ft_status == 'SF') {
-                          item.statusLabel = '배포실패';
-                      } else if (item.ft_status == 'SS') {
-                          this.isShowDialogBtn = true;
-                          item.statusLabel = '완료';
+                      if (this.transcodingStatusValue.hasOwnProperty(item.ft_status)) {
+                          item.statusLabel = this.transcodingStatusValue[item.ft_status];
+                      } else {
+                          item.statusLabel = '실패'
                       }
                   });
               }
           });
     }
-    thumbnailView(item: any) {
+
+    loadPreviewThumbnail(item: any) {
         this.thumbPath = '';
         this.thumbpathArray = item['fo_thumb_path'].split('/');
         this.pvImg = document.getElementById('pvThumbnail');
@@ -357,114 +436,26 @@ export class ContentsComponent implements OnInit {
             this.thumbPath = this.thumbPath.substring(0, this.thumbPath.length-1);
             this.pvImg.src = 'http://' + this.thumbPath;
         }
-
     }
 
-    changeStatusRestart() {
-        if (this.selectItems.length && this.filtercontentsLists) {
-            let isChangeStatus = confirm('변환을 재시작 하시겠습니까?');
-            if(isChangeStatus) {
-                let newItemArray: any[] = [];
-                let itemObject: any = {};
-                this.selectItems.forEach((item) => {
-                    itemObject = {};
-                    itemObject.fo_seq = item.fo_seq;
-                    newItemArray.push(itemObject);
-                });
-
-                return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
-                  .toPromise()
-                  .then(() => {
-                      alert('변환이 재시작됩니다.');
-                      this.selectItems = [];
-                      this.loadContent(this.selectGroup['gf_seq']);
-                  })
-                  .catch((error: any) => {
-                      console.log(error);
-                  });
-            }
-        } else {
-            return false;
-        }
-    }
-    changeStatusDelete() {
-        if (this.selectItems.length && this.filtercontentsLists) {
-            let isChangeStatus = confirm('삭제하시겠습니까?');
-            if (isChangeStatus) {
-                let newItemArray: any[] = [];
-                let itemObject: any = {};
-                this.selectItems.forEach((item) => {
-                    itemObject = {};
-                    itemObject.fo_seq = item.fo_seq;
-                    newItemArray.push(itemObject);
-                });
-
-                return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
-                  .toPromise()
-                  .then(() => {
-                      alert('파일이 삭제되었습니다.');
-                      this.loadContent(this.selectGroup['gf_seq']);
-                  })
-                  .catch((error: any) => {
-                      console.log(error);
-                  });
-            }
-        } else {
-            return false;
-        }
-    }
-    changeStatusRestartItem() {
-        let isChangeStatus = confirm('변환을 재시작 하시겠습니까?');
-        if(isChangeStatus) {
-            let newItemArray: any[] = [{'fo_seq': this.originFileInfo['fo_seq']}];
-
-            return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
-              .toPromise()
-              .then(() => {
-                  alert('변환이 재시작 됩니다.');
-                  this.loadContent(this.selectGroup['gf_seq']);
-              })
-              .catch((error: any) => {
-                  console.log(error);
-              });
-        }
-    }
-    changeStatusDeleteItem() {
-        let isChangeStatus = confirm('삭제하시겠습니까?');
-        if(isChangeStatus) {
-            let newItemArray: any[] = [{'fo_seq': this.originFileInfo['fo_seq']}];
-
-            return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
-              .toPromise()
-              .then(() => {
-                  alert('파일이 삭제됩니다.');
-                  this.loadContent(this.selectGroup['gf_seq']);
-              })
-              .catch((error: any) => {
-                  console.log(error);
-              });
-        }
-    }
-
-    /*다이얼로그*/
-    public isModalDisplay: boolean = false;
-    public isConfirmMessage: boolean = false;
-    /*파일 업로드 다이얼로그*/
-    public cid: string = '';
-    public gid: string = '';
-    public ownpath: string = '';
-    public pathArray: any[] = [];
-    public pathString: string = '/';
-    public authKey: string = '5C8F8FD268A6D8FD2D38C5140D533D2A4F85D362F43BFEA69B5E593024CC7B88';
-    public uploadFiles: any[] = [];
-    public isUploading:boolean = false;
-    public progressPercent:number = 0;
-
-    fileUploadDisplay() {
-        this.isModalDisplay = true;
-    }
     fileUplod(event: any, form:any) {
-        /*setting for Header*/
+        this.setUploadHeader();
+        this.setUploadData(event);
+        this.showProgress();
+        this.contentsService.uploadFile(this.ownpath, this.pathString, this.authKey, this.uploadFormData)
+          .toPromise()
+          .then(() => {
+              this.progressPercent = 100;
+              this.isConfirmMessage = true;
+              this.loadContent(this.selectGroup['gf_seq']);
+              form.clear();
+          })
+          .catch((err) => {
+              console.log(err);
+          })
+    }
+
+    setUploadHeader() {
         this.groupList.forEach((item) => {
             if (this.selectGroup['gf_grp_seq'] === item['grp_seq']) {
                 this.gid = item['grp_nm'];
@@ -475,45 +466,31 @@ export class ContentsComponent implements OnInit {
         this.pathArray.forEach((item) => {
             this.pathString += item + "/";
         });
+    }
 
-        /*setting for Data*/
-        this.uploadFiles = event.files;
-        let formData: FormData = new FormData();
+    setUploadData(userFile) {
+        this.uploadFiles = userFile.files;
         for (let i = 0; i < this.uploadFiles.length; i++) {
-            formData.append('file', this.uploadFiles[i]);
+            this.uploadFormData.append('file', this.uploadFiles[i]);
         }
+    }
 
-        /*setting for loading status*/
+    showProgress() {
         this.progressPercent = 0;
         this.isUploading = true;
-        let loadingInterval = setInterval(() => {
+        setInterval(() => {
             if(this.progressPercent < 50) {
                 this.progressPercent += Math.floor(Math.random() * ((10-5)+1) + 5); // 5-10 랜덤
             }
         }, 500);
-
-        /*post Data*/
-        this.contentsService.uploadFile(this.ownpath, this.pathString, this.authKey, formData)
-          .toPromise()
-          .then(() => {
-              clearInterval(loadingInterval);
-              this.progressPercent = 100;
-
-              /*if loading value = 100 */
-              form.clear();
-              this.isConfirmMessage = true;
-              this.loadContent(this.selectGroup['gf_seq']);
-          })
-          .catch((err) => {
-              console.log(err);
-          })
     }
 
-    setDialog() {
-        let test = document.getElementById('uploadDailog-container');
-        test.children[0].children[0].children[1].setAttribute("style", "height: 250px; overflow-y: scroll;");
+    setUploadStyle() {
+        let uploadContainer = document.getElementById('uploadDailog-container');
+        uploadContainer.children[0].children[0].children[1].setAttribute("style", "height: 250px; overflow-y: scroll;");
     }
-    closeDialog() {
+
+    UploadInit() {
         this.uploadFiles = [];
     }
 }

@@ -9,7 +9,7 @@
         <ng-template pTemplate="body" let-transcodingStatus >
             <tr>
                 <td>{{ transcodingStatus.gto_nm }}</td>
-                <td>{{ transcodingStatus.statusLabel }} <button type="button" class="btn margin-left-5" *ngIf="isShowDialogBtn" (click)="showDialog(transcodingStatus)"><i class="fas fa-clone"></i> 미리보기</button></td>
+                <td>{{ transcodingStatus.statusLabel }} <button type="button" class="btn margin-left-5" *ngIf="transcodingStatus.ft_status === 'SS'" (click)="showDialog(transcodingStatus)"><i class="fas fa-clone"></i> 미리보기</button></td>
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
@@ -29,31 +29,31 @@
             <table>
                 <tr>
                     <th style="width: 120px;">파일명</th>
-                    <td>{{transcodingItemInfo.ft_nm}}</td>
+                    <td>{{ transcodingItemInfo.ft_nm }}</td>
                 </tr>
                 <tr>
                     <th style="width: 120px;">파일크기</th>
-                    <td>{{transcodingItemInfo.ft_size}} MB</td>
+                    <td>{{ transcodingItemInfo.ft_size }} MB</td>
                 </tr>
                 <tr>
                     <th style="width: 120px;">서비스경로</th>
-                    <td>http://{{transcodingItemInfo.ft_svc_path}}</td>
+                    <td>http://{{ transcodingItemInfo.ft_svc_path }}</td>
                 </tr>
                 <tr>
                     <th style="width: 120px;">재생시간</th>
-                    <td>{{transcodingItemInfo.ft_runtime}}</td>
+                    <td>{{ transcodingItemInfo.ft_runtime }}</td>
                 </tr>
                 <tr>
                     <th style="width: 120px;">해당그룹/폴더</th>
-                    <td>{{ groupName }}/{{ folderName }}</td>
+                    <td>{{ folderPath.groupName }}/{{ folderPath.folderName }}</td>
                 </tr>
                 <tr>
                     <th style="width: 120px;">변환시간</th>
-                    <td>{{transcodingItemInfo.ft_end_dtm}}</td>
+                    <td>{{ transcodingItemInfo.ft_end_dtm }}</td>
                 </tr>
                 <tr>
                     <th style="width: 120px;">변환상태</th>
-                    <td>{{transcodingItemInfo.statusLabel}}</td>
+                    <td>{{ transcodingItemInfo.statusLabel }}</td>
                 </tr>
             </table>
         </div>
