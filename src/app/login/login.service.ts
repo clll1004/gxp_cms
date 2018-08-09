@@ -4,55 +4,59 @@ import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class LoginService {
+    public loginInfo:any = {};
+    public loginStatus:boolean = false;
+
     constructor(private http: Http, private router: Router) { }
 
-    getLoginStatus () {
-        return !!this.getCookie('userInfo');
+    getLoginStatus() {
+        return this.loginStatus;
     }
 
-    /* login function */
-    login(id:string, password:string) {
-        const data:any = {};
-        data.usr_id = id;
-        data.usr_pw = password;
-
-        this.requestLogin(data);
+    setLogin() {
+        this.loginStatus = true;
     }
 
-    requestLogin(data:object) {
+    setLogout() {
+        this.loginStatus = false;
+    }
+
+    login(url, id:string, password:string) {
+        this.loginInfo.usr_id = id;
+        this.loginInfo.usr_pw = password;
+
         let headers:Headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-        this.http.post('http://183.110.11.49/cms/login', data, { headers: headers })
-          .toPromise()
-          .then((data) => {
-              const cookieData = data['usr_id'] + "/" + data['usr_pw'] ;
-              this.setCookie("userInfo", cookieData, 7, true);
-              this.setCookie("usr_seq", JSON.parse(data['_body']).usr_seq, 1);
-              this.setCookie("usr_nm", JSON.parse(data['_body']).usr_nm, 1);
-              this.setCookie("grp_seq", JSON.parse(data['_body']).grp_seq, 1);
-              this.router.navigate(['/', 'contents']);
-          })
-          .catch((error) => {
-              alert('로그인 정보를 확인해주세요.');
-              console.log(error);
-          });
+        return this.http.post(url, this.loginInfo, { headers: headers });
     }
 
-    /* logout function */
+    setCookieData(userInfo, user_seq, user_name, group_seq) {
+        this.setCookie('userInfo', userInfo, 7, true);
+        this.setCookie('usr_seq', user_seq, 7);
+        this.setCookie('usr_nm', user_name, 7);
+        this.setCookie('grp_seq', group_seq, 7);
+    }
+
     logout() {
         if(this.getCookie('userInfo')) {
-            this.deleteCookie('userInfo');
-            this.deleteCookie('usr_seq');
-            this.deleteCookie('usr_nm');
-            this.deleteCookie('grp_seq');
-            this.router.navigate(['/', 'login']);
+            this.clearUserInfo();
         }
     }
+
     checkUserInfo() {
         if(!(this.getCookie('userInfo'))) {
-            this.router.navigate(['/', 'login']);
+            this.clearUserInfo();
         }
+    }
+
+    clearUserInfo() {
+        this.setLogout();
+        this.deleteCookie('userInfo');
+        this.deleteCookie('usr_seq');
+        this.deleteCookie('usr_nm');
+        this.deleteCookie('grp_seq');
+        this.router.navigate(['/', 'login']);
     }
 
     /* Cookie */
@@ -62,6 +66,7 @@ export class LoginService {
 
         return isDecoding ? atob(value) : value;
     }
+
     setCookie(name:string, value:string, exp:number, isEncoding:boolean = false) {
         const date = new Date();
         date.setTime(date.getTime() + exp*1000*60*60*24);
@@ -69,6 +74,7 @@ export class LoginService {
         document.cookie = name + "=" + (isEncoding ? btoa(value) : value) + "; expires=" + date.toUTCString() + "; path=/";
         return 0;
     }
+
     deleteCookie(name:string) {
         this.setCookie(name, '', -1);
     }

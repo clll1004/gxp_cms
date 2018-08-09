@@ -34,6 +34,8 @@ import { FooterComponent } from "./footer/footer.component";
 import { LoginComponent } from "./login/login.component";
 import { PathComponent } from "./path/path.component";
 
+import { LoginService } from './login/login.service';
+
 /*HOME*/
 import { HomeDataComponent } from "./home/components/home-data/home-data.component";
 import { HomeDataPlayerComponent } from "./home/components/home-data-player/home-data-player.component";
@@ -52,7 +54,7 @@ import { PreviewFInfoComponent } from "./contents/components/preview-fInfo/previ
 // import { SelectSectionComponent } from "./fileUpload/components/fileUpload-edt/components/select-section/select-section.component";
 // import { SelectSectionWrapComponent } from "./fileUpload/components/fileUpload-edt/components/select-section-wrap/select-section-wrap.component";
 /*transcoding*/
-import { TcListContainerComponent} from "./transcoding/tcListContainer/tcListContainer.component";
+import { TcListContainerComponent } from "./transcoding/tcListContainer/tcListContainer.component";
 /*SETTINGS*/
 import { AddGroupComponent } from "./settings/components/add-group/add-group.component";
 import { GroupMngComponent } from "./settings/components/group-mng/group-mng.component";
@@ -125,6 +127,7 @@ import { AppRoutingModule } from "./app-routing.module";
         UserModifyComponent,
         ChangePswdComponent
     ],
+    providers: [ LoginService ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule {
