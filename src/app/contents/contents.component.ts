@@ -313,11 +313,15 @@ export class ContentsComponent implements OnInit {
     }
 
     showFolderForm() {
-        this.showAddFolderForm = true;
-        if (this.selectGroup['gf_grp_seq']) { // 폴더인 경우
-            this.folderFormInit(this.selectGroup['gf_grp_seq'], null, this.selectGroup['gf_seq'], String(Number(this.selectGroup['gf_level']) + 1));
-        } else { // 그룹인 경우
-            this.folderFormInit(this.selectGroup['grp_seq'], null, '0', '1');
+        if(Number(this.selectGroup['gf_level']) >= 8) {
+            this.isShowMessage = true;
+        } else {
+            this.showAddFolderForm = true;
+            if (this.selectGroup['gf_grp_seq']) { // 폴더인 경우
+                this.folderFormInit(this.selectGroup['gf_grp_seq'], null, this.selectGroup['gf_seq'], String(Number(this.selectGroup['gf_level']) + 1));
+            } else { // 그룹인 경우
+                this.folderFormInit(this.selectGroup['grp_seq'], null, '0', '1');
+            }
         }
     }
 
