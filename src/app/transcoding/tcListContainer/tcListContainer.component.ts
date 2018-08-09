@@ -86,11 +86,11 @@ export class TcListContainerComponent implements OnInit {
               private confirmationService: ConfirmationService) { }
 
   public urlList: object = {
-    'tcStandByMT': this.cmsApis.loadStandbyList,
-    'tcRequestMT': this.cmsApis.loadRequestList,
-    'tcProgressMT': this.cmsApis.loadProgressList,
-    'tcCompleteMT': this.cmsApis.loadCompleteList,
-    'tcFailMT': this.cmsApis.loadFailList
+    'standby': this.cmsApis.loadStandbyList,
+    'request': this.cmsApis.loadRequestList,
+    'progress': this.cmsApis.loadProgressList,
+    'complete': this.cmsApis.loadCompleteList,
+    'fail': this.cmsApis.loadFailList
   };
 
 

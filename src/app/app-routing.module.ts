@@ -19,7 +19,7 @@ const routes: Routes = [
     // { path: 'fileUpload/:id', component: FileUploadComponent },
     { path: 'contents', component: ContentsComponent },
     { path: 'transcoding', component: TranscodingComponent },
-    { path: 'transcoding/:id', component: TranscodingComponent },
+    { path: 'transcoding/list/:id', component: TranscodingComponent },
     { path: 'settings', component: SettingsComponent},
     { path: 'settings/:id', component: SettingsComponent }
 ];
