@@ -15,6 +15,7 @@ export class UserModifyComponent implements OnInit {
 
     public userform: FormGroup;
     public submitted: boolean;
+    public isShowMessage: boolean = false;
 
     constructor(private formBuilder: FormBuilder,
                 private loginService: LoginService,
@@ -37,6 +38,7 @@ export class UserModifyComponent implements OnInit {
     load() {
         this.loadUserInfo();
     }
+
     loadUserInfo() {
         this.userSeq = this.loginService.getCookie('usr_seq');
         return this.settingsService.getLists(this.cmsApis.loadUserInfo + this.userSeq)
@@ -64,11 +66,10 @@ export class UserModifyComponent implements OnInit {
         this.settingsService.updateData(this.cmsApis.updateUserInfo, valueObject)
           .toPromise()
           .then(() => {
-            alert('수정 완료되었습니다.');
-            window.location.reload();
+             this.isShowMessage = true;
            })
           .catch((error) => {
-            console.log(error);
+             console.log(error);
           });
     }
 }

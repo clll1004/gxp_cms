@@ -44,9 +44,16 @@
                 </table>
             </div>
             <div class="ui-g-12 ui-g-nopad btn-sec">
-                <button type="submit" class="btn" [disabled]="!userform.valid"><i class="fas fa-edit"></i> 수정</button>
+                <button type="submit" class="btn margin-right-5" [disabled]="!userform.valid"><i class="fas fa-edit"></i> 수정</button>
                 <a routerLink="/settings/group-mng"><button type="button" class="btn"><i class="fas fa-times"></i> 취소</button></a>
             </div>
         </fieldset>
     </form>
 </div>
+
+<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">
+    <p class="txt-center margin-top-15 margin-bottom-20">수정완료 되었습니다.</p>
+    <div class="txt-center">
+        <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+    </div>
+</p-dialog>
