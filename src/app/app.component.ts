@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
             if(event instanceof NavigationEnd) {
                 if(event.url === '/login') {
                     this.loginService.logout();
+                    this.isLayoutShow = false;
                 }
                 this.isLayoutShow = !!this.loginService.getCookie('userInfo');
             }
