@@ -10,7 +10,6 @@ import '../assets/css/styles.css';
 })
 
 export class AppComponent implements OnInit {
-    public data: any;
     public isLayoutShow: boolean = false;
 
     constructor(private router: Router, private loginService: LoginService) { }
@@ -20,8 +19,10 @@ export class AppComponent implements OnInit {
 
         this.router.events.subscribe((event) => {
             if(event instanceof NavigationEnd) {
-                this.isLayoutShow = this.loginService.getLoginStatus();
-                console.log(this.loginService.getLoginStatus());
+                if(event.url === '/login') {
+                    this.loginService.logout();
+                }
+                this.isLayoutShow = !!this.loginService.getCookie('userInfo');
             }
         });
     }
