@@ -105,7 +105,7 @@
             </ul>
 
             <div class="btn-sec txt-center margin-bottom-30" *ngIf="showInfos">
-                <button type="button" class="btn" (click)="changeStatusRestartItem()"><i class="fas fa-redo"></i> 변환 재시작</button>
+                <button type="button" class="btn margin-right-5" (click)="changeStatusRestartItem()"><i class="fas fa-redo"></i> 변환 재시작</button>
                 <button type="button" class="btn" (click)="changeStatusDeleteItem()"><i class="fas fa-trash-alt"></i> 삭제</button>
             </div>
         </div>
@@ -120,7 +120,7 @@
 </p-confirmDialog>
 <p-dialog header="파일업로드" [(visible)]="isModalDisplay" [width]="900" [modal]="true" (onShow)="setUploadStyle()" (onHide)="UploadInit()" [positionTop]="200">
     <div class="ui-g-12 ui-g-nopad margin-top-30 margin-bottom-30 uploadDailog-container" id="uploadDailog-container">
-        <p-fileUpload name="files[]" multiple="multiple" customUpload="true" #form (uploadHandler)="fileUplod($event, form)">
+        <p-fileUpload name="files[]" multiple="multiple" customUpload="true" #form (uploadHandler)="fileUplod($event, form)" accept=".mp4, .avi, .wmv, .flv, .mp3, .asf, .mkv, .rm, .mov, .wav, .m4v, .mpg, .ogg, .ogv, .swf, .tp, .ts, .webm, .wma, .mxf">
             <div class="ui-fileupload-content"></div>
             <ng-template pTemplate="content" *ngIf="!isUploading">
                 <ul>
