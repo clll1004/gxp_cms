@@ -107,6 +107,9 @@ export class ContentsComponent implements OnInit {
               this.groupList.forEach((item) => {
                   item.expanded = true;
               });
+
+              document.getElementById('treeObject').children[0].style['border-left'] = '0';
+              document.getElementById('treeObject').children[0].style['border-right'] = '0';
           });
     }
 
