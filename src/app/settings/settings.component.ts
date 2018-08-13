@@ -20,6 +20,8 @@ export class SettingsComponent implements OnInit {
     public tempTreeData:any[] = [];
     public treeData:any[] = [];
 
+    public treeStyle: any;
+
     constructor(private activatedRoute: ActivatedRoute,
                 private loginService: LoginService,
                 private settingsService: SettingsService,
@@ -53,8 +55,9 @@ export class SettingsComponent implements OnInit {
 
               this.groupList = <TreeNode[]> this.treeData;
 
-              document.getElementById('treeObject').children[0].style['border-left'] = '0';
-              document.getElementById('treeObject').children[0].style['border-right'] = '0';
+              this.treeStyle = document.getElementById('treeObject').children[0];
+              this.treeStyle.style['border-left'] = '0';
+              this.treeStyle.style['border-right'] = '0';
           });
     }
 

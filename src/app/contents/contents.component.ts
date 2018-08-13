@@ -71,6 +71,8 @@ export class ContentsComponent implements OnInit {
     public isUploading:boolean = false;
     public progressPercent:number = 0;
 
+    public treeStyle: any;
+
     constructor(private formBuilder: FormBuilder,
                 private loginService: LoginService,
                 private folderService: FolderService,
@@ -108,8 +110,9 @@ export class ContentsComponent implements OnInit {
                   item.expanded = true;
               });
 
-              document.getElementById('treeObject').children[0].style['border-left'] = '0';
-              document.getElementById('treeObject').children[0].style['border-right'] = '0';
+              this.treeStyle = document.getElementById('treeObject').children[0];
+              this.treeStyle.style['border-left'] = '0';
+              this.treeStyle.style['border-right'] = '0';
           });
     }
 
