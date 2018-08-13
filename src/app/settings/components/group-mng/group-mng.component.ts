@@ -1,22 +1,26 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Http, Headers } from "@angular/http";
+import { SettingsService } from '../../../services/apis/cms/settings/settings.service';
+import { CmsApis } from '../../../services/apis/apis';
 
 @Component({
     selector: 'group-mng',
     templateUrl: './group-mng.component.html',
-    styleUrls: ['../../settings.component.css']
+    styleUrls: ['../../settings.component.css'],
+    providers: [ SettingsService, CmsApis ]
 })
 
 export class GroupMngComponent implements OnInit {
-    @Input() groupData: any = {};
-    @Input() transOptions: any[] = [];
+    @Input() groupData: any;
+    @Input() groupSeq: any;
 
+    public transOptions: any[];
     public fileSuffix:any;
     public videoBit:any;
     public audioBit:any;
     public dstWidth:any;
     public dstHeight:any;
-    public selectedOption:any;
+    public selectUseOption:any[] = [];
+    public selectFPSOption:any[] = [];
 
     public transOptionsCols: any[] = [
         {field: '', header: 'No', width: '5%'},
@@ -31,47 +35,67 @@ export class GroupMngComponent implements OnInit {
         {field: '', header: '수정', width: '10%'},
     ];
 
-    transUse: any[] = [
-        {label:'사용여부', value:null},
-        {label:'사용', value:true},
-        {label:'사용안함', value:false}
+    public transUse: any[] = [
+        {label: '사용', value: 'Y'},
+        {label: '사용안함', value: 'N'}
     ];
-    transFPS: any[] = [
-        {label:'FPS', value:null},
-        {label:'29.97', value:{id:1, name: '29.97', code: '29.97'}}
+    public transFPS: any[] = [
+        {label: 'copy', value: 'copy'},
+        {label: '29.97', value: '29.97'}
     ];
 
-    constructor(private http: Http) { }
+    public isShowMessage: boolean = false;
+
+    constructor(private settingsService: SettingsService, private cmsApis: CmsApis) { }
 
     ngOnInit() {
-
+        this.loadGroupData();
     }
-    changeOption() {
-        this.fileSuffix = document.getElementById('fileSuffix');
-        this.videoBit = document.getElementById('videoBit');
-        this.audioBit = document.getElementById('audioBit');
-        this.dstWidth = document.getElementById('dstWidth');
-        this.dstHeight = document.getElementById('dstHeight');
 
-        let headers:Headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    loadGroupData() {
+        this.settingsService.getLists(this.cmsApis.loadGroupMng + this.groupSeq)
+          .toPromise()
+          .then((cont) => {
+              this.transOptions = JSON.parse(cont['_body']).tcd;
+              this.setDropDownOptions();
+          });
+    }
+
+    setDropDownOptions() {
+        this.transOptions.forEach((item) => {
+            this.selectUseOption.push(item.gto_use_yn);
+            this.selectFPSOption.push(item.gto_frame_rate);
+        });
+    }
+
+    changeOption(index:number, gto_seq:string) {
+        this.getChangeOptions(index);
 
         let newData:any = {};
-        console.log(this.transOptions);
-        newData['gto_seq'] = this.transOptions[0]['gto_seq'];
-        newData['gto_use_yn'] = this.transOptions[0]['gto_use_yn'];
+        newData['gto_seq'] = gto_seq;
+        newData['gto_use_yn'] = this.selectUseOption[index];
         newData['gto_file_suffix'] = this.fileSuffix.value;
-        newData['gto_frame_rate'] = this.transOptions[0]['gto_frame_rate'];
+        newData['gto_frame_rate'] = this.selectFPSOption[index];
         newData['gto_video_bitrate'] = this.videoBit.value;
         newData['gto_audio_bitrate'] = this.audioBit.value;
         newData['gto_dst_width'] = this.dstWidth.value;
         newData['gto_dst_height'] = this.dstHeight.value;
 
-        return this.http.put('http://183.110.11.49/cms/setting/group/option', newData, { headers: headers })
+        this.settingsService.updateData(this.cmsApis.updateTransOption, newData)
           .toPromise()
-          .then(() => {alert('수정완료되었습니다.');})
+          .then(() => {
+            this.isShowMessage = true;
+          })
           .catch((error) => {
               console.log(error);
           });
+    }
+
+    getChangeOptions(index:number) {
+        this.fileSuffix = document.getElementById('fileSuffix'+index);
+        this.videoBit = document.getElementById('videoBit'+index);
+        this.audioBit = document.getElementById('audioBit'+index);
+        this.dstWidth = document.getElementById('dstWidth'+index);
+        this.dstHeight = document.getElementById('dstHeight'+index);
     }
 }

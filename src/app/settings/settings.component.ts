@@ -9,14 +9,13 @@ import { CmsApis } from '../services/apis/apis';
     selector: 'settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.css'],
-    providers: [ LoginService, SettingsService, CmsApis ]
+    providers: [ SettingsService, CmsApis ]
 })
 
 export class SettingsComponent implements OnInit {
     public groupList: TreeNode[];
     public selectGroup: TreeNode;
     public groupData: any[] = [];
-    public transOptions: any[] = [];
     public groupSeq:string = this.loginService.getCookie('grp_seq');
     public params:Params;
     public tempTreeData:any[] = [];
@@ -57,6 +56,7 @@ export class SettingsComponent implements OnInit {
               this.groupList = <TreeNode[]> this.treeData;
           });
     }
+
     getGroupSeq() {
         this.groupSeq = this.selectGroup['grp_seq'];
         this.loadGroupData();
@@ -67,7 +67,6 @@ export class SettingsComponent implements OnInit {
           .toPromise()
           .then((cont) => {
               this.groupData = JSON.parse(cont['_body']).grp;
-              this.transOptions = JSON.parse(cont['_body']).tcd;
           });
     }
 }

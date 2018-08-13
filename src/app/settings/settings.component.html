@@ -13,7 +13,7 @@
     </nav>
 </div>
 <div class="ui-g-10 ui-g-nopad">
-    <group-mng *ngIf="params.id === 'group-mng'" [groupData]="groupData" [transOptions]="transOptions"></group-mng>
+    <group-mng *ngIf="params.id === 'group-mng'" [groupData]="groupData" [groupSeq]="groupSeq"></group-mng>
     <add-group *ngIf="params.id === 'add-group'"></add-group>
     <user-modify *ngIf="params.id === 'user-modify'"></user-modify>
     <change-pswd *ngIf="params.id === 'change-pswd'"></change-pswd>
