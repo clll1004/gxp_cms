@@ -15,7 +15,6 @@ import { CmsApis } from '../services/apis/apis';
 export class SettingsComponent implements OnInit {
     public groupList: TreeNode[];
     public selectGroup: TreeNode;
-    public groupData: any[] = [];
     public groupSeq:string = this.loginService.getCookie('grp_seq');
     public params:Params;
     public tempTreeData:any[] = [];
@@ -35,7 +34,6 @@ export class SettingsComponent implements OnInit {
 
     load() {
         this.loadGroupList();
-        this.loadGroupData();
     }
 
     loadGroupList() {
@@ -59,14 +57,5 @@ export class SettingsComponent implements OnInit {
 
     getGroupSeq() {
         this.groupSeq = this.selectGroup['grp_seq'];
-        this.loadGroupData();
-    }
-
-    loadGroupData() {
-        this.settingsService.getLists(this.cmsApis.loadGroupMng + this.groupSeq)
-          .toPromise()
-          .then((cont) => {
-              this.groupData = JSON.parse(cont['_body']).grp;
-          });
     }
 }

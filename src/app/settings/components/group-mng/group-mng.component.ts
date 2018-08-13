@@ -1,17 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { SettingsService } from '../../../services/apis/cms/settings/settings.service';
 import { CmsApis } from '../../../services/apis/apis';
 
 @Component({
-    selector: 'group-mng',
+    selector: 'group-manager',
     templateUrl: './group-mng.component.html',
     styleUrls: ['../../settings.component.css'],
     providers: [ SettingsService, CmsApis ]
 })
 
-export class GroupMngComponent implements OnInit {
-    @Input() groupData: any;
+export class GroupMngComponent implements OnInit, OnChanges {
     @Input() groupSeq: any;
+
+    public groupData: object = {};
 
     public transOptions: any[];
     public fileSuffix:any;
@@ -46,7 +47,7 @@ export class GroupMngComponent implements OnInit {
 
     public isShowMessage: boolean = false;
 
-    public tableStyle: Element;
+    public tableStyle: any;
 
     constructor(private settingsService: SettingsService, private cmsApis: CmsApis) { }
 
@@ -54,10 +55,15 @@ export class GroupMngComponent implements OnInit {
         this.loadGroupData();
     }
 
+    ngOnChanges() {
+        this.loadGroupData();
+    }
+
     loadGroupData() {
         this.settingsService.getLists(this.cmsApis.loadGroupMng + this.groupSeq)
           .toPromise()
           .then((cont) => {
+              this.groupData = JSON.parse(cont['_body']).grp;
               this.transOptions = JSON.parse(cont['_body']).tcd;
               this.initDropDownOptions();
               this.initTableStyle();

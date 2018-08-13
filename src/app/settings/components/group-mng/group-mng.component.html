@@ -5,7 +5,7 @@
 
     <div class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec">
         <div class="ui-g-12 ui-g-nopad table-title-sec">
-            <h3>그룹 기본 정보</h3> <a routerLink="/settings/add-group"></a>
+            <h3>그룹 기본 정보</h3>
         </div>
         <table>
             <caption>그룹 기본 정보 테이블</caption>
@@ -17,13 +17,13 @@
             </colgroup>
             <tr>
                 <th>그룹명</th>
-                <td colspan="3">{{groupData.grp_nm}}</td>
+                <td colspan="3"> {{ groupData['grp_nm'] }} </td>
             </tr>
             <tr>
                 <th>등록일</th>
-                <td>{{groupData.grp_reg_dtm}}</td>
+                <td> {{ groupData['grp_reg_dtm'] }} </td>
                 <th>수정일</th>
-                <td>{{groupData.grp_upd_dtm}}</td>
+                <td> {{ groupData['grp_upd_dtm'] }} </td>
             </tr>
         </table>
     </div>
