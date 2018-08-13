@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
     }
 
     loadGroupList() {
-        return this.settingsService.getLists(this.cmsApis.loadFolderList + this.groupSeq)
+        this.settingsService.getLists(this.cmsApis.loadFolderList + this.groupSeq)
           .toPromise()
           .then((res) => {
               this.tempTreeData = JSON.parse(res['_body']);
@@ -63,7 +63,7 @@ export class SettingsComponent implements OnInit {
     }
 
     loadGroupData() {
-        return this.settingsService.getLists(this.cmsApis.loadGroupMng + this.groupSeq)
+        this.settingsService.getLists(this.cmsApis.loadGroupMng + this.groupSeq)
           .toPromise()
           .then((cont) => {
               this.groupData = JSON.parse(cont['_body']).grp;

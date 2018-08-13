@@ -32,7 +32,7 @@
         <div class="ui-g-12 ui-g-nopad table-title-sec">
             <h3>변환옵션 목록</h3>
         </div>
-        <p-table class="ui-g-12 ui-g-nopad" [value]="transOptions" [resizableColumns]="true">
+        <p-table class="ui-g-12 ui-g-nopad" id="transOptionTable" [value]="transOptions" [resizableColumns]="true">
             <ng-template pTemplate="colgroup" let-columns>
                 <colgroup>
                     <col *ngFor="let col of transOptionsCols" [style.width]="col.width">

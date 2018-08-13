@@ -46,6 +46,8 @@ export class GroupMngComponent implements OnInit {
 
     public isShowMessage: boolean = false;
 
+    public tableStyle: Element;
+
     constructor(private settingsService: SettingsService, private cmsApis: CmsApis) { }
 
     ngOnInit() {
@@ -57,15 +59,23 @@ export class GroupMngComponent implements OnInit {
           .toPromise()
           .then((cont) => {
               this.transOptions = JSON.parse(cont['_body']).tcd;
-              this.setDropDownOptions();
+              this.initDropDownOptions();
+              this.initTableStyle();
           });
     }
 
-    setDropDownOptions() {
+    initDropDownOptions() {
         this.transOptions.forEach((item) => {
             this.selectUseOption.push(item.gto_use_yn);
             this.selectFPSOption.push(item.gto_frame_rate);
         });
+    }
+
+    initTableStyle() {
+        this.tableStyle = document.getElementById('transOptionTable').children[0].children[0];
+        if(this.tableStyle) {
+            this.tableStyle.style['overflow-x'] = 'unset';
+        }
     }
 
     changeOption(index:number, gto_seq:string) {
@@ -82,13 +92,13 @@ export class GroupMngComponent implements OnInit {
         newData['gto_dst_height'] = this.dstHeight.value;
 
         this.settingsService.updateData(this.cmsApis.updateTransOption, newData)
-          .toPromise()
-          .then(() => {
+        .toPromise()
+        .then(() => {
             this.isShowMessage = true;
-          })
-          .catch((error) => {
-              console.log(error);
-          });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
 
     getChangeOptions(index:number) {
