@@ -7,7 +7,7 @@ import { Sha256 } from "../../../services/library/hash/sha256";
 import { CmsApis } from '../../../services/apis/apis';
 
 @Component({
-    selector: 'change-pswd',
+    selector: 'change-password',
     templateUrl: './change-pswd.component.html',
     styleUrls: ['../../settings.component.css'],
     providers: [ LoginService, SettingsService, Sha256 ]
