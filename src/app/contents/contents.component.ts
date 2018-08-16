@@ -389,6 +389,7 @@ export class ContentsComponent implements OnInit {
 
     resetFilter() {
         this.filterStatus = false;
+        this.searchKey = '';
         this.filtercontentsLists = this.contentsLists;
     }
 
