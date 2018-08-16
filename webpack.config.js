@@ -35,7 +35,14 @@ module.exports = function(env, argv) {
     },
 
     module: {
-      rules: [
+      rules: [{
+          test: /\.ts?$/,
+          enforce: 'pre',
+          loader: 'tslint-loader',
+          options: {
+            configFile: './tslint.json'
+          }
+        },
         {
           test: /.js$/,
           parser: {
@@ -46,7 +53,7 @@ module.exports = function(env, argv) {
         {
           test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
           exclude: /node_modules/,
-          use: ["@ngtools/webpack"]
+          use: [ '@ngtools/webpack']
         },
         // Templates
         {
