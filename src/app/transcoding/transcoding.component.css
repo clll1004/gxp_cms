@@ -5,7 +5,7 @@
 .row-info-sec {font-size: 14px; color: #888;}
 .row-info-sec .total-row {color: #ff6400; font-weight: bold;}
 
-td {padding: 10px !important; font-size: 14px; color: #999; word-break: break-all}
+td {padding: 10px !important; font-size: 14px; color: #777; word-break: break-all}
 td.emptyMessage {padding: 30px 0 !important; text-align: center;}
 
 .btn {height: 35px;}

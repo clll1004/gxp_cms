@@ -1,7 +1,7 @@
 /**
  * Created by GRE511 on 2018-07-17.
  */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CmsApis } from '../../services/apis/apis';
 import { LoginService } from '../../login/login.service';
@@ -14,7 +14,7 @@ import { ConfirmationService } from 'primeng/components/common/api';
   styleUrls: ['../transcoding.component.css'],
   providers: [TranscodingService, CmsApis, ConfirmationService]})
 
-export class TcListContainerComponent implements OnInit {
+export class TcListContainerComponent implements OnInit, OnDestroy {
   @Input() params: object;
 
   public groupSeq: string = '';
@@ -47,10 +47,10 @@ export class TcListContainerComponent implements OnInit {
   public tcProgressCols = [
     { field: '', header: '', width: '5%' },
     { field: '', header: 'No', width: '5%' },
-    { field: 'grp_nm', header: '그룹명', width: '10%' },
-    { field: 'ft_path', header: '파일 경로', width: '15%' },
-    { field: 'gto_nm', header: '변환 옵션', width: '5%' },
-    { field: 'ft_progress', header: '진행율', width: '9%' },
+    { field: 'grp_nm', header: '그룹명', width: '7%' },
+    { field: 'ft_path', header: '파일 경로', width: '17%' },
+    { field: 'gto_nm', header: '변환 옵션', width: '8%' },
+    { field: 'ft_progress', header: '진행율', width: '13%' },
     { field: 'ft_ts_ip', header: '트랜스코딩서버 IP', width: '14%' },
     { field: 'ft_reg_dtm', header: '등록일', width: '9%' },
     { field: 'ft_start_dtm', header: '변환시작일시', width: '9%' },
@@ -74,6 +74,8 @@ export class TcListContainerComponent implements OnInit {
     { field: 'ft_msg', header: '실패 메시지', width: '10%' },
     { field: 'ft_end_dtm', header: '변환최종일시', width: '10%' }];
 
+  public progressInterval:any;
+
   constructor(private activatedRoute: ActivatedRoute,
               private loginService: LoginService,
               private transcodingService: TranscodingService,
@@ -93,7 +95,19 @@ export class TcListContainerComponent implements OnInit {
       this.load();
       this.pageInit();
       this.loadTranscodingList();
+
+      if (this.params['id'] === 'progress') {
+        this.progressInterval = setInterval(() => { this.loadTranscodingList(); }, 5000);
+      } else {
+        clearInterval(this.progressInterval);
+      }
     });
+  }
+
+  ngOnDestroy() {
+    if(this.progressInterval) {
+      clearInterval(this.progressInterval);
+    }
   }
 
   load() {
@@ -147,9 +161,7 @@ export class TcListContainerComponent implements OnInit {
           this.tableInit();
         }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => { });
   }
 
   tableInit() {

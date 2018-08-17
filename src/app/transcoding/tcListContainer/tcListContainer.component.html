@@ -102,7 +102,10 @@
           <td>{{ filterTcMonitoringList.grp_nm }}</td>
           <td>{{ filterTcMonitoringList.ft_path }}</td>
           <td>{{ filterTcMonitoringList.gto_nm }}</td>
-          <td>{{ filterTcMonitoringList.ft_progress }}</td>
+          <!--<td>{{ filterTcMonitoringList.ft_progress }}</td>-->
+          <td>
+            <p-progressBar [value]="filterTcMonitoringList.ft_progress" [style]="{'width': '50%', 'display': 'inline-block', 'vertical-align': 'bottom'}" [showValue]="false"></p-progressBar> {{ filterTcMonitoringList.ft_progress }} %
+          </td>
           <td>{{ filterTcMonitoringList.ft_ts_ip }}</td>
           <td>{{ filterTcMonitoringList.ft_reg_dtm }}</td>
           <td>{{ filterTcMonitoringList.ft_start_dtm }}</td>
