@@ -17,7 +17,7 @@
                 <fieldset>
                     <label for="gf_nm"></label>
                     <input pInputText type="text" class="margin-right-5" id="gf_nm" formControlName="gf_nm" title="폴더명 입력" autocomplete="off" maxlength="21" (change)="initDupFolderName()" />
-                    <button type="button" class="btn margin-right-5" (click)="DupFolderName()"><i class="fas fa-clipboard-check"></i> 중복확인</button>
+                    <button type="button" class="btn margin-right-5" (click)="dupFolderName()"><i class="fas fa-clipboard-check"></i> 중복확인</button>
                     <button type="submit" class="btn" [disabled]="!folderform.valid || !ableFolderName"><i class="fas fa-plus"></i> 추가</button>
                     <div *ngIf="showFolderNameDupMsg">
                         <p class="pass info-txt margin-top-5" *ngIf="ableFolderName">사용가능한 폴더명입니다.</p>
@@ -118,9 +118,9 @@
         <button type="button" class="btn" (click)="confirm.reject()"><i class="fas fa-times"></i> 취소</button>
     </p-footer>
 </p-confirmDialog>
-<p-dialog header="파일업로드" [(visible)]="isModalDisplay" [width]="900" [modal]="true" (onShow)="setUploadStyle()" (onHide)="UploadInit()" [positionTop]="200">
+<p-dialog header="파일업로드" [(visible)]="isModalDisplay" [width]="900" [modal]="true" (onShow)="setUploadStyle()" (onHide)="uploadInit()" [positionTop]="200">
     <div class="ui-g-12 ui-g-nopad margin-top-30 margin-bottom-30 uploadDailog-container" id="uploadDailog-container">
-        <p-fileUpload name="files[]" multiple="multiple" customUpload="true" #form (uploadHandler)="fileUplod($event, form)" accept=".mp4, .avi, .wmv, .flv, .mp3, .asf, .mkv, .rm, .mov, .wav, .m4v, .mpg, .ogg, .ogv, .swf, .tp, .ts, .webm, .wma, .mxf">
+        <p-fileUpload name="files[]" multiple="multiple" customUpload="true" #form (uploadHandler)="fileUpload($event, form)" accept=".mp4, .avi, .wmv, .flv, .mp3, .asf, .mkv, .rm, .mov, .wav, .m4v, .mpg, .ogg, .ogv, .swf, .tp, .ts, .webm, .wma, .mxf">
             <div class="ui-fileupload-content"></div>
             <ng-template pTemplate="content" *ngIf="!isUploading">
                 <ul>

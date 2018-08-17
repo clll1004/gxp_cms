@@ -2,9 +2,9 @@
  * Created by GRE511 on 2018-07-17.
  */
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { CmsApis } from '../../services/apis/apis';
-import { LoginService } from "../../login/login.service";
+import { LoginService } from '../../login/login.service';
 import { TranscodingService } from '../../services/apis/cms/transcoding/transcoding.service';
 import { ConfirmationService } from 'primeng/components/common/api';
 
@@ -12,8 +12,8 @@ import { ConfirmationService } from 'primeng/components/common/api';
   selector: 'tcListContainer',
   templateUrl: './tcListContainer.component.html',
   styleUrls: ['../transcoding.component.css'],
-  providers: [ TranscodingService, CmsApis, ConfirmationService ]
-})
+  providers: [TranscodingService, CmsApis, ConfirmationService]})
+
 export class TcListContainerComponent implements OnInit {
   @Input() params: object;
 
@@ -21,7 +21,7 @@ export class TcListContainerComponent implements OnInit {
   public url: string = '';
   /*for dropdown*/
   public selectedGroupOptions: any[] = [];
-  public selectedGroup: string ='';
+  public selectedGroup: string = '';
 
   /*for Table*/
   public gettotalListLength: number = 0;
@@ -33,51 +33,46 @@ export class TcListContainerComponent implements OnInit {
   public searchKey: string = '';
 
   public tcStandByCols = [
-    {field: '', header: '', width: '5%'},
-    {field: '', header: 'No', width: '5%'},
-    {field: 'grp_nm', header: '그룹명', width: '25%'},
-    {field: 'ft_path', header: '원본 파일 경로', width: '25%'},
-    {field: 'ft_reg_dtm', header: '등록일', width: '20%'}
-  ];
+    { field: '', header: '', width: '5%' },
+    { field: '', header: 'No', width: '5%' },
+    { field: 'grp_nm', header: '그룹명', width: '25%' },
+    { field: 'ft_path', header: '원본 파일 경로', width: '25%' },
+    { field: 'ft_reg_dtm', header: '등록일', width: '20%' }];
   public tcRequestCols = [
-    {field: '', header: '', width: '5%'},
-    {field: '', header: 'No', width: '5%'},
-    {field: 'grp_nm', header: '그룹명', width: '25%'},
-    {field: 'ft_path', header: '원본 파일 경로', width: '25%'},
-    {field: 'ft_reg_dtm', header: '등록일', width: '20%'}
-  ];
+    { field: '', header: '', width: '5%' },
+    { field: '', header: 'No', width: '5%' },
+    { field: 'grp_nm', header: '그룹명', width: '25%' },
+    { field: 'ft_path', header: '원본 파일 경로', width: '25%' },
+    { field: 'ft_reg_dtm', header: '등록일', width: '20%' }];
   public tcProgressCols = [
-    {field: '', header: '', width: '5%'},
-    {field: '', header: 'No', width: '5%'},
-    {field: 'grp_nm', header: '그룹명', width: '10%'},
-    {field: 'ft_path', header: '파일 경로', width: '15%'},
-    {field: 'gto_nm', header: '변환 옵션', width: '5%'},
-    {field: 'ft_progress', header: '진행율', width: '9%'},
-    {field: 'ft_ts_ip', header: '트랜스코딩서버 IP', width: '14%'},
-    {field: 'ft_reg_dtm', header: '등록일', width: '9%'},
-    {field: 'ft_start_dtm', header: '변환시작일시', width: '9%'},
-    {field: 'ft_end_dtm', header: '변환최종일시', width: '9%'}
-  ];
+    { field: '', header: '', width: '5%' },
+    { field: '', header: 'No', width: '5%' },
+    { field: 'grp_nm', header: '그룹명', width: '10%' },
+    { field: 'ft_path', header: '파일 경로', width: '15%' },
+    { field: 'gto_nm', header: '변환 옵션', width: '5%' },
+    { field: 'ft_progress', header: '진행율', width: '9%' },
+    { field: 'ft_ts_ip', header: '트랜스코딩서버 IP', width: '14%' },
+    { field: 'ft_reg_dtm', header: '등록일', width: '9%' },
+    { field: 'ft_start_dtm', header: '변환시작일시', width: '9%' },
+    { field: 'ft_end_dtm', header: '변환최종일시', width: '9%' }];
   public tcCompleteCols = [
-    {field: '', header: '', width: '5%'},
-    {field: '', header: 'No', width: '5%'},
-    {field: 'grp_nm', header: '그룹명', width: '13%'},
-    {field: 'ft_path', header: '파일 경로', width: '22%'},
-    {field: 'ft_ts_ip', header: '트랜스코딩서버 IP', width: '15%'},
-    {field: 'ft_reg_dtm', header: '등록일', width: '10%'},
-    {field: 'ft_start_dtm', header: '변환시작일시', width: '10%'},
-    {field: 'ft_end_dtm', header: '변환최종일시', width: '10%'}
-  ];
+    { field: '', header: '', width: '5%' },
+    { field: '', header: 'No', width: '5%' },
+    { field: 'grp_nm', header: '그룹명', width: '13%' },
+    { field: 'ft_path', header: '파일 경로', width: '22%' },
+    { field: 'ft_ts_ip', header: '트랜스코딩서버 IP', width: '15%' },
+    { field: 'ft_reg_dtm', header: '등록일', width: '10%' },
+    { field: 'ft_start_dtm', header: '변환시작일시', width: '10%' },
+    { field: 'ft_end_dtm', header: '변환최종일시', width: '10%' }];
   public tcFailCols = [
-    {field: '', header: '', width: '5%'},
-    {field: '', header: 'No', width: '5%'},
-    {field: 'grp_nm', header: '그룹명', width: '10%'},
-    {field: 'ft_path', header: '파일 경로', width: '20%'},
-    {field: 'ft_ts_ip', header: '트랜스코딩서버 IP', width: '20%'},
-    {field: 'ft_fail_cnt', header: '실패 횟수', width: '10%'},
-    {field: 'ft_msg', header: '실패 메시지', width: '10%'},
-    {field: 'ft_end_dtm', header: '변환최종일시', width: '10%'}
-  ];
+    { field: '', header: '', width: '5%' },
+    { field: '', header: 'No', width: '5%' },
+    { field: 'grp_nm', header: '그룹명', width: '10%' },
+    { field: 'ft_path', header: '파일 경로', width: '20%' },
+    { field: 'ft_ts_ip', header: '트랜스코딩서버 IP', width: '20%' },
+    { field: 'ft_fail_cnt', header: '실패 횟수', width: '10%' },
+    { field: 'ft_msg', header: '실패 메시지', width: '10%' },
+    { field: 'ft_end_dtm', header: '변환최종일시', width: '10%' }];
 
   constructor(private activatedRoute: ActivatedRoute,
               private loginService: LoginService,
@@ -86,13 +81,11 @@ export class TcListContainerComponent implements OnInit {
               private confirmationService: ConfirmationService) { }
 
   public urlList: object = {
-    'standby': this.cmsApis.loadStandbyList,
-    'request': this.cmsApis.loadRequestList,
-    'progress': this.cmsApis.loadProgressList,
-    'complete': this.cmsApis.loadCompleteList,
-    'fail': this.cmsApis.loadFailList
-  };
-
+    standby: this.cmsApis.loadStandbyList,
+    request: this.cmsApis.loadRequestList,
+    progress: this.cmsApis.loadProgressList,
+    complete: this.cmsApis.loadCompleteList,
+    fail: this.cmsApis.loadFailList};
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
@@ -118,7 +111,7 @@ export class TcListContainerComponent implements OnInit {
     this.transcodingService.getLists(this.cmsApis.loadTranscodingGroupNames + this.groupSeq)
       .toPromise()
       .then((cont) => {
-        let list = JSON.parse(cont['_body']);
+        const list = JSON.parse(cont['_body']);
         list.forEach((item:any) => {
           item.label = item.grp_nm;
           item.value = item.grp_nm;
@@ -126,10 +119,10 @@ export class TcListContainerComponent implements OnInit {
         });
 
         this.selectedGroupOptions.forEach((item) => {
-          if(item.grp_seq === this.groupSeq) {
+          if (item.grp_seq === this.groupSeq) {
             this.selectedGroup = item.grp_nm;
           }
-        })
+        });
       })
       .catch((error) => { console.log(error); });
   }
@@ -139,7 +132,7 @@ export class TcListContainerComponent implements OnInit {
     this.selectItems = [];
     this.tcMonitoringLists = [];
     this.gettotalListLength = 0;
-    if(this.urlList.hasOwnProperty(this.params['id'])) {
+    if (this.urlList.hasOwnProperty(this.params['id'])) {
       this.url = this.urlList[this.params['id']] + this.groupSeq;
     }
   }
@@ -148,7 +141,7 @@ export class TcListContainerComponent implements OnInit {
     this.transcodingService.getLists(this.url)
       .toPromise()
       .then((cont:any) => {
-        if(cont.status !== 0) {
+        if (cont.status !== 0) {
           this.tcMonitoringLists = JSON.parse(cont['_body']);
           this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
           this.tableInit();
@@ -160,7 +153,7 @@ export class TcListContainerComponent implements OnInit {
   }
 
   tableInit() {
-    if(this.filterTcMonitoringLists) {
+    if (this.filterTcMonitoringLists) {
       this.gettotalListLength = this.filterTcMonitoringLists.length;
       this.setTableIndex();
     }
@@ -172,7 +165,7 @@ export class TcListContainerComponent implements OnInit {
   }
 
   filterSearch() {
-    if(!this.filterTcMonitoringLists) {
+    if (!this.filterTcMonitoringLists) {
       return false;
     }
     this.filterTcMonitoringLists = [];
@@ -193,7 +186,7 @@ export class TcListContainerComponent implements OnInit {
       this.confirmationService.confirm({
         message: '변환을 재시작 하시겠습니까?',
         accept: () => {
-          let newItemArray: any[] = [];
+          const newItemArray: any[] = [];
           let itemObject: any = {};
           this.selectItems.forEach((item) => {
             itemObject = {};
@@ -213,7 +206,7 @@ export class TcListContainerComponent implements OnInit {
             .catch((error: any) => {
               console.log(error);
             });
-        }
+        },
       });
     }
   }

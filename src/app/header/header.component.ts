@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from "../login/login.service";
+import { LoginService } from '../login/login.service';
 
 @Component({
-    selector: 'header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css']
-})
+  selector: 'header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']})
+
 export class HeaderComponent implements OnInit {
-    public userName:string = '';
+  public userName:string = '';
 
-    constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService) { }
 
-    ngOnInit() {
-        this.userName = this.loginService.getCookie('usr_nm');
-    }
+  ngOnInit() {
+    this.userName = this.loginService.getCookie('usr_nm');
+  }
 
-    logout() {
-        this.loginService.logout();
-    }
+  logout() {
+    this.loginService.logout();
+  }
 }
 

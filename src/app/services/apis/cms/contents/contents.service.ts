@@ -13,36 +13,35 @@ export class ContentsService {
   }
 
   postData(url:string, data:any) {
-    let headers:Headers = new Headers();
+    const headers:Headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return this.http.post(url, data, { headers: headers });
+    return this.http.post(url, data, { headers });
   }
 
   updateData(url:string, newData:any[]) {
-    let headers:Headers = new Headers();
+    const headers:Headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return this.http.put(url, newData, { headers: headers });
+    return this.http.put(url, newData, { headers });
   }
 
   deleteData(url:string, data:any[]) {
-    let headers:Headers = new Headers();
+    const headers:Headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
     return this.http.delete(url, new RequestOptions({
-      headers: headers,
-      body: data
-    }));
+      headers,
+      body: data}));
   }
 
   uploadFile(ownpath, pathString, authKey, formData:FormData) {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('authKey', authKey);
     headers.append('ownpath', ownpath);
     headers.append('lastpath', pathString);
 
-    let options = new RequestOptions({headers: headers});
-    return this.http.post('http://stg.gomgxp.com/gxp/upload', formData, options);//'http://stg.gomgxp.com/gxp/upload'
+    const options = new RequestOptions({ headers });
+    return this.http.post('http://stg.gomgxp.com/gxp/upload', formData, options);
   }
 }
