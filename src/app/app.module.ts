@@ -19,7 +19,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
-import { DialogModule, ConfirmDialogModule, PanelModule } from 'primeng/primeng';
+import { DialogModule, ConfirmDialogModule, PanelModule } from 'primeng';
 import { TreeModule } from 'primeng/tree';
 
 import { HeaderComponent } from './header/header.component';
