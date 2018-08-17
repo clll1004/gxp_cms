@@ -12,14 +12,13 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
-import { DataTableModule } from 'primeng/primeng';
+import { DataTableModule, DialogModule, ConfirmDialogModule, PanelModule } from 'primeng/primeng';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AccordionModule } from 'primeng/accordion';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
-import { DialogModule, ConfirmDialogModule, PanelModule } from 'primeng';
 import { TreeModule } from 'primeng/tree';
 
 import { HeaderComponent } from './header/header.component';
