@@ -28,12 +28,7 @@ export class ChangePswdComponent implements OnInit {
 
   ngOnInit() {
     this.load();
-    this.changePasswordform = this.formBuilder.group({
-      usr_seq: new FormControl(null),
-      usr_pw_old: new FormControl(null, Validators.required),
-      usr_pw: new FormControl(null, Validators.required),
-      usr_pw_cf: new FormControl(null, Validators.required) },
-      { validator: PasswordFormValidator.checkPassword });
+    this.initForm();
   }
 
   load() {
@@ -58,6 +53,7 @@ export class ChangePswdComponent implements OnInit {
         if (data.status === 200) {
           this.isShowMessage = true;
           this.isSuccess = true;
+          this.initForm();
         } else if (data.status === 204) {
           this.isShowMessage = true;
           this.isSuccess = false;
@@ -66,5 +62,14 @@ export class ChangePswdComponent implements OnInit {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  initForm() {
+    this.changePasswordform = this.formBuilder.group({
+      usr_seq: new FormControl(null),
+      usr_pw_old: new FormControl(null, Validators.required),
+      usr_pw: new FormControl(null, Validators.required),
+      usr_pw_cf: new FormControl(null, Validators.required) },
+      { validator: PasswordFormValidator.checkPassword });
   }
 }
