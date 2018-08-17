@@ -145,14 +145,14 @@ export class ContentsComponent implements OnInit {
         }
       };
 
-      // while (folderArray.length > 0) {
-      // folderArray.some((item, index) => {
-      //   if (item.gf_prnt_seq === rootId && item.gf_grp_seq === grpSeq) {
-      //     return rootNodes.push(folderArray.splice(index, 1)[0]);
-      //   }
-      //   return convert(rootNodes, item, index);
-      // });
-      // }
+      while (folderArray.length > 0) {
+        folderArray.forEach((item, index) => {
+          if (item.gf_prnt_seq === rootId && item.gf_grp_seq === grpSeq) {
+            return rootNodes.push(folderArray.splice(index, 1)[0]);
+          }
+          return convert(rootNodes, item, index);
+        });
+      }
 
       return rootNodes;
     };
@@ -163,7 +163,7 @@ export class ContentsComponent implements OnInit {
       });
 
       if (fol.length) {
-        grpItem['children'] = folderTree(fol, '0', grpItem.grpSeq);
+        grpItem['children'] = folderTree(fol, '0', grpItem.grp_seq);
       }
       tempTreeArray.push(grpItem);
     });
