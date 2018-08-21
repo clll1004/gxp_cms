@@ -9,22 +9,24 @@
 
 <div class="ui-g-10 ui-g-nopad">
     <div class="ui-g-12 ui-g-nopad content-sec">
-        <path></path>
+        <div class="ui-g-12 ui-g-nopad page-title-sec margin-bottom-40">
+            COTENTS / <span class="path"> 콘텐츠 </span>
+        </div>
         <!--버튼-->
         <div class="ui-g-12 ui-g-nopad tctr-sec margin-bottom-10">
             <button type="button" class="btn margin-right-5" *ngIf="selectGroup" (click)="showFolderForm()"><i class="fas fa-folder"></i> 새폴더</button>
-            <form [formGroup]="folderform" (ngSubmit)="addFolder(folderform.value)" *ngIf="showAddFolderForm" class="addFolderForm">
+            <form [formGroup]="folderForm" (ngSubmit)="addFolder(folderForm.value)" *ngIf="showAddFolderForm" class="addFolderForm">
                 <fieldset>
                     <label for="gf_nm"></label>
                     <input pInputText type="text" class="margin-right-5" id="gf_nm" formControlName="gf_nm" title="폴더명 입력" autocomplete="off" maxlength="21" (change)="initDupFolderName()" />
                     <button type="button" class="btn margin-right-5" (click)="dupFolderName()"><i class="fas fa-clipboard-check"></i> 중복확인</button>
-                    <button type="submit" class="btn" [disabled]="!folderform.valid || !ableFolderName"><i class="fas fa-plus"></i> 추가</button>
+                    <button type="submit" class="btn" [disabled]="!folderForm.valid || !ableFolderName"><i class="fas fa-plus"></i> 추가</button>
                     <div *ngIf="showFolderNameDupMsg">
                         <p class="pass info-txt margin-top-5" *ngIf="ableFolderName">사용가능한 폴더명입니다.</p>
                         <p class="req info-txt margin-top-5" *ngIf="!ableFolderName">사용중인 폴더명입니다.</p>
                     </div>
-                    <div *ngIf="!folderform.get('gf_nm').valid && folderform.get('gf_nm').dirty" class="addFolderFormErrorMessage">
-                        <p class="req info-txt margin-top-5" *ngIf="folderform.get('gf_nm').errors['maxlength']"> 20자 이내로 입력해주세요</p>
+                    <div *ngIf="!folderForm.get('gf_nm').valid && folderForm.get('gf_nm').dirty" class="addFolderFormErrorMessage">
+                        <p class="req info-txt margin-top-5" *ngIf="folderForm.get('gf_nm').errors['maxlength']"> 20자 이내로 입력해주세요</p>
                     </div>
                 </fieldset>
             </form>
@@ -47,7 +49,7 @@
         <!--리스트-->
         <div class="ui-g-9 ui-g-nopad">
             <div class="ui-g-12 ui-g-nopad table-sec">
-                <p-table [value]="filtercontentsLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50]" [(selection)]="selectItems" >
+                <p-table [value]="filterContentsLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50]" [(selection)]="selectItems" >
                     <ng-template pTemplate="colgroup" let-columns>
                         <colgroup>
                             <col *ngFor="let col of contentCols" [style.width]="col.width">
@@ -87,24 +89,24 @@
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-search"></i> 썸네일 미리보기</h3>
                     <!--<preview-thumbnail class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" *ngIf="showInfos"></preview-thumbnail>-->
-                    <div class="ui-g-12 ui-g-nopad" id="thumbArea" [ngStyle]="{'display': showInfos ? 'block' : 'none'}">
+                    <div class="ui-g-12 ui-g-nopad" id="thumbArea" [ngStyle]="{'display': showInfo ? 'block' : 'none'}">
                         <img src="" id="pvThumbnail" alt="썸네일 이미지" title="썸네일 이미지" class="ui-g-12 ui-g-nopad padding-top-10 padding-bottom-10" />
                     </div>
-                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfos">데이터가 없습니다.</div>
+                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfo">데이터가 없습니다.</div>
                 </li>
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-spinner"></i> 트랜스코딩 진행상황</h3>
-                    <preview-status class="ui-g-12 ui-g-nopad" [transcodingStatus]="transcodingStatus" [folderPath]="folderPath" *ngIf="showInfos"></preview-status>
-                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfos">데이터가 없습니다.</div>
+                    <preview-status class="ui-g-12 ui-g-nopad" [transCodingStatus]="transCodingStatus" [folderPath]="folderPath" *ngIf="showInfo"></preview-status>
+                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfo">데이터가 없습니다.</div>
                 </li>
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-info-circle"></i> 원본 파일정보</h3>
-                    <preview-fInfo class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" [folderPath]="folderPath" *ngIf="showInfos"></preview-fInfo>
-                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfos">데이터가 없습니다.</div>
+                    <preview-fInfo class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" [folderPath]="folderPath" *ngIf="showInfo"></preview-fInfo>
+                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfo">데이터가 없습니다.</div>
                 </li>
             </ul>
 
-            <div class="btn-sec txt-center margin-bottom-30" *ngIf="showInfos">
+            <div class="btn-sec txt-center margin-bottom-30" *ngIf="showInfo">
                 <button type="button" class="btn margin-right-5" (click)="changeStatusRestartItem()"><i class="fas fa-redo"></i> 변환 재시작</button>
                 <button type="button" class="btn" (click)="changeStatusDeleteItem()"><i class="fas fa-trash-alt"></i> 삭제</button>
             </div>

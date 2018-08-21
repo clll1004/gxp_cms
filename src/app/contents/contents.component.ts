@@ -20,7 +20,7 @@ export class ContentsComponent implements OnInit {
   public groupSeq: string = '';
   public folderPath: object = {};
 
-  public transcodingStatusValue: object = {
+  public transCodingStatusValue: object = {
     U: '업로드 완료',
     TR: '변환 요청',
     OF: '원본전송실패',
@@ -29,21 +29,21 @@ export class ContentsComponent implements OnInit {
     SF: '배포실패',
     SS: '완료' };
   public contentsLists: any[] = [];
-  public filtercontentsLists: any[] = [];
+  public filterContentsLists: any[] = [];
   public selectItems: any[] = [];
   public searchKey: string = '';
   public filterStatus: boolean = false;
 
-  public showInfos: boolean = false;
+  public showInfo: boolean = false;
   public pvImg:any;
-  public thumbpathArray:any[] = [];
+  public thumbPathArray:any[] = [];
   public thumbPath:string = '';
-  public transcodingStatus: any[] = [];
+  public transCodingStatus: any[] = [];
   public originFileInfo: any[] = [];
 
   public isShowFolderMessage: boolean = false;
   public showAddFolderForm: boolean = false;
-  public folderform: FormGroup;
+  public folderForm: FormGroup;
   public ableFolderName: boolean = false;
   public showFolderNameDupMsg: boolean = false;
 
@@ -60,7 +60,7 @@ export class ContentsComponent implements OnInit {
   /*파일 업로드 세팅*/
   public cid: string = '';
   public gid: string = '';
-  public ownpath: string = '';
+  public ownPath: string = '';
   public pathArray: any[] = [];
   public pathString: string = '/';
   public authKey: string = '5C8F8FD268A6D8FD2D38C5140D533D2A4F85D362F43BFEA69B5E593024CC7B88';
@@ -75,12 +75,12 @@ export class ContentsComponent implements OnInit {
               private loginService: LoginService,
               private folderService: FolderService,
               private contentsService: ContentsService,
-              private cmsApis: CmsApis,
+              private cmsApi: CmsApis,
               private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.load();
-    this.folderform = this.formBuilder.group({
+    this.folderForm = this.formBuilder.group({
       gf_grp_seq: new FormControl(null),
       gf_nm: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(20)])),
       gf_prnt_seq: new FormControl(null),
@@ -98,7 +98,7 @@ export class ContentsComponent implements OnInit {
   }
 
   loadGroupList() {
-    this.folderService.getLists(this.cmsApis.loadFolderList + this.groupSeq)
+    this.folderService.getLists(this.cmsApi.loadFolderList + this.groupSeq)
       .toPromise()
       .then((res) => {
         this.tempTreeData = JSON.parse(res['_body']);
@@ -200,31 +200,31 @@ export class ContentsComponent implements OnInit {
     this.showAddFolderForm = false;
     this.showFolderNameDupMsg = false;
     this.ableFolderName = false;
-    this.contentsService.getLists(this.cmsApis.loadContentList + folderSeq)
+    this.contentsService.getLists(this.cmsApi.loadContentList + folderSeq)
       .toPromise()
       .then((cont) => {
         this.contentsLists = JSON.parse(cont['_body']).list;
         if (this.contentsLists) {
           this.contentsLists.forEach((item) => {
-            if (this.transcodingStatusValue.hasOwnProperty(item.fo_status)) {
-              item.statusLabel = this.transcodingStatusValue[item.fo_status];
+            if (this.transCodingStatusValue.hasOwnProperty(item.fo_status)) {
+              item.statusLabel = this.transCodingStatusValue[item.fo_status];
             } else {
               item.statusLabel = '실패';
             }
           });
         }
-        this.filtercontentsLists = this.contentsLists;
+        this.filterContentsLists = this.contentsLists;
       });
   }
 
   previewInit() {
     this.selectItems = [];
     this.originFileInfo = [];
-    this.showInfos = false;
+    this.showInfo = false;
   }
 
   changeStatusRestart() {
-    if (this.selectItems.length && this.filtercontentsLists) {
+    if (this.selectItems.length && this.filterContentsLists) {
       this.confirmationService.confirm({
         message: '변환을 재시작 하시겠습니까?',
         accept: () => {
@@ -236,7 +236,7 @@ export class ContentsComponent implements OnInit {
             newItemArray.push(itemObject);
           });
 
-          return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
+          return this.contentsService.updateData(this.cmsApi.updateContentsStatus, newItemArray)
             .toPromise()
             .then(() => {
               this.selectItems = [];
@@ -251,7 +251,7 @@ export class ContentsComponent implements OnInit {
   }
 
   changeStatusDelete() {
-    if (this.selectItems.length && this.filtercontentsLists) {
+    if (this.selectItems.length && this.filterContentsLists) {
       this.confirmationService.confirm({
         message: '삭제하시겠습니까?',
         accept: () => {
@@ -263,7 +263,7 @@ export class ContentsComponent implements OnInit {
             newItemArray.push(itemObject);
           });
 
-          return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
+          return this.contentsService.deleteData(this.cmsApi.updateContentsStatus, newItemArray)
            .toPromise()
            .then(() => {
              this.selectItems = [];
@@ -284,7 +284,7 @@ export class ContentsComponent implements OnInit {
       accept: () => {
         const newItemArray: any[] = [{ fo_seq: this.originFileInfo['fo_seq'] }];
 
-        return this.contentsService.updateData(this.cmsApis.updateContentsStatus, newItemArray)
+        return this.contentsService.updateData(this.cmsApi.updateContentsStatus, newItemArray)
           .toPromise()
           .then(() => {
             this.selectItems = [];
@@ -303,7 +303,7 @@ export class ContentsComponent implements OnInit {
       accept: () => {
         const newItemArray: any[] = [{ fo_seq: this.originFileInfo['fo_seq'] }];
 
-        return this.contentsService.deleteData(this.cmsApis.updateContentsStatus, newItemArray)
+        return this.contentsService.deleteData(this.cmsApi.updateContentsStatus, newItemArray)
           .toPromise()
           .then(() => {
             this.selectItems = [];
@@ -331,17 +331,17 @@ export class ContentsComponent implements OnInit {
   }
 
   folderFormInit(grpSeq:string, gfNm:string, gfPrntSeq:string, gfLevel:string) {
-    this.folderform.get('gf_grp_seq').setValue(grpSeq);
-    this.folderform.get('gf_nm').setValue(gfNm);
-    this.folderform.get('gf_prnt_seq').setValue(gfPrntSeq);
-    this.folderform.get('gf_level').setValue(gfLevel);
+    this.folderForm.get('gf_grp_seq').setValue(grpSeq);
+    this.folderForm.get('gf_nm').setValue(gfNm);
+    this.folderForm.get('gf_prnt_seq').setValue(gfPrntSeq);
+    this.folderForm.get('gf_level').setValue(gfLevel);
   }
 
   dupFolderName() {
-    const inputFolderName: string = this.folderform.value['gf_nm'];
+    const inputFolderName: string = this.folderForm.value['gf_nm'];
     if (!!inputFolderName) {
       this.showFolderNameDupMsg = true;
-      const url = this.cmsApis.checkDupFolderName + 'gf_grp_seq=' + this.folderform.get('gf_grp_seq').value + '&gf_prnt_seq=' + this.folderform.get('gf_prnt_seq').value + '&gf_nm=' + inputFolderName;
+      const url = this.cmsApi.checkDupFolderName + 'gf_grp_seq=' + this.folderForm.get('gf_grp_seq').value + '&gf_prnt_seq=' + this.folderForm.get('gf_prnt_seq').value + '&gf_nm=' + inputFolderName;
       this.contentsService.getLists(url)
         .toPromise()
         .then((res) => {
@@ -359,7 +359,7 @@ export class ContentsComponent implements OnInit {
   }
 
   addFolder(formObject: any) {
-    this.contentsService.postData(this.cmsApis.postFolder, formObject)
+    this.contentsService.postData(this.cmsApi.postFolder, formObject)
       .toPromise()
       .then(() => {
         this.showAddFolderForm = false;
@@ -371,14 +371,14 @@ export class ContentsComponent implements OnInit {
   }
 
   contentSearch() {
-    if (!this.searchKey || !this.filtercontentsLists) {
+    if (!this.searchKey || !this.filterContentsLists) {
       return false;
     }
     this.filterStatus = true;
-    this.filtercontentsLists = [];
+    this.filterContentsLists = [];
     this.contentsLists.filter((item) => {
       if (this.searchKey && item.fo_nm && item.fo_nm.indexOf(this.searchKey) >= 0) {
-        this.filtercontentsLists.push(item);
+        this.filterContentsLists.push(item);
       }
     });
   }
@@ -386,24 +386,24 @@ export class ContentsComponent implements OnInit {
   resetFilter() {
     this.filterStatus = false;
     this.searchKey = '';
-    this.filtercontentsLists = this.contentsLists;
+    this.filterContentsLists = this.contentsLists;
   }
 
   showPreview(item: any) {
-    this.showInfos = true;
+    this.showInfo = true;
     this.originFileInfo = item;
     this.loadPreviewThumbnail(item);
 
     /*트랜스코딩 진행상황*/
-    this.transcodingStatus = [];
-    this.contentsService.getLists(this.cmsApis.loadItemTranscodingList + item.fo_seq)
+    this.transCodingStatus = [];
+    this.contentsService.getLists(this.cmsApi.loadItemTransCodingList + item.fo_seq)
       .toPromise()
       .then((cont) => {
-        this.transcodingStatus = JSON.parse(cont['_body']);
-        if (this.transcodingStatus) {
-          this.transcodingStatus.forEach((item) => {
-            if (this.transcodingStatusValue.hasOwnProperty(item.ft_status)) {
-              item.statusLabel = this.transcodingStatusValue[item.ft_status];
+        this.transCodingStatus = JSON.parse(cont['_body']);
+        if (this.transCodingStatus) {
+          this.transCodingStatus.forEach((item) => {
+            if (this.transCodingStatusValue.hasOwnProperty(item.ft_status)) {
+              item.statusLabel = this.transCodingStatusValue[item.ft_status];
             } else {
               item.statusLabel = '실패';
             }
@@ -414,14 +414,14 @@ export class ContentsComponent implements OnInit {
 
   loadPreviewThumbnail(item: any) {
     this.thumbPath = '';
-    this.thumbpathArray = item['fo_thumb_path'].split('/');
+    this.thumbPathArray = item['fo_thumb_path'].split('/');
     this.pvImg = document.getElementById('pvThumbnail');
-    if (this.thumbpathArray[0] === '0') {
+    if (this.thumbPathArray[0] === '0') {
       this.pvImg.src = 'http://str.gomgxp.com/src/ci_gomc.jpg';
-    } else if (this.thumbpathArray[1] !== 'gxthm') {
-      this.thumbpathArray.pop();
-      this.thumbpathArray.push(this.thumbpathArray[this.thumbpathArray.length - 1] + '0001.jpg');
-      this.thumbpathArray.forEach((pathItem) => {
+    } else if (this.thumbPathArray[1] !== 'gxthm') {
+      this.thumbPathArray.pop();
+      this.thumbPathArray.push(this.thumbPathArray[this.thumbPathArray.length - 1] + '0001.jpg');
+      this.thumbPathArray.forEach((pathItem) => {
         this.thumbPath +=  pathItem + '/';
       });
       this.thumbPath = this.thumbPath.substring(0, this.thumbPath.length - 1);
@@ -434,10 +434,10 @@ export class ContentsComponent implements OnInit {
         .catch(() => {
           this.pvImg.src = 'http://str.gomgxp.com/src/ci_gomc.jpg';
         });
-    } else if (this.thumbpathArray[1] === 'gxthm') {
-      this.thumbpathArray.pop();
-      this.thumbpathArray.push('thumb-1000-w600-h390.jpg');
-      this.thumbpathArray.forEach((pathItem) => {
+    } else if (this.thumbPathArray[1] === 'gxthm') {
+      this.thumbPathArray.pop();
+      this.thumbPathArray.push('thumb-1000-w600-h390.jpg');
+      this.thumbPathArray.forEach((pathItem) => {
         this.thumbPath +=  pathItem + '/';
       });
       this.thumbPath = this.thumbPath.substring(0, this.thumbPath.length - 1);
@@ -449,7 +449,7 @@ export class ContentsComponent implements OnInit {
     this.setUploadHeader();
     this.setUploadData(event);
     this.showProgress();
-    this.contentsService.uploadFile(this.ownpath, this.pathString, this.authKey, this.uploadFormData)
+    this.contentsService.uploadFile(this.ownPath, this.pathString, this.authKey, this.uploadFormData)
       .toPromise()
       .then(() => {
         this.progressPercent = 100;
@@ -468,7 +468,7 @@ export class ContentsComponent implements OnInit {
         this.gid = item['grp_nm'];
       }
     });
-    this.ownpath = '/' + this.cid + '/' + this.gid + '/';
+    this.ownPath = '/' + this.cid + '/' + this.gid + '/';
     this.pathString = '/';
     this.pathArray.forEach((item) => {
       this.pathString += item + '/';

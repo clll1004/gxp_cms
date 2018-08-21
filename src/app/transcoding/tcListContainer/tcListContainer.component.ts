@@ -19,13 +19,12 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
 
   public groupSeq: string = '';
   public url: string = '';
-  /*for dropdown*/
+  /*for dropDown*/
   public selectedGroupOptions: any[] = [];
   public selectedGroup: string = '';
 
   /*for Table*/
-  public gettotalListLength: number = 0;
-
+  public getTotalListLength: number = 0;
   public tcMonitoringLists: any[];
   public filterTcMonitoringLists: any[];
 
@@ -78,16 +77,16 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private loginService: LoginService,
-              private transcodingService: TranscodingService,
-              private cmsApis: CmsApis,
+              private transCodingService: TranscodingService,
+              private cmsApi: CmsApis,
               private confirmationService: ConfirmationService) { }
 
   public urlList: object = {
-    standby: this.cmsApis.loadStandbyList,
-    request: this.cmsApis.loadRequestList,
-    progress: this.cmsApis.loadProgressList,
-    complete: this.cmsApis.loadCompleteList,
-    fail: this.cmsApis.loadFailList};
+    standby: this.cmsApi.loadStandbyList,
+    request: this.cmsApi.loadRequestList,
+    progress: this.cmsApi.loadProgressList,
+    complete: this.cmsApi.loadCompleteList,
+    fail: this.cmsApi.loadFailList};
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
@@ -105,7 +104,7 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.progressInterval) {
+    if (this.progressInterval) {
       clearInterval(this.progressInterval);
     }
   }
@@ -122,7 +121,7 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
   loadGroupList() {
     this.selectedGroup = '';
     this.selectedGroupOptions = [];
-    this.transcodingService.getLists(this.cmsApis.loadTranscodingGroupNames + this.groupSeq)
+    this.transCodingService.getLists(this.cmsApi.loadTransCodingGroupNames + this.groupSeq)
       .toPromise()
       .then((cont) => {
         const list = JSON.parse(cont['_body']);
@@ -145,14 +144,14 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
     this.searchKey = '';
     this.selectItems = [];
     this.tcMonitoringLists = [];
-    this.gettotalListLength = 0;
+    this.getTotalListLength = 0;
     if (this.urlList.hasOwnProperty(this.params['id'])) {
       this.url = this.urlList[this.params['id']] + this.groupSeq;
     }
   }
 
   loadTranscodingList() {
-    this.transcodingService.getLists(this.url)
+    this.transCodingService.getLists(this.url)
       .toPromise()
       .then((cont:any) => {
         if (cont.status !== 0) {
@@ -161,12 +160,12 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
           this.tableInit();
         }
       })
-      .catch((error) => { });
+      .catch(() => { });
   }
 
   tableInit() {
     if (this.filterTcMonitoringLists) {
-      this.gettotalListLength = this.filterTcMonitoringLists.length;
+      this.getTotalListLength = this.filterTcMonitoringLists.length;
       this.setTableIndex();
     }
   }
@@ -207,12 +206,12 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
             newItemArray.push(itemObject);
           });
 
-          this.transcodingService.updateData(this.cmsApis.restartTranscoding, newItemArray)
+          this.transCodingService.updateData(this.cmsApi.restartTransCoding, newItemArray)
             .toPromise()
             .then(() => {
               this.selectItems = [];
               this.loadTranscodingList();
-              this.gettotalListLength = this.filterTcMonitoringLists.length;
+              this.getTotalListLength = this.filterTcMonitoringLists.length;
               this.setTableIndex();
             })
             .catch((error: any) => {

@@ -24,7 +24,7 @@ export class SettingsComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private loginService: LoginService,
               private settingsService: SettingsService,
-              private cmsApis: CmsApis) {
+              private cmsApi: CmsApis) {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
     });
@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
   }
 
   loadGroupList() {
-    this.settingsService.getLists(this.cmsApis.loadFolderList + this.groupSeq)
+    this.settingsService.getLists(this.cmsApi.loadFolderList + this.groupSeq)
       .toPromise()
       .then((res) => {
         this.tempTreeData = JSON.parse(res['_body']);

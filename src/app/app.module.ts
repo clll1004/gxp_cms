@@ -28,7 +28,6 @@ import { TranscodingComponent } from './transcoding/transcoding.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
-import { PathComponent } from './path/path.component';
 
 import { LoginService } from './login/login.service';
 
@@ -39,7 +38,7 @@ import { HomeDataPlayerComponent } from './home/components/home-data-player/home
 import { PreviewThumbnailComponent } from './contents/components/preview-thumbnail/preview-thumbnail.component';
 import { PreviewStatusComponent } from './contents/components/preview-status/preview-status.component';
 import { PreviewFInfoComponent } from './contents/components/preview-fInfo/preview-fInfo.component';
-/*transcoding*/
+/*transCoding*/
 import { TcListContainerComponent } from './transcoding/tcListContainer/tcListContainer.component';
 /*SETTINGS*/
 import { AddGroupComponent } from './settings/components/add-group/add-group.component';
@@ -86,7 +85,6 @@ import { AppRoutingModule } from './app-routing.module';
     TranscodingComponent,
     FooterComponent,
     LoginComponent,
-    PathComponent,
 
     HomeDataComponent,
     HomeDataPlayerComponent,

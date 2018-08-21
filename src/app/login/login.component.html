@@ -4,7 +4,7 @@
       <img src="../../assets/images/logo2.png" alt="로고 이미지"  />
     </div>
 
-    <form [formGroup]="loginform" (ngSubmit)="onSubmit(loginform.value)" class="info-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="info-container">
       <fieldset>
         <label for="input-id"></label>
         <input pInputText type="text" id="input-id" formControlName="user_id" class="margin-bottom-10" title="아이디 입력" placeholder="아이디 입력" name="userID" autocomplete="off" />
@@ -12,7 +12,7 @@
         <label for="input-pswd"></label>
         <input pPassword [feedback]="false" type="password" id="input-pswd" formControlName="user_password" class="margin-bottom-30" title="비밀번호 입력" placeholder="비밀번호 입력" name="userPassword" />
 
-        <button pButton type="submit" [disabled]="!loginform.valid" class="orange-btn big-btn login-btn">LOGIN</button>
+        <button pButton type="submit" [disabled]="!loginForm.valid" class="orange-btn big-btn login-btn">LOGIN</button>
       </fieldset>
     </form>
   </div>

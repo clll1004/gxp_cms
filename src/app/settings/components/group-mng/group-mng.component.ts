@@ -43,7 +43,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
 
   public tableStyle: any;
 
-  constructor(private settingsService: SettingsService, private cmsApis: CmsApis) { }
+  constructor(private settingsService: SettingsService, private cmsApi: CmsApis) { }
 
   ngOnInit() {
     this.loadGroupData();
@@ -54,7 +54,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
   }
 
   loadGroupData() {
-    this.settingsService.getLists(this.cmsApis.loadGroupMng + this.groupSeq)
+    this.settingsService.getLists(this.cmsApi.loadGroupMng + this.groupSeq)
       .toPromise()
       .then((cont) => {
         this.groupData = JSON.parse(cont['_body']).grp;
@@ -91,7 +91,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
     newData['gto_dst_width'] = this.dstWidth.value;
     newData['gto_dst_height'] = this.dstHeight.value;
 
-    this.settingsService.updateData(this.cmsApis.updateTransOption, newData)
+    this.settingsService.updateData(this.cmsApi.updateTransOption, newData)
       .toPromise()
       .then(() => {
         this.isShowMessage = true;

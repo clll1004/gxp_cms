@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit{
   public userData: any = {
     userId: '',
     userPassword: ''};
-  public loginform: FormGroup;
+  public loginForm: FormGroup;
   public submitted: boolean = false;
   public isShowLoginMessage: boolean = false;
 
@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit{
               private router: Router,
               private loginService: LoginService,
               private sha256: Sha256,
-              private cmsApis: CmsApis) { }
+              private cmsApi: CmsApis) { }
 
   ngOnInit() {
-    this.loginform = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       user_id: new FormControl(null, Validators.required),
       user_password: new FormControl(null, Validators.required)});
   }
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit{
     this.userData.userId = value.user_id;
     this.userData.userPassword = this.sha256.get(value.user_password);
 
-    this.loginService.login(this.cmsApis.login, this.userData.userId, this.userData.userPassword)
+    this.loginService.login(this.cmsApi.login, this.userData.userId, this.userData.userPassword)
       .toPromise()
       .then((data) => {
         this.loginService.setLogin();

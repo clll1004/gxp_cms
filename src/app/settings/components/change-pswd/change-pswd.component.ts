@@ -23,7 +23,7 @@ export class ChangePswdComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private loginService: LoginService,
               private settingsService: SettingsService,
-              private cmsApis: CmsApis,
+              private cmsApi: CmsApis,
               private sha256: Sha256) { }
 
   ngOnInit() {
@@ -47,7 +47,7 @@ export class ChangePswdComponent implements OnInit {
     valueObject['usr_pw_old'] = this.sha256.get(value.usr_pw_old);
     valueObject['usr_pw'] = this.sha256.get(value.usr_pw);
 
-    this.settingsService.updateData(this.cmsApis.updatePassword, valueObject)
+    this.settingsService.updateData(this.cmsApi.updatePassword, valueObject)
       .toPromise()
       .then((data) => {
         if (data.status === 200) {

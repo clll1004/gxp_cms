@@ -1,4 +1,4 @@
-.login-container {width: 500px; margin: 230px auto 0; border: 1px solid #ddd; border-radius: 10px;  box-sizing: border-box; text-align: center;}
+.login-container {width: 500px; margin: 280px auto 0; border: 1px solid #ddd; border-radius: 10px;  box-sizing: border-box; text-align: center;}
 .login-container .info-container input {width: 90%; height: 40px;}
 
 .login-btn { padding-top:13px; border: none !important; border-radius: 10px; background: #ff6400 !important;}

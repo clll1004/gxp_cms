@@ -20,7 +20,7 @@ export class UserModifyComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private loginService: LoginService,
               private settingsService: SettingsService,
-              private cmsApis: CmsApis) { }
+              private cmsApi: CmsApis) { }
 
   ngOnInit() {
     this.userform = this.formBuilder.group({
@@ -40,7 +40,7 @@ export class UserModifyComponent implements OnInit {
 
   loadUserInfo() {
     this.userSeq = this.loginService.getCookie('usr_seq');
-    this.settingsService.getLists(this.cmsApis.loadUserInfo + this.userSeq)
+    this.settingsService.getLists(this.cmsApi.loadUserInfo + this.userSeq)
       .toPromise()
       .then((cont) => {
         const getData:any[] = JSON.parse(cont['_body']);
@@ -62,7 +62,7 @@ export class UserModifyComponent implements OnInit {
     valueObject['usr_tel'] = value.usr_tel;
     valueObject['usr_remark'] = value.usr_remark;
 
-    this.settingsService.updateData(this.cmsApis.updateUserInfo, valueObject)
+    this.settingsService.updateData(this.cmsApi.updateUserInfo, valueObject)
       .toPromise()
       .then(() => {
         this.isShowMessage = true;
