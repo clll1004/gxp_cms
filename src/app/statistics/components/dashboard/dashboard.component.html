@@ -7,33 +7,52 @@
     <div class="item-group margin-bottom-30 margin-right-20">
       <h3>GXP 사용량</h3>
       <div class="ui-g-12 ui-g-nopad chart">
-        <!--<canvas id="myChart"></canvas>-->
+        <canvas baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="'pie'"
+                (chartClick)="chartClicked($event)"></canvas>
         <span class="info-txt">※ 이번 달 사용량</span>
       </div>
     </div>
     <div class="item-group margin-bottom-30 margin-right-20">
       <h3>스토리지</h3>
       <div class="ui-g-12 ui-g-nopad chart">
-
+        <canvas baseChart
+                [data]="pieChartData2"
+                [labels]="pieChartLabels"
+                [chartType]="'pie'"
+                (chartClick)="chartClicked($event)"></canvas>
         <span class="info-txt">※ 이번 달 사용량</span>
       </div>
     </div>
     <div class="item-group margin-bottom-30">
       <h3>트래픽</h3>
       <div class="ui-g-12 ui-g-nopad chart">
-
+        <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [chartType]="'bar'"></canvas>
       </div>
     </div>
     <div class="item-group margin-bottom-30 margin-right-20">
       <h3>날짜별</h3>
       <div class="ui-g-12 ui-g-nopad chart">
-
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [chartType]="'line'"></canvas>
+        <span class="info-txt">※ 재생수</span>
       </div>
     </div>
     <div class="item-group margin-bottom-30 margin-right-20">
       <h3>시간별</h3>
       <div class="ui-g-12 ui-g-nopad chart">
 
+        <span class="info-txt">※ 재생수</span>
       </div>
     </div>
     <div class="item-group margin-bottom-30">

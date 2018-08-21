@@ -20,6 +20,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { TreeModule } from 'primeng/tree';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { HeaderComponent } from './header/header.component';
 import { ContentsComponent } from './contents/contents.component';
@@ -74,6 +75,7 @@ import { AppRoutingModule } from './app-routing.module';
     ConfirmDialogModule,
     PanelModule,
     TreeModule,
+    ChartsModule,
   ],
   declarations: [
     AppComponent,
