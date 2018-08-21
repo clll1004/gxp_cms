@@ -1,0 +1,13 @@
+<div class="ui-g-2 ui-g-nopad">
+  <nav class="ui-g-12 ui-g-nopad lnb-sec">
+    <ul class="border-lnb">
+      <li><a routerLink="/statistics/dashboard">대시보드</a></li>
+      <li class="has-sub"><a routerLink="/statistics/usage-analysis">사용량 분석</a></li>
+      <li class="has-sub"><a routerLink="/statistics/visitor-statistics">방문자 통계</a></li>
+      <li class="has-sub"><a routerLink="/statistics/play-statistics">재생 통계</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="ui-g-10 ui-g-nopad content-sec">
+  <dashboard *ngIf="params['id'] === 'dashboard'"></dashboard>
+</div>

@@ -22,24 +22,23 @@ import { HttpModule } from '@angular/http';
 import { TreeModule } from 'primeng/tree';
 
 import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
 import { ContentsComponent } from './contents/contents.component';
 import { TranscodingComponent } from './transcoding/transcoding.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 
 import { LoginService } from './login/login.service';
 
-/*HOME*/
-import { HomeDataComponent } from './home/components/home-data/home-data.component';
-import { HomeDataPlayerComponent } from './home/components/home-data-player/home-data-player.component';
 /*CONTENTS*/
 import { PreviewThumbnailComponent } from './contents/components/preview-thumbnail/preview-thumbnail.component';
 import { PreviewStatusComponent } from './contents/components/preview-status/preview-status.component';
 import { PreviewFInfoComponent } from './contents/components/preview-fInfo/preview-fInfo.component';
 /*transCoding*/
 import { TcListContainerComponent } from './transcoding/tcListContainer/tcListContainer.component';
+/*STATISTICS*/
+import { DashboardComponent } from './statistics/components/dashboard/dashboard.component';
 /*SETTINGS*/
 import { AddGroupComponent } from './settings/components/add-group/add-group.component';
 import { GroupMngComponent } from './settings/components/group-mng/group-mng.component';
@@ -79,19 +78,18 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent,
     ContentsComponent,
     SettingsComponent,
     TranscodingComponent,
+    StatisticsComponent,
     FooterComponent,
     LoginComponent,
-
-    HomeDataComponent,
-    HomeDataPlayerComponent,
 
     PreviewThumbnailComponent,
     PreviewStatusComponent,
     PreviewFInfoComponent,
+
+    DashboardComponent,
 
     TcListContainerComponent,
 

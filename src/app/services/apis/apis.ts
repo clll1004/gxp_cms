@@ -7,42 +7,40 @@ import { Injectable } from '@angular/core';
 export class CmsApis {
   public  domain = '';
   /**** 로그인 ****/
-  public login = this.domain + 'cms/login';
+  public login = '';
 
   /**** CONTENTS ****/
   /* 폴더 */
-  public loadFolderList = this.domain + 'cms/folder/list/';
-  public checkDupFolderName = this.domain + '/cms/folder/check?';
-  public postFolder = this.domain + 'cms/folder';
+  public loadFolderList = '';
+  public checkDupFolderName = '';
+  public postFolder = '';
   /* 콘텐츠 */
-  public loadContentList = this.domain + 'cms/contents/list?page=1&row=10000&gf_seq=';
-  public loadItemTransCodingList = this.domain + 'cms/contents/list/tcd/';
-  public loadPreview = this.domain + 'cms/contents/preview/';
-  public updateContentsStatus = this.domain + 'cms/contents';
+  public loadContentList = '';
+  public loadItemTransCodingList = '';
+  public loadPreview = '';
+  public updateContentsStatus = '';
 
   /**** TRANSCODING ****/
   /* 변환 정보 */
-  public loadTransCodingGroupNames = this.domain + 'cms/transcoding/list/group/';
-  public loadStandbyList = this.domain + 'cms/transcoding/list?page=1&row=1000&ft_status=U&grp_seq=';
-  public loadRequestList = this.domain + 'cms/transcoding/list?page=1&row=1000&ft_status=TR&grp_seq=';
-  public loadProgressList = this.domain + 'cms/transcoding/list?page=1&row=1000&ft_status=TT&grp_seq=';
-  public loadCompleteList = this.domain + 'cms/transcoding/list?page=1&row=1000&ft_status=SS&grp_seq=';
-  public loadFailList = this.domain + 'cms/transcoding/list?page=1&row=1000&ft_status=TF&grp_seq=';
-  public restartTransCoding = this.domain + 'cms/transcoding';
+  public loadTransCodingGroupNames = '';
+  public loadStandbyList = '';
+  public loadRequestList = '';
+  public loadProgressList = '';
+  public loadCompleteList = '';
+  public loadFailList = '';
+  public restartTransCoding = '';
 
   /**** SETTINGS ****/
-  public loadGroupMng = this.domain + 'cms/setting/group/';
-  public updateTransOption = this.domain + 'cms/setting/group/option';
-  public loadUserInfo = this.domain + 'cms/setting/user/';
-  public updateUserInfo = this.domain + 'cms/setting/user';
-  public updatePassword = this.domain + 'cms/setting/user/password';
+  public loadGroupMng = '';
+  public updateTransOption = '';
+  public loadUserInfo = '';
+  public updateUserInfo = '';
+  public updatePassword = '';
 
   constructor() {
     if (process.env.NODE_ENV === 'development') {
-      console.log(process.env.NODE_ENV);
       this.domain = 'http://183.110.11.49/';
     } else if (process.env.NODE_ENV === 'production') {
-      console.log(process.env.NODE_ENV);
       this.domain = 'http://183.110.11.49/';
     }
 

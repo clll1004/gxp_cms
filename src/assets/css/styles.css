@@ -401,8 +401,8 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .list-sec ul li .list-title {padding: 10px; border-top: 1px solid #999; border-bottom: 1px solid #ddd; font-size: 14px; font-weight: normal;}
 
 /*lnb*/
-.lnb-sec ul.transcoding_lnb li {height: 50px; border-bottom: 1px solid #e5e5e5;}
-.lnb-sec ul.transcoding_lnb li a {line-height: 50px;}
+.lnb-sec ul.border-lnb li {height: 50px; border-bottom: 1px solid #e5e5e5;}
+.lnb-sec ul.border-lnb li a {line-height: 50px;}
 
 .lnb-sec ul li {height: 40px;}
 .lnb-sec ul li a {display: block; line-height: 40px; padding: 0 20px; font-size: 14px; font-weight: bold;}
