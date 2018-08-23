@@ -1,0 +1,10 @@
+<div class="ui-g-12 ui-g-nopad">
+  <h1 class="dp-inb margin-right-20 duratrion-title">{{ durationName }}</h1>
+  <div class="calendar-group">
+    <p-calendar class="dp-inb" [(ngModel)]="startDate" dateFormat="yy.mm.dd" [showIcon]="true" (onFocus)="tempDate()" (onSelect)="isEnableDate()"></p-calendar>
+  </div>
+   -
+  <div class="calendar-group">
+    <p-calendar class="dp-inb" [(ngModel)]="endDate" dateFormat="yy.mm.dd" [showIcon]="true" (onFocus)="tempDate()" (onSelect)="isEnableDate()"></p-calendar>
+  </div>
+</div>

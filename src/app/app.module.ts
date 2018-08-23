@@ -20,12 +20,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { TreeModule } from 'primeng/tree';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { StatisticsModule } from './statistics/statistics.module';
 
 import { HeaderComponent } from './header/header.component';
 import { ContentsComponent } from './contents/contents.component';
 import { TranscodingComponent } from './transcoding/transcoding.component';
-import { StatisticsComponent } from './statistics/statistics.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
@@ -38,8 +37,6 @@ import { PreviewStatusComponent } from './contents/components/preview-status/pre
 import { PreviewFInfoComponent } from './contents/components/preview-fInfo/preview-fInfo.component';
 /*transCoding*/
 import { TcListContainerComponent } from './transcoding/tcListContainer/tcListContainer.component';
-/*STATISTICS*/
-import { DashboardComponent } from './statistics/components/dashboard/dashboard.component';
 /*SETTINGS*/
 import { AddGroupComponent } from './settings/components/add-group/add-group.component';
 import { GroupMngComponent } from './settings/components/group-mng/group-mng.component';
@@ -75,7 +72,7 @@ import { AppRoutingModule } from './app-routing.module';
     ConfirmDialogModule,
     PanelModule,
     TreeModule,
-    ChartsModule,
+    StatisticsModule,
   ],
   declarations: [
     AppComponent,
@@ -83,15 +80,12 @@ import { AppRoutingModule } from './app-routing.module';
     ContentsComponent,
     SettingsComponent,
     TranscodingComponent,
-    StatisticsComponent,
     FooterComponent,
     LoginComponent,
 
     PreviewThumbnailComponent,
     PreviewStatusComponent,
     PreviewFInfoComponent,
-
-    DashboardComponent,
 
     TcListContainerComponent,
 

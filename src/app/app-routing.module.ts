@@ -17,6 +17,7 @@ const routes: Routes = [
     { path: 'transcoding/list/:id', component: TranscodingComponent },
     { path: 'statistics', component: StatisticsComponent },
     { path: 'statistics/:id', component: StatisticsComponent },
+    { path: 'statistics/:id/:sub-id', component: StatisticsComponent },
     { path: 'settings', component: SettingsComponent },
     { path: 'settings/:id', component: SettingsComponent }];
 
