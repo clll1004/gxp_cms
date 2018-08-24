@@ -5,12 +5,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { DatePickerModule } from '../common/date-picker/date-picker.module';
+import { DatePickerModule } from '../common/date-picker/components/date-picker.component';
+
 import { StatisticsComponent } from './statistics.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlayStatisticsComponent } from './components/play-statistics/play-statistics.component';
+import { DateTestComponent } from './components/dateTest/dateTest.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   ],
   exports: [StatisticsComponent],
   declarations: [
+    DateTestComponent,
     StatisticsComponent,
     DashboardComponent,
     PlayStatisticsComponent,

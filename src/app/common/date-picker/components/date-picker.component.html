@@ -1,10 +1,26 @@
-<div class="ui-g-12 ui-g-nopad">
-  <h1 class="dp-inb margin-right-20 duratrion-title">{{ durationName }}</h1>
-  <div class="calendar-group">
-    <p-calendar class="dp-inb" [(ngModel)]="startDate" dateFormat="yy.mm.dd" [showIcon]="true" (onFocus)="tempDate()" (onSelect)="isEnableDate()"></p-calendar>
+<div class="date-picker">
+  <div>
+    <input class="date-picker-input" readonly [value]="inputFieldValue" (click)="inputFieldClick()" [size]="inputSize" [class.readonly]='readonly'/>
+    <div class="ranges-container" *ngIf="isInputFocused" (click)="onDropDownClick()">
+      <ul>
+        <li class="range-list" *ngFor="let range of ranges" [class.active]="range === selectedRange" (click)="rangeClick(range)">
+          {{range.text}}
+        </li>
+      </ul>
+      <div class="range-inputs">
+        <button class="applyBtn" type="button" (click)="applyCalendar($event)">적용</button>
+        <button class="cancelBtn" type="button" (click)="cancelCalendar($event)">취소</button>
+      </div>
+    </div>
   </div>
-   -
-  <div class="calendar-group">
-    <p-calendar class="dp-inb" [(ngModel)]="endDate" dateFormat="yy.mm.dd" [showIcon]="true" (onFocus)="tempDate()" (onSelect)="isEnableDate()"></p-calendar>
+
+  <div class="calendar-container" [class.active]="calendarVisible || selectedRange['value'] === 'set' && isInputFocused " (click)="onDropDownClick()">
+    <div class="calendar left">
+      <div>
+        <input readonly class="date-picker-input" [value]="tempSelectedDate[0]+' ~ '+tempSelectedDate[1]" />
+        <i class="fa fa-calendar glyphicon glyphicon-calendar"></i>
+      </div>
+      <p-calendar selectionMode="range" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" [(ngModel)]="selectedDateFromPcalendar" [inline]="true" [locale]="localeObject" dateFormat="yy-mm-dd" (onSelect)="calendarSelect($event)"> </p-calendar>
+    </div>
   </div>
 </div>

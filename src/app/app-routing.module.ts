@@ -9,7 +9,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: 'contents', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'header', component: HeaderComponent },
     { path: 'contents', component: ContentsComponent },

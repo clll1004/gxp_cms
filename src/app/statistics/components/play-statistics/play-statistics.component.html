@@ -1,7 +1,14 @@
 <div class="ui-g-12 ui-g-nopad margin-bottom-50">
   <div class="ui-g-12 ui-g-nopad page-title-sec margin-bottom-40">
-    홈 / 통계 / 재생 통계 / <span class="path"> {{ pathName }} </span> <!-- -->
+    홈 / 통계 / 재생 통계 / <span class="path"> {{ pathName }} </span>
+  </div>
+  <div class="ui-g-12 ui-g-nopad margin-bottom-20">
+    <date-picker
+      [(ngModel)]="date"
+      (onSelect)="updateChoiceDuration($event)"
+      [ranges]="['t', 'l-7days', 't-month', 'l-month', 'set']"
+    ></date-picker>
   </div>
 
-  <date-picker [durationName]="durationName" [startDate]="startDate" [endDate]="endDate"></date-picker>
+  <dateTest [data]="data"></dateTest>
 </div>

@@ -6,7 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'play-statistics',
-  templateUrl: 'play-statistics.component.html'})
+  templateUrl: 'play-statistics.component.html',
+  styleUrls: ['./play-statistics.component.css']})
 
 export class PlayStatisticsComponent implements OnInit {
   public pathName:string = '날짜별';
@@ -18,23 +19,19 @@ export class PlayStatisticsComponent implements OnInit {
     contents: '콘텐츠 통계',
     category: '카테고리 통계'};
 
-  public durationName = '지난 1주일';
-  public startDate = new Date;
-  public endDate = new Date;
+  public date:any = {
+    range : 'l-7days'};
+  public data:any;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.activatedRoute.url.subscribe((urlItem) => {
       this.pathName = this.pathArray[urlItem[2].path];
-      this.pageInit();
     });
   }
 
-  pageInit() {
-    this.durationName = '지난 1주일';
-    this.startDate = new Date;
-    this.endDate = new Date;
-    this.startDate.setDate(this.startDate.getDate() - 6);
+  updateChoiceDuration(e) {
+    this.data = e;
   }
 }
