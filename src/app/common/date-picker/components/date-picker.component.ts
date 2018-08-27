@@ -257,7 +257,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
   calendarSelect(selectedDate: Date): void {
     this.tempSelectedDate[0] = this.datePipe.transform(this.selectedDateFromPcalendar[0], 'yyyy-MM-dd');
-    this.tempSelectedDate[1] = this.selectedDateFromPcalendar[1] ? this.datePipe.transform(this.selectedDateFromPcalendar[0], 'yyyy-MM-dd') : '';
+    this.tempSelectedDate[1] = this.selectedDateFromPcalendar[1] ? this.datePipe.transform(this.selectedDateFromPcalendar[1], 'yyyy-MM-dd') : '';
   }
 
   applyCalendar(): void {

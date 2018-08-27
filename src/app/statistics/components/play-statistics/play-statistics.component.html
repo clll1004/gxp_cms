@@ -4,11 +4,22 @@
   </div>
   <div class="ui-g-12 ui-g-nopad margin-bottom-20">
     <date-picker
-      [(ngModel)]="date"
+      [(ngModel)]="selectDuration"
       (onSelect)="updateChoiceDuration($event)"
       [ranges]="['t', 'l-7days', 't-month', 'l-month', 'set']"
     ></date-picker>
   </div>
 
-  <dateTest [data]="data"></dateTest>
+  <div class="ui-g-12 ui-g-nopad margin-bottom-20">
+    <folder-picker
+      [(ngModel)]="selectFolder"
+      (onSelect)="updateChoiceFolder($event)"
+      ngDefaultControl
+    ></folder-picker>
+  </div>
+
+  <show-statistics
+    [selectDuration]="selectDuration"
+    [selectFolder]="selectFolder"
+  ></show-statistics>
 </div>

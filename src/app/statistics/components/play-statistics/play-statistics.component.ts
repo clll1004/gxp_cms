@@ -18,20 +18,43 @@ export class PlayStatisticsComponent implements OnInit {
     'play-time': '재생 시간',
     contents: '콘텐츠 통계',
     category: '카테고리 통계'};
+  public selectDuration:any = {
+    range : 'l-7days',
+    date: [],
+  };
 
-  public date:any = {
-    range : 'l-7days'};
-  public data:any;
+  public selectFolder:any = { label:'전체 폴더', value: 0 };
 
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.activatedRoute.url.subscribe((urlItem) => {
       this.pathName = this.pathArray[urlItem[2].path];
+      this.dateInit();
     });
   }
 
+  dateInit() {
+    const tempDate = new Date();
+    const tYear = tempDate.getFullYear();
+    const tMonth = tempDate.getMonth() + 1;
+    const tDate = tempDate.getDate();
+
+    this.selectDuration = {
+      range : 'l-7days',
+      date: [
+        tYear + '-' + tMonth + '-' + (tDate - 7),
+        tYear + '-' + tMonth + '-' + (tDate - 1),
+      ],
+    };
+    this.updateChoiceDuration(this.selectDuration);
+  }
+
   updateChoiceDuration(e) {
-    this.data = e;
+    this.selectDuration = e;
+  }
+
+  updateChoiceFolder(e) {
+    this.selectFolder = e;
   }
 }

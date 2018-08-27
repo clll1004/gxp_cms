@@ -8,10 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DatePickerModule } from '../common/date-picker/components/date-picker.component';
 
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { ChartModule } from 'primeng/chart';
+
 import { StatisticsComponent } from './statistics.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlayStatisticsComponent } from './components/play-statistics/play-statistics.component';
-import { DateTestComponent } from './components/dateTest/dateTest.component';
+import { ShowStatisticsComponent } from './components/show-statistics/show-statistics.component';
+import { FolderPickerComponent } from './components/folder-picker/folder-picker.component';
+import { ChartsComponent } from './components/show-statistics/components/charts/charts.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -25,13 +31,18 @@ const appRoutes: Routes = [
     RouterModule.forChild(appRoutes),
     BrowserModule,
     FormsModule,
+    DropdownModule,
+    InputTextModule,
+    ChartModule,
   ],
   exports: [StatisticsComponent],
   declarations: [
-    DateTestComponent,
+    ShowStatisticsComponent,
     StatisticsComponent,
     DashboardComponent,
     PlayStatisticsComponent,
+    FolderPickerComponent,
+    ChartsComponent,
   ]})
 
 export class StatisticsModule {
