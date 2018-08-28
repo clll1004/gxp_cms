@@ -1,22 +1,21 @@
-<div class="ui-g-12 ui-g-nopad">
-  <div class="ui-g-12 ui-g-nopad margin-bottom-30 chart-container">
-    <div class="change-chart-type-btns">
-      <button type="button" class="on changeType" id="line-type" (click)="changeChartType($event)"><i class="fas fa-chart-line fa-2x"></i></button>
-      <button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>
+<div class="ui-g-12 ui-g-nopad" *ngIf="pathName === '날짜별' || pathName === '콘텐츠 통계' || pathName === '카테고리 통계'">
+    <div class="ui-g-12 ui-g-nopad margin-bottom-40 chart-container">
+      <div class="change-chart-type-btns">
+        <button type="button" class="on changeType" id="line-type" (click)="changeChartType($event)"><i class="fas fa-chart-line fa-2x"></i></button>
+        <button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>
+      </div>
+      <chart-group
+        [chartType]="chartType"
+        [chartFill]="false"
+        [chartLabels]="chartLabels"
+        [chartData]="chartData"
+      ></chart-group>
     </div>
-    <chart-group
-      [chartType]="chartType"
-      [chartFill]="false"
-      [chartLabels]="chartLabels"
-      [chartData]="chartData"
-    ></chart-group>
-  </div>
 
-  <div class="ui-g-12 ui-g-nopad">
-    <table-group
-      *ngIf="pathName === '날짜별'"
-      [headerCols]="['날짜', '요청된 콘텐츠 수', '재생수', '재생율', '재생시간', '평균 재생시간', '전일 대비 재생 수 증감']"
-      [dateArray]="dateArray"
-    ></table-group>
-  </div>
+    <div class="ui-g-12 ui-g-nopad">
+      <table-group
+        [headerCols]="['날짜', '요청된 콘텐츠 수', '재생수', '재생율', '재생시간', '평균 재생시간', '전일 대비 재생 수 증감']"
+        [dateArray]="dateArray"
+      ></table-group>
+    </div>
 </div>

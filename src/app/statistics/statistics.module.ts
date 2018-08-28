@@ -10,6 +10,7 @@ import { DatePickerModule } from '../common/date-picker/components/date-picker.c
 
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     FormsModule,
     DropdownModule,
     InputTextModule,
+    ButtonModule,
     ChartModule,
     TableModule,
   ],

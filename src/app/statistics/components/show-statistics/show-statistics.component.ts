@@ -12,7 +12,7 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
   @Input() selectFolder;
-  public chartType:string = '';
+  public chartType:string = 'line';
   public chartLabels:any[] = [];
   public chartData:any[] = [];
   public dateArray:any[] = [];
@@ -29,9 +29,12 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
   setChartType() {
     const temp = document.getElementsByClassName('changeType');
     for (let i = 0 ; i < temp.length ; i += 1) {
-      temp[i].setAttribute('class', 'changeType');
+      if (i === 0) {
+        temp[i].setAttribute('class', 'changeType on');
+      } else {
+        temp[i].setAttribute('class', 'changeType');
+      }
     }
-    temp[0].setAttribute('class', 'changeType on');
   }
 
   setChartData() {
@@ -84,7 +87,7 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
 
     if (e.currentTarget.getAttribute('id') === 'line-type') {
       e.currentTarget.setAttribute('class', 'changeType on');
-      this.chartType = 'line';
+      this.setDefaultChartType();
     } else {
       e.currentTarget.setAttribute('class', 'changeType on');
       this.chartType = 'pie';

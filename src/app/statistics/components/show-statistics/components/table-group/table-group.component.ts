@@ -13,7 +13,7 @@ export class TableGroupComponent implements OnInit, OnChanges {
 
   public cols: any[] = [];
   public tableLists:any[] = [];
-
+  public selectLists:any[] = [];
   constructor() { }
 
   ngOnInit() { }
@@ -25,7 +25,7 @@ export class TableGroupComponent implements OnInit, OnChanges {
       this.cols.push({ header: item });
     });
     this.dateArray.forEach((item) => {
-      this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate() });
+      this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
     });
   }
 }

@@ -53,7 +53,7 @@ export class ChartGroupComponent implements OnInit, OnChanges {
     const backgroundLength = this.backgroundColors.length;
     const chartLength = this.chartLabels.length;
     let tempBackground:any;
-    if (this.chartType === 'pie') {
+    if (this.chartType === 'pie' || this.chartType === 'bar') {
       tempBackground = [];
       let i = 0;
       let count = 0;
