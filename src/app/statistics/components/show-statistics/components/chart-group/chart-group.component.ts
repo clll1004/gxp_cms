@@ -12,9 +12,9 @@ export class ChartGroupComponent implements OnInit, OnChanges {
   @Input() chartFill:string;
   @Input() chartLabels:string;
   @Input() chartData:string;
-  @Input() borderColor:string;
   public chartDataSet:any;
   public chartOptions:any;
+  public backgroundColors:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0'];
 
   constructor() { }
 
@@ -25,6 +25,8 @@ export class ChartGroupComponent implements OnInit, OnChanges {
   }
 
   setData() {
+    const tempBackground:any = this.setBackgroundColor();
+
     this.chartDataSet = {
       labels: this.chartLabels,
       datasets: [
@@ -32,7 +34,7 @@ export class ChartGroupComponent implements OnInit, OnChanges {
           label: '재생수',
           data: this.chartData,
           fill: this.chartFill,
-          borderColor: this.borderColor,
+          backgroundColor: tempBackground,
         }],
     };
     this.chartOptions = {
@@ -45,5 +47,27 @@ export class ChartGroupComponent implements OnInit, OnChanges {
         },
       },
     };
+  }
+
+  setBackgroundColor() {
+    const backgroundLength = this.backgroundColors.length;
+    const chartLength = this.chartLabels.length;
+    let tempBackground:any;
+    if (this.chartType === 'pie') {
+      tempBackground = [];
+      let i = 0;
+      let count = 0;
+      do {
+        tempBackground.push(this.backgroundColors[i]);
+        i += 1;
+        if (i > backgroundLength) {
+          i = 0;
+        }
+        count += 1;
+      } while (count < chartLength);
+    } else {
+      tempBackground = '#ff6400';
+    }
+    return tempBackground;
   }
 }
