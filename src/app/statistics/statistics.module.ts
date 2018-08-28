@@ -11,13 +11,15 @@ import { DatePickerModule } from '../common/date-picker/components/date-picker.c
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ChartModule } from 'primeng/chart';
+import { TableModule } from 'primeng/table';
 
 import { StatisticsComponent } from './statistics.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlayStatisticsComponent } from './components/play-statistics/play-statistics.component';
 import { ShowStatisticsComponent } from './components/show-statistics/show-statistics.component';
 import { FolderPickerComponent } from './components/folder-picker/folder-picker.component';
-import { ChartsComponent } from './components/show-statistics/components/charts/charts.component';
+import { ChartGroupComponent } from './components/show-statistics/components/chart-group/chart-group.component';
+import { TableGroupComponent } from './components/show-statistics/components/table-group/table-group.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -34,6 +36,7 @@ const appRoutes: Routes = [
     DropdownModule,
     InputTextModule,
     ChartModule,
+    TableModule,
   ],
   exports: [StatisticsComponent],
   declarations: [
@@ -42,7 +45,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     PlayStatisticsComponent,
     FolderPickerComponent,
-    ChartsComponent,
+    ChartGroupComponent,
+    TableGroupComponent,
   ]})
 
 export class StatisticsModule {

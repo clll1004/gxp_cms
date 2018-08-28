@@ -4,10 +4,10 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
-  selector: 'charts',
-  templateUrl: 'charts.component.html'})
+  selector: 'chart-group',
+  templateUrl: 'chart-group.component.html'})
 
-export class ChartsComponent implements OnInit, OnChanges {
+export class ChartGroupComponent implements OnInit, OnChanges {
   @Input() chartType:string;
   @Input() chartFill:string;
   @Input() chartLabels:string;
@@ -29,7 +29,7 @@ export class ChartsComponent implements OnInit, OnChanges {
       labels: this.chartLabels,
       datasets: [
         {
-          label: 'First Dataset',
+          label: '재생수',
           data: this.chartData,
           fill: this.chartFill,
           borderColor: this.borderColor,
@@ -37,7 +37,7 @@ export class ChartsComponent implements OnInit, OnChanges {
     };
     this.chartOptions = {
       legend: {
-        display: false,
+        position: 'bottom',
       },
       elements: {
         line: {
@@ -46,6 +46,4 @@ export class ChartsComponent implements OnInit, OnChanges {
       },
     };
   }
-
-  chartTypeChange(e) { }
 }

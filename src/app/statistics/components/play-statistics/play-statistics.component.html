@@ -2,7 +2,7 @@
   <div class="ui-g-12 ui-g-nopad page-title-sec margin-bottom-40">
     홈 / 통계 / 재생 통계 / <span class="path"> {{ pathName }} </span>
   </div>
-  <div class="ui-g-12 ui-g-nopad margin-bottom-20">
+  <div class="ui-g-12 ui-g-nopad margin-bottom-30">
     <date-picker
       [(ngModel)]="selectDuration"
       (onSelect)="updateChoiceDuration($event)"
@@ -10,15 +10,24 @@
     ></date-picker>
   </div>
 
-  <div class="ui-g-12 ui-g-nopad margin-bottom-20">
+  <div class="ui-g-12 ui-g-nopad margin-bottom-30">
     <folder-picker
+      class="margin-right-20"
       [(ngModel)]="selectFolder"
       (onSelect)="updateChoiceFolder($event)"
       ngDefaultControl
     ></folder-picker>
+
+    <div class="dp-inb" *ngIf="pathName !== '날짜별' && pathName !== '시간별'">
+      <label for="search-key"></label><input type="text" class="margin-right-5" id="search-key" [(ngModel)]="searchKey" pInputText placeholder="검색어를 입력해주세요" autocomplete="off">
+      <button type="button" class="btn margin-right-5" (click)="search()"><i class="fas fa-search"></i> 검색</button>
+
+      <span class="search-result">총 0개 검색되었습니다.</span>
+    </div>
   </div>
 
   <show-statistics
+    [pathName]="pathName"
     [selectDuration]="selectDuration"
     [selectFolder]="selectFolder"
   ></show-statistics>

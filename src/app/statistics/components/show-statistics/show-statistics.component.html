@@ -1,9 +1,23 @@
 <div class="ui-g-12 ui-g-nopad">
-  <charts
-    [chartType]="'line'"
-    [chartFill]="false"
-    [chartLabels]="chartLabels"
-    [chartData]="chartData"
-    [borderColor]="'#4bc0c0'"
-  ></charts>
+  <div class="ui-g-12 ui-g-nopad margin-bottom-30 chart-container">
+    <div class="change-chart-type-btns">
+      <button type="button" class="on changeType" id="line-type" (click)="changeChartType($event)"><i class="fas fa-chart-line fa-2x"></i></button>
+      <button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>
+    </div>
+    <chart-group
+      [chartType]="chartType"
+      [chartFill]="false"
+      [chartLabels]="chartLabels"
+      [chartData]="chartData"
+      [borderColor]="'#ff6400'"
+    ></chart-group>
+  </div>
+
+  <div class="ui-g-12 ui-g-nopad">
+    <table-group
+      *ngIf="pathName === '날짜별'"
+      [headerCols]="['날짜', '요청된 콘텐츠 수', '재생수', '재생율', '재생시간', '평균 재생시간', '전일 대비 재생 수 증감']"
+      [dateArray]="dateArray"
+    ></table-group>
+  </div>
 </div>

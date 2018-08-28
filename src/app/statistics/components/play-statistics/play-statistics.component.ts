@@ -22,8 +22,8 @@ export class PlayStatisticsComponent implements OnInit {
     range : 'l-7days',
     date: [],
   };
-
   public selectFolder:any = { label:'전체 폴더', value: 0 };
+  public searchKey:string = '';
 
   constructor(private activatedRoute: ActivatedRoute) {}
 
@@ -56,5 +56,9 @@ export class PlayStatisticsComponent implements OnInit {
 
   updateChoiceFolder(e) {
     this.selectFolder = e;
+  }
+
+  search() {
+    console.log('!');
   }
 }

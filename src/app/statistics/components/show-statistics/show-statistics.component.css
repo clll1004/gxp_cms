@@ -1,0 +1,22 @@
+.chart-container {
+  position: relative;
+  padding: 30px 80px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+.change-chart-type-btns {
+  position: absolute;
+  top: -40px; right: 0px;
+}
+
+.change-chart-type-btns button {
+  padding: 0; margin-left: 10px;
+  border: none;
+  background: rgba(0,0,0,0);
+  color: #aaa;
+}
+
+.change-chart-type-btns button.on {
+  color: #ff6400;
+}
