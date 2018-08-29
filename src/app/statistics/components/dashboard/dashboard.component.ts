@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   /*bar chart test*/
   public barChartLabels:any[] = ['9/1', '9/2', '9/3', '9/4', '9/5', '9/6', '9/7'];
   public barChartData:any[] = [65, 59, 80, 81, 56, 55, 80];
-  public barChartDataSet:any[] = [];
+  public barChartDataSet:any;
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
     };
   }
 
-  public chartClicked(e:any) {
+  chartClicked(e:any) {
     console.log(e);
   }
 }
