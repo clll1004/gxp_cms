@@ -1,21 +1,74 @@
 <div class="ui-g-12 ui-g-nopad" *ngIf="pathName === '날짜별' || pathName === '콘텐츠 통계' || pathName === '카테고리 통계'">
-    <div class="ui-g-12 ui-g-nopad margin-bottom-40 chart-container">
-      <div class="change-chart-type-btns">
-        <button type="button" class="on changeType" id="line-type" (click)="changeChartType($event)"><i class="fas fa-chart-line fa-2x"></i></button>
-        <button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>
-      </div>
-      <chart-group
-        [chartType]="chartType"
-        [chartFill]="false"
-        [chartLabels]="chartLabels"
-        [chartData]="chartData"
-      ></chart-group>
+  <div class="ui-g-12 ui-g-nopad margin-bottom-40 chart-container">
+    <div class="change-chart-type-btns">
+      <button type="button" class="on changeType" id="line-type" (click)="changeChartType($event)"><i class="fas fa-chart-line fa-2x"></i></button>
+      <button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>
     </div>
+    <chart-group
+      [chartType]="chartType"
+      [chartFill]="false"
+      [chartLabels]="chartLabels"
+      [chartData]="chartData"
+    ></chart-group>
+  </div>
 
-    <div class="ui-g-12 ui-g-nopad">
-      <table-group
-        [headerCols]="['날짜', '요청된 콘텐츠 수', '재생수', '재생율', '재생시간', '평균 재생시간', '전일 대비 재생 수 증감']"
-        [dateArray]="dateArray"
-      ></table-group>
-    </div>
+  <div class="ui-g-12 ui-g-nopad" *ngIf="pathName === '날짜별'">
+    <table-group
+      [headerCols]="['날짜', '요청된 콘텐츠 수', '재생수', '재생율', '재생시간', '평균 재생시간', '전일 대비 재생 수 증감']"
+      [tableLists]="tableLists"
+      [dateArray]="dateArray"
+      [showCheckbox]="false"
+      [defaultPagingNumber]="20"
+      [pagingOption]="[20, 50, 100]"
+    ></table-group>
+  </div>
+
+  <div class="ui-g-12 ui-g-nopad" *ngIf="pathName === '콘텐츠 통계'">
+    <table-group
+      [headerCols]="['순위', '카테고리', '콘텐츠 명', '재생수', '재생율', '등록일']"
+      [tableLists]="tableLists"
+      [dateArray]="dateArray"
+      [showCheckbox]="false"
+      [defaultPagingNumber]="20"
+      [pagingOption]="[20, 50, 100]"
+    ></table-group>
+  </div>
+
+  <div class="ui-g-12 ui-g-nopad" *ngIf="pathName === '카테고리 통계'">
+    <table-group
+      [headerCols]="['순위', '카테고리', '콘텐츠 명', '재생수', '재생율']"
+      [tableLists]="tableLists"
+      [dateArray]="dateArray"
+      [showCheckbox]="false"
+      [defaultPagingNumber]="20"
+      [pagingOption]="[20, 50, 100]"
+    ></table-group>
+  </div>
 </div>
+
+<div class="ui-g-12 ui-g-nopad" *ngIf="pathName === '재생 시간'">
+  <button class="margin-bottom-20" type="button" pButton label="다중비교" (click)="compareSelectItem()"></button>
+  <div class="ui-g-12 ui-g-nopad margin-bottom-20">
+    <table-group
+      [headerCols]="['No', '그룹명', '폴더명', '콘텐츠 명', '영상 시간', '재생시간', '재생수', '재생율', '평균재생시간', '등록일']"
+      [tableLists]="tableLists"
+      [dateArray]="dateArray"
+      [showCheckbox]="true"
+      [defaultPagingNumber]="10"
+      (selectItem)="updateSelectItem($event)"
+    ></table-group>
+  </div>
+  <!--<div class="ui-g-12 ui-g-nopad">-->
+    <!--<h3>재생시간 분석</h3> <button class="margin-bottom-20" type="button" pButton label="비교취소" (click)="compareUnSelectItem()"></button>-->
+    <!--<table-group-->
+      <!--[headerCols]="['검색기간', '폴더', '파일명', '재생시간', '재생수', '재생율', '평균재생시간', '']"-->
+    <!--&gt;</table-group>-->
+  <!--</div>-->
+</div>
+
+<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">
+  <p class="txt-center margin-top-25 margin-bottom-25">비교할 파일을 선택해주세요.</p>
+  <div class="txt-center">
+    <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+  </div>
+</p-dialog>

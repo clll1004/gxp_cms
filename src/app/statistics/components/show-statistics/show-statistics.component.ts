@@ -16,6 +16,9 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
   public chartLabels:any[] = [];
   public chartData:any[] = [];
   public dateArray:any[] = [];
+  public tableLists:any[] = [];
+  public compareItem:any[] = [];
+  public isShowMessage:boolean = false;
 
   constructor() { }
 
@@ -24,6 +27,7 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.setChartType();
     this.setChartData();
+    this.setTableData();
   }
 
   setChartType() {
@@ -49,6 +53,13 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
       const random = Math.floor(Math.random() * 10000);
       this.chartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
       this.chartData.push(random);
+    });
+  }
+
+  setTableData() {
+    this.tableLists = [];
+    this.dateArray.forEach((item) => {
+      this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
     });
   }
 
@@ -91,6 +102,26 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
     } else {
       e.currentTarget.setAttribute('class', 'changeType on');
       this.chartType = 'pie';
+    }
+  }
+
+  updateSelectItem(e) {
+    this.compareItem = [];
+    e.forEach((item) => {
+      this.compareItem.push(item);
+    });
+  }
+
+  compareSelectItem() {
+    if (this.compareItem.length === 0) {
+      this.isShowMessage = true;
+      return 0;
+    }
+  }
+
+  compareUnSelectItem() {
+    if (this.compareItem.length) {
+      this.compareItem = [];
     }
   }
 }

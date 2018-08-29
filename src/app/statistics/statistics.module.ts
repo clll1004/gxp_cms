@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/primeng';
 
 import { StatisticsComponent } from './statistics.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
     ButtonModule,
     ChartModule,
     TableModule,
+    DialogModule,
   ],
   exports: [StatisticsComponent],
   declarations: [

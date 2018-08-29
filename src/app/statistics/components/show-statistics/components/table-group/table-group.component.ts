@@ -1,7 +1,7 @@
 /**
  * Created by GRE511 on 2018-08-27.
  */
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'table-group',
@@ -10,22 +10,33 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 export class TableGroupComponent implements OnInit, OnChanges {
   @Input() headerCols:any[];
   @Input() dateArray:any[];
+  @Input() showCheckbox:boolean;
+  @Input() tableLists:any[];
+  @Input() defaultPagingNumber:number;
+  @Input() pagingOption:any[];
+  @Output() selectItem = new EventEmitter();
 
   public cols: any[] = [];
-  public tableLists:any[] = [];
   public selectLists:any[] = [];
+  public isShowMessage:boolean = false;
+
   constructor() { }
 
   ngOnInit() { }
 
   ngOnChanges() {
+    this.selectLists = [];
     this.cols = [];
-    this.tableLists = [];
     this.headerCols.forEach((item) => {
       this.cols.push({ header: item });
     });
-    this.dateArray.forEach((item) => {
-      this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
-    });
+  }
+
+  onRowSelect() {
+    if (this.selectLists.length > 3) {
+      this.isShowMessage = true;
+      this.selectLists.pop();
+    }
+    this.selectItem.emit(this.selectLists);
   }
 }

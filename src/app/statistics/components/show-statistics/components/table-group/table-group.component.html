@@ -1,11 +1,12 @@
-<p-table #dt [value]="tableLists" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" exportFilename="재생통계" selectionMode="multiple" [(selection)]="selectLists">
+<p-table #dt [value]="tableLists" [paginator]="true" [rows]="defaultPagingNumber" [rowsPerPageOptions]="pagingOption" [(selection)]="selectLists" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()">
   <ng-template pTemplate="caption">
     <div class="ui-helper-clearfix">
-      <button type="button" pButton  label="다운로드" (click)="exportCSV(dt)" style="float:left"></button>
+      <button type="button" pButton  label="다운로드" (click)="dt.exportCSV()" style="float:right"></button>
     </div>
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
+      <th *ngIf="showCheckbox"></th>
       <th *ngFor="let col of cols">
         {{ col.header }}
       </th>
@@ -13,12 +14,10 @@
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-tableList>
     <tr [pSelectableRow]="rowData">
+      <td *ngIf="showCheckbox">
+        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+      </td>
       <td>{{ tableList.date }}</td>
-      <td>{{ tableList.empty }}</td>
-      <td>{{ tableList.empty }}</td>
-      <td>{{ tableList.empty }}</td>
-      <td>{{ tableList.empty }}</td>
-      <td>{{ tableList.empty }}</td>
       <td>{{ tableList.empty }}</td>
     </tr>
   </ng-template>
@@ -28,3 +27,10 @@
     </tr>
   </ng-template>
 </p-table>
+
+<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">
+  <p class="txt-center margin-top-25 margin-bottom-25">3개까지 선택하실 수 있습니다.</p>
+  <div class="txt-center">
+    <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+  </div>
+</p-dialog>
