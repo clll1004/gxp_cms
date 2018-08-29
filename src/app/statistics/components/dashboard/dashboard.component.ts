@@ -2,7 +2,7 @@
  * Created by GRE511 on 2018-08-21.
  */
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'dashboard',
@@ -13,45 +13,55 @@ export class DashboardComponent implements OnInit {
   public params:Params;
 
   /*pie chart test*/
-  public pieChartLabels:string[] = ['현재 사용량', '남은 용량'];
-  public pieChartData:number[] = [30, 70];
-  public pieChartData2:number[] = [60, 40];
+  public pieChartLabels:any[] = ['현재 사용량', '남은 용량'];
+  public pieChartData:any[] = [30, 70];
+  public chartDataSet:any;
+  public chartOptions:any;
+  public chartOptions2:any;
 
   /*bar chart test*/
-  public barChartOptions:any = {
-    scaleShowVerticalLines: false,
-    responsive: true};
-  public barChartLabels:string[] = ['9/1', '9/2', '9/3', '9/4', '9/5', '9/6', '9/7'];
-  public barChartData:any[] = [
-    { data: [65, 59, 80, 81, 56, 55, 80], label: '' }];
+  public barChartLabels:any[] = ['9/1', '9/2', '9/3', '9/4', '9/5', '9/6', '9/7'];
+  public barChartData:any[] = [65, 59, 80, 81, 56, 55, 80];
+  public barChartDataSet:any[] = [];
 
-  // lineChart
-  public lineChartData:any[] = [
-    { data: [10000, 10600, 10555, 9400, 10030, 8700, 12500], label: '' }];
-  public lineChartLabels:any[] = ['9/1', '9/2', '9/3', '9/4', '9/5', '9/6', '9/7'];
-  public lineChartOptions:any = { responsive: true };
-  public lineChartColors:any[] = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'},
-  ];
-
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
     });
+    this.chartDataSet = {
+      labels: this.pieChartLabels,
+      datasets: [
+        {
+          label: '재생수',
+          data: this.pieChartData,
+          backgroundColor: ['#ffcdd2', '#e1bee7'],
+        }],
+    };
+    this.barChartDataSet = {
+      labels: this.barChartLabels,
+      datasets: [
+        {
+          label: '트래픽',
+          data: this.barChartData,
+          fill: false,
+          backgroundColor: ['#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0'],
+        }],
+    };
+    this.chartOptions = {
+      legend: {
+        position: 'top',
+      },
+    };
+    this.chartOptions2 = {
+      legend: {
+        display: false,
+      },
+    };
   }
 
   public chartClicked(e:any) {
-    // if (e.active[0]['_index'] === 0) {
-    //   this.router.navigate('/', 'contents');
-    // }
     console.log(e);
   }
 }

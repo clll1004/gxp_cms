@@ -16,7 +16,6 @@ export class TableGroupComponent implements OnInit, OnChanges {
   @Input() pagingOption:any[];
   @Output() selectItem = new EventEmitter();
 
-  public cols: any[] = [];
   public selectLists:any[] = [];
   public isShowMessage:boolean = false;
 
@@ -26,10 +25,6 @@ export class TableGroupComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.selectLists = [];
-    this.cols = [];
-    this.headerCols.forEach((item) => {
-      this.cols.push({ header: item });
-    });
   }
 
   onRowSelect() {
