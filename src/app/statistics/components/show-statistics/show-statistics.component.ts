@@ -51,6 +51,16 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
     { header: '재생율', field: 'playRate' },
     { header: '평균재생시간', field: 'averagePlayTime' },
   ];
+  public compareResultHeaderCols:any[] = [
+    { header: '콘텐츠명', field: 'contentsName' },
+    { header: '그룹명', field: 'groupName' },
+    { header: '폴더명', field: 'folderName' },
+    { header: '일자', field: 'date' },
+    { header: '재생시간', field: 'playTime' },
+    { header: '재생수', field: 'playCount' },
+    { header: '재생율', field: 'playRate' },
+    { header: '평균재생시간', field: 'averagePlayTime' },
+  ];
   public contentsStatisticsCols:any[] = [
     { header: '순위', field: 'ranking' },
     { header: '카테고리', field: 'category' },
@@ -83,6 +93,7 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
     this.setChartType();
     this.setChartData();
     this.setTableData();
+    this.showAnalysisContainer = false;
   }
 
   setChartType() {
@@ -140,10 +151,10 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
             folderName: '사회',
             contentsName: '공인중개사 6강',
             videoTime: 150,
-            playTime: 150,
+            playTime: '08:13:23',
             playCount: 30,
             playRate: '10%',
-            averagePlayTime: 20,
+            averagePlayTime: '03:20:13',
             updateDate: '2018-09-09',
           });
       });
@@ -229,34 +240,38 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
     }
     this.compareItems = this.tempCompareItems;
     this.showAnalysisContainer = true;
+    this.compareChartDataSet();
+  }
 
-    const randomData:any[] = [];
-    this.dateArray.forEach(() => {
-      const random = Math.floor(Math.random() * 10000);
-      randomData.push(random);
-    });
-    const randomData2:any[] = [];
-    this.dateArray.forEach(() => {
-      const random = Math.floor(Math.random() * 10000);
-      randomData2.push(random);
+  compareChartDataSet() {
+    const randomItems:any[] = [];
+    let randomItem:any[] = [];
+    let random = 0;
+    this.compareItems.forEach(() => {
+      randomItem = [];
+      this.dateArray.forEach(() => {
+        random = Math.floor(Math.random() * 30);
+        randomItem.push(random);
+      });
+      randomItems.push(randomItem);
     });
 
+    const tempDataSets:any[] = [];
+    let i:number = 0;
+    const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9'];
+    this.compareItems.forEach((item) => {
+      tempDataSets.push(
+        {
+          label: item['contentsName'],
+          data: randomItems[i],
+          fill: false,
+          borderColor: bdc[i],
+        });
+      i += 1;
+    });
     this.comparePlayTimeData = {
       labels: this.chartLabels,
-      datasets: [
-        {
-          label: this.compareItems[0]['contentsName'],
-          data: randomData,
-          fill: false,
-          borderColor: '#4bc0c0',
-        },
-        {
-          label: this.compareItems[1]['contentsName'],
-          data: randomData2,
-          fill: false,
-          borderColor: '#565656',
-        },
-      ],
+      datasets: tempDataSets,
     };
     this.chartOptions = {
       legend: {
@@ -283,5 +298,6 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
       }
     });
     this.tempCompareItems = this.compareItems;
+    this.compareChartDataSet();
   }
 }
