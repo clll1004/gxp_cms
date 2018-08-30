@@ -11,6 +11,7 @@ export class TableGroupComponent implements OnInit, OnChanges {
   @Input() headerCols:any[];
   @Input() dateArray:any[];
   @Input() showCheckbox:boolean;
+  @Input() checkLimit:number
   @Input() tableLists:any[];
   @Input() defaultPagingNumber:number;
   @Input() pagingOption:any[];
@@ -28,7 +29,7 @@ export class TableGroupComponent implements OnInit, OnChanges {
   }
 
   onRowSelect() {
-    if (this.selectLists.length > 3) {
+    if (this.selectLists.length > this.checkLimit) {
       this.isShowMessage = true;
       this.selectLists.pop();
     }

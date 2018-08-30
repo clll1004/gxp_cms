@@ -30,7 +30,7 @@
 </p-table>
 
 <p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-25 margin-bottom-25">3개까지 선택하실 수 있습니다.</p>
+  <p class="txt-center margin-top-25 margin-bottom-25">{{checkLimit}}개까지 선택하실 수 있습니다.</p>
   <div class="txt-center">
     <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
   </div>

@@ -21,6 +21,8 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
   public tempCompareItems:any[] = [];
   public compareItems:any[] = [];
   public isShowMessage:boolean = false;
+  public comparePopularSectionValue:any[] = [];
+  public compareLeaveSectionValue:any[] = [];
   /*table cols*/
   public dateStatisticsCols:any[] = [
     { header: '날짜', field: 'date' },
@@ -61,6 +63,20 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
     { header: '재생율', field: 'playRate' },
     { header: '평균재생시간', field: 'averagePlayTime' },
   ];
+  public compareSectionCols:any[] = [
+    { header: '일자', field: 'date' },
+    { header: '영상 제목', field: 'contentsName' },
+    { header: '10%', field: 'p10' },
+    { header: '20%', field: 'p20' },
+    { header: '30%', field: 'p30' },
+    { header: '40%', field: 'p40' },
+    { header: '50%', field: 'p50' },
+    { header: '60%', field: 'p60' },
+    { header: '70%', field: 'p70' },
+    { header: '80%', field: 'p80' },
+    { header: '90%', field: 'p90' },
+    { header: '100%', field: 'p100' },
+  ];
   public contentsStatisticsCols:any[] = [
     { header: '순위', field: 'ranking' },
     { header: '카테고리', field: 'category' },
@@ -79,11 +95,15 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
   /*table data*/
   public dateStatisticsData:any[] = [];
   public playTimeStatisticsData:any[] = [];
+  public compareSectionDatas:any[] = [];
   public contentsStatisticsData:any[] = [];
   public categoryStatisticsData:any[] = [];
-  public showAnalysisContainer:boolean = false;
+  public showPlaySectionAnalysisContainer:boolean = false;
+  public showPlayTimeAnalysisContainer:boolean = false;
   /*chart data*/
   public comparePlayTimeData:any;
+  public compareLength:any[] = [];
+  public comparePlaySectionData:any[] = [];
 
   constructor() { }
 
@@ -93,7 +113,8 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
     this.setChartType();
     this.setChartData();
     this.setTableData();
-    this.showAnalysisContainer = false;
+    this.showPlaySectionAnalysisContainer = false;
+    this.showPlayTimeAnalysisContainer = false;
   }
 
   setChartType() {
@@ -140,7 +161,7 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
             variation: '+ 10',
           });
       });
-    } else if (this.pathName === '재생 시간') {
+    } else if (this.pathName === '재생 구간' || this.pathName === '재생 시간') {
       this.playTimeStatisticsData = [];
       let i = 0;
       this.dateArray.forEach(() => {
@@ -226,24 +247,69 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
 
   updateSelectItem(e) {
     this.tempCompareItems = [];
-    this.showAnalysisContainer = false;
+    this.showPlaySectionAnalysisContainer = false;
+    this.showPlayTimeAnalysisContainer = false;
     e.forEach((item) => {
       this.tempCompareItems.push(item);
     });
   }
 
   compareSelectItem() {
-    this.compareItems = [];
     if (this.tempCompareItems.length === 0) {
       this.isShowMessage = true;
       return 0;
     }
-    this.compareItems = this.tempCompareItems;
-    this.showAnalysisContainer = true;
-    this.compareChartDataSet();
+    if (this.pathName === '재생 시간') {
+      this.compareItems = [];
+      this.showPlayTimeAnalysisContainer = true;
+      this.compareItems = this.tempCompareItems;
+      this.setCompareChartData();
+    } else {
+      this.compareSectionDatas = [];
+      this.showPlaySectionAnalysisContainer = true;
+      let i = 0;
+      this.tempCompareItems.forEach((item) => {
+        this.compareSectionDatas.push({
+          contentsName: item.contentsName,
+          p10: Math.floor(Math.random() * 1000),
+          p20: Math.floor(Math.random() * 1000),
+          p30: Math.floor(Math.random() * 1000),
+          p40: Math.floor(Math.random() * 1000),
+          p50: Math.floor(Math.random() * 1000),
+          p60: Math.floor(Math.random() * 1000),
+          p70: Math.floor(Math.random() * 1000),
+          p80: Math.floor(Math.random() * 1000),
+          p90: Math.floor(Math.random() * 1000),
+          p100: Math.floor(Math.random() * 1000),
+          index: i,
+        });
+        i += 1;
+      });
+      this.getPopularOrLeaveSection();
+      this.setCompareSectionChartData();
+    }
   }
 
-  compareChartDataSet() {
+  getPopularOrLeaveSection() {
+    this.comparePopularSectionValue = [];
+    this.compareLeaveSectionValue = [];
+    const temp:any[] = [];
+    this.compareSectionDatas.forEach((item) => {
+      temp.push([item['p10'], item['p20'], item['p30'], item['p40'], item['p50'], item['p60'], item['p70'], item['p80'], item['p90'], item['p100']]);
+    });
+    temp.forEach((item) => {
+      let popular:number = item[0];
+      let leave:number = item[0];
+      item.forEach((data) => {
+        popular = popular < data ? data : popular;
+        leave = leave > data ? data : leave;
+      });
+      this.comparePopularSectionValue.push(popular);
+      this.compareLeaveSectionValue.push(leave);
+    });
+  }
+
+  setCompareChartData() {
     const randomItems:any[] = [];
     let randomItem:any[] = [];
     let random = 0;
@@ -285,9 +351,46 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
     };
   }
 
+  setCompareSectionChartData() {
+    this.comparePlaySectionData = [];
+    this.compareLength = [];
+    const tempData:any[] = [];
+    const tborderColors:any[] = ['#ffcdd2', '#e1bee7'];
+    const tbackgroundColors:any[] = ['rgba(255,205,210,.2)', 'rgba(225,190,231,.2)'];
+    this.compareSectionDatas.forEach((item) => {
+      tempData.push([item['p10'], item['p20'], item['p30'], item['p40'], item['p50'], item['p60'], item['p70'], item['p80'], item['p90'], item['p100']]);
+    });
+    let i = 0;
+    this.compareSectionDatas.forEach((item) => {
+      this.compareLength.push(i);
+      this.comparePlaySectionData.push({
+        labels: ['10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'],
+        datasets: [{
+          label: item['contentsName'],
+          data: tempData[i],
+          fill: true,
+          borderColor: tborderColors[i],
+          backgroundColor: tbackgroundColors[i],
+        }],
+      });
+      i += 1;
+    });
+    this.chartOptions = {
+      legend: {
+        position: 'bottom',
+      },
+      elements: {
+        line: {
+          tension: 0,
+        },
+      },
+    };
+  }
+
   compareUnSelectItem() {
     this.compareItems = [];
-    this.showAnalysisContainer = false;
+    this.showPlaySectionAnalysisContainer = false;
+    this.showPlayTimeAnalysisContainer = false;
   }
 
   deleteCompareItem(target) {
@@ -298,6 +401,6 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
       }
     });
     this.tempCompareItems = this.compareItems;
-    this.compareChartDataSet();
+    this.setCompareChartData();
   }
 }
