@@ -271,6 +271,7 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
       this.tempCompareItems.forEach((item) => {
         this.compareSectionDatas.push({
           contentsName: item.contentsName,
+          date: this.selectDuration.date[0] + '\n ~ \n' + this.selectDuration.date[1],
           p10: Math.floor(Math.random() * 1000),
           p20: Math.floor(Math.random() * 1000),
           p30: Math.floor(Math.random() * 1000),
