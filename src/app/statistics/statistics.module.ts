@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { DatePickerModule } from '../common/date-picker/components/date-picker.component';
+import { DatePickerModule } from '../common/date-picker/date-picker.module';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';

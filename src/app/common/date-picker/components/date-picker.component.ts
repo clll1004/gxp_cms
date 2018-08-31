@@ -1,7 +1,6 @@
-import { Component, NgModule, OnInit, Input, Output, ElementRef, Renderer2, forwardRef, EventEmitter } from '@angular/core';
-import { DatePipe, CommonModule } from '@angular/common';
-import { CalendarModule } from 'primeng/primeng';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/forms';
+import { Component, OnInit, Input, Output, ElementRef, Renderer2, forwardRef, EventEmitter } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
   providers: [DatePipe, {
@@ -358,9 +357,3 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
 }
 
-@NgModule({
-  imports: [CommonModule, FormsModule, CalendarModule],
-  exports: [DatePickerComponent],
-  declarations: [DatePickerComponent]
-})
-export class DatePickerModule { }
