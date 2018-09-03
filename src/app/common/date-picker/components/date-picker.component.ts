@@ -15,7 +15,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
   inputFieldValue: string = null;
   isInputFocused: boolean = false;
-  calendarVisible: boolean= false;
+  calendarVisible: boolean = false;
   datePickerClick: boolean = false;
   inputSize: number;
   selectedDate: any[]; // ['0000-00-00', '0000-00-00']
@@ -118,7 +118,12 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
       let last = (curr.getFullYear() === start.getFullYear() && curr.getMonth() === start.getMonth() && curr.getDate() === start.getDate())? start : new Date().setDate(curr.getDate() - 1);
       this.selectedDate = [this.datePipe.transform(start, 'yyyy-MM-dd'), this.datePipe.transform(last, 'yyyy-MM-dd')];
     }},
-    {value: 'set', text: '기간설정'},
+    {value: 'set', text: '기간설정', setDate: () => {
+      const today = new Date();
+      today.setHours(0);
+      today.setMinutes(0);
+      this.selectedDate = [this.datePipe.transform(today, 'yyyy-MM-dd'), this.datePipe.transform(today, 'yyyy-MM-dd')];
+    }},
   ];
   @Input() ranges: object[]; //from high component
   @Input() range: string;    //from high component
@@ -134,6 +139,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   @Input() readonly: boolean = false;
   @Output() onSelect = new EventEmitter<Object>();
 
+  @Input() hourSelect:boolean = false;
 
   constructor(private datePipe: DatePipe, private elRef: ElementRef, private renderer: Renderer2) {}
 
@@ -255,8 +261,13 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   }
 
   calendarSelect(selectedDate: Date): void {
-    this.tempSelectedDate[0] = this.datePipe.transform(this.selectedDateFromPcalendar[0], 'yyyy-MM-dd');
-    this.tempSelectedDate[1] = this.selectedDateFromPcalendar[1] ? this.datePipe.transform(this.selectedDateFromPcalendar[1], 'yyyy-MM-dd') : '';
+    if (!this.hourSelect) {
+      this.tempSelectedDate[0] = this.datePipe.transform(this.selectedDateFromPcalendar[0], 'yyyy-MM-dd');
+      this.tempSelectedDate[1] = this.selectedDateFromPcalendar[1] ? this.datePipe.transform(this.selectedDateFromPcalendar[1], 'yyyy-MM-dd') : '';
+    } else {
+      this.tempSelectedDate[0] = this.datePipe.transform(this.selectedDateFromPcalendar[0], 'yyyy-MM-dd hh:mm');
+      this.tempSelectedDate[1] = this.selectedDateFromPcalendar[1] ? this.datePipe.transform(this.selectedDateFromPcalendar[1], 'yyyy-MM-dd') : '';
+    }
   }
 
   applyCalendar(): void {

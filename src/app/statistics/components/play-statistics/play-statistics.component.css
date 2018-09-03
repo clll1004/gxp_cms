@@ -1,5 +1,65 @@
+/*.chart-container {*/
+  /*height: 300px; line-height: 25px; padding-top: 110px;*/
+  /*background: #ddd;*/
+  /*text-align: center;*/
+/*}*/
+
 .chart-container {
-  height: 300px; line-height: 25px; padding-top: 110px;
-  background: #ddd;
+  position: relative;
+  padding: 30px 80px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+.change-chart-type-btns {
+  position: absolute;
+  top: -45px; right: 0px;
+}
+
+.change-chart-type-btns button {
+  padding: 0; margin-left: 10px;
+  border: none;
+  background: rgba(0,0,0,0);
+  color: #aaa;
+}
+
+.change-chart-type-btns button.on {
+  color: #ff6400;
+}
+
+.analysis-container h3 {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #777;
+}
+
+.section-info {
+  display: inline-block;
+  padding: 5px;
+  font-size: 13px;
+}
+.popular-section {
+  color: #c00000;
+  background-color: #fbe5d6 !important;
+}
+.leave-section {
+  color: #647b55;
+  background-color: #e2f0d9 !important;
+}
+tr td {
   text-align: center;
+  vertical-align: middle;
+}
+
+.play-section-chart-container {
+  position: relative;
+}
+.section-point-bar {
+  position: absolute;
+  top: 15px; left: 30%;
+  width: 2px; height: 74%;
+  background: rgba(0,0,0,.3);
+  cursor: pointer;
+  z-index: 99;
 }

@@ -3,11 +3,13 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'play-statistics',
   templateUrl: 'play-statistics.component.html',
-  styleUrls: ['./play-statistics.component.css']})
+  styleUrls: ['./play-statistics.component.css'],
+  providers: [DatePipe]})
 
 export class PlayStatisticsComponent implements OnInit {
   public pathName:string = '날짜별';
@@ -18,14 +20,18 @@ export class PlayStatisticsComponent implements OnInit {
     'play-time': '재생 시간',
     contents: '콘텐츠 통계',
     category: '카테고리 통계'};
-  public selectDuration:any = {
-    range : 'l-7days',
-    date: [],
-  };
-  public selectFolder:any = { label:'전체 폴더', value: 0 };
+  public selectDuration:object = { };
+  public selectFolder:object = { label:'전체 폴더', value: 0 };
   public searchKey:string = '';
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  public isMultiSelectDuration:boolean = false;
+  public durationCount:any[] = [0];
+  public multiSelectDuration:any[] = [
+    { selectDuration: new Date() },
+  ];
+  public yearRange: string = `${new Date().getFullYear() - 3}:${new Date().getFullYear()}`;
+
+  constructor(private activatedRoute: ActivatedRoute, private datePipe: DatePipe) {}
 
   ngOnInit() {
     this.activatedRoute.url.subscribe((urlItem) => {
@@ -36,29 +42,39 @@ export class PlayStatisticsComponent implements OnInit {
 
   dateInit() {
     const tempDate = new Date();
-    const tYear = tempDate.getFullYear();
-    const tMonth = tempDate.getMonth() + 1;
-    const tDate = tempDate.getDate();
-
-    this.selectDuration = {
+    const start = tempDate.getDate() - 7;
+    const yesterday = tempDate.getDate() - 1;
+    this.updateChoiceDuration({
       range : 'l-7days',
-      date: [
-        tYear + '-' + tMonth + '-' + (tDate - 7),
-        tYear + '-' + tMonth + '-' + (tDate - 1),
-      ],
-    };
-    this.updateChoiceDuration(this.selectDuration);
+      date: [this.datePipe.transform(new Date().setDate(start), 'yyyy-MM-dd'), this.datePipe.transform(new Date().setDate(yesterday), 'yyyy-MM-dd')],
+    });
   }
 
   updateChoiceDuration(e) {
     this.selectDuration = e;
   }
 
+  updateMultiSelectDuration() {
+    this.multiSelectDuration = [...this.multiSelectDuration];
+  }
+
   updateChoiceFolder(e) {
     this.selectFolder = e;
   }
 
-  search() {
-    console.log('!');
+  upDurationCount() {
+    if (this.durationCount.length < 3) {
+      this.durationCount.push(this.durationCount.length);
+      this.multiSelectDuration.push({
+        selectDuration: new Date(),
+      });
+    }
+    this.updateMultiSelectDuration();
+  }
+
+  downDurationCount(e) {
+    this.durationCount.pop();
+    this.multiSelectDuration.splice(e, 1);
+    this.updateMultiSelectDuration();
   }
 }

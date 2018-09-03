@@ -1,0 +1,14 @@
+<div class="ui-g-12 ui-g-nopad">
+  <div class="ui-g-12 ui-g-nopad margin-bottom-40 chart-container">
+    <div class="change-chart-type-btns">
+      <button type="button" class="on changeType" id="line-type" (click)="changeChartType($event)"><i class="fas fa-chart-line fa-2x"></i></button>
+      <button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>
+    </div>
+    <chart-group
+      [chartType]="chartType"
+      [chartFill]="false"
+      [chartLabels]="chartLabels"
+      [chartData]="chartData"
+    ></chart-group>
+  </div>
+</div>

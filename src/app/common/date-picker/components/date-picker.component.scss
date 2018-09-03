@@ -102,8 +102,9 @@
 
   .calendar-container {
     // width: 540px;
-    height: 272px;
+    //height: 272px;
     display: none;
+    padding-bottom: 30px;
     vertical-align: top;
     border: solid 1px #dbdee3;
     z-index: 3001;
@@ -133,9 +134,9 @@
         }
       }
       & .date-picker-input {
-        width: 225px;
+        width: 265px;
         margin: 21px;
-        margin-bottom: 0;
+        margin-bottom: 10px;
         padding-left: 33px;
       }
       & p-calendar {
@@ -143,7 +144,7 @@
           width: auto;
         }
         & .ui-datepicker {
-          width: 225px;
+          width: 265px;
           border: none;
           & .ui-datepicker-header {
             width: 100%;

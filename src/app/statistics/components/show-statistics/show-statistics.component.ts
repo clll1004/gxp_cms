@@ -11,6 +11,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class ShowStatisticsComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
+  @Input() multiSelectDuration;
   @Input() selectFolder;
   public chartType:string = 'line';
   public chartLabels:any[] = [];
@@ -107,7 +108,7 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnChanges() {
     this.setChartType();
@@ -115,6 +116,16 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
     this.setTableData();
     this.showPlaySectionAnalysisContainer = false;
     this.showPlayTimeAnalysisContainer = false;
+    if (this.pathName === '시간별') {
+      this.setMultiChartData();
+    }
+  }
+  setMultiChartData() {
+    this.chartLabels = ['00시', '01시', '02시', '03시', '04시', '05시', '06시', '07시', '08시', '09시', '10시', '11시', '12시', '13시', '14시', '15시', '16시', '17시', '18시', '19시', '20시', '21시', '22시', '23시' ];
+    this.chartLabels.forEach(() => {
+      const random = Math.floor(Math.random() * 10000);
+      this.chartData.push(random);
+    });
   }
 
   setChartType() {
@@ -134,7 +145,7 @@ export class ShowStatisticsComponent implements OnInit, OnChanges {
     this.chartData = [];
     const startDate = new Date(this.selectDuration.date[0]);
     const endDate = new Date(this.selectDuration.date[1]);
-    // const dateInterval = Math.floor((endDate.getTime() - startDate.getTime()) / 1000 / 60 / 60 / 24);
+
     this.dateArray = this.getDateArray(startDate, endDate);
     this.dateArray.forEach((item) => {
       const random = Math.floor(Math.random() * 10000);
