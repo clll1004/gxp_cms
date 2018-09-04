@@ -13,11 +13,11 @@
 
   <div class="ui-g-12 ui-g-nopad margin-bottom-30" *ngIf="pathName === '시간별'">
     <p-checkbox [(ngModel)]="isMultiSelectDuration" binary="true" label="다중 비교"></p-checkbox>
-    <button class="btn margin-left-10" type="button" *ngIf="isMultiSelectDuration" (click)="upDurationCount()"><i class="fas fa-plus"></i> 추가</button>
+    <button class="btn margin-left-10" type="button" *ngIf="isMultiSelectDuration" (click)="upDurationCount()" [disabled]="durationCount.length === 3"><i class="fas fa-plus"></i> 추가</button>
 
     <div class="multiSelectDurationContainer margin-top-10" *ngFor="let count of durationCount">
       <p-calendar [(ngModel)]="multiSelectDuration[count]['selectDuration']" dateFormat="yy-mm-dd" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" (onSelect)="updateMultiSelectDuration()"></p-calendar>
-      <button class="btn margin-right-10 margin-left-10" type="button" *ngIf="isMultiSelectDuration" (click)="downDurationCount(count)"><i class="fas fa-trash-alt"></i> 삭제</button>
+      <button class="btn margin-right-10 margin-left-10" type="button" *ngIf="isMultiSelectDuration && (count !== 0)" (click)="downDurationCount(count)"><i class="fas fa-trash-alt"></i> 삭제</button>
     </div>
   </div>
 
@@ -45,7 +45,6 @@
 
   <by-time *ngIf="pathName === '시간별'"
      [pathName]="pathName"
-     [selectDuration]="selectDuration"
      [multiSelectDuration]="multiSelectDuration"
      [selectFolder]="selectFolder"
   ></by-time>

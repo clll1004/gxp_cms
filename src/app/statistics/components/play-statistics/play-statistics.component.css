@@ -63,3 +63,9 @@ tr td {
   cursor: pointer;
   z-index: 99;
 }
+
+.time-table-title {
+  font-size: 16px;
+  font-weight:bold;
+  color: #777;
+}

@@ -37,10 +37,16 @@ export class PlayStatisticsComponent implements OnInit {
     this.activatedRoute.url.subscribe((urlItem) => {
       this.pathName = this.pathArray[urlItem[2].path];
       this.dateInit();
+      this.isMultiSelectDuration = false;
+      this.durationCount = [0];
+      this.multiSelectDuration = [
+        { selectDuration: new Date() },
+      ];
     });
   }
 
   dateInit() {
+    this.selectDuration = {};
     const tempDate = new Date();
     const start = tempDate.getDate() - 7;
     const yesterday = tempDate.getDate() - 1;

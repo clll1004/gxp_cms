@@ -2,39 +2,88 @@
  * Created by GRE511 on 2018-09-03.
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'by-time',
   templateUrl: './by-time.component.html',
-  styleUrls: ['../../play-statistics.component.css']})
+  styleUrls: ['../../play-statistics.component.css'],
+  providers: [DatePipe]})
 
 export class ByTimeComponent implements OnInit, OnChanges {
-  @Input() pathName;
-  @Input() selectDuration;
-  @Input() multiSelectDuration;
-  @Input() selectFolder;
+  @Input() pathName:string;
+  @Input() multiSelectDuration:any[];
+  @Input() selectFolder:object;
 
   public chartType: string = 'line';
   public chartLabels: any[] = [];
   public chartData: any[] = [];
-  public chartOptions: any;
+  public chartOptions: object;
   public dateArray: any[] = [];
+  public multiChartData:object = {};
 
-  constructor() { }
+  public durationLength:any[] = [];
+  public timeStatisticsCols:any[] = [
+    { header: '시간', field: 'time' },
+    { header: '재생수', field: 'playCount' },
+    { header: '재생율', field: 'playRate' },
+    { header: '재생시간', field: 'playTime' },
+  ];
+  public timeStatisticsLists:any[] = [];
+  public timeTableTitle:any[] = [];
 
-  ngOnInit() {}
+  constructor(private datePipe:DatePipe) { }
+
+  ngOnInit() {
+    this.chartData = [];
+    this.durationLength = ['0'];
+  }
 
   ngOnChanges() {
     this.setChartType();
     this.setMultiChartData();
+    this.setTableData();
   }
 
   setMultiChartData() {
-    this.chartLabels = ['00시', '01시', '02시', '03시', '04시', '05시', '06시', '07시', '08시', '09시', '10시', '11시', '12시', '13시', '14시', '15시', '16시', '17시', '18시', '19시', '20시', '21시', '22시', '23시' ];
-    this.chartLabels.forEach(() => {
-      const random = Math.floor(Math.random() * 10000);
-      this.chartData.push(random);
+    this.chartLabels = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
+    const tempLabels:any[] = [];
+    const tempDataSets:any[] = [];
+    let i:number = 0;
+    const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9'];
+    this.chartData = [];
+    this.multiSelectDuration.forEach((item) => {
+      const tempData:any[] = [];
+      tempLabels = [];
+      this.chartLabels.forEach((label) => {
+        const random = Math.floor(Math.random() * 10000);
+        tempData.push(random);
+        tempLabels.push(label + '시');
+      });
+      this.chartData.push(tempData);
+      tempDataSets.push(
+        {
+          label: (item.selectDuration.getMonth() + 1) + '/' + item.selectDuration.getDate(),
+          data: tempData,
+          fill: false,
+          borderColor: bdc[i],
+        });
+      i += 1;
     });
+    this.multiChartData = {
+      labels: tempLabels,
+      datasets: tempDataSets,
+    };
+    this.chartOptions = {
+      legend: {
+        position: 'bottom',
+      },
+      elements: {
+        line: {
+          tension: 0,
+        },
+      },
+    };
   }
 
   setChartType() {
@@ -48,19 +97,46 @@ export class ByTimeComponent implements OnInit, OnChanges {
     }
   }
 
+  setTableData() {
+    this.durationLength = [];
+    this.timeTableTitle = [];
+    let i = 0;
+    this.multiSelectDuration.forEach((item) => {
+      this.durationLength.push(i);
+      this.timeTableTitle.push(this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'));
+      i += 1;
+    });
+    this.timeStatisticsLists = [];
 
-  changeChartType(e) {
-    const temp = e.currentTarget.parentNode.children;
-    for (let i = 0 ; i < temp.length ; i += 1) {
-      temp[i].setAttribute('class', 'changeType');
-    }
+    const tempLists:any[] = [];
+    i = 0;
+    this.durationLength.forEach(() => {
+      let j = 0;
+      tempLists = [];
+      this.chartLabels.forEach((item) => {
+        tempLists.push(
+          {
+            time: item + '시 ~ ' + ((Number(item) + 1) < 10 ? '0' + (Number(item) + 1) : (Number(item) + 1))  + '시',
+            playCount: this.chartData[i][j],
+            playRate: '10%',
+            playTime: '20분',
+          });
+        j += 1;
+      });
+      this.timeStatisticsLists.push(tempLists);
+      i += 1;
+    });
+  }
 
-    if (e.currentTarget.getAttribute('id') === 'line-type') {
-      e.currentTarget.setAttribute('class', 'changeType on');
-      this.chartType = 'line';
+  foldingTable(btnId, tableId) {
+    const btn = <HTMLElement>document.getElementById(btnId);
+    const table = <HTMLElement>document.getElementById(tableId).children[0].children[0].children[0].children[2];
+    if (btn.innerHTML === '접기 &gt;') {
+      table.style.display = 'none';
+      btn.innerText = '펼치기 >';
     } else {
-      e.currentTarget.setAttribute('class', 'changeType on');
-      this.chartType = 'pie';
+      table.style.display = 'table-row-group';
+      btn.innerText = '접기 >';
     }
   }
 }
