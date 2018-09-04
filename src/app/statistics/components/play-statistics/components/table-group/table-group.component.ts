@@ -11,7 +11,7 @@ export class TableGroupComponent implements OnInit, OnChanges {
   @Input() headerCols:any[];
   @Input() dateArray:any[];
   @Input() showCheckbox:boolean;
-  @Input() checkLimit:number
+  @Input() checkLimit:number;
   @Input() tableLists:any[];
   @Input() defaultPagingNumber:number;
   @Input() pagingOption:any[];
@@ -25,7 +25,9 @@ export class TableGroupComponent implements OnInit, OnChanges {
   ngOnInit() { }
 
   ngOnChanges() {
-    this.selectLists = [];
+    if (this.tableLists.length > 0) {
+      this.selectLists = [this.tableLists[0]];
+    }
   }
 
   onRowSelect() {

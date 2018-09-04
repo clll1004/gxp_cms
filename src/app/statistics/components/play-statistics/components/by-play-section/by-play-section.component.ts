@@ -13,6 +13,8 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   @Input() selectDuration;
   @Input() selectFolder;
 
+  public isCompareStatus:boolean = false;
+
   public chartType:string = 'line';
   public chartLabels:any[] = [];
   public chartData:any[] = [];
@@ -54,7 +56,6 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   /*table data*/
   public playTimeStatisticsData:any[] = [];
   public compareSectionDatas:any[] = [];
-  public showPlaySectionAnalysisContainer:boolean = false;
   /*chart data*/
   public compareLength:any[] = [];
   public comparePlaySectionData:any[] = [];
@@ -67,7 +68,9 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     this.setChartType();
     this.setChartData();
     this.setTableData();
-    this.showPlaySectionAnalysisContainer = false;
+    this.tempCompareItems = [this.playTimeStatisticsData[0]];
+    this.compareItems = this.tempCompareItems;
+    this.showPlaySectionResult();
   }
 
   setChartType() {
@@ -131,24 +134,29 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
 
   updateSelectItem(e) {
     this.tempCompareItems = [];
-    this.showPlaySectionAnalysisContainer = false;
     e.forEach((item) => {
       this.tempCompareItems.push(item);
     });
+    if (this.tempCompareItems.length === 0 || this.tempCompareItems.length === 1) {
+      this.isCompareStatus = false;
+      this.compareItems = this.tempCompareItems;
+      this.showPlaySectionResult();
+    }
   }
 
-  compareSelectItem() {
+  showPlaySectionResult() {
     if (this.tempCompareItems.length === 0) {
-      this.isShowMessage = true;
+      this.compareSectionDatas = [];
+      this.comparePlaySectionData = [];
       return 0;
     }
     this.compareSectionDatas = [];
-    this.showPlaySectionAnalysisContainer = true;
     let i = 0;
     this.tempCompareItems.forEach((item) => {
       this.compareSectionDatas.push({
+        no: item.no,
         contentsName: item.contentsName,
-        date: this.selectDuration.date[0] + '\n ~ \n' + this.selectDuration.date[1],
+        date: this.selectDuration.date[0] + ' ~ ' + this.selectDuration.date[1],
         p10: Math.floor(Math.random() * 1000),
         p20: Math.floor(Math.random() * 1000),
         p30: Math.floor(Math.random() * 1000),
@@ -165,6 +173,24 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     });
     this.getPopularOrLeaveSection();
     this.setCompareSectionChartData();
+  }
+
+  showCompareResult() {
+    if (this.tempCompareItems.length === 2) {
+      this.isCompareStatus = true;
+      this.compareItems = this.tempCompareItems;
+      this.showPlaySectionResult();
+    } else {
+      this.isShowMessage = true;
+    }
+  }
+
+  showSingleResult() {
+    this.isCompareStatus = false;
+    this.tempCompareItems.pop();
+    this.compareItems = this.tempCompareItems;
+    this.showPlaySectionResult();
+    // this.updateSelectItem();
   }
 
   getPopularOrLeaveSection() {
@@ -201,7 +227,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       this.comparePlaySectionData.push({
         labels: ['10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'],
         datasets: [{
-          label: item['contentsName'],
+          label: item['no'],
           data: tempData[i],
           fill: true,
           borderColor: tborderColors[i],
@@ -220,10 +246,5 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
         },
       },
     };
-  }
-
-  compareUnSelectItem() {
-    this.compareItems = [];
-    this.showPlaySectionAnalysisContainer = false;
   }
 }
