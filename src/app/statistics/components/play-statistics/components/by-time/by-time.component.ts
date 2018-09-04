@@ -47,7 +47,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
 
   setMultiChartData() {
     this.chartLabels = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
-    const tempLabels:any[] = [];
+    let tempLabels:any[] = [];
     const tempDataSets:any[] = [];
     let i:number = 0;
     const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9'];
@@ -108,7 +108,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
     });
     this.timeStatisticsLists = [];
 
-    const tempLists:any[] = [];
+    let tempLists:any[] = [];
     i = 0;
     this.durationLength.forEach(() => {
       let j = 0;
@@ -117,7 +117,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
         tempLists.push(
           {
             time: item + '시 ~ ' + ((Number(item) + 1) < 10 ? '0' + (Number(item) + 1) : (Number(item) + 1))  + '시',
-            playCount: this.chartData[i][j],
+            playCount: this.chartData[i][j].toLocaleString() + ' 회',
             playRate: '10%',
             playTime: '20분',
           });
