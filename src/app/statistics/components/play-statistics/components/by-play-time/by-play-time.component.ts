@@ -13,6 +13,8 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   @Input() selectDuration;
   @Input() selectFolder;
 
+  public isCompareStatus:boolean = false;
+
   public chartType:string = 'line';
   public chartLabels:any[] = [];
   public chartData:any[] = [];
@@ -22,6 +24,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   public tempCompareItems:any[] = [];
   public compareItems:any[] = [];
   public isShowMessage:boolean = false;
+  public isShowCheckLimitMessage:boolean = false;
   /*table cols*/
   public playTimeStatisticsCols:any[] = [
     { header: 'No', field: 'no' },
@@ -54,8 +57,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     { header: '평균재생시간', field: 'averagePlayTime' },
   ];
   /*table data*/
-  public playTimeStatisticsData:any[] = [];
-  public showPlayTimeAnalysisContainer:boolean = false;
+  public playTimeStatisticsDatas:any[] = [];
   /*chart data*/
   public comparePlayTimeData:any;
 
@@ -67,7 +69,9 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     this.setChartType();
     this.setChartData();
     this.setTableData();
-    this.showPlayTimeAnalysisContainer = false;
+    this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
+    this.compareItems = this.tempCompareItems;
+    this.setCompareChartData();
   }
 
   setChartType() {
@@ -100,11 +104,11 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     this.dateArray.forEach((item) => {
       this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
     });
-    this.playTimeStatisticsData = [];
+    this.playTimeStatisticsDatas = [];
     let i = 0;
     this.dateArray.forEach(() => {
       i += 1;
-      this.playTimeStatisticsData.push(
+      this.playTimeStatisticsDatas.push(
         { no: i,
           groupName: 'GXP',
           folderName: '사회',
@@ -129,21 +133,41 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     return dateArray;
   }
 
-  updateSelectItem(e) {
-    this.tempCompareItems = [];
-    this.showPlayTimeAnalysisContainer = false;
-    e.forEach((item) => {
-      this.tempCompareItems.push(item);
-    });
-  }
-
-  compareSelectItem() {
-    if (this.tempCompareItems.length === 0) {
-      this.isShowMessage = true;
+  onRowSelect() {
+    if (this.tempCompareItems.length > 3) {
+      this.isShowCheckLimitMessage = true;
+      this.tempCompareItems.pop();
       return 0;
     }
-    this.compareItems = [];
-    this.showPlayTimeAnalysisContainer = true;
+    if (this.tempCompareItems.length === 0 || this.tempCompareItems.length === 1) {
+      this.isCompareStatus = false;
+      this.compareItems = this.tempCompareItems;
+      this.setCompareChartData();
+    } else if (this.isCompareStatus && this.tempCompareItems.length === 2) {
+      this.compareItems = this.tempCompareItems;
+      this.setCompareChartData();
+    } else if (this.isCompareStatus && this.tempCompareItems.length === 3) {
+      this.compareItems = this.tempCompareItems;
+      this.setCompareChartData();
+    }
+  }
+
+  showCompareResult() {
+    if (this.tempCompareItems.length >= 2) {
+      this.compareItems = [];
+      this.isCompareStatus = true;
+      this.compareItems = this.tempCompareItems;
+      this.setCompareChartData();
+    } else {
+      this.isShowMessage = true;
+    }
+  }
+
+  showSingleResult() {
+    this.isCompareStatus = false;
+    if (this.tempCompareItems.length === 2 || this.tempCompareItems.length === 3) {
+      this.tempCompareItems = [this.tempCompareItems[0]];
+    }
     this.compareItems = this.tempCompareItems;
     this.setCompareChartData();
   }
@@ -190,11 +214,6 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     };
   }
 
-  compareUnSelectItem() {
-    this.compareItems = [];
-    this.showPlayTimeAnalysisContainer = false;
-  }
-
   deleteCompareItem(target) {
     this.compareItems = [];
     this.tempCompareItems.forEach((item) => {
@@ -202,6 +221,9 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
         this.compareItems.push(item);
       }
     });
+    if (this.compareItems.length === 1) {
+      this.isCompareStatus = false;
+    }
     this.tempCompareItems = this.compareItems;
     this.setCompareChartData();
   }
