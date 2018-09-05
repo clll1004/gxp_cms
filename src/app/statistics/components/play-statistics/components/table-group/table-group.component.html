@@ -1,4 +1,4 @@
-<p-table #dt [columns]="headerCols" [value]="tableLists" [paginator]="true" [rows]="defaultPagingNumber" [rowsPerPageOptions]="pagingOption" [(selection)]="selectLists" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()">
+<p-table #dt [columns]="headerCols" [value]="tableLists" [paginator]="true" [rows]="defaultPagingNumber" [rowsPerPageOptions]="pagingOption">
   <ng-template pTemplate="caption">
     <div class="ui-helper-clearfix">
       <button type="button" pButton  label="다운로드" (click)="dt.exportCSV()" style="float:right"></button>
@@ -6,7 +6,6 @@
   </ng-template>
   <ng-template pTemplate="header" let-columns>
     <tr>
-      <th *ngIf="showCheckbox"></th>
       <th *ngFor="let col of columns">
         {{ col.header }}
       </th>
@@ -14,9 +13,6 @@
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns" let-tableList>
     <tr [pSelectableRow]="rowData">
-      <td *ngIf="showCheckbox">
-        <p-tableCheckbox [value]="tableList"></p-tableCheckbox>
-      </td>
       <td *ngFor="let col of columns">
         {{ tableList[col.field] }}
       </td>
@@ -28,10 +24,3 @@
     </tr>
   </ng-template>
 </p-table>
-
-<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-25 margin-bottom-25">{{checkLimit}}개까지 선택하실 수 있습니다.</p>
-  <div class="txt-center">
-    <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-  </div>
-</p-dialog>

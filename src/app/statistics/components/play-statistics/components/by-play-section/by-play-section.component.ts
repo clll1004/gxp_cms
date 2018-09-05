@@ -24,6 +24,8 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public tempCompareItems:any[] = [];
   public compareItems:any[] = [];
   public isShowMessage:boolean = false;
+  public isShowCheckLimitMessage:boolean = false;
+
   public comparePopularSectionValue:any[] = [];
   public compareLeaveSectionValue:any[] = [];
   /*table cols*/
@@ -54,7 +56,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     { header: '100%', field: 'p100' },
   ];
   /*table data*/
-  public playTimeStatisticsData:any[] = [];
+  public playTimeStatisticsDatas:any[] = [];
   public compareSectionDatas:any[] = [];
   /*chart data*/
   public compareLength:any[] = [];
@@ -68,7 +70,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     this.setChartType();
     this.setChartData();
     this.setTableData();
-    this.tempCompareItems = [this.playTimeStatisticsData[0]];
+    this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
     this.compareItems = this.tempCompareItems;
     this.showPlaySectionResult();
   }
@@ -103,11 +105,11 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     this.dateArray.forEach((item) => {
       this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
     });
-    this.playTimeStatisticsData = [];
+    this.playTimeStatisticsDatas = [];
     let i = 0;
     this.dateArray.forEach(() => {
       i += 1;
-      this.playTimeStatisticsData.push(
+      this.playTimeStatisticsDatas.push(
         { no: i,
           groupName: 'GXP',
           folderName: '사회',
@@ -132,11 +134,12 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     return dateArray;
   }
 
-  updateSelectItem(e) {
-    this.tempCompareItems = [];
-    e.forEach((item) => {
-      this.tempCompareItems.push(item);
-    });
+  onRowSelect() {
+    if (this.tempCompareItems.length > 2) {
+      this.isShowCheckLimitMessage = true;
+      this.tempCompareItems.pop();
+      return 0;
+    }
     if (this.tempCompareItems.length === 0 || this.tempCompareItems.length === 1) {
       this.isCompareStatus = false;
       this.compareItems = this.tempCompareItems;
@@ -187,10 +190,9 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
 
   showSingleResult() {
     this.isCompareStatus = false;
-    this.tempCompareItems.pop();
+    this.tempCompareItems = [this.tempCompareItems[0]];
     this.compareItems = this.tempCompareItems;
     this.showPlaySectionResult();
-    // this.updateSelectItem();
   }
 
   getPopularOrLeaveSection() {
