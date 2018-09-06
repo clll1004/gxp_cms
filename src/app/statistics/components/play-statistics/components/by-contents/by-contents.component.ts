@@ -44,8 +44,8 @@ export class ByContentsComponent implements OnInit, OnChanges {
     const startDate = new Date(this.selectDuration.date[0]);
     const endDate = new Date(this.selectDuration.date[1]);
     this.dateArray = this.getDateArray(startDate, endDate);
-    this.setChartType();
     this.setTableData();
+    this.setChartType();
     this.setChartData();
   }
 
@@ -82,8 +82,8 @@ export class ByContentsComponent implements OnInit, OnChanges {
           ranking: 1,
           category: '교육',
           contentsName: '토익 1회',
-          playCount: 10345,
-          playRate: 10,
+          playCount: Math.floor(Math.random() * 10000),
+          playRate: Math.floor(Math.random() * 100),
           updateDate: '2018-09-09',
         });
       this.contentsStatisticsLists.push(
@@ -91,8 +91,8 @@ export class ByContentsComponent implements OnInit, OnChanges {
           ranking: 2,
           category: '사회',
           contentsName: '뮤직뱅크 1회',
-          playCount: 3555,
-          playRate: 55,
+          playCount: Math.floor(Math.random() * 10000),
+          playRate: Math.floor(Math.random() * 100),
           updateDate: '2018-09-09',
         });
     });

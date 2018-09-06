@@ -13,12 +13,42 @@
   </div>
 
   <div class="ui-g-12 ui-g-nopad">
-    <table-group
-      [headerCols]="categoryStatisticsCols"
-      [tableLists]="categoryStatisticsData"
-      [dateArray]="dateArray"
-      [defaultPagingNumber]="20"
-      [pagingOption]="[20, 50, 100]"
-    ></table-group>
+    <p-table #dt [columns]="categoryStatisticsCols" [value]="categoryStatisticsLists" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20, 50, 100]">
+      <ng-template pTemplate="caption">
+        <div class="ui-helper-clearfix">
+          <button type="button" pButton  label="다운로드" (click)="dt.exportCSV()" style="float:right"></button>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{ col.header }}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-columns="columns" let-categoryStatisticsList>
+        <tr>
+          <td> {{ categoryStatisticsList['ranking'] }} </td>
+          <td> {{ categoryStatisticsList['category'] }} </td>
+          <td> {{ categoryStatisticsList['contentsCount'] }} 개</td>
+          <td> {{ categoryStatisticsList['playCount'] }} 회</td>
+          <td> {{ categoryStatisticsList['playRate'] }} %</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer" let-columns="columns">
+        <tr>
+          <td>Total</td>
+          <td> 개 카테고리</td>
+          <td>총 {{ totalData['totalContentsCount'] }} 개 </td>
+          <td>총 {{ totalData['totalPlayCount'] }} 회</td>
+          <td>평균 재생율 {{ totalData['averagePlayRate'] }} %</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length" class="emptyMessage">표시할 데이터가 없습니다.</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>
