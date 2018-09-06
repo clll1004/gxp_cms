@@ -19,7 +19,6 @@ export class ByTimeComponent implements OnInit, OnChanges {
   public chartLabels: any[] = [];
   public chartData: any[] = [];
   public chartOptions: object;
-  public dateArray: any[] = [];
   public multiChartData:object = {};
 
   public durationLength:any[] = [];
@@ -31,6 +30,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
   ];
   public timeStatisticsLists:any[] = [];
   public timeTableTitle:any[] = [];
+  public totalData:any[] = [];
 
   constructor(private datePipe:DatePipe) { }
 
@@ -117,14 +117,39 @@ export class ByTimeComponent implements OnInit, OnChanges {
         tempLists.push(
           {
             time: item + '시 ~ ' + ((Number(item) + 1) < 10 ? '0' + (Number(item) + 1) : (Number(item) + 1))  + '시',
-            playCount: this.chartData[i][j].toLocaleString() + ' 회',
-            playRate: '10%',
-            playTime: '20분',
+            playCount: this.chartData[i][j],
+            playRate: 10,
+            playTime: 20,
           });
         j += 1;
       });
       this.timeStatisticsLists.push(tempLists);
       i += 1;
+    });
+
+    this.setTotalData();
+  }
+
+  setTotalData() {
+    this.totalData = [];
+    let tempTotalData:object = {};
+    const length = this.timeStatisticsLists[0].length;
+    this.timeStatisticsLists.forEach((item:any[]) => {
+      tempTotalData = {
+        totalPlayCount: 0,
+        averagePlayCount: 0,
+        averagePlayRate: 0,
+        averagePlayTime: 0,
+      };
+      item.forEach((value) => {
+        tempTotalData['totalPlayCount'] += value['playCount'];
+        tempTotalData['averagePlayRate'] += value['playRate'];
+        tempTotalData['averagePlayTime'] += value['playTime'];
+      });
+      tempTotalData['averagePlayCount'] = Math.floor(tempTotalData['totalPlayCount'] / length);
+      tempTotalData['averagePlayRate'] = Math.floor(tempTotalData['averagePlayRate'] / length);
+      tempTotalData['averagePlayTime'] = Math.floor(tempTotalData['averagePlayTime'] / length);
+      this.totalData.push(tempTotalData);
     });
   }
 

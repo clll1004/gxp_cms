@@ -13,13 +13,6 @@
   </div>
 
   <div class="ui-g-12 ui-g-nopad">
-    <!--<table-group-->
-      <!--[headerCols]="dateStatisticsCols"-->
-      <!--[tableLists]="dateStatisticsData"-->
-      <!--[dateArray]="dateArray"-->
-      <!--[defaultPagingNumber]="20"-->
-      <!--[pagingOption]="[20, 50, 100]"-->
-    <!--&gt;</table-group>-->
     <p-table #dt [columns]="dateStatisticsCols" [value]="dateStatisticsLists" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20, 50, 100]">
       <ng-template pTemplate="caption">
         <div class="ui-helper-clearfix">
