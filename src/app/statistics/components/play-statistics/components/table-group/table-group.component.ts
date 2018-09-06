@@ -5,7 +5,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'table-group',
-  templateUrl: 'table-group.component.html'})
+  templateUrl: 'table-group.component.html',
+  styleUrls: ['../../play-statistics.component.css']})
 
 export class TableGroupComponent implements OnInit {
   @Input() headerCols:any[];

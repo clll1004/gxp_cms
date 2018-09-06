@@ -29,8 +29,15 @@ export class ByDateComponent implements OnInit, OnChanges {
     { header: '전일 대비 재생 수 증감', field: 'variation' },
   ];
   /*table data*/
-  public tableLists:any[] = [];
-  public dateStatisticsData: any[] = [];
+  public dateStatisticsLists: any[] = [];
+  public totalData:object = {
+    totalContentsCount: 0,
+    totalPlayCount: 0,
+    averagePlayCount: 0,
+    averagePlayRate: 0,
+    totalPlayTime: 0,
+    averageTotalPlayTime: 0,
+  };
 
   constructor() { }
 
@@ -68,24 +75,44 @@ export class ByDateComponent implements OnInit, OnChanges {
   }
 
   setTableData() {
-    this.tableLists = [];
+    this.dateStatisticsLists = [];
+    let i = 0;
     this.dateArray.forEach((item) => {
-      this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
-    });
-    this.dateStatisticsData = [];
-    this.dateArray.forEach((item) => {
-      this.dateStatisticsData.push(
+      this.dateStatisticsLists.push(
         {
-          date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(),
-          contentsCount: 30,
-          playCount: 20,
-          playRate: '10%',
-          playTime: 150,
+          date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + (item.getDate() < 10 ? '0' + item.getDate() : item.getDate()),
+          contentsCount: 123,
+          playCount: this.chartData[i],
+          playRate: 10,
+          playTime: 20,
           averagePlayTime: 20,
-          variation: '+ 10',
+          variation: 0,
         },
       );
+      i += 1;
     });
+    this.setTotalData();
+  }
+
+  setTotalData() {
+    const length = this.dateStatisticsLists.length;
+    this.totalData = {
+      totalContentsCount: 0,
+      totalPlayCount: 0,
+      averagePlayCount: 0,
+      averagePlayRate: 0,
+      totalPlayTime: 0,
+      averageTotalPlayTime: 0,
+    };
+    this.dateStatisticsLists.forEach((item) => {
+      this.totalData['totalContentsCount'] += item['contentsCount'];
+      this.totalData['totalPlayCount'] += item['playCount'];
+      this.totalData['averagePlayRate'] += item['playRate'];
+      this.totalData['totalPlayTime'] += item['playTime'];
+    });
+    this.totalData['averagePlayCount'] = Math.floor(this.totalData['totalPlayCount'] / length);
+    this.totalData['averagePlayRate'] = Math.floor(this.totalData['averagePlayRate'] / length);
+    this.totalData['averageTotalPlayTime'] = Math.floor(this.totalData['totalPlayTime'] / length);
   }
 
   getDateArray(startDate, endDate) {
