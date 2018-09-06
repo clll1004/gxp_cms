@@ -30,16 +30,23 @@ export class ByContentsComponent implements OnInit, OnChanges {
   /*table data*/
   public tableLists:any[] = [];
   public dateStatisticsData: any[] = [];
-  public contentsStatisticsData:any[] = [];
+  public contentsStatisticsLists:any[] = [];
+  public totalData:object = {
+    totalPlayCount: 0,
+    averagePlayRate: 0,
+  };
 
   constructor() { }
 
   ngOnInit() {}
 
   ngOnChanges() {
+    const startDate = new Date(this.selectDuration.date[0]);
+    const endDate = new Date(this.selectDuration.date[1]);
+    this.dateArray = this.getDateArray(startDate, endDate);
     this.setChartType();
-    this.setChartData();
     this.setTableData();
+    this.setChartData();
   }
 
   setChartType() {
@@ -56,14 +63,9 @@ export class ByContentsComponent implements OnInit, OnChanges {
   setChartData() {
     this.chartLabels = [];
     this.chartData = [];
-    const startDate = new Date(this.selectDuration.date[0]);
-    const endDate = new Date(this.selectDuration.date[1]);
-
-    this.dateArray = this.getDateArray(startDate, endDate);
-    this.dateArray.forEach((item) => {
-      const random = Math.floor(Math.random() * 10000);
-      this.chartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
-      this.chartData.push(random);
+    this.contentsStatisticsLists.forEach((item) => {
+      this.chartLabels.push(item.contentsName);
+      this.chartData.push(item.playCount);
     });
   }
 
@@ -74,17 +76,40 @@ export class ByContentsComponent implements OnInit, OnChanges {
     });
     this.dateStatisticsData = [];
     this.dateArray.forEach(() => {
-      this.contentsStatisticsData = [];
-      this.contentsStatisticsData.push(
+      this.contentsStatisticsLists = [];
+      this.contentsStatisticsLists.push(
         {
           ranking: 1,
           category: '교육',
           contentsName: '토익 1회',
-          playCount: 30,
-          playRate: '10%',
+          playCount: 10345,
+          playRate: 10,
+          updateDate: '2018-09-09',
+        });
+      this.contentsStatisticsLists.push(
+        {
+          ranking: 2,
+          category: '사회',
+          contentsName: '뮤직뱅크 1회',
+          playCount: 3555,
+          playRate: 55,
           updateDate: '2018-09-09',
         });
     });
+    this.setTotalData();
+  }
+
+  setTotalData() {
+    const length = this.contentsStatisticsLists.length;
+    this.totalData = {
+      totalPlayCount: 0,
+      averagePlayRate: 0,
+    };
+    this.contentsStatisticsLists.forEach((item) => {
+      this.totalData['totalPlayCount'] += item['playCount'];
+      this.totalData['averagePlayRate'] += item['playRate'];
+    });
+    this.totalData['averagePlayRate'] = Math.floor(this.totalData['averagePlayRate'] / length);
   }
 
   getDateArray(startDate, endDate) {
