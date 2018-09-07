@@ -18,6 +18,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 import { StatisticsComponent } from './statistics.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UsageAnalysisComponent } from './components/usage-analysis/usage-analysis.component';
 import { PlayStatisticsComponent } from './components/play-statistics/play-statistics.component';
 import { ByDateComponent } from './components/play-statistics/components/by-date/by-date.component';
 import { ByTimeComponent } from './components/play-statistics/components/by-time/by-time.component';
@@ -52,15 +53,16 @@ const appRoutes: Routes = [
   ],
   exports: [StatisticsComponent],
   declarations: [
+    StatisticsComponent,
+    DashboardComponent,
+    UsageAnalysisComponent,
+    PlayStatisticsComponent,
     ByDateComponent,
     ByTimeComponent,
     ByPlaySectionComponent,
     ByPlayTimeComponent,
     ByContentsComponent,
     ByCategoryComponent,
-    StatisticsComponent,
-    DashboardComponent,
-    PlayStatisticsComponent,
     FolderPickerComponent,
     ChartGroupComponent,
     TableGroupComponent,
