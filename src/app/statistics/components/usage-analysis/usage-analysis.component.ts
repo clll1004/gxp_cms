@@ -3,11 +3,13 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'usage-analysis',
   templateUrl: './usage-analysis.component.html',
-  styleUrls: ['./usage-analysis.component.css']})
+  styleUrls: ['./usage-analysis.component.css'],
+  providers: [DatePipe]})
 
 export class UsageAnalysisComponent implements OnInit {
   public pathName:string = '날짜별';
@@ -17,11 +19,29 @@ export class UsageAnalysisComponent implements OnInit {
     'gxp-usage': 'GXP 사용량',
     'trans-coding': '트랜스코딩',
   };
-  constructor(private activatedRoute: ActivatedRoute) { }
+  public selectDuration:object = { };
+
+  constructor(private activatedRoute: ActivatedRoute, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.activatedRoute.url.subscribe((urlItem) => {
       this.pathName = this.pathArray[urlItem[2].path];
+      this.dateInit();
     });
+  }
+
+  dateInit() {
+    this.selectDuration = {};
+    const tempDate = new Date();
+    const start = tempDate.getDate() - 7;
+    const yesterday = tempDate.getDate() - 1;
+    this.updateChoiceDuration({
+      range : 'l-7days',
+      date: [this.datePipe.transform(new Date().setDate(start), 'yyyy-MM-dd'), this.datePipe.transform(new Date().setDate(yesterday), 'yyyy-MM-dd')],
+    });
+  }
+
+  updateChoiceDuration(e) {
+    this.selectDuration = e;
   }
 }

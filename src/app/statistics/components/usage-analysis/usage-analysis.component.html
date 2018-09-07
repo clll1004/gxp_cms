@@ -3,11 +3,13 @@
     <a routerLink="/home"><i class="fas fa-home"></i></a> > 통계 > 사용량 분석 > <span class="path"> {{ pathName }} </span>
   </div>
 
-  <div class="ui-g-12 ui-g-nopad margin-bottom-30" *ngIf="pathName !== '시간별'">
+  <div class="ui-g-12 ui-g-nopad margin-bottom-30">
     <date-picker
       [(ngModel)]="selectDuration"
       (onSelect)="updateChoiceDuration($event)"
       [ranges]="['t', 'l-7days', 't-month', 'l-month', 'set']"
     ></date-picker>
   </div>
+
+  <by-traffic *ngIf="pathName === '트래픽'" [selectDuration]="selectDuration"></by-traffic>
 </div>
