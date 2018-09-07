@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit{
         const serverData = JSON.parse(data['_body']);
         const user = this.userData.userId + '/' + this.userData.userPassword;
         this.loginService.setCookieData(user, serverData.usr_seq, serverData.usr_nm, serverData.grp_seq);
-        this.router.navigate(['/', 'contents']);
+        this.router.navigate(['/', 'home']);
       })
       .catch((error) => {
         this.isShowLoginMessage = true;

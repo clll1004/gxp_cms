@@ -21,8 +21,10 @@ import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { TreeModule } from 'primeng/tree';
 import { StatisticsModule } from './statistics/statistics.module';
+import { ChartModule } from 'primeng/chart';
 
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
 import { ContentsComponent } from './contents/contents.component';
 import { TranscodingComponent } from './transcoding/transcoding.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -73,9 +75,11 @@ import { AppRoutingModule } from './app-routing.module';
     PanelModule,
     TreeModule,
     StatisticsModule,
+    ChartModule,
   ],
   declarations: [
     AppComponent,
+    HomeComponent,
     HeaderComponent,
     ContentsComponent,
     SettingsComponent,
