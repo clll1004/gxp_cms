@@ -248,7 +248,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     this.setCompareChartData();
   }
 
-  setTableIndex(e: SortEvent) {
+  setTableIndex(e:any) {
     e.data.sort((data1, data2) => {
       const value1 = data1[e.field];
       const value2 = data2[e.field];
