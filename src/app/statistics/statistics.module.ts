@@ -21,6 +21,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UsageAnalysisComponent } from './components/usage-analysis/usage-analysis.component';
 import { ByTrafficComponent } from './components/usage-analysis/components/by-traffic/by-traffic.component';
 import { ByUsageStorageComponent } from './components/usage-analysis/components/by-usage-storage/by-usage-storage.component';
+import { ByGxpComponent } from './components/usage-analysis/components/by-gxp/by-gxp.component';
 import { PlayStatisticsComponent } from './components/play-statistics/play-statistics.component';
 import { ByDateComponent } from './components/play-statistics/components/by-date/by-date.component';
 import { ByTimeComponent } from './components/play-statistics/components/by-time/by-time.component';
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
     UsageAnalysisComponent,
     ByTrafficComponent,
     ByUsageStorageComponent,
+    ByGxpComponent,
     PlayStatisticsComponent,
     ByDateComponent,
     ByTimeComponent,

@@ -16,7 +16,7 @@ export class UsageAnalysisComponent implements OnInit {
   public pathArray:object = {
     traffic: '트래픽',
     storage: '스토리지',
-    'gxp-usage': 'GXP 사용량',
+    gxp: 'GXP 사용량',
     'trans-coding': '트랜스코딩',
   };
   public selectDuration:object = { };

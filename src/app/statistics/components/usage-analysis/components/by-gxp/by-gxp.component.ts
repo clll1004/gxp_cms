@@ -1,14 +1,14 @@
 /**
- * Created by GRE511 on 2018-09-07.
+ * Created by GRE511 on 2018-09-10.
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'by-usage-storage',
-  templateUrl: './by-usage-storage.component.html',
+  selector: 'by-gxp',
+  templateUrl: './by-gxp.component.html',
   styleUrls: ['../../usage-analysis.component.css']})
 
-export class ByUsageStorageComponent implements OnInit, OnChanges {
+export class ByGxpComponent implements OnInit, OnChanges {
   @Input() selectDuration;
   public pieChartLabels: any[] = ['현재 사용량', '남은 용량'];
   public pieChartData: any[] = [30, 70];
@@ -20,21 +20,19 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
   public barChartOptions: object;
 
   public dateArray:any[] = [];
-  public backgroundColors:any[] = ['#ffcdd2', '#e1bee7'];
+  public backgroundColors:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0'];
 
   /*table cols*/
-  public storageAnalysisCols: any[] = [
+  public gxpAnalysisCols: any[] = [
     { header: '날짜', field: 'date' },
-    { header: '원본 파일', field: 'originStorage' },
-    { header: '트랜스코딩 파일', field: 'transCodingStorage' },
-    { header: '총합', field: 'fileTotalStorage' },
+    { header: '스토리지', field: 'storage' },
+    { header: '전송량', field: 'transmissionCapacity' },
   ];
   /*table data*/
-  public storageAnalysisLists: any[] = [];
+  public gxpAnalysisLists: any[] = [];
   public totalData:object = {
-    totalOriginStorage: 0,
-    totalTransCodingStorage: 0,
     totalStorage: 0,
+    totalTransmissionCapacity: 0,
   };
 
   constructor() {}
@@ -52,22 +50,19 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
     const startDate = new Date(this.selectDuration.date[0]);
     const endDate = new Date(this.selectDuration.date[1]);
     this.dateArray = this.getDateArray(startDate, endDate);
-    const originTemp:any[] = [];
-    const transTemp:any[] = [];
-    const totalTemp:any[] = [];
+    const storageTemp:any[] = [];
+    const transmissionCapacityTemp:any[] = [];
     this.dateArray.forEach((item) => {
-      const originRandom = Math.floor(Math.random() * 100);
-      const transRandom = Math.floor(Math.random() * 100);
-      const total = originRandom + transRandom;
+      const storageRandom = Math.floor(Math.random() * 100);
+      const transmissionCapacityRandom = Math.floor(Math.random() * 100);
       this.barChartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
-      originTemp.push(originRandom);
-      transTemp.push(transRandom);
-      totalTemp.push(total);
+      storageTemp.push(storageRandom);
+      transmissionCapacityTemp.push(transmissionCapacityRandom);
     });
-    this.barChartData.push(originTemp);
-    this.barChartData.push(transTemp);
-    this.barChartData.push(totalTemp);
+    this.barChartData.push(storageTemp);
+    this.barChartData.push(transmissionCapacityTemp);
 
+    const tempBackground:any = this.setBackgroundColor();
     this.pieChartDataSet = {
       labels: this.pieChartLabels,
       datasets: [
@@ -86,30 +81,36 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
       labels: this.barChartLabels,
       datasets: [
         {
-          label: '원본파일',
+          label: '스토리지',
           data: this.barChartData[0],
-          backgroundColor: this.backgroundColors[0],
-        },
-        {
-          label: '트랜스코딩 파일',
-          data: this.barChartData[1],
-          backgroundColor: this.backgroundColors[1],
+          backgroundColor: tempBackground,
         },
       ],
     };
     this.barChartOptions = {
       legend: {
-        position: 'bottom',
-      },
-      scales: {
-        xAxes: [{
-          stacked: true,
-        }],
-        yAxes: [{
-          stacked: true,
-        }],
+        display: false,
       },
     };
+  }
+
+  setBackgroundColor() {
+    const backgroundLength = this.backgroundColors.length;
+    const chartLength = this.barChartLabels.length;
+    const tempBackground:any[] = [];
+
+    let i = 0;
+    let count = 0;
+    do {
+      tempBackground.push(this.backgroundColors[i]);
+      i += 1;
+      if (i > backgroundLength) {
+        i = 0;
+      }
+      count += 1;
+    } while (count < chartLength);
+
+    return tempBackground;
   }
 
   getDateArray(startDate, endDate) {
@@ -123,33 +124,30 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
   }
 
   setTableData() {
-    this.storageAnalysisLists = [];
+    this.gxpAnalysisLists = [];
     let i = 0;
     this.dateArray.forEach((item) => {
-      this.storageAnalysisLists.push(
+      this.gxpAnalysisLists.push(
         {
           date: item.getFullYear() + '-' + ((item.getMonth() + 1) < 10 ? '0' + (item.getMonth() + 1) : (item.getMonth() + 1)) + '-' + (item.getDate() < 10 ? '0' + item.getDate() : item.getDate()),
-          originStorage: this.barChartData[0][i],
-          transCodingStorage: this.barChartData[1][i],
-          fileTotalStorage: this.barChartData[2][i],
+          storage: this.barChartData[0][i],
+          transmissionCapacity: this.barChartData[1][i],
         },
       );
       i += 1;
     });
-    this.storageAnalysisLists.reverse();
+    this.gxpAnalysisLists.reverse();
     this.setTotalData();
   }
 
   setTotalData() {
     this.totalData = {
-      totalOriginStorage: 0,
-      totalTransCodingStorage: 0,
       totalStorage: 0,
+      totalTransmissionCapacity: 0,
     };
-    this.storageAnalysisLists.forEach((item) => {
-      this.totalData['totalOriginStorage'] += item['originStorage'];
-      this.totalData['totalTransCodingStorage'] += item['transCodingStorage'];
-      this.totalData['totalStorage'] += item['fileTotalStorage'];
+    this.gxpAnalysisLists.forEach((item) => {
+      this.totalData['totalStorage'] += item['storage'];
+      this.totalData['totalTransmissionCapacity'] += item['transmissionCapacity'];
     });
   }
 }
