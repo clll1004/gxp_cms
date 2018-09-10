@@ -105,22 +105,42 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
       this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
     });
     this.playTimeStatisticsDatas = [];
-    let i = 0;
-    this.dateArray.forEach(() => {
-      i += 1;
-      this.playTimeStatisticsDatas.push(
-        { no: i,
-          groupName: 'GXP',
-          folderName: '사회',
-          contentsName: '공인중개사 6강',
-          videoTime: 150,
-          playTime: '08:13:23',
-          playCount: 30,
-          playRate: '10%',
-          averagePlayTime: '03:20:13',
-          updateDate: '2018-09-09',
-        });
-    });
+    this.playTimeStatisticsDatas.push(
+      { no: 1,
+        groupName: 'GXP',
+        folderName: '사회',
+        contentsName: '토익1강',
+        videoTime: 30,
+        playTime: '08:13:23',
+        playCount: Math.floor(Math.random() * 10000),
+        playRate: 10,
+        averagePlayTime: '08:13:23',
+        updateDate: '2018-09-09',
+      });
+    this.playTimeStatisticsDatas.push(
+      { no: 2,
+        groupName: 'GXP',
+        folderName: '사회',
+        contentsName: '토익2강',
+        videoTime: 30,
+        playTime: '08:13:23',
+        playCount: Math.floor(Math.random() * 10000),
+        playRate: 10,
+        averagePlayTime: '08:13:23',
+        updateDate: '2018-09-09',
+      });
+    this.playTimeStatisticsDatas.push(
+      { no: 3,
+        groupName: 'GXP',
+        folderName: '사회',
+        contentsName: '토익3강',
+        videoTime: 30,
+        playTime: '08:13:23',
+        playCount: Math.floor(Math.random() * 10000),
+        playRate: 10,
+        averagePlayTime: '08:13:23',
+        updateDate: '2018-09-09',
+      });
   }
 
   getDateArray(startDate, endDate) {
@@ -226,5 +246,31 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     }
     this.tempCompareItems = this.compareItems;
     this.setCompareChartData();
+  }
+
+  setTableIndex(e: SortEvent) {
+    e.data.sort((data1, data2) => {
+      const value1 = data1[e.field];
+      const value2 = data2[e.field];
+      let result = null;
+
+      if (value1 == null && value2 != null) {
+        result = -1;
+      } else if (value1 != null && value2 == null) {
+        result = 1;
+      } else if (value1 == null && value2 == null) {
+        result = 0;
+      } else if (typeof value1 === 'string' && typeof value2 === 'string') {
+        result = value1.localeCompare(value2);
+      } else {
+        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+      }
+      return (e.order * result);
+    });
+    let i = 1;
+    this.playTimeStatisticsDatas.forEach((item) => {
+      item['no'] = i;
+      i += 1;
+    });
   }
 }

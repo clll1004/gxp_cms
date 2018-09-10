@@ -2,7 +2,7 @@
   <button class="margin-bottom-20" type="button" pButton label="다중비교" (click)="showCompareResult()" *ngIf="!isCompareStatus"></button>
   <button class="margin-bottom-20" type="button" pButton label="비교취소" (click)="showSingleResult()" *ngIf="isCompareStatus"></button>
   <div class="ui-g-12 ui-g-nopad margin-bottom-50">
-    <p-table #dt [columns]="playTimeStatisticsCols" [value]="playTimeStatisticsDatas" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()">
+    <p-table #dt [columns]="playSectionStatisticsCols" [value]="playSectionStatisticsDatas" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" (sortFunction)="setTableIndex($event)" [customSort]="true">
       <ng-template pTemplate="caption">
         <div class="ui-helper-clearfix">
           <button type="button" pButton  label="다운로드" (click)="dt.exportCSV()" style="float:right"></button>
@@ -11,8 +11,9 @@
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th></th>
-          <th *ngFor="let col of columns">
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
             {{ col.header }}
+            <p-sortIcon *ngIf="col.field === 'playCount'" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           </th>
         </tr>
       </ng-template>
@@ -44,7 +45,7 @@
 
     <div class="ui-g-12 ui-g-nopad">
       <div class="margin-bottom-10">
-        <span class="section-info popular-section margin-right-10">인기구간</span> <span class="section-info leave-section">이탈구간</span>
+        <span class="section-info popular-section margin-right-10">인기구간</span> <span class="section-info leave-section margin-right-10">이탈구간</span> <span class="section-info popular-repeat-section">인기 반복구간</span>
       </div>
       <p-table #dt [value]="compareSectionDatas" [columns]="compareSectionCols" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20, 50, 100]">
         <ng-template pTemplate="caption">

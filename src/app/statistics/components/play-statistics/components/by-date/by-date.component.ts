@@ -91,6 +91,7 @@ export class ByDateComponent implements OnInit, OnChanges {
       );
       i += 1;
     });
+    this.dateStatisticsLists.reverse();
     this.setTotalData();
   }
 

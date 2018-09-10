@@ -31,7 +31,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public comparePopularSectionAverageValue:any[] = [];
   public compareLeaveSectionAverageValue:any[] = [];
   /*table cols*/
-  public playTimeStatisticsCols:any[] = [
+  public playSectionStatisticsCols:any[] = [
     { header: 'No', field: 'no' },
     { header: '그룹명', field: 'groupName' },
     { header: '폴더명', field: 'folderName' },
@@ -40,7 +40,6 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     { header: '재생시간', field: 'playTime' },
     { header: '재생수', field: 'playCount' },
     { header: '재생율', field: 'playRate' },
-    { header: '평균재생시간', field: 'averagePlayTime' },
     { header: '등록일', field: 'updateDate' },
   ];
   public compareSectionCols:any[] = [
@@ -58,7 +57,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     { header: '100%', field: 'p100' },
   ];
   /*table data*/
-  public playTimeStatisticsDatas:any[] = [];
+  public playSectionStatisticsDatas:any[] = [];
   public compareSectionDatas:any[] = [];
   public compareSectionAverageData:any[] = [];
   /*chart data*/
@@ -73,7 +72,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     this.setChartType();
     this.setChartData();
     this.setTableData();
-    this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
+    this.tempCompareItems = [this.playSectionStatisticsDatas[0]];
     this.compareItems = this.tempCompareItems;
     this.showPlaySectionResult();
   }
@@ -108,8 +107,8 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     this.dateArray.forEach((item) => {
       this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
     });
-    this.playTimeStatisticsDatas = [];
-    this.playTimeStatisticsDatas.push(
+    this.playSectionStatisticsDatas = [];
+    this.playSectionStatisticsDatas.push(
       { no: 1,
         groupName: 'GXP',
         folderName: '사회',
@@ -118,10 +117,9 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
         playTime: '08:13:23',
         playCount: Math.floor(Math.random() * 10000),
         playRate: 10,
-        averagePlayTime: '03:20:13',
         updateDate: '2018-09-09',
       });
-    this.playTimeStatisticsDatas.push(
+    this.playSectionStatisticsDatas.push(
       { no: 2,
         groupName: 'GXP',
         folderName: '사회',
@@ -130,7 +128,6 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
         playTime: '08:13:23',
         playCount: Math.floor(Math.random() * 10000),
         playRate: 10,
-        averagePlayTime: '03:20:13',
         updateDate: '2018-09-09',
       });
   }
@@ -371,5 +368,31 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
         },
       },
     };
+  }
+
+  setTableIndex(e: SortEvent) {
+    e.data.sort((data1, data2) => {
+      const value1 = data1[e.field];
+      const value2 = data2[e.field];
+      let result = null;
+
+      if (value1 == null && value2 != null) {
+        result = -1;
+      } else if (value1 != null && value2 == null) {
+        result = 1;
+      } else if (value1 == null && value2 == null) {
+        result = 0;
+      } else if (typeof value1 === 'string' && typeof value2 === 'string') {
+        result = value1.localeCompare(value2);
+      } else {
+        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+      }
+      return (e.order * result);
+    });
+    let i = 1;
+    this.playSectionStatisticsDatas.forEach((item) => {
+      item['no'] = i;
+      i += 1;
+    });
   }
 }

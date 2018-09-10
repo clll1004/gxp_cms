@@ -30,8 +30,14 @@
 
 .section-info {
   display: inline-block;
-  padding: 5px;
+  width: 100px; height: 30px;
+  line-height:24px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
   font-size: 13px;
+  border: 3px solid rgba(0,0,0,0);
 }
 .popular-section {
   color: #c00000;
@@ -40,6 +46,9 @@
 .leave-section {
   color: #647b55;
   background-color: #e2f0d9 !important;
+}
+.popular-repeat-section {
+  border: 3px solid red;
 }
 tr td {
   text-align: center;
