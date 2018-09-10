@@ -22,6 +22,7 @@ import { UsageAnalysisComponent } from './components/usage-analysis/usage-analys
 import { ByTrafficComponent } from './components/usage-analysis/components/by-traffic/by-traffic.component';
 import { ByUsageStorageComponent } from './components/usage-analysis/components/by-usage-storage/by-usage-storage.component';
 import { ByGxpComponent } from './components/usage-analysis/components/by-gxp/by-gxp.component';
+import { ByTransCodingComponent } from './components/usage-analysis/components/by-transCoding/by-transCoding.component';
 import { PlayStatisticsComponent } from './components/play-statistics/play-statistics.component';
 import { ByDateComponent } from './components/play-statistics/components/by-date/by-date.component';
 import { ByTimeComponent } from './components/play-statistics/components/by-time/by-time.component';
@@ -62,6 +63,7 @@ const appRoutes: Routes = [
     ByTrafficComponent,
     ByUsageStorageComponent,
     ByGxpComponent,
+    ByTransCodingComponent,
     PlayStatisticsComponent,
     ByDateComponent,
     ByTimeComponent,

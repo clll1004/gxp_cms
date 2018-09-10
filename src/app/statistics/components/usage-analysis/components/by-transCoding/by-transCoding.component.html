@@ -1,0 +1,43 @@
+<div class="ui-g-12 ui-g-nopad margin-bottom-30">
+  <div class="ui-g-12 ui-g-nopad margin-bottom-40 chart-container">
+    <p-chart [type]="'bar'" [data]="chartDataSet" [options]="chartOptions" width="100%" height="30vh"></p-chart>
+  </div>
+  <div class="ui-g-12 ui-g-nopad">
+    <p-table #dt [columns]="transCodingAnalysisCols" [value]="transCodingAnalysisLists">
+      <ng-template pTemplate="caption">
+        <div class="ui-helper-clearfix">
+          <button type="button" pButton  label="다운로드" (click)="dt.exportCSV()" style="float:right"></button>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{ col.header }}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-columns="columns" let-transCodingAnalysisList>
+        <tr>
+          <td> {{ transCodingAnalysisList['date'] }} </td>
+          <td> {{ transCodingAnalysisList['transCoding'] }} MB</td>
+          <td> {{ transCodingAnalysisList['contentsCount'] }} 개</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer" let-columns="columns">
+        <tr>
+          <td>Total</td>
+          <td>{{ totalData['totalTransCoding'] }} MB</td>
+          <td>
+            합계 {{ totalData['tableTotalContentsCount'] }} 개<br/>
+            전체 {{ totalData['totalContentsCount'] }} 개
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length" class="emptyMessage">표시할 데이터가 없습니다.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
