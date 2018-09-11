@@ -59,44 +59,24 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   /*table data*/
   public playTimeStatisticsDatas:any[] = [];
   /*chart data*/
-  public comparePlayTimeData:any;
+  public comparePlayTimeChartData:object;
+  public comparePlayTimeTableDatas:any[] = [];
+  public compareSectionTotalData:any[] = [];
+  public compareSectionAverageData:any[] = [];
 
   constructor() { }
 
   ngOnInit() { }
 
   ngOnChanges() {
-    this.setChartType();
-    this.setChartData();
+    const startDate = new Date(this.selectDuration.date[0]);
+    const endDate = new Date(this.selectDuration.date[1]);
+    this.dateArray = this.getDateArray(startDate, endDate);
     this.setTableData();
     this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
     this.compareItems = this.tempCompareItems;
     this.setCompareChartData();
-  }
-
-  setChartType() {
-    const temp = document.getElementsByClassName('changeType');
-    for (let i = 0 ; i < temp.length ; i += 1) {
-      if (i === 0) {
-        temp[i].setAttribute('class', 'changeType on');
-      } else {
-        temp[i].setAttribute('class', 'changeType');
-      }
-    }
-  }
-
-  setChartData() {
-    this.chartLabels = [];
-    this.chartData = [];
-    const startDate = new Date(this.selectDuration.date[0]);
-    const endDate = new Date(this.selectDuration.date[1]);
-
-    this.dateArray = this.getDateArray(startDate, endDate);
-    this.dateArray.forEach((item) => {
-      const random = Math.floor(Math.random() * 10000);
-      this.chartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
-      this.chartData.push(random);
-    });
+    this.setCompareTableData();
   }
 
   setTableData() {
@@ -163,12 +143,15 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
       this.isCompareStatus = false;
       this.compareItems = this.tempCompareItems;
       this.setCompareChartData();
+      this.setCompareTableData();
     } else if (this.isCompareStatus && this.tempCompareItems.length === 2) {
       this.compareItems = this.tempCompareItems;
       this.setCompareChartData();
+      this.setCompareTableData();
     } else if (this.isCompareStatus && this.tempCompareItems.length === 3) {
       this.compareItems = this.tempCompareItems;
       this.setCompareChartData();
+      this.setCompareTableData();
     }
   }
 
@@ -178,6 +161,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
       this.isCompareStatus = true;
       this.compareItems = this.tempCompareItems;
       this.setCompareChartData();
+      this.setCompareTableData();
     } else {
       this.isShowMessage = true;
     }
@@ -190,6 +174,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     }
     this.compareItems = this.tempCompareItems;
     this.setCompareChartData();
+    this.setCompareTableData();
   }
 
   setCompareChartData() {
@@ -203,6 +188,10 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
         randomItem.push(random);
       });
       randomItems.push(randomItem);
+    });
+    this.chartLabels = [];
+    this.dateArray.forEach((item) => {
+      this.chartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
     });
 
     const tempDataSets:any[] = [];
@@ -218,7 +207,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
         });
       i += 1;
     });
-    this.comparePlayTimeData = {
+    this.comparePlayTimeChartData = {
       labels: this.chartLabels,
       datasets: tempDataSets,
     };
@@ -232,6 +221,83 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
         },
       },
     };
+  }
+
+  setCompareTableData() {
+    this.comparePlayTimeTableDatas = [];
+    this.compareItems.forEach((item) => {
+      this.dateArray.forEach((date) => {
+        this.comparePlayTimeTableDatas.push({
+          contentsName: item['contentsName'],
+          groupName: item['groupName'],
+          folderName: item['folderName'],
+          dates: date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()),
+          playTime: 0,
+          playCount: Math.floor((Math.random() * 10000)),
+          playRate: Math.floor((Math.random() * 100)),
+          averagePlayTime: 0,
+        });
+      });
+    });
+    this.setCompareTableAverageData();
+  }
+
+  setCompareTableAverageData() {
+    const length = this.dateArray.length;
+    const first = this.comparePlayTimeTableDatas.slice(0, length);
+    const second = this.comparePlayTimeTableDatas.slice(length, length * 2);
+    const third = this.comparePlayTimeTableDatas.slice(length * 2, length * 3);
+    let tempTotal:object = {
+      contentsName: '',
+      totalPlayTime: 0,
+      totalPlayCount: 0,
+      totalPlayRate: 0,
+      totalAveragePlayTime: 0,
+    };
+    this.compareSectionTotalData = [];
+
+    first.forEach((item) => {
+      tempTotal.contentsName = item['contentsName'];
+      tempTotal.totalPlayTime += item['playTime'];
+      tempTotal.totalPlayCount += item['playCount'];
+      tempTotal.totalPlayRate += item['playRate'];
+      tempTotal.totalAveragePlayTime += item['averagePlayTime'];
+    });
+    this.compareSectionTotalData.push(tempTotal);
+    tempTotal = {
+      contentsName: '',
+      totalPlayTime: 0,
+      totalPlayCount: 0,
+      totalPlayRate: 0,
+      totalAveragePlayTime: 0,
+    };
+    if (second.length) {
+      second.forEach((item) => {
+        tempTotal.contentsName = item['contentsName'];
+        tempTotal.totalPlayTime += item['playTime'];
+        tempTotal.totalPlayCount += item['playCount'];
+        tempTotal.totalPlayRate += item['playRate'];
+        tempTotal.totalAveragePlayTime += item['averagePlayTime'];
+      });
+      this.compareSectionTotalData.push(tempTotal);
+      tempTotal = {
+        contentsName: '',
+        totalPlayTime: 0,
+        totalPlayCount: 0,
+        totalPlayRate: 0,
+        totalAveragePlayTime: 0,
+      };
+    }
+    if (third.length) {
+      third.forEach((item) => {
+        tempTotal.contentsName = item['contentsName'];
+        tempTotal.totalPlayTime += item['playTime'];
+        tempTotal.totalPlayCount += item['playCount'];
+        tempTotal.totalPlayRate += item['playRate'];
+        tempTotal.totalAveragePlayTime += item['averagePlayTime'];
+      });
+      this.compareSectionTotalData.push(tempTotal);
+    }
   }
 
   deleteCompareItem(target) {

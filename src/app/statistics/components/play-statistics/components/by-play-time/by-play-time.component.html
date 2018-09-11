@@ -67,47 +67,51 @@
     </p-table>
 
     <div class="ui-g-12 ui-g-nopad margin-top-30 margin-bottom-30" style="padding: 30px 70px; border: 1px solid #ddd; background: #fff;">
-      <p-chart type="line" [data]="comparePlayTimeData" [options]="chartOptions" width="100%" height="30vh"></p-chart>
+      <p-chart type="line" [data]="comparePlayTimeChartData" [options]="chartOptions" width="100%" height="30vh"></p-chart>
     </div>
 
-    <p-table [value]="compareItems" [columns]="compareResultHeaderCols">
+    <p-table [value]="comparePlayTimeTableDatas" [columns]="compareResultHeaderCols">
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          <th *ngFor="let col of columns">
             {{ col.header }}
-            <p-sortIcon *ngIf="col.field === 'playCount'" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           </th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-compareItem let-columns="columns">
+      <ng-template pTemplate="body" let-comparePlayTimeTableData let-columns="columns">
         <tr>
-          <td *ngFor="let col of columns">
-            {{ compareItem[col.field] }}
+          <td [attr.rowspan]="dateArray.length" *ngIf="dateArray[0].getFullYear() + '-' + ((dateArray[0].getMonth() + 1) < 10 ? '0' + (dateArray[0].getMonth() + 1) : (dateArray[0].getMonth() + 1)) + '-' + (dateArray[0].getDate() < 10 ? '0' + dateArray[0].getDate() : dateArray[0].getDate()) === comparePlayTimeTableData.dates">
+            {{ comparePlayTimeTableData['contentsName'] }}
           </td>
+          <td [attr.rowspan]="dateArray.length" *ngIf="dateArray[0].getFullYear() + '-' + ((dateArray[0].getMonth() + 1) < 10 ? '0' + (dateArray[0].getMonth() + 1) : (dateArray[0].getMonth() + 1)) + '-' + (dateArray[0].getDate() < 10 ? '0' + dateArray[0].getDate() : dateArray[0].getDate()) === comparePlayTimeTableData.dates">
+            {{ comparePlayTimeTableData['groupName'] }}
+          </td>
+          <td [attr.rowspan]="dateArray.length" *ngIf="dateArray[0].getFullYear() + '-' + ((dateArray[0].getMonth() + 1) < 10 ? '0' + (dateArray[0].getMonth() + 1) : (dateArray[0].getMonth() + 1)) + '-' + (dateArray[0].getDate() < 10 ? '0' + dateArray[0].getDate() : dateArray[0].getDate()) === comparePlayTimeTableData.dates">
+            {{ comparePlayTimeTableData['folderName'] }}
+          </td>
+          <td>{{ comparePlayTimeTableData['dates'] }}</td>
+          <td>{{ comparePlayTimeTableData['playTime'] }}</td>
+          <td>{{ comparePlayTimeTableData['playCount'] }}</td>
+          <td>{{ comparePlayTimeTableData['playRate'] }} %</td>
+          <td>{{ comparePlayTimeTableData['averagePlayTime'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="footer" let-columns>
-        <tr>
-          <td colspan="3" [attr.rowspan]="compareItems.length + 1" style="text-align: center; vertical-align: middle;">합계</td>
-          <td colspan="5"></td>
+        <tr *ngFor="let item of compareSectionTotalData; let i = index">
+          <td colspan="3" [attr.rowspan]="compareSectionTotalData.length" *ngIf="i === 0">합계</td>
+          <td>{{ item['contentsName'] }}</td>
+          <td>{{ item['totalPlayTime'] }}</td>
+          <td>{{ item['totalPlayCount'] }}</td>
+          <td>{{ item['totalPlayRate'] }} %</td>
+          <td>{{ item['totalAveragePlayTime'] }}</td>
         </tr>
-        <tr *ngFor="let col of compareItems">
-          <td>{{ col['contentsName'] }}</td>
-          <td>{{ col['playTime'] }}</td>
-          <td>{{ col['playCount'] }}</td>
-          <td>{{ col['playRate'] }}</td>
-          <td>{{ col['averagePlayTime'] }}</td>
-        </tr>
-        <tr>
-          <td colspan="3" [attr.rowspan]="compareItems.length + 1" style="text-align: center; vertical-align: middle;">평균</td>
-          <td colspan="5"></td>
-        </tr>
-        <tr *ngFor="let col of compareItems">
-          <td>{{ col['contentsName'] }}</td>
-          <td>{{ col['playTime'] }}</td>
-          <td>{{ col['playCount'] }}</td>
-          <td>{{ col['playRate'] }}</td>
-          <td>{{ col['averagePlayTime'] }}</td>
+        <tr *ngFor="let item of compareSectionTotalData; let i = index">
+          <td colspan="3" [attr.rowspan]="compareSectionTotalData.length" *ngIf="i === 0">평균</td>
+          <td>{{ item['contentsName'] }}</td>
+          <td>{{ item['totalPlayTime'] }}</td>
+          <td>{{ item['totalPlayCount'] / dateArray.length | number:'1.0-0' }}</td>
+          <td>{{ item['totalPlayRate'] / dateArray.length | number:'1.0-0' }} %</td>
+          <td>{{ item['totalAveragePlayTime'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>

@@ -170,7 +170,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
         tempCompareDatas.push({
           no: item.no,
           contentsName: item.contentsName,
-          date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()),
+          date: date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()),
           p10: Math.floor(Math.random() * 1000),
           p20: Math.floor(Math.random() * 1000),
           p30: Math.floor(Math.random() * 1000),
@@ -370,6 +370,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     };
   }
 
+  // 재생 수 기준 정렬 시 테이블 인덱스 정의
   setTableIndex(e:any) {
     e.data.sort((data1, data2) => {
       const value1 = data1[e.field];
