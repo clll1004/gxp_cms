@@ -7,7 +7,7 @@
       <h3>GXP 사용량</h3>
       <a routerLink="/statistics/usage-analysis/gxp">
         <div class="ui-g-12 ui-g-nopad chart">
-          <p-chart type="pie" [data]="chartDataSet" [options]="chartOptions"></p-chart>
+          <p-chart type="pie" [data]="chartDataSet" [options]="chartOptions" width="100%" height="180px"></p-chart>
           <span class="info-txt">※ 이번 달 사용량</span>
         </div>
       </a>
@@ -16,8 +16,44 @@
       <h3>스토리지</h3>
       <a routerLink="/statistics/usage-analysis/storage">
         <div class="ui-g-12 ui-g-nopad chart">
-          <p-chart type="pie" [data]="chartDataSet" [options]="chartOptions"></p-chart>
+          <p-chart type="pie" [data]="chartDataSet" [options]="chartOptions" width="100%" height="180px"></p-chart>
           <span class="info-txt">※ 이번 달 사용량</span>
+        </div>
+      </a>
+    </div>
+    <div class="item-group margin-bottom-50">
+      <h3>날짜별</h3>
+      <a routerLink="/statistics/play-statistics/date">
+        <div class="ui-g-12 ui-g-nopad chart">
+          <p-chart type="line" [data]="dateChartDataSet" [options]="chartOptions2" width="100%" height="180px"></p-chart>
+          <span class="info-txt">※ 재생수</span>
+        </div>
+      </a>
+    </div>
+    <div class="item-group margin-bottom-50 margin-right-20">
+      <h3>시간별</h3>
+      <a routerLink="/statistics/play-statistics/time">
+        <div class="ui-g-12 ui-g-nopad chart">
+          <p-chart type="bar" [data]="timeChartDataSet" [options]="chartOptions2" width="100%" height="180px"></p-chart>
+          <span class="info-txt">※ 재생수</span>
+        </div>
+      </a>
+    </div>
+    <div class="item-group margin-bottom-50 margin-right-20">
+      <h3>콘텐츠</h3>
+      <a routerLink="/statistics/play-statistics/contents">
+        <div class="ui-g-12 ui-g-nopad chart">
+          <p-chart type="bar" [data]="barChartDataSet" [options]="chartOptions2" width="100%" height="180px"></p-chart>
+          <span class="info-txt">※ 이번 달 평균</span>
+        </div>
+      </a>
+    </div>
+    <div class="item-group margin-bottom-50">
+      <h3>카테고리</h3>
+      <a routerLink="/statistics/play-statistics/category">
+        <div class="ui-g-12 ui-g-nopad chart">
+          <p-chart type="bar" [data]="barChartDataSet" [options]="chartOptions2" width="100%" height="180px"></p-chart>
+          <span class="info-txt">※ 이번 달 평균</span>
         </div>
       </a>
     </div>
@@ -27,47 +63,12 @@
         <!--<p-chart type="bar" [data]="barChartDataSet" [options]="chartOptions2"></p-chart>-->
       <!--</div>-->
     <!--</div>-->
-    <div class="item-group margin-bottom-50">
-      <h3>날짜별</h3>
-      <a routerLink="/statistics/play-statistics/date">
-        <div class="ui-g-12 ui-g-nopad chart">
-          <p-chart type="line" [data]="barChartDataSet" [options]="chartOptions2"></p-chart>
-        </div>
-      </a>
-    </div>
-    <div class="item-group margin-bottom-50 margin-right-20">
-      <h3>시간별</h3>
-      <a routerLink="/statistics/play-statistics/time">
-        <div class="ui-g-12 ui-g-nopad chart">
-          <p-chart type="bar" [data]="barChartDataSet" [options]="chartOptions2"></p-chart>
-          <span class="info-txt">※ 재생수</span>
-        </div>
-      </a>
-    </div>
     <!--<div class="item-group margin-bottom-50">-->
       <!--<h3>실시간 접속자 수</h3>-->
       <!--<div class="ui-g-12 ui-g-nopad chart">-->
         <!--<p-chart type="bar" [data]="barChartDataSet" [options]="chartOptions2"></p-chart>-->
       <!--</div>-->
     <!--</div>-->
-    <div class="item-group margin-bottom-50 margin-right-20">
-      <h3>콘텐츠</h3>
-      <a routerLink="/statistics/play-statistics/contents">
-        <div class="ui-g-12 ui-g-nopad chart">
-          <p-chart type="bar" [data]="barChartDataSet" [options]="chartOptions2"></p-chart>
-          <span class="info-txt">※ 이번 달 평균</span>
-        </div>
-      </a>
-    </div>
-    <div class="item-group margin-bottom-50">
-      <h3>카테고리</h3>
-      <a routerLink="/statistics/play-statistics/category">
-        <div class="ui-g-12 ui-g-nopad chart">
-          <p-chart type="bar" [data]="barChartDataSet" [options]="chartOptions2"></p-chart>
-          <span class="info-txt">※ 이번 달 평균</span>
-        </div>
-      </a>
-    </div>
     <!--<div class="item-group margin-bottom-50">-->
       <!--<h3>유입도메인</h3>-->
       <!--<div class="ui-g-12 ui-g-nopad chart">-->

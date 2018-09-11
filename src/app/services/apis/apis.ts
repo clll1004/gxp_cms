@@ -37,6 +37,14 @@ export class CmsApis {
   public updateUserInfo = '';
   public updatePassword = '';
 
+  /**** Dashboard ****/
+  public gxpDashboard = '';
+  public storageDashboard = '';
+  public dateDashboard = '';
+  public timeDashboard = '';
+  public contentsDashboard = '';
+  public categoryDashboard = '';
+
   constructor() {
     if (process.env.NODE_ENV === 'development') {
       this.domain = 'http://183.110.11.49/';
@@ -74,5 +82,9 @@ export class CmsApis {
     this.loadUserInfo = this.domain + 'cms/setting/user/';
     this.updateUserInfo = this.domain + 'cms/setting/user';
     this.updatePassword = this.domain + 'cms/setting/user/password';
+
+    /**** Dashboard ****/
+    this.dateDashboard = this.domain + 'cms/dashboard/playcntdate';
+    this.timeDashboard = this.domain + 'cms/dashboard/playcnttime';
   }
 }

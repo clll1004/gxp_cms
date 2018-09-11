@@ -2,11 +2,14 @@
  * Created by GRE511 on 2018-09-07.
  */
 import { Component, OnInit } from '@angular/core';
+import { CmsApis } from '../services/apis/apis';
+import { DashboardService } from '../services/apis/cms/dashboard/dashboard.service';
 
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']})
+  styleUrls: ['./home.component.css'],
+  providers: [CmsApis, DashboardService]})
 
 export class HomeComponent implements OnInit {
   /*pie chart test*/
@@ -21,7 +24,15 @@ export class HomeComponent implements OnInit {
   public barChartData:any[] = [65, 59, 80, 81, 56, 55, 80];
   public barChartDataSet:any;
 
-  constructor() { }
+  public backgroundColors:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0', '#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0', '#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0', '#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0'];
+
+  /*날짜별*/
+  public dateChartDataSet:object;
+
+  /*시간별*/
+  public timeChartDataSet:object;
+
+  constructor(private cmsApi: CmsApis, private dashboardService: DashboardService) { }
 
   ngOnInit() {
     this.chartDataSet = {
@@ -53,5 +64,52 @@ export class HomeComponent implements OnInit {
         display: false,
       },
     };
+    this.loadDateChart();
+    this.loadTimeChart();
+  }
+
+  loadDateChart() {
+    this.dashboardService.getLists(this.cmsApi.dateDashboard)
+      .toPromise()
+      .then((cont:object) => {
+        const list = JSON.parse(cont['_body']);
+        const tempLabel:any[] = list['label'].map((item) => {
+          const temp = new Date(item);
+          return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));
+        });
+        tempLabel.reverse();
+        list['data'].reverse();
+
+        this.dateChartDataSet = {
+          labels: tempLabel,
+          datasets: [
+            {
+              label: '재생 수',
+              data: list['data'],
+              fill: false,
+              borderColor: '#ffcdd2',
+            }],
+        };
+      });
+  }
+
+  loadTimeChart() {
+    this.dashboardService.getLists(this.cmsApi.timeDashboard)
+      .toPromise()
+      .then((cont:object) => {
+        const list = JSON.parse(cont['_body']);
+        const tempLabel:any[] = list['label'].map((item) => {
+          return item + '시';
+        });
+        this.timeChartDataSet = {
+          labels: tempLabel,
+          datasets: [
+            {
+              label: '재생 수',
+              data: list['data'],
+              backgroundColor: this.backgroundColors,
+            }],
+        };
+      });
   }
 }
