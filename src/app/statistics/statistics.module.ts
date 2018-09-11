@@ -10,6 +10,7 @@ import { DatePickerModule } from '../common/date-picker/date-picker.module';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
@@ -30,6 +31,7 @@ import { ByPlaySectionComponent } from './components/play-statistics/components/
 import { ByPlayTimeComponent } from './components/play-statistics/components/by-play-time/by-play-time.component';
 import { ByContentsComponent } from './components/play-statistics/components/by-contents/by-contents.component';
 import { ByCategoryComponent } from './components/play-statistics/components/by-category/by-category.component';
+import { VisitorStatisticsComponent } from './components/visitor-statistics/visitor-statistics.component';
 import { FolderPickerComponent } from './components/folder-picker/folder-picker.component';
 import { ChartGroupComponent } from './components/play-statistics/components/chart-group/chart-group.component';
 import { TableGroupComponent } from './components/play-statistics/components/table-group/table-group.component';
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
     FormsModule,
     DropdownModule,
     InputTextModule,
+    PasswordModule,
     ButtonModule,
     ChartModule,
     TableModule,
@@ -71,6 +74,7 @@ const appRoutes: Routes = [
     ByPlayTimeComponent,
     ByContentsComponent,
     ByCategoryComponent,
+    VisitorStatisticsComponent,
     FolderPickerComponent,
     ChartGroupComponent,
     TableGroupComponent,
