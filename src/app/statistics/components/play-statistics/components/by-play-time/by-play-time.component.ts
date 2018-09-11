@@ -257,11 +257,11 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     this.compareSectionTotalData = [];
 
     first.forEach((item) => {
-      tempTotal.contentsName = item['contentsName'];
-      tempTotal.totalPlayTime += item['playTime'];
-      tempTotal.totalPlayCount += item['playCount'];
-      tempTotal.totalPlayRate += item['playRate'];
-      tempTotal.totalAveragePlayTime += item['averagePlayTime'];
+      tempTotal['contentsName'] = item['contentsName'];
+      tempTotal['totalPlayTime'] += item['playTime'];
+      tempTotal['totalPlayCount'] += item['playCount'];
+      tempTotal['totalPlayRate'] += item['playRate'];
+      tempTotal['totalAveragePlayTime'] += item['averagePlayTime'];
     });
     this.compareSectionTotalData.push(tempTotal);
     tempTotal = {
@@ -273,11 +273,11 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     };
     if (second.length) {
       second.forEach((item) => {
-        tempTotal.contentsName = item['contentsName'];
-        tempTotal.totalPlayTime += item['playTime'];
-        tempTotal.totalPlayCount += item['playCount'];
-        tempTotal.totalPlayRate += item['playRate'];
-        tempTotal.totalAveragePlayTime += item['averagePlayTime'];
+        tempTotal['contentsName'] = item['contentsName'];
+        tempTotal['totalPlayTime'] += item['playTime'];
+        tempTotal['totalPlayCount'] += item['playCount'];
+        tempTotal['totalPlayRate'] += item['playRate'];
+        tempTotal['totalAveragePlayTime'] += item['averagePlayTime'];
       });
       this.compareSectionTotalData.push(tempTotal);
       tempTotal = {
@@ -290,11 +290,11 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     }
     if (third.length) {
       third.forEach((item) => {
-        tempTotal.contentsName = item['contentsName'];
-        tempTotal.totalPlayTime += item['playTime'];
-        tempTotal.totalPlayCount += item['playCount'];
-        tempTotal.totalPlayRate += item['playRate'];
-        tempTotal.totalAveragePlayTime += item['averagePlayTime'];
+        tempTotal['contentsName'] = item['contentsName'];
+        tempTotal['totalPlayTime'] += item['playTime'];
+        tempTotal['totalPlayCount'] += item['playCount'];
+        tempTotal['totalPlayRate'] += item['playRate'];
+        tempTotal['totalAveragePlayTime'] += item['averagePlayTime'];
       });
       this.compareSectionTotalData.push(tempTotal);
     }
