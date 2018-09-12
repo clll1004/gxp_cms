@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 @Injectable()
-export class DashboardService {
+export class ChartService {
   constructor(private http: Http) { }
 
   getLists(listUrl:any) {

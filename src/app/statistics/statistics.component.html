@@ -1,7 +1,7 @@
 <div class="ui-g-2 ui-g-nopad">
   <nav class="ui-g-12 ui-g-nopad lnb-sec">
     <ul class="border-lnb">
-      <!--<li (click)="showSubLnb($event)" id="dashboard"><a routerLink="/statistics/dashboard">대시보드</a></li>-->
+      <li (click)="showSubLnb($event)" id="dashboard"><a routerLink="/statistics/dashboard/db">대시보드</a></li>
       <li class="has-sub" id="play" (click)="showSubLnb($event)">재생 통계 <i class="fas fa-angle-down"></i></li>
       <ul class="sub-lnb">
         <li><a routerLink="/statistics/play-statistics/date">날짜별</a></li>
@@ -19,7 +19,7 @@
         <li><a routerLink="/statistics/usage-analysis/trans-coding">트랜스코딩</a></li>
       </ul>
       <li id="visitor" (click)="showSubLnb($event)">
-        <a routerLink="/statistics/visitor-statistics/google">방문자 통계</a>
+        <a routerLink="/statistics/visitor-statistics/analytics">방문자 통계</a>
       </li>
       <!--<ul class="sub-lnb">-->
         <!--<li><a routerLink="/statistics/visitor-statistics/visitor">방문자수</a></li>-->

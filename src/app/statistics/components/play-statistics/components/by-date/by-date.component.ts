@@ -2,11 +2,14 @@
  * Created by GRE511 on 2018-09-03.
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChartService } from '../../../../../services/apis/cms/chart/chart.service';
+import { CmsApis } from '../../../../../services/apis/apis';
 
 @Component({
   selector: 'by-date',
   templateUrl: './by-date.component.html',
-  styleUrls: ['../../play-statistics.component.css']})
+  styleUrls: ['../../play-statistics.component.css'],
+  providers: [CmsApis, ChartService]})
 
 export class ByDateComponent implements OnInit, OnChanges {
   @Input() pathName;
@@ -39,7 +42,7 @@ export class ByDateComponent implements OnInit, OnChanges {
     averageTotalPlayTime: 0,
   };
 
-  constructor() { }
+  constructor(private cmsApi: CmsApis, private chartService: ChartService) { }
 
   ngOnInit() {}
 
@@ -66,6 +69,12 @@ export class ByDateComponent implements OnInit, OnChanges {
     const startDate = new Date(this.selectDuration.date[0]);
     const endDate = new Date(this.selectDuration.date[1]);
 
+    console.log(this.cmsApi.byDateChart + this.selectDuration.date[0] + '&' + this.selectDuration.date[1]);
+    this.chartService.getLists(this.cmsApi.byDateChart + this.selectDuration.date[0] + '&' + this.selectDuration.date[1])
+      .toPromise()
+      .then((cont) => {
+        console.log(JSON.parse(cont['_body']));
+      });
     this.dateArray = this.getDateArray(startDate, endDate);
     this.dateArray.forEach((item) => {
       const random = Math.floor(Math.random() * 10000);

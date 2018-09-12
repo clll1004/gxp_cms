@@ -29,7 +29,7 @@ export class StatisticsComponent implements OnInit {
       if (temp[i].getAttribute('class') === 'has-sub on') {
         temp[i].setAttribute('class', 'has-sub');
         temp[i].children[0].setAttribute('class', 'fas fa-angle-down');
-      } else if (temp[i].getAttribute('id') === id && id !== 'visitor') {
+      } else if (temp[i].getAttribute('id') === id && id !== 'visitor' && id !== 'dashboard') {
         target.setAttribute('class', 'has-sub on');
         target.children[0].setAttribute('class', 'fas fa-angle-up');
       }

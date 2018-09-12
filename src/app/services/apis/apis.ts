@@ -45,6 +45,10 @@ export class CmsApis {
   public contentsDashboard = '';
   public categoryDashboard = '';
 
+  /**** Play Statistics ****/
+  public byDateChart = '';
+  public byDateTable = '';
+
   constructor() {
     if (process.env.NODE_ENV === 'development') {
       this.domain = 'http://183.110.11.49/';
@@ -86,5 +90,9 @@ export class CmsApis {
     /**** Dashboard ****/
     this.dateDashboard = this.domain + 'cms/dashboard/playcntdate';
     this.timeDashboard = this.domain + 'cms/dashboard/playcnttime';
+
+    /**** PlayStatistics ****/
+    this.byDateChart = this.domain + 'cms/chart/playdatedata?sdate=';
+    this.byDateTable = this.domain + 'cms/chart/playdatelist?sdate=';
   }
 }
