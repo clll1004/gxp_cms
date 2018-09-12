@@ -23,7 +23,7 @@
         <tr>
           <th *ngFor="let col of columns" [pSortableColumn]="col.field">
             {{ col.header }}
-            <p-sortIcon *ngIf="col.field === 'playCount'" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           </th>
         </tr>
       </ng-template>
@@ -32,7 +32,6 @@
           <td> {{ dateStatisticsList['date'] }} </td>
           <td> {{ dateStatisticsList['contentsCount'] }} 개</td>
           <td> {{ dateStatisticsList['playCount'] }} 회</td>
-          <td> {{ dateStatisticsList['playRate'] }} %</td>
           <td> {{ dateStatisticsList['playTime'] }} 분</td>
           <td> {{ dateStatisticsList['averagePlayTime'] }} 분</td>
           <td> {{ dateStatisticsList['variation'] }} 회</td>
@@ -46,7 +45,6 @@
             총 {{ totalData['totalPlayCount'] }}회<br>
             평균 재생 수 {{ totalData['averagePlayCount'] }}회
           </td>
-          <td>평균 재생율 {{ totalData['averagePlayRate'] }}%</td>
           <td>총 재생시간 {{ totalData['totalPlayTime'] }}분</td>
           <td>평균 재생시간 {{ totalData['averageTotalPlayTime'] }}분</td>
           <td></td>
