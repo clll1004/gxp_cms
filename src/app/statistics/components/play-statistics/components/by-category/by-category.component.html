@@ -33,7 +33,6 @@
           <td> {{ categoryStatisticsList['category'] }} </td>
           <td> {{ categoryStatisticsList['contentsCount'] }} 개</td>
           <td> {{ categoryStatisticsList['playCount'] }} 회</td>
-          <td> {{ categoryStatisticsList['playRate'] }} %</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="footer" let-columns="columns">
@@ -42,7 +41,6 @@
           <td> 개 카테고리</td>
           <td>총 {{ totalData['totalContentsCount'] }} 개 </td>
           <td>총 {{ totalData['totalPlayCount'] }} 회</td>
-          <td>평균 재생율 {{ totalData['averagePlayRate'] }} %</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>

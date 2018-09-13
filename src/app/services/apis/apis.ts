@@ -48,6 +48,8 @@ export class CmsApis {
   /**** Play Statistics ****/
   public byDateChart = '';
   public byDateTable = '';
+  public byCategoryChart = '';
+  public byCategoryTable = '';
 
   constructor() {
     if (process.env.NODE_ENV === 'development') {
@@ -94,5 +96,7 @@ export class CmsApis {
     /**** PlayStatistics ****/
     this.byDateChart = this.domain + 'cms/chart/playdatedata?sdate=';
     this.byDateTable = this.domain + 'cms/chart/playdatelist?sdate=';
+    this.byCategoryChart = this.domain + 'cms/chart/playcategorydata?sdate=';
+    this.byCategoryTable = this.domain + 'cms/chart/playcategorylist?sdate=';
   }
 }
