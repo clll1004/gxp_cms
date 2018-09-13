@@ -16,6 +16,31 @@ export class StatisticsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
+
+      this.lnbInit();
+    });
+  }
+
+  lnbInit() {
+    const lnb = document.getElementsByClassName('lnb-sec')[0].childNodes[0].childNodes;
+    [].forEach.call(lnb, (item) => {
+      if (item.getAttribute('class') === 'has-sub') {
+        const next = item.nextSibling.childNodes;
+        next.forEach((subItem) => {
+          if (subItem.getAttribute('id') === this.params['sub-id']) {
+            subItem.setAttribute('class', 'on');
+          } else {
+            subItem.setAttribute('class', '');
+          }
+        });
+        if (item.getAttribute('id') === this.params['id']) {
+          item.setAttribute('class', 'has-sub on');
+          item.children[0].setAttribute('class', 'fas fa-angle-up');
+        } else {
+          item.setAttribute('class', 'has-sub');
+          item.children[0].setAttribute('class', 'fas fa-angle-down');
+        }
+      }
     });
   }
 
@@ -29,11 +54,33 @@ export class StatisticsComponent implements OnInit {
       if (temp[i].getAttribute('class') === 'has-sub on') {
         temp[i].setAttribute('class', 'has-sub');
         temp[i].children[0].setAttribute('class', 'fas fa-angle-down');
-      } else if (temp[i].getAttribute('id') === id && id !== 'visitor' && id !== 'dashboard') {
+      } else if (temp[i].getAttribute('id') === id && id !== 'visitor-statistics' && id !== 'dashboard') {
         target.setAttribute('class', 'has-sub on');
         target.children[0].setAttribute('class', 'fas fa-angle-up');
       }
     }
+
+    const lnb = document.getElementsByClassName('lnb-sec')[0].childNodes[0].childNodes;
+    [].forEach.call(lnb, (item) => {
+      if (item.getAttribute('class') === 'sub-lnb') {
+        item.childNodes.forEach((li) => {
+          li.setAttribute('class', '');
+        });
+      }
+    });
+  }
+
+  isSubOn(e) {
+    const lnb = document.getElementsByClassName('lnb-sec')[0].childNodes[0].childNodes;
+    [].forEach.call(lnb, (item) => {
+      if (item.getAttribute('class') === 'sub-lnb') {
+        item.childNodes.forEach((li) => {
+          li.setAttribute('class', '');
+        });
+      }
+    });
+    const target = e.currentTarget;
+    target.setAttribute('class', 'on');
   }
 }
 
