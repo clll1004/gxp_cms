@@ -53,6 +53,7 @@
 tr td {
   text-align: center;
   vertical-align: middle;
+  word-break: break-all;
 }
 
 .play-section-chart-container {

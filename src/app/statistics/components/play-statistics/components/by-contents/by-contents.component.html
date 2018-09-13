@@ -31,9 +31,8 @@
         <tr>
           <td> {{ contentsStatisticsList['ranking'] }} </td>
           <td> {{ contentsStatisticsList['category'] }} </td>
-          <td> {{ contentsStatisticsList['contentsName'] }} </td>
+          <td> {{ contentsStatisticsList['content'] }} </td>
           <td> {{ contentsStatisticsList['playCount'] }} 회 </td>
-          <td> {{ contentsStatisticsList['playRate'] }} %</td>
           <td> {{ contentsStatisticsList['updateDate'] }} </td>
         </tr>
       </ng-template>
@@ -43,7 +42,6 @@
           <td>-</td>
           <td>-</td>
           <td>총 {{ totalData['totalPlayCount'] }} 회</td>
-          <td>평균 재생율 {{ totalData['averagePlayRate'] }} %</td>
           <td>-</td>
         </tr>
       </ng-template>

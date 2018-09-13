@@ -38,8 +38,22 @@ export class ChartGroupComponent implements OnInit, OnChanges {
         }],
     };
     this.chartOptions = {
+      responsive: false,
       legend: {
         position: 'bottom',
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            autoSkip: false,
+            // callback: (value) => {
+            //   if (value.length > 10) {
+            //     return value.substr(0, 10) + '...'; // truncate
+            //   }
+            //   return value;
+            // },
+          },
+        }],
       },
       elements: {
         line: {

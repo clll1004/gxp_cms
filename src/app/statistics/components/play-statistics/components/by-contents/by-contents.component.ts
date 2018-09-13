@@ -2,11 +2,14 @@
  * Created by GRE511 on 2018-09-03.
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChartService } from '../../../../../services/apis/cms/chart/chart.service';
+import { CmsApis } from '../../../../../services/apis/apis';
 
 @Component({
   selector: 'by-contents',
   templateUrl: './by-contents.component.html',
-  styleUrls: ['../../play-statistics.component.css']})
+  styleUrls: ['../../play-statistics.component.css'],
+  providers: [CmsApis, ChartService]})
 
 export class ByContentsComponent implements OnInit, OnChanges {
   @Input() pathName;
@@ -16,34 +19,25 @@ export class ByContentsComponent implements OnInit, OnChanges {
   public chartType: string = 'bar';
   public chartLabels: any[] = [];
   public chartData: any[] = [];
-  public chartOptions: any;
-  public dateArray: any[] = [];
   /*table cols*/
   public contentsStatisticsCols:any[] = [
     { header: '순위', field: 'ranking' },
     { header: '카테고리', field: 'category' },
-    { header: '콘텐츠 명', field: 'contentsName' },
+    { header: '콘텐츠 명', field: 'content' },
     { header: '재생수', field: 'playCount' },
-    { header: '재생율', field: 'playRate' },
     { header: '등록일', field: 'updateDate' },
   ];
   /*table data*/
-  public tableLists:any[] = [];
-  public dateStatisticsData: any[] = [];
   public contentsStatisticsLists:any[] = [];
   public totalData:object = {
     totalPlayCount: 0,
-    averagePlayRate: 0,
   };
 
-  constructor() { }
+  constructor(private cmsApi: CmsApis, private chartService: ChartService) { }
 
   ngOnInit() {}
 
   ngOnChanges() {
-    const startDate = new Date(this.selectDuration.date[0]);
-    const endDate = new Date(this.selectDuration.date[1]);
-    this.dateArray = this.getDateArray(startDate, endDate);
     this.setTableData();
     this.setChartType();
     this.setChartData();
@@ -63,63 +57,48 @@ export class ByContentsComponent implements OnInit, OnChanges {
   setChartData() {
     this.chartLabels = [];
     this.chartData = [];
-    this.contentsStatisticsLists.forEach((item) => {
-      this.chartLabels.push(item.contentsName);
-      this.chartData.push(item.playCount);
-    });
+
+    this.chartService.getLists(this.cmsApi.byContentsChart + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .toPromise()
+      .then((cont) => {
+        const list = JSON.parse(cont['_body']);
+        // const labelLengthLimit:any[] = list['label'].map((item) => {
+        //   return item.length > 10 ? item.substring(0, 10) + '...' : item;
+        // });
+        this.chartLabels = list['label'];
+        this.chartData = list['data'];
+      });
   }
 
   setTableData() {
-    this.tableLists = [];
-    this.dateArray.forEach((item) => {
-      this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
-    });
-    this.dateStatisticsData = [];
-    this.dateArray.forEach(() => {
-      this.contentsStatisticsLists = [];
-      this.contentsStatisticsLists.push(
-        {
-          ranking: 1,
-          category: '교육',
-          contentsName: '토익 1회',
-          playCount: Math.floor(Math.random() * 10000),
-          playRate: Math.floor(Math.random() * 100),
-          updateDate: '2018-09-09',
+    this.contentsStatisticsLists = [];
+    this.chartService.getLists(this.cmsApi.byContentsTable + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .toPromise()
+      .then((cont) => {
+        const list = JSON.parse(cont['_body']);
+        list['list'].sort((a, b) => {
+          return (a.playCount > b.playCount) ? -1 : ((b.playCount > a.playCount) ? 1 : 0);
         });
-      this.contentsStatisticsLists.push(
-        {
-          ranking: 2,
-          category: '사회',
-          contentsName: '뮤직뱅크 1회',
-          playCount: Math.floor(Math.random() * 10000),
-          playRate: Math.floor(Math.random() * 100),
-          updateDate: '2018-09-09',
+        let i = 1;
+        const rankingArray:any[] = list['list'].map((item) => {
+          item.ranking = i;
+          i += 1;
+          return item;
         });
-    });
-    this.setTotalData();
+        rankingArray.forEach((item) => {
+          this.contentsStatisticsLists.push(item);
+        });
+        this.setTotalData();
+      });
   }
 
   setTotalData() {
-    const length = this.contentsStatisticsLists.length;
     this.totalData = {
       totalPlayCount: 0,
-      averagePlayRate: 0,
     };
     this.contentsStatisticsLists.forEach((item) => {
       this.totalData['totalPlayCount'] += item['playCount'];
-      this.totalData['averagePlayRate'] += item['playRate'];
     });
-    this.totalData['averagePlayRate'] = Math.floor(this.totalData['averagePlayRate'] / length);
-  }
-
-  getDateArray(startDate, endDate) {
-    const dateArray:any[] = [];
-    const currentDate = startDate;
-    while (currentDate <= endDate) {
-      dateArray.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-    return dateArray;
   }
 
   changeChartType(e) {
