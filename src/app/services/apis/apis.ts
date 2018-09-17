@@ -94,6 +94,8 @@ export class CmsApis {
     /**** Dashboard ****/
     this.dateDashboard = this.domain + 'cms/dashboard/playcntdate';
     this.timeDashboard = this.domain + 'cms/dashboard/playcnttime';
+    this.contentsDashboard = this.domain + 'cms/dashboard/playcntcontent';
+    this.categoryDashboard = this.domain + 'cms/dashboard/playcntcategory';
 
     /**** PlayStatistics ****/
     this.byDateChart = this.domain + 'cms/chart/playdatedata?sdate=';
