@@ -50,10 +50,17 @@
 .popular-repeat-section {
   border: 3px solid red;
 }
+tr th {
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: bold;
+}
 tr td {
+  padding: 10px 0;
   text-align: center;
   vertical-align: middle;
   word-break: break-all;
+  font-size: 14px;
 }
 
 .play-section-chart-container {
@@ -69,7 +76,7 @@ tr td {
 }
 
 .time-table-title {
-  font-size: 16px;
+  font-size: 21px;
   font-weight:bold;
   color: #777;
 }
