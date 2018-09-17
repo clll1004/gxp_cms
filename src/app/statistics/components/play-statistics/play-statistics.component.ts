@@ -72,7 +72,7 @@ export class PlayStatisticsComponent implements OnInit {
     if (this.durationCount.length < 3) {
       this.durationCount.push(this.durationCount.length);
       this.multiSelectDuration.push({
-        selectDuration: new Date(),
+        selectDuration: '',
       });
     }
     this.updateMultiSelectDuration();

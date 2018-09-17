@@ -18,21 +18,21 @@
         </ng-template>
         <ng-template pTemplate="body" let-timeStatisticsList let-columns="columns">
           <tr>
-            <td> {{ timeStatisticsList['time'] }} </td>
+            <td> {{ timeStatisticsList['date'] }} 시 ~ {{ timeStatisticsList['date'] + 1 }} 시 </td>
             <td> {{ timeStatisticsList['playCount'] }} 회</td>
-            <td> {{ timeStatisticsList['playRate'] }} %</td>
             <td> {{ timeStatisticsList['playTime'] }} 분</td>
           </tr>
         </ng-template>
         <ng-template pTemplate="footer" let-columns>
           <tr>
-            <td>Total</td>
             <td>
-              총합 {{ totalData[i]['totalPlayCount'] }}회<br>
-              평균 재생수 {{ totalData[i]['averagePlayCount'] }} 회
+              Total
             </td>
-            <td>평균 재생율 {{ totalData[i]['averagePlayRate'] }}%</td>
-            <td>평균 재생시간 {{ totalData[i]['averagePlayTime'] }}분</td>
+            <td>
+              총합 {{ totalData[i]?.totalPlayCount }}회<br>
+              평균 재생수 {{ totalData[i]?.averagePlayCount }} 회
+            </td>
+            <td>평균 재생시간 {{ totalData[i]?.averagePlayTime }}분</td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage" let-columns>

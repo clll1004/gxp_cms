@@ -48,6 +48,8 @@ export class CmsApis {
   /**** Play Statistics ****/
   public byDateChart = '';
   public byDateTable = '';
+  public byTimeChart = '';
+  public byTimeTable = '';
   public byContentsChart = '';
   public byContentsTable = '';
   public byCategoryChart = '';
@@ -100,6 +102,8 @@ export class CmsApis {
     /**** PlayStatistics ****/
     this.byDateChart = this.domain + 'cms/chart/playdatedata?sdate=';
     this.byDateTable = this.domain + 'cms/chart/playdatelist?sdate=';
+    this.byTimeChart = this.domain + 'cms/chart/playtimedata?sdate=';
+    this.byTimeTable = this.domain + 'cms/chart/playtimelist?sdate=';
     this.byContentsChart = this.domain + 'cms/chart/playcontentdata?sdate=';
     this.byContentsTable = this.domain + 'cms/chart/playcontentlist?sdate=';
     this.byCategoryChart = this.domain + 'cms/chart/playcategorydata?sdate=';

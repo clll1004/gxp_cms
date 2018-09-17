@@ -3,12 +3,14 @@
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ChartService } from '../../../../../services/apis/cms/chart/chart.service';
+import { CmsApis } from '../../../../../services/apis/apis';
 
 @Component({
   selector: 'by-time',
   templateUrl: './by-time.component.html',
   styleUrls: ['../../play-statistics.component.css'],
-  providers: [DatePipe]})
+  providers: [DatePipe, CmsApis, ChartService]})
 
 export class ByTimeComponent implements OnInit, OnChanges {
   @Input() pathName:string;
@@ -25,14 +27,18 @@ export class ByTimeComponent implements OnInit, OnChanges {
   public timeStatisticsCols:any[] = [
     { header: '시간', field: 'time' },
     { header: '재생수', field: 'playCount' },
-    { header: '재생율', field: 'playRate' },
     { header: '재생시간', field: 'playTime' },
   ];
   public timeStatisticsLists:any[] = [];
   public timeTableTitle:any[] = [];
   public totalData:any[] = [];
+  public tempTotalData:object = {
+    totalPlayCount: 0,
+    averagePlayCount: 0,
+    averagePlayTime: 0,
+  };
 
-  constructor(private datePipe:DatePipe) { }
+  constructor(private datePipe:DatePipe, private cmsApi: CmsApis, private chartService: ChartService) { }
 
   ngOnInit() {
     this.chartData = [];
@@ -46,34 +52,34 @@ export class ByTimeComponent implements OnInit, OnChanges {
   }
 
   setMultiChartData() {
-    this.chartLabels = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
-    let tempLabels:any[] = [];
     const tempDataSets:any[] = [];
     let i:number = 0;
     const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9'];
     this.chartData = [];
     this.multiSelectDuration.forEach((item) => {
-      const tempData:any[] = [];
-      tempLabels = [];
-      this.chartLabels.forEach((label) => {
-        const random = Math.floor(Math.random() * 10000);
-        tempData.push(random);
-        tempLabels.push(label + '시');
-      });
-      this.chartData.push(tempData);
-      tempDataSets.push(
-        {
-          label: (item.selectDuration.getMonth() + 1) + '/' + item.selectDuration.getDate(),
-          data: tempData,
-          fill: false,
-          borderColor: bdc[i],
+      this.chartService.getLists(this.cmsApi.byTimeChart + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'))
+        .toPromise()
+        .then((cont) => {
+          const list = JSON.parse(cont['_body']);
+          const tempLabel:any[] = list['label'].map((item) => {
+            return item + '시';
+          });
+          const tempData:any[] = [];
+          this.chartData.push(tempData);
+          tempDataSets.push(
+            {
+              label: this.datePipe.transform(item.selectDuration, 'MM-dd'),
+              data: list['data'],
+              fill: false,
+              borderColor: bdc[i],
+            });
+          i += 1;
+          this.multiChartData = {
+            labels: tempLabel,
+            datasets: tempDataSets,
+          };
         });
-      i += 1;
     });
-    this.multiChartData = {
-      labels: tempLabels,
-      datasets: tempDataSets,
-    };
     this.chartOptions = {
       legend: {
         position: 'bottom',
@@ -100,56 +106,42 @@ export class ByTimeComponent implements OnInit, OnChanges {
   setTableData() {
     this.durationLength = [];
     this.timeTableTitle = [];
+    this.timeStatisticsLists = [];
     let i = 0;
     this.multiSelectDuration.forEach((item) => {
       this.durationLength.push(i);
       this.timeTableTitle.push(this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'));
       i += 1;
-    });
-    this.timeStatisticsLists = [];
 
-    let tempLists:any[] = [];
-    i = 0;
-    this.durationLength.forEach(() => {
-      let j = 0;
-      tempLists = [];
-      this.chartLabels.forEach((item) => {
-        tempLists.push(
-          {
-            time: item + '시 ~ ' + ((Number(item) + 1) < 10 ? '0' + (Number(item) + 1) : (Number(item) + 1))  + '시',
-            playCount: this.chartData[i][j],
-            playRate: 10,
-            playTime: 20,
+      const tempLists:any[] = [];
+      this.chartService.getLists(this.cmsApi.byTimeTable + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'))
+        .toPromise()
+        .then((cont) => {
+          const list = JSON.parse(cont['_body']);
+          list['list'].forEach((item) => {
+            tempLists.push(item);
           });
-        j += 1;
-      });
-      this.timeStatisticsLists.push(tempLists);
-      i += 1;
+          this.timeStatisticsLists.push(tempLists);
+          this.setTotalData(tempLists.length);
+        });
     });
-
-    this.setTotalData();
   }
 
-  setTotalData() {
+  setTotalData(length) {
     this.totalData = [];
-    let tempTotalData:object = {};
-    const length = this.timeStatisticsLists[0].length;
     this.timeStatisticsLists.forEach((item:any[]) => {
-      tempTotalData = {
+      this.tempTotalData = {
         totalPlayCount: 0,
         averagePlayCount: 0,
-        averagePlayRate: 0,
         averagePlayTime: 0,
       };
       item.forEach((value) => {
-        tempTotalData['totalPlayCount'] += value['playCount'];
-        tempTotalData['averagePlayRate'] += value['playRate'];
-        tempTotalData['averagePlayTime'] += value['playTime'];
+        this.tempTotalData['totalPlayCount'] += value['playCount'];
+        this.tempTotalData['averagePlayTime'] += value['playTime'];
       });
-      tempTotalData['averagePlayCount'] = Math.floor(tempTotalData['totalPlayCount'] / length);
-      tempTotalData['averagePlayRate'] = Math.floor(tempTotalData['averagePlayRate'] / length);
-      tempTotalData['averagePlayTime'] = Math.floor(tempTotalData['averagePlayTime'] / length);
-      this.totalData.push(tempTotalData);
+      this.tempTotalData['averagePlayCount'] = Math.floor(this.tempTotalData['totalPlayCount'] / length);
+      this.tempTotalData['averagePlayTime'] = Math.floor(this.tempTotalData['averagePlayTime'] / length);
+      this.totalData.push(this.tempTotalData);
     });
   }
 
