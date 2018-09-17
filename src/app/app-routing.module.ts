@@ -21,7 +21,8 @@ const routes: Routes = [
     { path: 'statistics/:id', component: StatisticsComponent },
     { path: 'statistics/:id/:sub-id', component: StatisticsComponent },
     { path: 'settings', component: SettingsComponent },
-    { path: 'settings/:id', component: SettingsComponent }];
+    { path: 'settings/:id', component: SettingsComponent },
+    { path: 'settings/:id/:sub-id', component: SettingsComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

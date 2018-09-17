@@ -1,0 +1,45 @@
+<div class="ui-g-12 ui-g-nopad content-sec">
+  <div class="ui-g-12 ui-g-nopad page-title-sec">
+    <a routerLink="/home"><i class="fas fa-home"></i></a> > 설정 > 프리셋 설정 > <span class="path">플레이어 프리셋</span>
+  </div>
+  <p class="info-txt margin-bottom-20">클릭하여 삭제/추가 하실 수 있습니다.</p>
+  <div class="ui-g-12 ui-g-nopad preset-container">
+    <div class="ui-g-2 ui-g-nopad button-area">
+      <label class="on" for="playbackRate" (click)="setPlayerPreset($event)">배속버튼</label>
+      <label class="on" for="loopPortion" (click)="setPlayerPreset($event)">구간반복</label>
+      <label class="on" for="bookmark" (click)="setPlayerPreset($event)">북마크</label>
+      <label class="on" for="next" (click)="setPlayerPreset($event)">다음 영상</label>
+    </div>
+    <div class="ui-g-8 ui-g-nopad player-view-area">
+      <img src="../../../../../../assets/images/player-section.png" alt="default player view" id="defaultImg">
+      <div class="overlay-area">
+        <input type="checkbox" id="bookmark" checked>
+        <img src="../../../../../../assets/images/bookmark.png" alt="북마크" id="bookmarkImg">
+        <input type="checkbox" id="setting" checked>
+        <img src="../../../../../../assets/images/setting.png" alt="설정버튼" id="settingImg">
+        <input type="checkbox" id="next" checked>
+        <img src="../../../../../../assets/images/next.png" alt="다음 영상" id="nextImg">
+        <input type="checkbox" id="playbackRate" checked>
+        <img src="../../../../../../assets/images/playbackRate.png" alt="배속버튼" id="playbackRateImg">
+        <input type="checkbox" id="loopPortion" checked>
+        <img src="../../../../../../assets/images/loopPortion.png" alt="구간반복" id="loopPortionImg">
+        <input type="checkbox" id="fullscreen" checked>
+        <img src="../../../../../../assets/images/fullscreen.png" alt="전체화면" id="fullscreenImg">
+        <input type="checkbox" id="wideMode" checked>
+        <img src="../../../../../../assets/images/wideMode.png" alt="영화관화면" id="wideModeImg">
+        <input type="checkbox" id="quality" checked>
+        <img src="../../../../../../assets/images/quality.png" alt="화질선택" id="qualityImg">
+      </div>
+    </div>
+    <div class="ui-g-2 ui-g-nopad button-area">
+      <label class="on" for="setting" (click)="setPlayerPreset($event)">설정버튼</label>
+      <label class="on" for="fullscreen" (click)="setPlayerPreset($event)">전체화면</label>
+      <label class="on" for="wideMode" (click)="setPlayerPreset($event)">영화관화면</label>
+      <label class="on" for="quality" (click)="setPlayerPreset($event)">화질선택</label>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-g-nopad margin-top-40 btn-sec">
+    <button type="reset" class="btn margin-right-10"><i class="fas fa-history"></i> 초기화</button>
+    <button type="submit" class="btn"><i class="fas fa-check"></i> 적용</button>
+  </div>
+</div>

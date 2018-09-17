@@ -44,6 +44,7 @@ import { AddGroupComponent } from './settings/components/add-group/add-group.com
 import { GroupMngComponent } from './settings/components/group-mng/group-mng.component';
 import { UserModifyComponent } from './settings/components/user-modify/user-modify.component';
 import { ChangePswdComponent } from './settings/components/change-pswd/change-pswd.component';
+import { PlayerPresetComponent } from './settings/components/preset-setting/components/player-preset/player-preset.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -96,7 +97,8 @@ import { AppRoutingModule } from './app-routing.module';
     AddGroupComponent,
     GroupMngComponent,
     UserModifyComponent,
-    ChangePswdComponent],
+    ChangePswdComponent,
+    PlayerPresetComponent],
   providers: [LoginService],
   bootstrap: [AppComponent]})
 
