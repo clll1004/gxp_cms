@@ -83,9 +83,7 @@ export class ByDateComponent implements OnInit, OnChanges {
       .toPromise()
       .then((cont) => {
         const list = JSON.parse(cont['_body']);
-        list['list'].forEach((item) => {
-          this.dateStatisticsLists.push(item);
-        });
+        this.dateStatisticsLists = list['list'];
         this.dateStatisticsLists.reverse();
         this.setTotalData();
       });

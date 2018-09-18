@@ -23,7 +23,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
   public contentsStatisticsCols:any[] = [
     { header: '순위', field: 'ranking' },
     { header: '카테고리', field: 'category' },
-    { header: '콘텐츠 명', field: 'content' },
+    { header: '파일명', field: 'content' },
     { header: '재생수', field: 'playCount' },
     { header: '등록일', field: 'updateDate' },
   ];
@@ -62,9 +62,6 @@ export class ByContentsComponent implements OnInit, OnChanges {
       .toPromise()
       .then((cont) => {
         const list = JSON.parse(cont['_body']);
-        // const labelLengthLimit:any[] = list['label'].map((item) => {
-        //   return item.length > 10 ? item.substring(0, 10) + '...' : item;
-        // });
         this.chartLabels = list['label'];
         this.chartData = list['data'];
       });
@@ -85,9 +82,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
           i += 1;
           return item;
         });
-        rankingArray.forEach((item) => {
-          this.contentsStatisticsLists.push(item);
-        });
+        this.contentsStatisticsLists = rankingArray;
         this.setTotalData();
       });
   }

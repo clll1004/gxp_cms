@@ -85,9 +85,7 @@ export class ByCategoryComponent implements OnInit, OnChanges {
           i += 1;
           return item;
         });
-        rankingArray.forEach((item) => {
-          this.categoryStatisticsLists.push(item);
-        });
+        this.categoryStatisticsLists = rankingArray;
         this.setTotalData();
       });
   }
