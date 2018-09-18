@@ -12,7 +12,7 @@
           <tr>
             <th *ngFor="let col of columns" [pSortableColumn]="col.field">
               {{ col.header }}
-              <p-sortIcon *ngIf="col.field === 'playCount'" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
             </th>
           </tr>
         </ng-template>
