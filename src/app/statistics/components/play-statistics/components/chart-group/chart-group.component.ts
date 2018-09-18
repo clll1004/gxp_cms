@@ -46,14 +46,21 @@ export class ChartGroupComponent implements OnInit, OnChanges {
         xAxes: [{
           ticks: {
             autoSkip: false,
-            // callback: (value) => {
-            //   if (value.length > 10) {
-            //     return value.substr(0, 10) + '...'; // truncate
-            //   }
-            //   return value;
-            // },
+            callback: (value) => {
+              if (value.length > 10) {
+                return value.substr(0, 10) + '...'; // truncate
+              }
+              return value;
+            },
           },
         }],
+      },
+      tooltips: {
+        callbacks: {
+          title: function(tooltipItem, chartData) {
+            return chartData.labels[tooltipItem[0]['index']];
+          }
+        }
       },
       elements: {
         line: {
