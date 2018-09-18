@@ -20,7 +20,7 @@
         <input readonly class="date-picker-input" [value]="tempSelectedDate[0]+' ~ '+tempSelectedDate[1]" />
         <i class="fa fa-calendar glyphicon glyphicon-calendar"></i>
       </div>
-      <p-calendar selectionMode="range" [showTime]="hourSelect" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" [(ngModel)]="selectedDateFromPcalendar" [inline]="true" [locale]="localeObject" dateFormat="yy-mm-dd" (onSelect)="calendarSelect($event)"> </p-calendar>
+      <p-calendar selectionMode="range" [maxDate]="maxDateValue" [showTime]="hourSelect" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" [(ngModel)]="selectedDateFromPcalendar" [inline]="true" [locale]="localeObject" dateFormat="yy-mm-dd" (onSelect)="calendarSelect($event)"> </p-calendar>
     </div>
   </div>
 </div>

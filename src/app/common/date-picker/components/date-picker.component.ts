@@ -13,6 +13,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
   styleUrls: ['./date-picker.component.scss'],
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
+  public maxDateValue:Date = new Date();
   inputFieldValue: string = null;
   isInputFocused: boolean = false;
   calendarVisible: boolean = false;

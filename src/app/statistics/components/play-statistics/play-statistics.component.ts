@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe]})
 
 export class PlayStatisticsComponent implements OnInit {
+  public maxDateValue:Date = new Date();
   public pathName:string = '날짜별';
   public pathArray:object = {
     date: '날짜별',
