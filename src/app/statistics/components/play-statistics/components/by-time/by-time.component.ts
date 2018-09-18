@@ -25,7 +25,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
 
   public durationLength:any[] = [];
   public timeStatisticsCols:any[] = [
-    { header: '시간', field: 'time' },
+    { header: '시간', field: 'date' },
     { header: '재생수', field: 'playCount' },
     { header: '재생시간', field: 'playTime' },
   ];

@@ -18,7 +18,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-timeStatisticsList let-columns="columns">
           <tr>
-            <td> {{ timeStatisticsList['date'] }} 시 ~ {{ timeStatisticsList['date'] + 1 }} 시 </td>
+            <td> {{ timeStatisticsList['date'] < 10 ? '0' + timeStatisticsList['date'] : timeStatisticsList['date'] }} 시 - {{ (timeStatisticsList['date'] + 1) < 10 ? '0' + (timeStatisticsList['date'] + 1) : (timeStatisticsList['date'] + 1) }} 시 </td>
             <td> {{ timeStatisticsList['playCount'] }} 회</td>
             <td> {{ timeStatisticsList['playTime'] }} 분</td>
           </tr>
