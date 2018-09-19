@@ -54,10 +54,8 @@ export class ByContentsComponent implements OnInit, OnChanges {
     this.chartLabels = [];
     this.chartData = [];
 
-    this.chartService.getLists(this.cmsApi.byContentsChart + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
-      .toPromise()
-      .then((cont) => {
-        const list = JSON.parse(cont['_body']);
+    this.chartService.getLists(this.cmsApi.byContentsChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
         this.chartLabels = list['label'];
         this.chartData = list['data'];
       });
@@ -65,10 +63,8 @@ export class ByContentsComponent implements OnInit, OnChanges {
 
   setTableData() {
     this.contentsStatisticsLists = [];
-    this.chartService.getLists(this.cmsApi.byContentsTable + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
-      .toPromise()
-      .then((cont) => {
-        const list = JSON.parse(cont['_body']);
+    this.chartService.getLists(this.cmsApi.byContentsTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
         list['list'].sort((a, b) => {
           return (a.playCount > b.playCount) ? -1 : ((b.playCount > a.playCount) ? 1 : 0);
         });

@@ -57,10 +57,8 @@ export class ByTimeComponent implements OnInit, OnChanges {
     const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9'];
     this.chartData = [];
     this.multiSelectDuration.forEach((item) => {
-      this.chartService.getLists(this.cmsApi.byTimeChart + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'))
-        .toPromise()
-        .then((cont) => {
-          const list = JSON.parse(cont['_body']);
+      this.chartService.getLists(this.cmsApi.byTimeChart + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'))
+        .then((list) => {
           const tempLabel:any[] = list['label'].map((item) => {
             return item + '시';
           });
@@ -114,10 +112,8 @@ export class ByTimeComponent implements OnInit, OnChanges {
       i += 1;
 
       const tempLists:any[] = [];
-      this.chartService.getLists(this.cmsApi.byTimeTable + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'))
-        .toPromise()
-        .then((cont) => {
-          const list = JSON.parse(cont['_body']);
+      this.chartService.getLists(this.cmsApi.byTimeTable + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'))
+        .then((list) => {
           list['list'].forEach((item) => {
             tempLists.push(item);
           });

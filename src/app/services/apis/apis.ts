@@ -50,6 +50,12 @@ export class CmsApis {
   public byDateTable = '';
   public byTimeChart = '';
   public byTimeTable = '';
+  public byPlaySectionTable = '';
+  public byPlaySectionChart = '';
+  public byPlaySectionResultTable = '';
+  public byPlayTimeTable = '';
+  public byPlayTimeChart = '';
+  public byPlayTimeResultTable = '';
   public byContentsChart = '';
   public byContentsTable = '';
   public byCategoryChart = '';
@@ -100,13 +106,19 @@ export class CmsApis {
     this.categoryDashboard = this.domain + 'cms/dashboard/playcntcategory';
 
     /**** PlayStatistics ****/
-    this.byDateChart = this.domain + 'cms/chart/playdatedata?sdate=';
-    this.byDateTable = this.domain + 'cms/chart/playdatelist?sdate=';
-    this.byTimeChart = this.domain + 'cms/chart/playtimedata?sdate=';
-    this.byTimeTable = this.domain + 'cms/chart/playtimelist?sdate=';
-    this.byContentsChart = this.domain + 'cms/chart/playcontentdata?sdate=';
-    this.byContentsTable = this.domain + 'cms/chart/playcontentlist?sdate=';
-    this.byCategoryChart = this.domain + 'cms/chart/playcategorydata?sdate=';
-    this.byCategoryTable = this.domain + 'cms/chart/playcategorylist?sdate=';
+    this.byDateChart = this.domain + 'cms/chart/playdatedata?';
+    this.byDateTable = this.domain + 'cms/chart/playdatelist?';
+    this.byTimeChart = this.domain + 'cms/chart/playtimedata?';
+    this.byTimeTable = this.domain + 'cms/chart/playtimelist?';
+    this.byPlaySectionTable = this.domain + 'cms/chart/playplaysectionlist?';
+    this.byPlaySectionChart = this.domain + 'cms/chart/playplaysectiondata?';
+    this.byPlaySectionResultTable = this.domain + 'cms/chart/playplaysectionlistdetail?';
+    this.byPlayTimeTable = this.domain + 'cms/chart/playplaytimelist?';
+    this.byPlayTimeChart = this.domain + 'cms/chart/playplaytimedata?';
+    this.byPlayTimeResultTable = this.domain + 'cms/chart/playplaytimelistdetail?';
+    this.byContentsChart = this.domain + 'cms/chart/playcontentdata?';
+    this.byContentsTable = this.domain + 'cms/chart/playcontentlist?';
+    this.byCategoryChart = this.domain + 'cms/chart/playcategorydata?';
+    this.byCategoryTable = this.domain + 'cms/chart/playcategorylist?';
   }
 }

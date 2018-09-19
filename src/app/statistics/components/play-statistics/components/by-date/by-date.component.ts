@@ -60,10 +60,9 @@ export class ByDateComponent implements OnInit, OnChanges {
     this.chartLabels = [];
     this.chartData = [];
 
-    this.chartService.getLists(this.cmsApi.byDateChart + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
-      .toPromise()
-      .then((cont) => {
-        const list = JSON.parse(cont['_body']);
+    this.chartService.getLists(this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
+        console.log(list);
         this.chartLabels = list['label'].map((item) => {
           const temp = new Date(item);
           return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));
@@ -75,10 +74,8 @@ export class ByDateComponent implements OnInit, OnChanges {
   setTableData() {
     this.dateStatisticsLists = [];
 
-    this.chartService.getLists(this.cmsApi.byDateTable + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
-      .toPromise()
-      .then((cont) => {
-        const list = JSON.parse(cont['_body']);
+    this.chartService.getLists(this.cmsApi.byDateTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
         this.dateStatisticsLists = list['list'];
         this.dateStatisticsLists.reverse();
         this.setTotalData();

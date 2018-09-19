@@ -9,6 +9,10 @@ export class ChartService {
   constructor(private http: Http) { }
 
   getLists(listUrl:any) {
-    return this.http.get(listUrl);
+    return this.http.get(listUrl)
+      .toPromise()
+      .then((cont) => {
+        return JSON.parse(cont['_body']);
+      });
   }
 }
