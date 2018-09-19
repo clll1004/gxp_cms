@@ -38,20 +38,16 @@ export class ByContentsComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
-    this.setTableData();
     this.setChartType();
     this.setChartData();
+    this.setTableData();
   }
 
   setChartType() {
-    const temp = document.getElementsByClassName('changeType');
-    for (let i = 0; i < temp.length; i += 1) {
-      if (i === 0) {
-        temp[i].setAttribute('class', 'changeType on');
-      } else {
-        temp[i].setAttribute('class', 'changeType');
-      }
-    }
+    const barType = document.getElementById('bar-type');
+    const pieType = document.getElementById('pie-type');
+    barType.setAttribute('class', 'on changeType');
+    pieType.setAttribute('class', 'changeType');
   }
 
   setChartData() {
@@ -102,7 +98,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
       temp[i].setAttribute('class', 'changeType');
     }
 
-    if (e.currentTarget.getAttribute('id') === 'line-type') {
+    if (e.currentTarget.getAttribute('id') === 'bar-type') {
       e.currentTarget.setAttribute('class', 'changeType on');
       this.chartType = 'bar';
     } else {

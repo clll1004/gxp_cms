@@ -50,14 +50,10 @@ export class ByDateComponent implements OnInit, OnChanges {
   }
 
   setChartType() {
-    const temp = document.getElementsByClassName('changeType');
-    for (let i = 0; i < temp.length; i += 1) {
-      if (i === 0) {
-        temp[i].setAttribute('class', 'changeType on');
-      } else {
-        temp[i].setAttribute('class', 'changeType');
-      }
-    }
+    const lineType = document.getElementById('line-type');
+    const pieType = document.getElementById('pie-type');
+    lineType.setAttribute('class', 'on changeType');
+    pieType.setAttribute('class', 'changeType');
   }
 
   setChartData() {
