@@ -62,6 +62,12 @@ export class PlayStatisticsComponent implements OnInit {
   }
 
   updateMultiSelectDuration() {
+    if (!this.isMultiSelectDuration) {
+      this.durationCount = [0];
+      this.multiSelectDuration = [{
+        selectDuration: this.multiSelectDuration[0].selectDuration,
+      }];
+    }
     this.multiSelectDuration = [...this.multiSelectDuration];
   }
 

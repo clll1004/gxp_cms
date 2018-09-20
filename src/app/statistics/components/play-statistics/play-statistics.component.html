@@ -12,7 +12,7 @@
   </div>
 
   <div class="ui-g-12 ui-g-nopad margin-bottom-30" *ngIf="pathName === '시간별'">
-    <p-checkbox [(ngModel)]="isMultiSelectDuration" binary="true" label="다중 비교"></p-checkbox>
+    <p-checkbox [(ngModel)]="isMultiSelectDuration" binary="true" label="다중 비교" (onChange)="updateMultiSelectDuration()"></p-checkbox>
     <button class="btn margin-left-10" type="button" *ngIf="isMultiSelectDuration" (click)="upDurationCount()" [disabled]="durationCount.length === 3"><i class="fas fa-plus"></i> 추가</button>
 
     <div class="multiSelectDurationContainer margin-top-10" *ngFor="let count of durationCount">
