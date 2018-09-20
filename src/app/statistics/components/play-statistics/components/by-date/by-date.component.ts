@@ -62,7 +62,6 @@ export class ByDateComponent implements OnInit, OnChanges {
 
     this.chartService.getLists(this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
       .then((list) => {
-        console.log(list);
         this.chartLabels = list['label'].map((item) => {
           const temp = new Date(item);
           return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));

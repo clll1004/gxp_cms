@@ -2,11 +2,14 @@
  * Created by GRE511 on 2018-09-03.
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChartService } from '../../../../../services/apis/cms/chart/chart.service';
+import { CmsApis } from '../../../../../services/apis/apis';
 
 @Component({
   selector: 'by-play-section',
   templateUrl: './by-play-section.component.html',
-  styleUrls: ['../../play-statistics.component.css']})
+  styleUrls: ['../../play-statistics.component.css'],
+  providers: [CmsApis, ChartService]})
 
 export class ByPlaySectionComponent implements OnInit, OnChanges {
   @Input() pathName;
@@ -20,7 +23,6 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public chartData:any[] = [];
   public chartOptions: any;
   public dateArray:any[] = [];
-  public tableLists:any[] = [];
   public tempCompareItems:any[] = [];
   public compareItems:any[] = [];
   public isShowMessage:boolean = false;
@@ -35,12 +37,11 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     { header: 'No', field: 'no' },
     { header: '그룹명', field: 'groupName' },
     { header: '폴더명', field: 'folderName' },
-    { header: '콘텐츠명', field: 'contentsName' },
-    { header: '영상 시간', field: 'videoTime' },
+    { header: '파일명', field: 'contentsName' },
+    { header: '영상 시간', field: 'duration' },
     { header: '재생시간', field: 'playTime' },
     { header: '재생수', field: 'playCount' },
-    { header: '재생율', field: 'playRate' },
-    { header: '등록일', field: 'updateDate' },
+    { header: '등록일', field: 'regdate' },
   ];
   public compareSectionCols:any[] = [
     { header: '일자', field: 'date' },
@@ -64,72 +65,27 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public compareLength:any[] = [];
   public comparePlaySectionData:any[] = [];
 
-  constructor() { }
+  constructor(private cmsApi: CmsApis, private chartService: ChartService) { }
 
   ngOnInit() { }
 
   ngOnChanges() {
-    this.setChartType();
-    this.setChartData();
-    this.setTableData();
-    this.tempCompareItems = [this.playSectionStatisticsDatas[0]];
-    this.compareItems = this.tempCompareItems;
-    this.showPlaySectionResult();
-  }
-
-  setChartType() {
-    const temp = document.getElementsByClassName('changeType');
-    for (let i = 0 ; i < temp.length ; i += 1) {
-      if (i === 0) {
-        temp[i].setAttribute('class', 'changeType on');
-      } else {
-        temp[i].setAttribute('class', 'changeType');
-      }
-    }
-  }
-
-  setChartData() {
-    this.chartLabels = [];
-    this.chartData = [];
     const startDate = new Date(this.selectDuration.date[0]);
     const endDate = new Date(this.selectDuration.date[1]);
-
     this.dateArray = this.getDateArray(startDate, endDate);
-    this.dateArray.forEach((item) => {
-      const random = Math.floor(Math.random() * 10000);
-      this.chartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
-      this.chartData.push(random);
-    });
+    this.initialize();
+    this.setTableData();
   }
 
-  setTableData() {
-    this.tableLists = [];
-    this.dateArray.forEach((item) => {
-      this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
-    });
+  initialize() {
+    this.isCompareStatus = false;
     this.playSectionStatisticsDatas = [];
-    this.playSectionStatisticsDatas.push(
-      { no: 1,
-        groupName: 'GXP',
-        folderName: '사회',
-        contentsName: '토익1강',
-        videoTime: 30,
-        playTime: '08:13:23',
-        playCount: Math.floor(Math.random() * 10000),
-        playRate: 10,
-        updateDate: '2018-09-09',
-      });
-    this.playSectionStatisticsDatas.push(
-      { no: 2,
-        groupName: 'GXP',
-        folderName: '사회',
-        contentsName: '토익2강',
-        videoTime: 30,
-        playTime: '08:13:23',
-        playCount: Math.floor(Math.random() * 10000),
-        playRate: 10,
-        updateDate: '2018-09-09',
-      });
+    this.tempCompareItems = [];
+    this.compareItems = [];
+    this.comparePlaySectionData = [];
+    this.compareSectionDatas = [];
+    this.compareSectionAverageData = [];
+    this.compareLength = [];
   }
 
   getDateArray(startDate, endDate) {
@@ -140,6 +96,36 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       currentDate.setDate(currentDate.getDate() + 1);
     }
     return dateArray;
+  }
+
+  setTableData() {
+    this.playSectionStatisticsDatas = [];
+
+    this.chartService.getLists(this.cmsApi.byPlaySectionTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
+        if (list['list']) {
+          const temp:any[] = [];
+          let i = 1;
+          list['list'].forEach((item) => {
+            temp.push({
+              no: i,
+              groupName: item.group,
+              folderName: item.category,
+              contentsName: item.contentsName,
+              duration: item.duration,
+              playTime: item.runtime,
+              playCount: item.playCount,
+              regdate: item.regdate,
+              ft_seq: item.ft_seq,
+            });
+            i += 1;
+          });
+          this.playSectionStatisticsDatas = temp;
+          this.tempCompareItems = [this.playSectionStatisticsDatas[0]];
+          this.compareItems = this.tempCompareItems;
+          this.showSingleResult();
+        }
+      });
   }
 
   onRowSelect() {
@@ -161,9 +147,40 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       this.comparePlaySectionData = [];
       return 0;
     }
-    this.compareSectionDatas = [];
     let i = 0;
     let tempCompareDatas:any[] = [];
+    // this.tempCompareItems.forEach((item) => {
+    //   this.compareSectionDatas = [];
+    //   tempCompareDatas = [];
+    //   this.chartService.getLists(this.cmsApi.byPlaySectionResultTable + 'ft_seq=' + '14366036' + '&sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+    //     .then((list) => {
+    //       const obj:object = {};
+    //       list['list'].forEach((val) => {
+    //         const date = new Date(val['date']);
+    //         obj = {
+    //           contentsName: item['contentsName'],
+    //           date: date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()),
+    //           p10: val.percent['10'],
+    //           p20: val.percent['20'],
+    //           p30: val.percent['30'],
+    //           p40: val.percent['40'],
+    //           p50: val.percent['50'],
+    //           p60: val.percent['60'],
+    //           p70: val.percent['70'],
+    //           p80: val.percent['80'],
+    //           p90: val.percent['90'],
+    //           p100: val.percent['100'],
+    //           index: i,
+    //         };
+    //         i += 1;
+    //         tempCompareDatas.push(obj);
+    //       });
+    //       console.log(tempCompareDatas);
+    //       // this.compareSectionDatas = obj;
+    //     });
+    // });
+
+    this.compareSectionDatas = [];
     this.dateArray.forEach((date:Date) => {
       tempCompareDatas = [];
       this.tempCompareItems.forEach((item) => {
@@ -337,27 +354,37 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   setCompareSectionChartData() {
     this.comparePlaySectionData = [];
     this.compareLength = [];
-    const tempData:any[] = [];
     const tborderColors:any[] = ['#ffcdd2', '#e1bee7'];
     const tbackgroundColors:any[] = ['rgba(255,205,210,.2)', 'rgba(225,190,231,.2)'];
-    this.compareSectionAverageData.forEach((item) => {
-      tempData.push([item['p10'], item['p20'], item['p30'], item['p40'], item['p50'], item['p60'], item['p70'], item['p80'], item['p90'], item['p100']]);
-    });
+
     let i = 0;
-    this.compareSectionAverageData.forEach((item) => {
+    this.tempCompareItems.forEach((item) => {
       this.compareLength.push(i);
-      this.comparePlaySectionData.push({
-        labels: ['10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'],
-        datasets: [{
-          label: item['contentsName'],
-          data: tempData[i],
-          fill: true,
-          borderColor: tborderColors[i],
-          backgroundColor: tbackgroundColors[i],
-        }],
-      });
+      this.chartService.getLists(this.cmsApi.byPlaySectionChart + 'ft_seq=' + item.ft_seq + '&sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+        .then((list) => {
+          const tempLabel:any[] = list['label'].map((label) => {
+            return label + '%';
+          });
+          this.comparePlaySectionData.push({
+            labels: tempLabel,
+            datasets: [{
+              label: item['contentsName'],
+              data: list['data'],
+              fill: true,
+            }],
+          });
+          if (this.comparePlaySectionData) {
+            let j = 0;
+            this.comparePlaySectionData.forEach((item) => {
+              item.datasets[0]['borderColor'] = tborderColors[j];
+              item.datasets[0]['backgroundColor'] = tbackgroundColors[j];
+              j += 1;
+            });
+          }
+        });
       i += 1;
     });
+
     this.chartOptions = {
       legend: {
         position: 'bottom',

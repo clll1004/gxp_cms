@@ -41,6 +41,7 @@ export class ChartGroupComponent implements OnInit, OnChanges {
       responsive: false,
       legend: {
         position: 'bottom',
+        onClick: null,
       },
       scales: {
         xAxes: [{
@@ -57,7 +58,7 @@ export class ChartGroupComponent implements OnInit, OnChanges {
       },
       tooltips: {
         callbacks: {
-          title: function(tooltipItem, chartData) {
+          title: (tooltipItem, chartData) => {
             return chartData.labels[tooltipItem[0]['index']];
           }
         }
@@ -71,24 +72,26 @@ export class ChartGroupComponent implements OnInit, OnChanges {
   }
 
   setBackgroundColor() {
-    const backgroundLength = this.backgroundColors.length;
-    const chartLength = this.chartLabels.length;
-    let tempBackground:any;
-    if (this.chartType === 'pie' || this.chartType === 'bar') {
-      tempBackground = [];
-      let i = 0;
-      let count = 0;
-      do {
-        tempBackground.push(this.backgroundColors[i]);
-        i += 1;
-        if (i > backgroundLength) {
-          i = 0;
-        }
-        count += 1;
-      } while (count < chartLength);
-    } else {
-      tempBackground = '#ff6400';
+    if (this.chartLabels) {
+      const backgroundLength = this.backgroundColors.length;
+      const chartLength = this.chartLabels.length;
+      let tempBackground:any;
+      if (this.chartType === 'pie' || this.chartType === 'bar') {
+        tempBackground = [];
+        let i = 0;
+        let count = 0;
+        do {
+          tempBackground.push(this.backgroundColors[i]);
+          i += 1;
+          if (i > backgroundLength) {
+            i = 0;
+          }
+          count += 1;
+        } while (count < chartLength);
+      } else {
+        tempBackground = '#ffcdd2';
+      }
+      return tempBackground;
     }
-    return tempBackground;
   }
 }

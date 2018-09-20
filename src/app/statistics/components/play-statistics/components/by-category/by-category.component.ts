@@ -67,12 +67,13 @@ export class ByCategoryComponent implements OnInit, OnChanges {
   setTableData() {
     this.categoryStatisticsLists = [];
     this.chartService.getLists(this.cmsApi.byCategoryTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
-      .then((list) => {
-        list['list'].sort((a, b) => {
+      .then((data) => {
+        const list = data['list'] === null ? [] : data['list'];
+        list.sort((a, b) => {
           return (a.playCount > b.playCount) ? -1 : ((b.playCount > a.playCount) ? 1 : 0);
         });
         let i = 1;
-        const rankingArray:any[] = list['list'].map((item) => {
+        const rankingArray:any[] = list.map((item) => {
           item.ranking = i;
           i += 1;
           return item;

@@ -2,11 +2,14 @@
  * Created by GRE511 on 2018-09-03.
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChartService } from '../../../../../services/apis/cms/chart/chart.service';
+import { CmsApis } from '../../../../../services/apis/apis';
 
 @Component({
   selector: 'by-play-time',
   templateUrl: './by-play-time.component.html',
-  styleUrls: ['../../play-statistics.component.css']})
+  styleUrls: ['../../play-statistics.component.css'],
+  providers: [CmsApis, ChartService]})
 
 export class ByPlayTimeComponent implements OnInit, OnChanges {
   @Input() pathName;
@@ -20,7 +23,6 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   public chartData:any[] = [];
   public chartOptions: any;
   public dateArray:any[] = [];
-  public tableLists:any[] = [];
   public tempCompareItems:any[] = [];
   public compareItems:any[] = [];
   public isShowMessage:boolean = false;
@@ -30,30 +32,27 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     { header: 'No', field: 'no' },
     { header: '그룹명', field: 'groupName' },
     { header: '폴더명', field: 'folderName' },
-    { header: '콘텐츠명', field: 'contentsName' },
-    { header: '영상 시간', field: 'videoTime' },
+    { header: '파일명', field: 'contentsName' },
+    { header: '영상 시간', field: 'duration' },
     { header: '재생시간', field: 'playTime' },
     { header: '재생수', field: 'playCount' },
-    { header: '재생율', field: 'playRate' },
     { header: '평균재생시간', field: 'averagePlayTime' },
-    { header: '등록일', field: 'updateDate' },
+    { header: '등록일', field: 'regdate' },
   ];
   public compareHeaderCols:any[] = [
     { header: '폴더명', field: 'folderName' },
-    { header: '콘텐츠명', field: 'contentsName' },
+    { header: '파일명', field: 'contentsName' },
     { header: '재생시간', field: 'playTime' },
     { header: '재생수', field: 'playCount' },
-    { header: '재생율', field: 'playRate' },
     { header: '평균재생시간', field: 'averagePlayTime' },
   ];
   public compareResultHeaderCols:any[] = [
-    { header: '콘텐츠명', field: 'contentsName' },
+    { header: '파일명', field: 'contentsName' },
     { header: '그룹명', field: 'groupName' },
     { header: '폴더명', field: 'folderName' },
     { header: '일자', field: 'date' },
     { header: '재생시간', field: 'playTime' },
     { header: '재생수', field: 'playCount' },
-    { header: '재생율', field: 'playRate' },
     { header: '평균재생시간', field: 'averagePlayTime' },
   ];
   /*table data*/
@@ -62,9 +61,8 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   public comparePlayTimeChartData:object;
   public comparePlayTimeTableDatas:any[] = [];
   public compareSectionTotalData:any[] = [];
-  public compareSectionAverageData:any[] = [];
 
-  constructor() { }
+  constructor(private cmsApi: CmsApis, private chartService: ChartService) { }
 
   ngOnInit() { }
 
@@ -72,54 +70,47 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     const startDate = new Date(this.selectDuration.date[0]);
     const endDate = new Date(this.selectDuration.date[1]);
     this.dateArray = this.getDateArray(startDate, endDate);
+    this.initialize();
     this.setTableData();
-    this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
-    this.compareItems = this.tempCompareItems;
-    this.setCompareChartData();
-    this.setCompareTableData();
+  }
+
+  initialize() {
+    this.isCompareStatus = false;
+    this.playTimeStatisticsDatas = [];
+    this.tempCompareItems = [];
+    this.compareItems = [];
+    this.comparePlayTimeChartData = {};
+    this.comparePlayTimeTableDatas = [];
+    this.compareSectionTotalData = [];
   }
 
   setTableData() {
-    this.tableLists = [];
-    this.dateArray.forEach((item) => {
-      this.tableLists.push({ date: item.getFullYear() + '-' + (item.getMonth() + 1) + '-' + item.getDate(), empty: '0' });
-    });
     this.playTimeStatisticsDatas = [];
-    this.playTimeStatisticsDatas.push(
-      { no: 1,
-        groupName: 'GXP',
-        folderName: '사회',
-        contentsName: '토익1강',
-        videoTime: 30,
-        playTime: '08:13:23',
-        playCount: Math.floor(Math.random() * 10000),
-        playRate: 10,
-        averagePlayTime: '08:13:23',
-        updateDate: '2018-09-09',
-      });
-    this.playTimeStatisticsDatas.push(
-      { no: 2,
-        groupName: 'GXP',
-        folderName: '사회',
-        contentsName: '토익2강',
-        videoTime: 30,
-        playTime: '08:13:23',
-        playCount: Math.floor(Math.random() * 10000),
-        playRate: 10,
-        averagePlayTime: '08:13:23',
-        updateDate: '2018-09-09',
-      });
-    this.playTimeStatisticsDatas.push(
-      { no: 3,
-        groupName: 'GXP',
-        folderName: '사회',
-        contentsName: '토익3강',
-        videoTime: 30,
-        playTime: '08:13:23',
-        playCount: Math.floor(Math.random() * 10000),
-        playRate: 10,
-        averagePlayTime: '08:13:23',
-        updateDate: '2018-09-09',
+
+    this.chartService.getLists(this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
+        if (list['list']) {
+          const temp:any[] = [];
+          let i = 1;
+          list['list'].forEach((item) => {
+            temp.push({
+              no: i,
+              groupName: item.group,
+              contentsName: item.content,
+              duration: item.duration,
+              playTime: item.runtime,
+              playCount: item.playCount,
+              averagePlayTime: item.avgPlaytime,
+              regdate: item.regdate,
+              ft_seq: item.ft_seq,
+            });
+            i += 1;
+          });
+          this.playTimeStatisticsDatas = temp;
+          this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
+          this.compareItems = this.tempCompareItems;
+          this.showSingleResult();
+        }
       });
   }
 
@@ -178,39 +169,34 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   }
 
   setCompareChartData() {
-    const randomItems:any[] = [];
-    let randomItem:any[] = [];
-    let random = 0;
-    this.compareItems.forEach(() => {
-      randomItem = [];
-      this.dateArray.forEach(() => {
-        random = Math.floor(Math.random() * 30);
-        randomItem.push(random);
-      });
-      randomItems.push(randomItem);
-    });
-    this.chartLabels = [];
-    this.dateArray.forEach((item) => {
-      this.chartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
-    });
-
     const tempDataSets:any[] = [];
     let i:number = 0;
     const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9'];
     this.compareItems.forEach((item) => {
-      tempDataSets.push(
-        {
-          label: item['contentsName'],
-          data: randomItems[i],
-          fill: false,
-          borderColor: bdc[i],
+      this.chartService.getLists(this.cmsApi.byPlayTimeChart + 'ft_seq=' + item.ft_seq + '&sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+        .then((list) => {
+          this.chartLabels = list['label'].map((val) => {
+            const temp = new Date(val);
+            return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));
+          });
+          tempDataSets.push(
+            {
+              label: item['contentsName'],
+              data: list['data'],
+              fill: false,
+            });
+          if (tempDataSets) {
+            let j = 0;
+            tempDataSets.forEach((data) => {
+              data['borderColor'] = bdc[j];
+              j += 1;
+            });
+          }
+          this.setChart(tempDataSets);
         });
       i += 1;
     });
-    this.comparePlayTimeChartData = {
-      labels: this.chartLabels,
-      datasets: tempDataSets,
-    };
+
     this.chartOptions = {
       legend: {
         position: 'bottom',
@@ -223,23 +209,35 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     };
   }
 
+  setChart(tempData) {
+    this.comparePlayTimeChartData = {
+      labels: this.chartLabels,
+      datasets: tempData,
+    };
+  }
+
   setCompareTableData() {
     this.comparePlayTimeTableDatas = [];
+
     this.compareItems.forEach((item) => {
-      this.dateArray.forEach((date) => {
-        this.comparePlayTimeTableDatas.push({
-          contentsName: item['contentsName'],
-          groupName: item['groupName'],
-          folderName: item['folderName'],
-          dates: date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()),
-          playTime: 0,
-          playCount: Math.floor((Math.random() * 10000)),
-          playRate: Math.floor((Math.random() * 100)),
-          averagePlayTime: 0,
+      this.chartService.getLists(this.cmsApi.byPlayTimeResultTable + 'ft_seq=' + item.ft_seq + '&sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+        .then((val) => {
+          const length = val['detail']['data'].length;
+          for (let i = 0 ; i < length ; i += 1) {
+            const date = new Date(val['detail']['label'][i]);
+            this.comparePlayTimeTableDatas.push({
+              contentsName: val['content'],
+              groupName: val['group'],
+              folderName: val['category'],
+              dates: date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()),
+              playTime: 0,
+              playCount: val['detail']['data'][i],
+              averagePlayTime: 0,
+            });
+          }
+          this.setCompareTableAverageData();
         });
-      });
     });
-    this.setCompareTableAverageData();
   }
 
   setCompareTableAverageData() {
@@ -251,7 +249,6 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
       contentsName: '',
       totalPlayTime: 0,
       totalPlayCount: 0,
-      totalPlayRate: 0,
       totalAveragePlayTime: 0,
     };
     this.compareSectionTotalData = [];
@@ -260,7 +257,6 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
       tempTotal['contentsName'] = item['contentsName'];
       tempTotal['totalPlayTime'] += item['playTime'];
       tempTotal['totalPlayCount'] += item['playCount'];
-      tempTotal['totalPlayRate'] += item['playRate'];
       tempTotal['totalAveragePlayTime'] += item['averagePlayTime'];
     });
     this.compareSectionTotalData.push(tempTotal);
@@ -268,7 +264,6 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
       contentsName: '',
       totalPlayTime: 0,
       totalPlayCount: 0,
-      totalPlayRate: 0,
       totalAveragePlayTime: 0,
     };
     if (second.length) {
@@ -276,7 +271,6 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
         tempTotal['contentsName'] = item['contentsName'];
         tempTotal['totalPlayTime'] += item['playTime'];
         tempTotal['totalPlayCount'] += item['playCount'];
-        tempTotal['totalPlayRate'] += item['playRate'];
         tempTotal['totalAveragePlayTime'] += item['averagePlayTime'];
       });
       this.compareSectionTotalData.push(tempTotal);
@@ -284,7 +278,6 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
         contentsName: '',
         totalPlayTime: 0,
         totalPlayCount: 0,
-        totalPlayRate: 0,
         totalAveragePlayTime: 0,
       };
     }
@@ -293,7 +286,6 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
         tempTotal['contentsName'] = item['contentsName'];
         tempTotal['totalPlayTime'] += item['playTime'];
         tempTotal['totalPlayCount'] += item['playCount'];
-        tempTotal['totalPlayRate'] += item['playRate'];
         tempTotal['totalAveragePlayTime'] += item['averagePlayTime'];
       });
       this.compareSectionTotalData.push(tempTotal);
@@ -312,6 +304,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     }
     this.tempCompareItems = this.compareItems;
     this.setCompareChartData();
+    this.setCompareTableData();
   }
 
   setTableIndex(e:any) {

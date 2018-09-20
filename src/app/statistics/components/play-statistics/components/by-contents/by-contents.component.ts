@@ -25,7 +25,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
     { header: '카테고리', field: 'category' },
     { header: '파일명', field: 'content' },
     { header: '재생수', field: 'playCount' },
-    { header: '등록일', field: 'updateDate' },
+    { header: '등록일', field: 'regdate' },
   ];
   /*table data*/
   public contentsStatisticsLists:any[] = [];
@@ -64,17 +64,15 @@ export class ByContentsComponent implements OnInit, OnChanges {
   setTableData() {
     this.contentsStatisticsLists = [];
     this.chartService.getLists(this.cmsApi.byContentsTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
-      .then((list) => {
-        list['list'].sort((a, b) => {
-          return (a.playCount > b.playCount) ? -1 : ((b.playCount > a.playCount) ? 1 : 0);
-        });
+      .then((data) => {
+        const list = data['list'] === null ? [] : data['list'];
         let i = 1;
-        const rankingArray:any[] = list['list'].map((item) => {
+        const setRankingProperty:any[] = list.map((item) => {
           item.ranking = i;
           i += 1;
           return item;
         });
-        this.contentsStatisticsLists = rankingArray;
+        this.contentsStatisticsLists = setRankingProperty;
         this.setTotalData();
       });
   }
