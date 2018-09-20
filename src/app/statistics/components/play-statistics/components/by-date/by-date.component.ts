@@ -50,6 +50,7 @@ export class ByDateComponent implements OnInit, OnChanges {
   }
 
   setChartType() {
+    this.chartType = 'line';
     const lineType = document.getElementById('line-type');
     const pieType = document.getElementById('pie-type');
     lineType.setAttribute('class', 'on changeType');

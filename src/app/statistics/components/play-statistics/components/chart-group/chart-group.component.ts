@@ -37,38 +37,65 @@ export class ChartGroupComponent implements OnInit, OnChanges {
           backgroundColor: tempBackground,
         }],
     };
-    this.chartOptions = {
-      responsive: false,
-      legend: {
-        position: 'bottom',
-        onClick: null,
-      },
-      scales: {
-        xAxes: [{
-          ticks: {
-            autoSkip: false,
-            callback: (value) => {
-              if (value.length > 10) {
-                return value.substr(0, 10) + '...'; // truncate
-              }
-              return value;
-            },
-          },
-        }],
-      },
-      tooltips: {
-        callbacks: {
-          title: (tooltipItem, chartData) => {
-            return chartData.labels[tooltipItem[0]['index']];
-          }
-        }
-      },
-      elements: {
-        line: {
-          tension: 0,
+    if (this.chartType === 'pie') {
+      this.chartOptions = {
+        responsive: false,
+        legend: {
+          position: 'bottom',
+          onClick: null,
         },
-      },
-    };
+        scales: {
+          xAxes: [{
+            display: false,
+          }],
+        },
+        tooltips: {
+          callbacks: {
+            title: (tooltipItem, chartData) => {
+              return chartData.labels[tooltipItem[0]['index']];
+            }
+          }
+        },
+        elements: {
+          line: {
+            tension: 0,
+          },
+        },
+      };
+    } else {
+      this.chartOptions = {
+        responsive: false,
+        legend: {
+          position: 'bottom',
+          onClick: null,
+        },
+        scales: {
+          xAxes: [{
+            ticks: {
+              autoSkip: false,
+              callback: (value) => {
+                if (value.length > 10) {
+                  return value.substr(0, 10) + '...'; // truncate
+                }
+                return value;
+              },
+            },
+          }],
+        },
+        tooltips: {
+          callbacks: {
+            title: (tooltipItem, chartData) => {
+              return chartData.labels[tooltipItem[0]['index']];
+            }
+          }
+        },
+        elements: {
+          line: {
+            tension: 0,
+          },
+        },
+      };
+    }
   }
 
   setBackgroundColor() {

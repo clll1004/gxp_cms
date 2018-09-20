@@ -44,6 +44,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
   }
 
   setChartType() {
+    this.chartType = 'bar';
     const barType = document.getElementById('bar-type');
     const pieType = document.getElementById('pie-type');
     barType.setAttribute('class', 'on changeType');
