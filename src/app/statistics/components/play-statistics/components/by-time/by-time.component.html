@@ -7,7 +7,7 @@
       <h3 class="margin-bottom-20 time-table-title">
         {{ timeTableTitle[i] }}
       </h3>
-      <p-table [id]="'timeTable' + i" [value]="timeStatisticsLists[i]" [columns]="timeStatisticsCols" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]">
+      <p-table [id]="'timeTable' + i" [value]="timeStatisticsLists[i]" [columns]="timeStatisticsCols">
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th *ngFor="let col of columns" [pSortableColumn]="col.field">

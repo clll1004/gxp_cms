@@ -80,3 +80,9 @@ tr td {
   font-weight:bold;
   color: #777;
 }
+
+.multiSelectDurationContainer {
+  display: inline-block;
+  width: 280px;
+  vertical-align: top;
+}
