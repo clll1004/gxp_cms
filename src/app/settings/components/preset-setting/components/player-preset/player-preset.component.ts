@@ -85,10 +85,10 @@ export class PlayerPresetComponent implements OnInit {
         const valueObject = {};
         this.submitted = true;
 
+        valueObject['cus_seq'] = this.userSeq;
         this.playerPresetKeys.forEach((key) => {
           valueObject[key] = value[key] ? 'Y' : 'N';
         });
-        console.log(valueObject);
 
         this.settingsService.updateData(this.cmsApi.playerPreset, valueObject)
           .toPromise()
