@@ -144,11 +144,20 @@ export class ByTimeComponent implements OnInit, OnChanges {
   foldingTable(btnId, tableId) {
     const btn = <HTMLElement>document.getElementById(btnId);
     const table = <HTMLElement>document.getElementById(tableId).children[0].children[0].children[0].children[2];
+    const length = table.children.length;
     if (btn.innerHTML === '접기 &gt;') {
-      table.style.display = 'none';
+      for (let i = 0 ; i < length ; i += 1) {
+        if (i > 2) {
+          table.children[i]['style'].display = 'none';
+        }
+      }
       btn.innerText = '펼치기 >';
     } else {
-      table.style.display = 'table-row-group';
+      for (let i = 0 ; i < length ; i += 1) {
+        if (i > 2) {
+          table.children[i]['style'].display = 'table-row';
+        }
+      }
       btn.innerText = '접기 >';
     }
   }
