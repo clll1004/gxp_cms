@@ -440,3 +440,12 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .border-0 {border: 0;}
 .search-result {font-size:13px; color: #f52727;}
 .info-txt {font-size: 14px; color: #666;}
+
+button {
+    border-radius: 0 !important;
+    font-size: 14px;
+    font-weight: bold;
+}
+.ui-corner-all {
+    border-radius: 0 !important;
+}
