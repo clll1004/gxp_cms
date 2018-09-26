@@ -25,7 +25,7 @@ export class FolderPickerComponent implements OnInit {
       .then((cont) => {
         cont['list'].unshift({
           key: '',
-          value: '선택해주세요',
+          value: '카테고리 선택',
         });
         this.folderArray = cont['list'].map((item) => {
           const temp:object = {};

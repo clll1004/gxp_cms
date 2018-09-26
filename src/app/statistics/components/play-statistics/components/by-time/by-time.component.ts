@@ -16,7 +16,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
   @Input() pathName:string;
   @Input() multiSelectDuration:any[];
 
-  public selectFolder:object = { label:'선택해주세요', value: null };
+  public selectFolder:object = { label:'카테고리 선택', value: null };
   public searchKey:string = '';
 
   public chartType: string = 'line';

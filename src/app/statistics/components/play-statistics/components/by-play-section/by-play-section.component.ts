@@ -15,7 +15,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
 
-  public selectFolder:object = { label:'선택해주세요', value: '' };
+  public selectFolder:object = { label:'카테고리 선택', value: null };
   public searchKey:string = '';
   public searchCount:number = 0;
 
