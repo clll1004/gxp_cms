@@ -28,7 +28,7 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
     { header: '날짜', field: 'date' },
     { header: '원본 파일', field: 'fileOriSize' },
     { header: '트랜스코딩 파일', field: 'fileSize' },
-    { header: '총합', field: 'fileCnt' },
+    { header: '총합', field: 'totalSize' },
   ];
   /*table data*/
   public storageAnalysisLists: any[] = [];
@@ -99,6 +99,9 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
     this.chartService.getLists(this.cmsApi.byStorageTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
       .then((data) => {
         const list = data['list'] === null ? [] : data['list'];
+        list.forEach((item) => {
+          item['totalSize'] = item.fileOriSize + item.fileSize;
+        });
         this.storageAnalysisLists = list;
         this.setTotalData();
       });
@@ -113,7 +116,7 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
     this.storageAnalysisLists.forEach((item) => {
       this.totalData['totalOriginStorage'] += item['fileOriSize'];
       this.totalData['totalTransCodingStorage'] += item['fileSize'];
-      this.totalData['totalStorage'] += item['fileCnt'];
     });
+    this.totalData['totalStorage'] = this.totalData['totalOriginStorage'] + this.totalData['totalTransCodingStorage'];
   }
 }

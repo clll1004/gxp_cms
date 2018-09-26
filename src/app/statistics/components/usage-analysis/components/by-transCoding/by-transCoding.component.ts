@@ -2,26 +2,27 @@
  * Created by GRE511 on 2018-09-10.
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChartService } from '../../../../../services/apis/cms/chart/chart.service';
+import { CmsApis } from '../../../../../services/apis/apis';
 
 @Component({
   selector: 'by-transCoding',
   templateUrl: './by-transCoding.component.html',
-  styleUrls: ['../../usage-analysis.component.css']})
+  styleUrls: ['../../usage-analysis.component.css'],
+  providers: [CmsApis, ChartService]})
 
 export class ByTransCodingComponent implements OnInit, OnChanges {
   @Input() selectDuration;
   public chartLabels: any[] = [];
-  public chartData: any[] = [];
   public chartDataSet: object;
   public chartOptions: any;
-  public dateArray:any[] = [];
   public backgroundColors:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0'];
 
   /*table cols*/
   public transCodingAnalysisCols: any[] = [
     { header: '날짜', field: 'date' },
-    { header: '트랜스코딩', field: 'transCoding' },
-    { header: '콘텐츠 등록 수', field: 'contentsCount' },
+    { header: '트랜스코딩', field: 'fileSize' },
+    { header: '콘텐츠 등록 수', field: 'fileCnt' },
   ];
   /*table data*/
   public transCodingAnalysisLists: any[] = [];
@@ -31,7 +32,7 @@ export class ByTransCodingComponent implements OnInit, OnChanges {
     totalContentsCount: 0,
   };
 
-  constructor() {}
+  constructor(private cmsApi: CmsApis, private chartService: ChartService) {}
 
   ngOnInit() {}
 
@@ -42,38 +43,27 @@ export class ByTransCodingComponent implements OnInit, OnChanges {
 
   setChartData() {
     this.chartLabels = [];
-    this.chartData = [];
-    const startDate = new Date(this.selectDuration.date[0]);
-    const endDate = new Date(this.selectDuration.date[1]);
 
-    this.dateArray = this.getDateArray(startDate, endDate);
-    const transCodingTemp:any[] = [];
-    const contentsCountTemp:any[] = [];
-    this.dateArray.forEach((item) => {
-      const transCodingRandom = Math.floor(Math.random() * 10000);
-      const contentsCountRandom = Math.floor(Math.random() * 10000);
-      this.chartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
-      transCodingTemp.push(transCodingRandom);
-      contentsCountTemp.push(contentsCountRandom);
-    });
-    this.chartData.push(transCodingTemp);
-    this.chartData.push(contentsCountTemp);
-
-    const tempBackground:any = this.setBackgroundColor();
-    this.chartDataSet = {
-      labels: this.chartLabels,
-      datasets: [
-        {
-          label: '트랜스코딩',
-          data: this.chartData[0],
-          backgroundColor: tempBackground,
-        }],
-    };
-    this.chartOptions = {
-      legend: {
-        display: false,
-      },
-    };
+    this.chartService.getLists(this.cmsApi.byStorageChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
+        this.chartLabels = list['labels'].map((item) => {
+          const temp = new Date(item);
+          return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));
+        });
+        const tempBackground:any = this.setBackgroundColor();
+        list.datasets[1].backgroundColor = tempBackground;
+        this.chartDataSet = {
+          labels: this.chartLabels,
+          datasets: [
+            list.datasets[1],
+          ],
+        };
+        this.chartOptions = {
+          legend: {
+            display: false,
+          },
+        };
+      });
   }
 
   setBackgroundColor() {
@@ -95,31 +85,14 @@ export class ByTransCodingComponent implements OnInit, OnChanges {
     return tempBackground;
   }
 
-  getDateArray(startDate, endDate) {
-    const dateArray:any[] = [];
-    const currentDate = startDate;
-    while (currentDate <= endDate) {
-      dateArray.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-    return dateArray;
-  }
-
   setTableData() {
     this.transCodingAnalysisLists = [];
-    let i = 0;
-    this.dateArray.forEach((item) => {
-      this.transCodingAnalysisLists.push(
-        {
-          date: item.getFullYear() + '-' + ((item.getMonth() + 1) < 10 ? '0' + (item.getMonth() + 1) : (item.getMonth() + 1)) + '-' + (item.getDate() < 10 ? '0' + item.getDate() : item.getDate()),
-          transCoding: this.chartData[0][i],
-          contentsCount: this.chartData[1][i],
-        },
-      );
-      i += 1;
-    });
-    this.transCodingAnalysisLists.reverse();
-    this.setTotalData();
+    this.chartService.getLists(this.cmsApi.byStorageTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((data) => {
+        const list = data['list'] === null ? [] : data['list'];
+        this.transCodingAnalysisLists = list;
+        this.setTotalData();
+      });
   }
 
   setTotalData() {
@@ -129,8 +102,8 @@ export class ByTransCodingComponent implements OnInit, OnChanges {
       totalContentsCount: 0,
     };
     this.transCodingAnalysisLists.forEach((item) => {
-      this.totalData['totalTransCoding'] += item['transCoding'];
-      this.totalData['tableTotalContentsCount'] += item['contentsCount'];
+      this.totalData['totalTransCoding'] += item['fileSize'];
+      this.totalData['tableTotalContentsCount'] += item['fileCnt'];
     });
   }
 }
