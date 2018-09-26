@@ -91,7 +91,7 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
             }],
           },
         };
-      };
+      });
   }
 
   setTableData() {

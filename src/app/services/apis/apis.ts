@@ -65,6 +65,9 @@ export class CmsApis {
   public byStorageChart = '';
   public byStorageTable = '';
 
+  /**** Player Preset ****/
+  public playerPreset = '';
+
   constructor() {
     if (process.env.NODE_ENV === 'development') {
       this.domain = 'http://183.110.11.49/';
@@ -128,5 +131,8 @@ export class CmsApis {
     /**** Usage Analysis ****/
     this.byStorageChart = this.domain + 'cms/chart/usedstoragedata?';
     this.byStorageTable = this.domain + 'cms/chart/usedstoragelist?';
+
+    /**** Player Preset ****/
+    this.playerPreset = this.domain + 'cms/setting/preset';
   }
 }

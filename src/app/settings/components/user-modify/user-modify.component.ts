@@ -66,6 +66,8 @@ export class UserModifyComponent implements OnInit {
       .toPromise()
       .then(() => {
         this.isShowMessage = true;
+        this.submitted = false;
+        this.loadUserInfo();
       })
       .catch((error) => {
         console.log(error);
