@@ -13,37 +13,28 @@ import { DashboardService } from '../services/apis/cms/dashboard/dashboard.servi
 
 export class HomeComponent implements OnInit {
   /*pie chart test*/
-  public pieChartLabels:any[] = ['현재 사용량', '남은 용량'];
-  public pieChartData:any[] = [30, 70];
-  public chartDataSet:object;
   public chartOptions:object;
   public chartOptions2:object;
   public chartOptions3:object;
 
   public backgroundColors:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0', '#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0', '#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0', '#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0'];
 
+  /*GXP사용량*/
+  public gxpChartDataSet:object;
+  /*스토리지*/
+  public storageChartDataSet:object;
   /*날짜별*/
   public dateChartDataSet:object;
   /*시간별*/
   public timeChartDataSet:object;
   /*콘텐츠*/
   public contentsChartDataSet:object;
-  /*콘텐츠*/
+  /*카테고리*/
   public categoryChartDataSet:object;
 
   constructor(private cmsApi: CmsApis, private dashboardService: DashboardService) { }
 
   ngOnInit() {
-    this.chartDataSet = {
-      labels: this.pieChartLabels,
-      datasets: [
-        {
-          label: '재생수',
-          data: this.pieChartData,
-          backgroundColor: ['#ffcdd2', '#e1bee7'],
-        }],
-    };
-
     this.chartOptions = {
       legend: {
         position: 'top',
@@ -66,10 +57,46 @@ export class HomeComponent implements OnInit {
         }],
       },
     };
+    this.loadGXPChart();
+    this.loadStorageChart();
     this.loadDateChart();
     this.loadTimeChart();
     this.loadContentsChart();
     this.loadCategoryChart();
+  }
+
+  loadGXPChart() {
+    this.dashboardService.getLists(this.cmsApi.gxpDashboard)
+      .toPromise()
+      .then((cont:object) => {
+        const list = JSON.parse(cont['_body']);
+        this.gxpChartDataSet = {
+          labels: list['label'],
+          datasets: [{
+            label: '사용량',
+            data: list['data'],
+            fill: true,
+            backgroundColor: ['#ffcdd2', '#e1bee7'],
+          }],
+        };
+      });
+  }
+
+  loadStorageChart() {
+    this.dashboardService.getLists(this.cmsApi.storageDashboard)
+      .toPromise()
+      .then((cont:object) => {
+        const list = JSON.parse(cont['_body']);
+        this.storageChartDataSet = {
+          labels: list['label'],
+          datasets: [{
+            label: '사용량',
+            data: list['data'],
+            fill: true,
+            backgroundColor: ['#ffcdd2', '#e1bee7'],
+          }],
+        };
+      });
   }
 
   loadDateChart() {

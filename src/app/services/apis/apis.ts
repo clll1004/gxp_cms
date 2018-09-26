@@ -107,6 +107,8 @@ export class CmsApis {
     this.updatePassword = this.domain + 'cms/setting/user/password';
 
     /**** Dashboard ****/
+    this.gxpDashboard = this.domain + 'cms/dashboard/used';
+    this.storageDashboard = this.domain + 'cms/dashboard/storage';
     this.dateDashboard = this.domain + 'cms/dashboard/playcntdate';
     this.timeDashboard = this.domain + 'cms/dashboard/playcnttime';
     this.contentsDashboard = this.domain + 'cms/dashboard/playcntcontent';
