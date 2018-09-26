@@ -2,11 +2,14 @@
  * Created by GRE511 on 2018-09-07.
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChartService } from '../../../../../services/apis/cms/chart/chart.service';
+import { CmsApis } from '../../../../../services/apis/apis';
 
 @Component({
   selector: 'by-usage-storage',
   templateUrl: './by-usage-storage.component.html',
-  styleUrls: ['../../usage-analysis.component.css']})
+  styleUrls: ['../../usage-analysis.component.css'],
+  providers: [CmsApis, ChartService]})
 
 export class ByUsageStorageComponent implements OnInit, OnChanges {
   @Input() selectDuration;
@@ -15,19 +18,17 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
   public pieChartDataSet: object;
   public pieChartOptions: object;
   public barChartLabels: any[] = [];
-  public barChartData: any[] = [];
   public barChartDataSet: object;
   public barChartOptions: object;
 
-  public dateArray:any[] = [];
   public backgroundColors:any[] = ['#ffcdd2', '#e1bee7'];
 
   /*table cols*/
   public storageAnalysisCols: any[] = [
     { header: '날짜', field: 'date' },
-    { header: '원본 파일', field: 'originStorage' },
-    { header: '트랜스코딩 파일', field: 'transCodingStorage' },
-    { header: '총합', field: 'fileTotalStorage' },
+    { header: '원본 파일', field: 'fileOriSize' },
+    { header: '트랜스코딩 파일', field: 'fileSize' },
+    { header: '총합', field: 'fileCnt' },
   ];
   /*table data*/
   public storageAnalysisLists: any[] = [];
@@ -37,7 +38,7 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
     totalStorage: 0,
   };
 
-  constructor() {}
+  constructor(private cmsApi: CmsApis, private chartService: ChartService) {}
 
   ngOnInit() {}
 
@@ -47,27 +48,6 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
   }
 
   setChartData() {
-    this.barChartLabels = [];
-    this.barChartData = [];
-    const startDate = new Date(this.selectDuration.date[0]);
-    const endDate = new Date(this.selectDuration.date[1]);
-    this.dateArray = this.getDateArray(startDate, endDate);
-    const originTemp:any[] = [];
-    const transTemp:any[] = [];
-    const totalTemp:any[] = [];
-    this.dateArray.forEach((item) => {
-      const originRandom = Math.floor(Math.random() * 100);
-      const transRandom = Math.floor(Math.random() * 100);
-      const total = originRandom + transRandom;
-      this.barChartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
-      originTemp.push(originRandom);
-      transTemp.push(transRandom);
-      totalTemp.push(total);
-    });
-    this.barChartData.push(originTemp);
-    this.barChartData.push(transTemp);
-    this.barChartData.push(totalTemp);
-
     this.pieChartDataSet = {
       labels: this.pieChartLabels,
       datasets: [
@@ -82,62 +62,46 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
         position: 'bottom',
       },
     };
-    this.barChartDataSet = {
-      labels: this.barChartLabels,
-      datasets: [
-        {
-          label: '원본파일',
-          data: this.barChartData[0],
-          backgroundColor: this.backgroundColors[0],
-        },
-        {
-          label: '트랜스코딩 파일',
-          data: this.barChartData[1],
-          backgroundColor: this.backgroundColors[1],
-        },
-      ],
-    };
-    this.barChartOptions = {
-      legend: {
-        position: 'bottom',
-      },
-      scales: {
-        xAxes: [{
-          stacked: true,
-        }],
-        yAxes: [{
-          stacked: true,
-        }],
-      },
-    };
-  }
 
-  getDateArray(startDate, endDate) {
-    const dateArray:any[] = [];
-    const currentDate = startDate;
-    while (currentDate <= endDate) {
-      dateArray.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-    return dateArray;
+    this.chartService.getLists(this.cmsApi.byStorageChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
+        list.datasets[0].backgroundColor = this.backgroundColors[0];
+        list.datasets[1].backgroundColor = this.backgroundColors[1];
+        this.barChartLabels = list['labels'].map((item) => {
+          const temp = new Date(item);
+          return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));
+        });
+        this.barChartDataSet = {
+          labels: this.barChartLabels,
+          datasets: [
+            list.datasets[0],
+            list.datasets[1],
+          ],
+        };
+        this.barChartOptions = {
+          legend: {
+            position: 'bottom',
+          },
+          scales: {
+            xAxes: [{
+              stacked: true,
+            }],
+            yAxes: [{
+              stacked: true,
+            }],
+          },
+        };
+      };
   }
 
   setTableData() {
     this.storageAnalysisLists = [];
-    let i = 0;
-    this.dateArray.forEach((item) => {
-      this.storageAnalysisLists.push(
-        {
-          date: item.getFullYear() + '-' + ((item.getMonth() + 1) < 10 ? '0' + (item.getMonth() + 1) : (item.getMonth() + 1)) + '-' + (item.getDate() < 10 ? '0' + item.getDate() : item.getDate()),
-          originStorage: this.barChartData[0][i],
-          transCodingStorage: this.barChartData[1][i],
-          fileTotalStorage: this.barChartData[2][i],
-        },
-      );
-      i += 1;
-    });
-    this.storageAnalysisLists.reverse();
-    this.setTotalData();
+    this.chartService.getLists(this.cmsApi.byStorageTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((data) => {
+        const list = data['list'] === null ? [] : data['list'];
+        this.storageAnalysisLists = list;
+        this.setTotalData();
+      });
   }
 
   setTotalData() {
@@ -147,9 +111,9 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
       totalStorage: 0,
     };
     this.storageAnalysisLists.forEach((item) => {
-      this.totalData['totalOriginStorage'] += item['originStorage'];
-      this.totalData['totalTransCodingStorage'] += item['transCodingStorage'];
-      this.totalData['totalStorage'] += item['fileTotalStorage'];
+      this.totalData['totalOriginStorage'] += item['fileOriSize'];
+      this.totalData['totalTransCodingStorage'] += item['fileSize'];
+      this.totalData['totalStorage'] += item['fileCnt'];
     });
   }
 }

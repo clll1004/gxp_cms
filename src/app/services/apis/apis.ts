@@ -61,6 +61,10 @@ export class CmsApis {
   public byCategoryChart = '';
   public byCategoryTable = '';
 
+  /**** Usage Analysis ****/
+  public byStorageChart = '';
+  public byStorageTable = '';
+
   constructor() {
     if (process.env.NODE_ENV === 'development') {
       this.domain = 'http://183.110.11.49/';
@@ -120,5 +124,9 @@ export class CmsApis {
     this.byContentsTable = this.domain + 'cms/chart/playcontentlist?';
     this.byCategoryChart = this.domain + 'cms/chart/playcategorydata?';
     this.byCategoryTable = this.domain + 'cms/chart/playcategorylist?';
+
+    /**** Usage Analysis ****/
+    this.byStorageChart = this.domain + 'cms/chart/usedstoragedata?';
+    this.byStorageTable = this.domain + 'cms/chart/usedstoragelist?';
   }
 }

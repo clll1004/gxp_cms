@@ -1,7 +1,7 @@
 <div class="ui-g-12 ui-g-nopad margin-bottom-30">
   <div class="ui-g-12 ui-g-nopad margin-bottom-40 chart-container">
-    <div class="ui-g-6 ui-g-nopad padding-top-50 padding-left-50">
-      <p-chart [type]="'pie'" [data]="pieChartDataSet" [options]="pieChartOptions" width="350px" height="150px"></p-chart>
+    <div class="ui-g-6 ui-g-nopad padding-top-40 padding-left-50">
+      <p-chart [type]="'pie'" [data]="pieChartDataSet" [options]="pieChartOptions" width="400px" height="200px"></p-chart>
     </div>
     <div class="ui-g-6 ui-g-nopad">
       <p-chart [type]="'bar'" [data]="barChartDataSet" [options]="barChartOptions" width="100%" height="250px"></p-chart>
@@ -24,9 +24,9 @@
       <ng-template pTemplate="body" let-columns="columns" let-storageAnalysisList>
         <tr>
           <td> {{ storageAnalysisList['date'] }} </td>
-          <td> {{ storageAnalysisList['originStorage'] }} MB</td>
-          <td> {{ storageAnalysisList['transCodingStorage'] }} MB</td>
-          <td> {{ storageAnalysisList['fileTotalStorage'] }} MB</td>
+          <td> {{ storageAnalysisList['fileOriSize'] }} MB</td>
+          <td> {{ storageAnalysisList['fileSize'] }} MB</td>
+          <td> {{ storageAnalysisList['fileCnt'] }} MB</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="footer" let-columns="columns">
