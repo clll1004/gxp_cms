@@ -14,7 +14,10 @@ import { CmsApis } from '../../../../../services/apis/apis';
 export class ByDateComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
-  @Input() selectFolder;
+
+  public selectFolder:object = { label:'선택해주세요', value: '' };
+  public searchKey:string = '';
+  public searchCount:number = 0;
 
   public chartType: string = 'line';
   public chartLabels: any[] = [];
@@ -44,9 +47,16 @@ export class ByDateComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
+    document.getElementById('search-result')['style'].display = 'none';
+    this.searchKey = '';
+    this.searchCount = 0;
     this.setChartType();
     this.setChartData();
     this.setTableData();
+  }
+
+  updateChoiceFolder(e) {
+    this.selectFolder = e;
   }
 
   setChartType() {
@@ -113,5 +123,26 @@ export class ByDateComponent implements OnInit, OnChanges {
       e.currentTarget.setAttribute('class', 'changeType on');
       this.chartType = 'pie';
     }
+  }
+
+  search() {
+    this.chartService.getLists(this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
+      .then((list) => {
+        document.getElementById('search-result')['style'].display = 'inline-block';
+        if (list['label']) {
+          this.searchCount = list['label'].length;
+        }
+        this.chartLabels = list['label'].map((item) => {
+          const temp = new Date(item);
+          return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));
+        });
+        this.chartData = list['data'];
+      });
+    this.chartService.getLists(this.cmsApi.byDateTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
+      .then((list) => {
+        this.dateStatisticsLists = list['list'];
+        this.dateStatisticsLists.reverse();
+        this.setTotalData();
+      });
   }
 }

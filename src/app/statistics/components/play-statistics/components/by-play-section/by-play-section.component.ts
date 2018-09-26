@@ -14,7 +14,10 @@ import { CmsApis } from '../../../../../services/apis/apis';
 export class ByPlaySectionComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
-  @Input() selectFolder;
+
+  public selectFolder:object = { label:'선택해주세요', value: '' };
+  public searchKey:string = '';
+  public searchCount:number = 0;
 
   public isCompareStatus:boolean = false;
 
@@ -70,11 +73,18 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   ngOnInit() { }
 
   ngOnChanges() {
+    document.getElementById('search-result')['style'].display = 'none';
+    this.searchKey = '';
+    this.searchCount = 0;
     const startDate = new Date(this.selectDuration.date[0]);
     const endDate = new Date(this.selectDuration.date[1]);
     this.dateArray = this.getDateArray(startDate, endDate);
     this.initialize();
     this.setTableData();
+  }
+
+  updateChoiceFolder(e) {
+    this.selectFolder = e;
   }
 
   initialize() {
@@ -422,5 +432,36 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       item['no'] = i;
       i += 1;
     });
+  }
+
+  search() {
+    this.playSectionStatisticsDatas = [];
+    this.chartService.getLists(this.cmsApi.byPlaySectionTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
+      .then((list) => {
+        if (list['list']) {
+          document.getElementById('search-result')['style'].display = 'inline-block';
+          this.searchCount = list['list'].length;
+          const temp:any[] = [];
+          let i = 1;
+          list['list'].forEach((item) => {
+            temp.push({
+              no: i,
+              groupName: item.group,
+              folderName: item.category,
+              contentsName: item.contentsName,
+              duration: item.duration,
+              playTime: item.runtime,
+              playCount: item.playCount,
+              regdate: item.regdate,
+              ft_seq: item.ft_seq,
+            });
+            i += 1;
+          });
+          this.playSectionStatisticsDatas = temp;
+          this.tempCompareItems = [this.playSectionStatisticsDatas[0]];
+          this.compareItems = this.tempCompareItems;
+          this.showSingleResult();
+        }
+      });
   }
 }

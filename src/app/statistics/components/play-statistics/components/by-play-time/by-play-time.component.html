@@ -1,3 +1,19 @@
+<div class="ui-g-12 ui-g-nopad margin-bottom-30">
+  <folder-picker
+    class="margin-right-10"
+    [(ngModel)]="selectFolder"
+    (onSelect)="updateChoiceFolder($event)"
+    ngDefaultControl
+  ></folder-picker>
+
+  <div class="dp-inb">
+    <label for="search-key"></label><input type="text" class="margin-right-10" id="search-key" [(ngModel)]="searchKey" pInputText placeholder="검색어를 입력해주세요" autocomplete="off">
+    <button type="button" class="btn margin-right-10" (click)="search()"><i class="fas fa-search"></i> 검색</button>
+
+    <span class="search-result" id="search-result">총 {{searchCount}}개 검색되었습니다.</span>
+  </div>
+</div>
+
 <div class="ui-g-12 ui-g-nopad">
   <button class="margin-bottom-20" type="button" pButton label="다중비교" (click)="showCompareResult()" *ngIf="!isCompareStatus"></button>
   <button class="margin-bottom-20" type="button" pButton label="비교취소" (click)="showSingleResult()" *ngIf="isCompareStatus"></button>

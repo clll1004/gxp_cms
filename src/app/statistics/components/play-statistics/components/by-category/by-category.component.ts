@@ -14,7 +14,10 @@ import { CmsApis } from '../../../../../services/apis/apis';
 export class ByCategoryComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
-  @Input() selectFolder;
+
+  public selectFolder:object = { label:'선택해주세요', value: null };
+  public searchKey:string = '';
+  public searchCount:number = 0;
 
   public chartType: string = 'bar';
   public chartLabels: any[] = [];
@@ -41,9 +44,16 @@ export class ByCategoryComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
+    document.getElementById('search-result')['style'].display = 'none';
+    this.searchKey = '';
+    this.searchCount = 0;
     this.setChartType();
     this.setChartData();
     this.setTableData();
+  }
+
+  updateChoiceFolder(e) {
+    this.selectFolder = e;
   }
 
   setChartType() {
@@ -114,5 +124,32 @@ export class ByCategoryComponent implements OnInit, OnChanges {
       e.currentTarget.setAttribute('class', 'changeType on');
       this.chartType = 'pie';
     }
+  }
+
+  search() {
+    this.chartService.getLists(this.cmsApi.byCategoryChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
+      .then((list) => {
+        document.getElementById('search-result')['style'].display = 'inline-block';
+        if (list['label']) {
+          this.searchCount = list['label'].length;
+        }
+        this.chartLabels = list['label'];
+        this.chartData = list['data'];
+      });
+    this.chartService.getLists(this.cmsApi.byCategoryTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
+      .then((data) => {
+        const list = data['list'] === null ? [] : data['list'];
+        list.sort((a, b) => {
+          return (a.playCount > b.playCount) ? -1 : ((b.playCount > a.playCount) ? 1 : 0);
+        });
+        let i = 1;
+        const rankingArray:any[] = list.map((item) => {
+          item.ranking = i;
+          i += 1;
+          return item;
+        });
+        this.categoryStatisticsLists = rankingArray;
+        this.setTotalData();
+      });
   }
 }

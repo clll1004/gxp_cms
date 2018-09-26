@@ -15,7 +15,9 @@ import { CmsApis } from '../../../../../services/apis/apis';
 export class ByTimeComponent implements OnInit, OnChanges {
   @Input() pathName:string;
   @Input() multiSelectDuration:any[];
-  @Input() selectFolder:object;
+
+  public selectFolder:object = { label:'선택해주세요', value: null };
+  public searchKey:string = '';
 
   public chartType: string = 'line';
   public chartLabels: any[] = [];
@@ -46,9 +48,14 @@ export class ByTimeComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    this.searchKey = '';
     this.setChartType();
     this.setMultiChartData();
     this.setTableData();
+  }
+
+  updateChoiceFolder(e) {
+    this.selectFolder = e;
   }
 
   setMultiChartData() {
@@ -160,5 +167,64 @@ export class ByTimeComponent implements OnInit, OnChanges {
       }
       btn.innerText = '접기 >';
     }
+  }
+
+  search() {
+    const tempDataSets:any[] = [];
+    this.chartData = [];
+    let i:number = 0;
+    const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9', '#ffcdd2', '#e1bee7', '#c5cae9', '#ffcdd2', '#e1bee7', '#c5cae9', '#ffcdd2', '#e1bee7', '#c5cae9'];
+    this.multiSelectDuration.forEach((item) => {
+      this.chartService.getLists(this.cmsApi.byTimeChart + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
+        .then((list) => {
+          const tempLabel:any[] = list['label'].map((item) => {
+            return item + '시';
+          });
+          const tempData:any[] = [];
+          this.chartData.push(tempData);
+          tempDataSets.push(
+            {
+              label: this.datePipe.transform(item.selectDuration, 'MM-dd'),
+              data: list['data'],
+              fill: false,
+              borderColor: bdc[i],
+            });
+          i += 1;
+          this.multiChartData = {
+            labels: tempLabel,
+            datasets: tempDataSets,
+          };
+        });
+    });
+    this.chartOptions = {
+      legend: {
+        position: 'bottom',
+      },
+      elements: {
+        line: {
+          tension: 0,
+        },
+      },
+    };
+
+    this.durationLength = [];
+    this.timeTableTitle = [];
+    this.timeStatisticsLists = [];
+    i = 0;
+    this.multiSelectDuration.forEach((item) => {
+      this.durationLength.push(i);
+      this.timeTableTitle.push(this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'));
+      i += 1;
+
+      const tempLists:any[] = [];
+      this.chartService.getLists(this.cmsApi.byTimeTable + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
+        .then((list) => {
+          list['list'].forEach((item) => {
+            tempLists.push(item);
+          });
+          this.timeStatisticsLists.push(tempLists);
+          this.setTotalData(tempLists.length);
+        });
+    });
   }
 }

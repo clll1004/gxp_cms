@@ -22,8 +22,6 @@ export class PlayStatisticsComponent implements OnInit {
     contents: '콘텐츠 통계',
     category: '카테고리 통계'};
   public selectDuration:object = { };
-  public selectFolder:object = { label:'전체 폴더', value: 0 };
-  public searchKey:string = '';
 
   public isMultiSelectDuration:boolean = false;
   public durationCount:any[] = [0];
@@ -76,10 +74,6 @@ export class PlayStatisticsComponent implements OnInit {
       }];
     }
     this.multiSelectDuration = [...this.multiSelectDuration];
-  }
-
-  updateChoiceFolder(e) {
-    this.selectFolder = e;
   }
 
   upDurationCount() {

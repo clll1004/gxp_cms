@@ -439,8 +439,8 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .txt-right {text-align: right;}
 .txt-center {text-align: center;}
 .border-0 {border: 0;}
-.search-result {font-size:13px; color: #f52727;}
 .info-txt {font-size: 14px; color: #666;}
+.search-result {display: none; font-size:13px; color: #f52727;}
 
 button {
     border-radius: 0 !important;

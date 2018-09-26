@@ -2,24 +2,39 @@
  * Created by GRE511 on 2018-08-27.
  */
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { LoginService } from '../../../login/login.service';
+import { ChartService } from '../../../services/apis/cms/chart/chart.service';
+import { CmsApis } from '../../../services/apis/apis';
 
 @Component({
   selector: 'folder-picker',
-  templateUrl: 'folder-picker.component.html'})
+  templateUrl: 'folder-picker.component.html',
+  providers: [LoginService, ChartService, CmsApis]})
 
 export class FolderPickerComponent implements OnInit {
-  public folderArray: any[] = [
-    { label:'전체 폴더', value: 0 },
-    { label:'폴더1', value: 1 },
-    { label:'폴더2', value: 2 },
-  ];
+  public folderArray: any[] = [];
   public selectedFolder:any;
+  public userSeq:string = '';
   @Output() onSelect = new EventEmitter<Object>();
 
-  constructor() {
-  }
+  constructor(private loginService: LoginService, private chartService: ChartService, private cmsApi: CmsApis) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userSeq = this.loginService.getCookie('usr_seq');
+    this.chartService.getLists(this.cmsApi.loadCategoryKey + this.userSeq)
+      .then((cont) => {
+        cont['list'].unshift({
+          key: '',
+          value: '선택해주세요',
+        });
+        this.folderArray = cont['list'].map((item) => {
+          const temp:object = {};
+          temp['label'] = item.value;
+          temp['value'] = item.key;
+          return temp;
+        });
+      });
+  }
 
   changeSelectFolder() {
     let folderData:object;

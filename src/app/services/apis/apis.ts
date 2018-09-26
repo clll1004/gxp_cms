@@ -61,6 +61,10 @@ export class CmsApis {
   public byCategoryChart = '';
   public byCategoryTable = '';
 
+  /** search **/
+  public loadCategoryKey = '';
+  public searchStatistics = '';
+
   /**** Usage Analysis ****/
   public byStorageChart = '';
   public byStorageTable = '';
@@ -129,6 +133,9 @@ export class CmsApis {
     this.byContentsTable = this.domain + 'cms/chart/playcontentlist?';
     this.byCategoryChart = this.domain + 'cms/chart/playcategorydata?';
     this.byCategoryTable = this.domain + 'cms/chart/playcategorylist?';
+
+    /** search **/
+    this.loadCategoryKey = this.domain + 'cms/setting/user/category/';
 
     /**** Usage Analysis ****/
     this.byStorageChart = this.domain + 'cms/chart/usedstoragedata?';
