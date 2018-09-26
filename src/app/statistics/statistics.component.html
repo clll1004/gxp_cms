@@ -2,7 +2,7 @@
   <nav class="ui-g-12 ui-g-nopad lnb-sec">
     <ul class="border-lnb">
       <li (click)="showSubLnb($event)" id="dashboard"><a routerLink="/statistics/dashboard/db">대시보드</a></li>
-      <li class="has-sub" id="play-statistics" (click)="showSubLnb($event)">재생 통계 <i class="fas fa-angle-down"></i></li>
+      <li class="has-sub" id="play-statistics" (click)="showSubLnb($event)"><a routerLink="/statistics/play-statistics/date">재생 통계 <i class="fas fa-angle-down"></i></a></li>
       <ul class="sub-lnb">
         <li id="date" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/date">날짜별</a></li>
         <li id="time" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/time">시간별</a></li>
@@ -11,9 +11,8 @@
         <li id="contents" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/contents">콘텐츠 통계</a></li>
         <li id="category" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/category">카테고리 통계</a></li>
       </ul>
-      <li class="has-sub" id="usage-analysis" (click)="showSubLnb($event)">사용량 분석 <i class="fas fa-angle-down"></i></li><!---->
+      <li class="has-sub" id="usage-analysis" (click)="showSubLnb($event)"><a routerLink="/statistics/usage-analysis/storage">사용량 분석 <i class="fas fa-angle-down"></i></a></li>
       <ul class="sub-lnb">
-        <!--<li><a routerLink="/statistics/usage-analysis/traffic">트래픽</a></li>-->
         <li id="storage" (click)="isSubOn($event)"><a routerLink="/statistics/usage-analysis/storage">스토리지</a></li>
         <li id="gxp" (click)="isSubOn($event)"><a routerLink="/statistics/usage-analysis/gxp">GXP 사용량</a></li>
         <li id="trans-coding" (click)="isSubOn($event)"><a routerLink="/statistics/usage-analysis/trans-coding">트랜스코딩</a></li>
@@ -21,14 +20,6 @@
       <li id="visitor-statistics" (click)="showSubLnb($event)">
         <a routerLink="/statistics/visitor-statistics/analytics">방문자 통계</a>
       </li>
-      <!--<ul class="sub-lnb">-->
-        <!--<li><a routerLink="/statistics/visitor-statistics/visitor">방문자수</a></li>-->
-        <!--<li><a routerLink="/statistics/visitor-statistics/real-time">실시간 접속자 수</a></li>-->
-        <!--<li><a routerLink="/statistics/visitor-statistics/inflow-domain">유입 도메인</a></li>-->
-        <!--<li><a routerLink="/statistics/visitor-statistics/browser">브라우저</a></li>-->
-        <!--<li><a routerLink="/statistics/visitor-statistics/os">운영체제</a></li>-->
-        <!--<li><a routerLink="/statistics/visitor-statistics/device">디바이스</a></li>-->
-      <!--</ul>-->
     </ul>
   </nav>
 </div>

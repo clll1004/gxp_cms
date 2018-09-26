@@ -400,12 +400,13 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .list-sec ul li .list-title {padding: 10px; border-top: 1px solid #999; border-bottom: 1px solid #ddd; font-size: 14px; font-weight: normal;}
 
 /*lnb*/
-.lnb-sec ul li {height: 40px; line-height: 40px; padding: 0 20px; font-size: 14px; font-weight: bold; color: #666; cursor: pointer;}
+.lnb-sec ul li {height: 40px; line-height: 40px; font-size: 14px; font-weight: bold; color: #666; cursor: pointer;}
 .lnb-sec ul li:hover {background: #f8f8f8;}
-.lnb-sec ul li a {display: block;}
+.lnb-sec ul li a {display: block; height: 100%; padding: 0 20px;}
 .lnb-sec ul.border-lnb li {height: 50px; line-height: 50px; border-bottom: 1px solid #e5e5e5;}
 .lnb-sec ul.border-lnb li.has-sub {overflow: hidden;}
 .lnb-sec ul.border-lnb li.has-sub i {float: right; line-height: 50px;}
+.lnb-sec ul.border-lnb li.has-sub a { line-height: 50px; }
 
 /*sub lnb*/
 .lnb-sec ul.border-lnb li.has-sub.on {border-bottom: none;}
