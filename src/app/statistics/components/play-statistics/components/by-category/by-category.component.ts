@@ -90,7 +90,12 @@ export class ByCategoryComponent implements OnInit, OnChanges {
       totalContentsCount: 0,
       totalPlayCount: 0,
     };
+    const arr:any[] = [];
     this.categoryStatisticsLists.forEach((item) => {
+      if (arr.indexOf(item['category'])) {
+        arr.push(item['category']);
+        this.totalData['totalCategory'] += 1;
+      }
       this.totalData['totalContentsCount'] += item['contentsCount'];
       this.totalData['totalPlayCount'] += item['playCount'];
     });
