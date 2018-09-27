@@ -11,6 +11,11 @@
           <label for="setting" (click)="setPlayerPreset($event)">설정버튼</label>
           <label for="nextVideo" (click)="setPlayerPreset($event)">다음 영상</label>
           <label for="playbackRate" (click)="setPlayerPreset($event)">배속버튼</label>
+          <label for="loopPortion" (click)="setPlayerPreset($event)">구간반복</label>
+          <label for="fullscreen" (click)="setPlayerPreset($event)">전체화면</label>
+          <label for="cinemaMode" (click)="setPlayerPreset($event)">영화관화면</label>
+          <label for="quality" (click)="setPlayerPreset($event)">화질선택</label>
+          <label (click)="setPlayerPreset($event)">자막</label>
         </div>
         <div class="ui-g-8 ui-g-nopad player-view-area">
           <img src="../../../../../../assets/images/player-section.png" alt="default player view" id="defaultImg">
@@ -32,12 +37,6 @@
             <input type="checkbox" class="presetCheckbox" id="quality" formControlName="quality">
             <img src="../../../../../../assets/images/quality.png" alt="화질선택" id="qualityImg">
           </div>
-        </div>
-        <div class="ui-g-2 ui-g-nopad button-area">
-          <label for="loopPortion" (click)="setPlayerPreset($event)">구간반복</label>
-          <label for="fullscreen" (click)="setPlayerPreset($event)">전체화면</label>
-          <label for="cinemaMode" (click)="setPlayerPreset($event)">영화관화면</label>
-          <label for="quality" (click)="setPlayerPreset($event)">화질선택</label>
         </div>
         <div class="ui-g-12 ui-g-nopad margin-top-40 btn-sec">
           <button type="button" class="btn margin-right-10" (click)="resetPreset()"><i class="fas fa-history"></i> 초기화</button>
