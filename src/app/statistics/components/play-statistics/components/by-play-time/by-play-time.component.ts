@@ -95,7 +95,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   }
 
   setTableData(search:boolean) {
-    const api:string = '';
+    let api:string = '';
     if (!search) {
       api = this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
     } else {

@@ -62,7 +62,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
   }
 
   setChartData(search:boolean) {
-    const api:string = '';
+    let api:string = '';
     if (!search) {
       api = this.cmsApi.byContentsChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
     } else {
@@ -84,7 +84,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
   }
 
   setTableData(search:boolean) {
-    const api:string = '';
+    let api:string = '';
     if (!search) {
       api = this.cmsApi.byContentsTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
     } else {

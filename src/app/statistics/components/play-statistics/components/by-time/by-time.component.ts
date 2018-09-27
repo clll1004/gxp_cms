@@ -66,7 +66,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
 
     this.multiSelectDuration.forEach((item) => {
 
-      const api:string = '';
+      let api:string = '';
       if (!search) {
         api = this.cmsApi.byTimeChart + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd');
       } else {
@@ -124,7 +124,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
     this.timeStatisticsLists = [];
     let i = 0;
     this.multiSelectDuration.forEach((item) => {
-      const api:string = '';
+      let api:string = '';
       if (!search) {
         api = this.cmsApi.byTimeTable + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd');
       } else {
