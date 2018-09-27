@@ -451,3 +451,12 @@ button {
 .ui-corner-all {
     border-radius: 0 !important;
 }
+
+.ui-calendar .ui-inputtext {
+    padding: 7px 13px !important;
+    font-size: 12px !important;
+}
+.ui-chkbox-label {
+    font-weight: bold !important;
+    font-size: 12px !important;
+}
