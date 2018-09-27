@@ -24,14 +24,35 @@ export class SettingsComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private loginService: LoginService,
               private settingsService: SettingsService,
-              private cmsApi: CmsApis) {
-    this.activatedRoute.params.subscribe((params) => {
-      this.params = params;
-    });
-  }
+              private cmsApi: CmsApis) {}
 
   ngOnInit() {
     this.load();
+    this.activatedRoute.params.subscribe((params) => {
+      this.params = params;
+
+      this.lnbInit();
+    });
+  }
+
+  lnbInit() {
+    const lnb = document.getElementsByClassName('lnb-sec')[0].childNodes[0].childNodes;
+    [].forEach.call(lnb, (item) => {
+      if (item.getAttribute('class') === 'has-sub on') {
+        const next = item.nextSibling.childNodes;
+        next.forEach((subItem) => {
+          if (subItem.getAttribute('id') === this.params['sub-id']) {
+            subItem.setAttribute('class', 'on');
+          }
+        });
+      } else {
+        if (item.getAttribute('id') === this.params['id']) {
+          item.style.background = '#e9e9e9';
+        } else {
+          item.style.background = '#fff';
+        }
+      }
+    });
   }
 
   load() {
@@ -54,6 +75,7 @@ export class SettingsComponent implements OnInit {
         });
 
         this.groupList = <TreeNode[]> this.treeData;
+        this.selectGroup = this.groupList[0];
 
         this.treeStyle = document.getElementById('treeObject').children[0];
         this.treeStyle.style['border-left'] = '0';

@@ -40,6 +40,12 @@ export class StatisticsComponent implements OnInit {
           item.setAttribute('class', 'has-sub');
           item.children[0].children[0].setAttribute('class', 'fas fa-angle-down');
         }
+      } else {
+        if ((item.getAttribute('id') === this.params['id']) && (this.params['id'] === 'dashboard' || this.params['id'] === 'visitor-statistics')) {
+          item.style.background = '#e9e9e9';
+        } else {
+          item.style.background = '#fff';
+        }
       }
     });
   }
@@ -50,11 +56,18 @@ export class StatisticsComponent implements OnInit {
     const temp:any[] = target.parentNode.children;
     const length = temp.length;
 
+
     for (let i = 0 ; i < length ; i += 1) {
       if (temp[i].getAttribute('class') === 'has-sub' || temp[i].getAttribute('class') === 'has-sub on') {
         temp[i].setAttribute('class', 'has-sub');
         temp[i].children[0].children[0].setAttribute('class', 'fas fa-angle-down');
+      } else {
+        temp[i].style.background = '#fff';
       }
+    }
+
+    if (id === 'dashboard' || id === 'visitor-statistics') {
+      target.style.background = '#f3f3f3';
     }
 
     if (target.getAttribute('class') === 'has-sub') {

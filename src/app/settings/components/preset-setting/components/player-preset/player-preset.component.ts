@@ -55,7 +55,7 @@ export class PlayerPresetComponent implements OnInit {
         const labelButtons = document.getElementsByTagName('label');
         const checkBoxs = document.getElementsByClassName('presetCheckbox');
         let i = 0;
-        [].forEach.call(labelButtons, (item) => {
+        [].forEach.call(labelButtons, (item:HTMLElement) => {
           if (item.getAttribute('for') === checkBoxs[i].getAttribute('id')) {
             checkBoxs[i]['checked'] ? item.setAttribute('class', 'on') : item.setAttribute('class', '');
           }

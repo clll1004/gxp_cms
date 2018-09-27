@@ -24,6 +24,19 @@ export class TranscodingComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
       this.pageName = this.pagePath[this.params.id];
+
+      this.lnbInit();
+    });
+  }
+
+  lnbInit() {
+    const lnb = document.getElementsByClassName('lnb-sec')[0].childNodes[0].childNodes;
+    [].forEach.call(lnb, (item) => {
+      if (item.getAttribute('id') === this.params['id']) {
+        item.style.background = '#e9e9e9';
+      } else {
+        item.style.background = '#fff';
+      }
     });
   }
 

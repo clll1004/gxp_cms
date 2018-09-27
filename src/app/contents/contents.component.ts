@@ -111,6 +111,10 @@ export class ContentsComponent implements OnInit {
         this.groupList.forEach((item) => {
           item.expanded = true;
         });
+        if (this.groupList[0].children[0]) {
+          this.selectGroup = this.groupList[0].children[0];
+          this.loadFolder();
+        }
 
         this.treeStyle = document.getElementById('treeObject').children[0];
         this.treeStyle.style['border-left'] = '0';
