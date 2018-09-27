@@ -50,21 +50,31 @@ export class ByTimeComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.searchKey = '';
     this.setChartType();
-    this.setMultiChartData();
-    this.setTableData();
+    this.setMultiChartData(false);
+    this.setTableData(false);
   }
 
   updateChoiceFolder(e) {
     this.selectFolder = e;
   }
 
-  setMultiChartData() {
+  setMultiChartData(search:boolean) {
     const tempDataSets:any[] = [];
     let i:number = 0;
     const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9'];
     this.chartData = [];
+
     this.multiSelectDuration.forEach((item) => {
-      this.chartService.getLists(this.cmsApi.byTimeChart + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'))
+
+      const api:string = '';
+      if (!search) {
+        api = this.cmsApi.byTimeChart + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd');
+      } else {
+        api = this.cmsApi.byTimeChart + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&category=' +
+          (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+      }
+
+      this.chartService.getLists(api)
         .then((list) => {
           const tempLabel:any[] = list['label'].map((item) => {
             return item + '시';
@@ -108,18 +118,26 @@ export class ByTimeComponent implements OnInit, OnChanges {
     }
   }
 
-  setTableData() {
+  setTableData(search:boolean) {
     this.durationLength = [];
     this.timeTableTitle = [];
     this.timeStatisticsLists = [];
     let i = 0;
     this.multiSelectDuration.forEach((item) => {
+      const api:string = '';
+      if (!search) {
+        api = this.cmsApi.byTimeTable + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd');
+      } else {
+        api = this.cmsApi.byTimeTable + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&category=' +
+          (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+      }
+
       this.durationLength.push(i);
       this.timeTableTitle.push(this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'));
       i += 1;
 
       const tempLists:any[] = [];
-      this.chartService.getLists(this.cmsApi.byTimeTable + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'))
+      this.chartService.getLists(api)
         .then((list) => {
           list['list'].forEach((item) => {
             tempLists.push(item);
@@ -170,61 +188,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
   }
 
   search() {
-    const tempDataSets:any[] = [];
-    this.chartData = [];
-    let i:number = 0;
-    const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9', '#ffcdd2', '#e1bee7', '#c5cae9', '#ffcdd2', '#e1bee7', '#c5cae9', '#ffcdd2', '#e1bee7', '#c5cae9'];
-    this.multiSelectDuration.forEach((item) => {
-      this.chartService.getLists(this.cmsApi.byTimeChart + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
-        .then((list) => {
-          const tempLabel:any[] = list['label'].map((item) => {
-            return item + '시';
-          });
-          const tempData:any[] = [];
-          this.chartData.push(tempData);
-          tempDataSets.push(
-            {
-              label: this.datePipe.transform(item.selectDuration, 'MM-dd'),
-              data: list['data'],
-              fill: false,
-              borderColor: bdc[i],
-            });
-          i += 1;
-          this.multiChartData = {
-            labels: tempLabel,
-            datasets: tempDataSets,
-          };
-        });
-    });
-    this.chartOptions = {
-      legend: {
-        position: 'bottom',
-      },
-      elements: {
-        line: {
-          tension: 0,
-        },
-      },
-    };
-
-    this.durationLength = [];
-    this.timeTableTitle = [];
-    this.timeStatisticsLists = [];
-    i = 0;
-    this.multiSelectDuration.forEach((item) => {
-      this.durationLength.push(i);
-      this.timeTableTitle.push(this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'));
-      i += 1;
-
-      const tempLists:any[] = [];
-      this.chartService.getLists(this.cmsApi.byTimeTable + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
-        .then((list) => {
-          list['list'].forEach((item) => {
-            tempLists.push(item);
-          });
-          this.timeStatisticsLists.push(tempLists);
-          this.setTotalData(tempLists.length);
-        });
-    });
+    this.setMultiChartData(true);
+    this.setTableData(true);
   }
 }

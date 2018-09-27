@@ -77,7 +77,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     const endDate = new Date(this.selectDuration.date[1]);
     this.dateArray = this.getDateArray(startDate, endDate);
     this.initialize();
-    this.setTableData();
+    this.setTableData(false);
   }
 
   updateChoiceFolder(e) {
@@ -94,10 +94,17 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     this.compareSectionTotalData = [];
   }
 
-  setTableData() {
+  setTableData(search:boolean) {
+    const api:string = '';
+    if (!search) {
+      api = this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
+    } else {
+      api = this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] +
+        '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+    }
     this.playTimeStatisticsDatas = [];
 
-    this.chartService.getLists(this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+    this.chartService.getLists(api)
       .then((list) => {
         if (list['list']) {
           const temp:any[] = [];
@@ -119,6 +126,12 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
           this.playTimeStatisticsDatas = temp;
           this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
           this.compareItems = this.tempCompareItems;
+
+          if (search) {
+            document.getElementById('search-result')['style'].display = 'inline-block';
+            this.searchCount = list['list'].length;
+          }
+
           this.showSingleResult();
         }
       });
@@ -344,33 +357,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   }
 
   search() {
-    this.playTimeStatisticsDatas = [];
-    this.chartService.getLists(this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
-      .then((list) => {
-        if (list['list']) {
-          document.getElementById('search-result')['style'].display = 'inline-block';
-          this.searchCount = list['list'].length;
-          const temp:any[] = [];
-          let i = 1;
-          list['list'].forEach((item) => {
-            temp.push({
-              no: i,
-              groupName: item.group,
-              contentsName: item.content,
-              duration: item.duration,
-              playTime: item.runtime,
-              playCount: item.playCount,
-              averagePlayTime: item.avgPlaytime,
-              regdate: item.regdate,
-              ft_seq: item.ft_seq,
-            });
-            i += 1;
-          });
-          this.playTimeStatisticsDatas = temp;
-          this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
-          this.compareItems = this.tempCompareItems;
-          this.showSingleResult();
-        }
-      });
+    this.initialize();
+    this.setTableData(true);
   }
 }

@@ -51,8 +51,8 @@ export class ByDateComponent implements OnInit, OnChanges {
     this.searchKey = '';
     this.searchCount = 0;
     this.setChartType();
-    this.setChartData();
-    this.setTableData();
+    this.setChartData(false);
+    this.setTableData(false);
   }
 
   updateChoiceFolder(e) {
@@ -67,24 +67,40 @@ export class ByDateComponent implements OnInit, OnChanges {
     pieType.setAttribute('class', 'changeType');
   }
 
-  setChartData() {
+  setChartData(search:boolean) {
+    const api:string = '';
+    if (!search) {
+      api = this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
+    } else {
+      api = this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+    }
     this.chartLabels = [];
     this.chartData = [];
 
-    this.chartService.getLists(this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+    this.chartService.getLists(api)
       .then((list) => {
         this.chartLabels = list['label'].map((item) => {
           const temp = new Date(item);
           return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));
         });
         this.chartData = list['data'];
+        if (search) {
+          document.getElementById('search-result')['style'].display = 'inline-block';
+          this.searchCount = list['label'].length;
+        }
       });
   }
 
-  setTableData() {
+  setTableData(search:boolean) {
+    const api:string = '';
+    if (!search) {
+      api = this.cmsApi.byDateTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
+    } else {
+      api = this.cmsApi.byDateTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value'])  + '&content_nm=' + this.searchKey;
+    }
     this.dateStatisticsLists = [];
 
-    this.chartService.getLists(this.cmsApi.byDateTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+    this.chartService.getLists(api)
       .then((list) => {
         this.dateStatisticsLists = list['list'];
         this.dateStatisticsLists.reverse();
@@ -126,23 +142,7 @@ export class ByDateComponent implements OnInit, OnChanges {
   }
 
   search() {
-    this.chartService.getLists(this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
-      .then((list) => {
-        document.getElementById('search-result')['style'].display = 'inline-block';
-        if (list['label']) {
-          this.searchCount = list['label'].length;
-        }
-        this.chartLabels = list['label'].map((item) => {
-          const temp = new Date(item);
-          return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));
-        });
-        this.chartData = list['data'];
-      });
-    this.chartService.getLists(this.cmsApi.byDateTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
-      .then((list) => {
-        this.dateStatisticsLists = list['list'];
-        this.dateStatisticsLists.reverse();
-        this.setTotalData();
-      });
+    this.setChartData(true);
+    this.setTableData(true);
   }
 }

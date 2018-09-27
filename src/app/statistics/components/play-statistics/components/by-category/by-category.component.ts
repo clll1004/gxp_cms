@@ -48,8 +48,8 @@ export class ByCategoryComponent implements OnInit, OnChanges {
     this.searchKey = '';
     this.searchCount = 0;
     this.setChartType();
-    this.setChartData();
-    this.setTableData();
+    this.setChartData(false);
+    this.setTableData(false);
   }
 
   updateChoiceFolder(e) {
@@ -64,20 +64,39 @@ export class ByCategoryComponent implements OnInit, OnChanges {
     pieType.setAttribute('class', 'changeType');
   }
 
-  setChartData() {
+  setChartData(search:boolean) {
+    const api:string = '';
+    if (!search) {
+      api = this.cmsApi.byCategoryChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
+    } else {
+      api = this.cmsApi.byCategoryChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] +
+        '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+    }
     this.chartLabels = [];
     this.chartData = [];
 
-    this.chartService.getLists(this.cmsApi.byCategoryChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+    this.chartService.getLists(api)
       .then((list) => {
         this.chartLabels = list['label'];
         this.chartData = list['data'];
+        if (search) {
+          document.getElementById('search-result')['style'].display = 'inline-block';
+          this.searchCount = list['label'].length;
+        }
       });
   }
 
-  setTableData() {
+  setTableData(search:boolean) {
+    const api:string = '';
+    if (!search) {
+      api = this.cmsApi.byCategoryTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
+    } else {
+      api = this.cmsApi.byCategoryTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] +
+        '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+    }
     this.categoryStatisticsLists = [];
-    this.chartService.getLists(this.cmsApi.byCategoryTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+
+    this.chartService.getLists(api)
       .then((data) => {
         const list = data['list'] === null ? [] : data['list'];
         list.sort((a, b) => {
@@ -127,29 +146,7 @@ export class ByCategoryComponent implements OnInit, OnChanges {
   }
 
   search() {
-    this.chartService.getLists(this.cmsApi.byCategoryChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
-      .then((list) => {
-        document.getElementById('search-result')['style'].display = 'inline-block';
-        if (list['label']) {
-          this.searchCount = list['label'].length;
-        }
-        this.chartLabels = list['label'];
-        this.chartData = list['data'];
-      });
-    this.chartService.getLists(this.cmsApi.byCategoryTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + this.selectFolder['value'] + '&content_nm=' + this.searchKey)
-      .then((data) => {
-        const list = data['list'] === null ? [] : data['list'];
-        list.sort((a, b) => {
-          return (a.playCount > b.playCount) ? -1 : ((b.playCount > a.playCount) ? 1 : 0);
-        });
-        let i = 1;
-        const rankingArray:any[] = list.map((item) => {
-          item.ranking = i;
-          i += 1;
-          return item;
-        });
-        this.categoryStatisticsLists = rankingArray;
-        this.setTotalData();
-      });
+    this.setChartData(true);
+    this.setTableData(true);
   }
 }
