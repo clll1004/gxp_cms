@@ -18,7 +18,7 @@
   <button class="margin-bottom-20" type="button" pButton label="다중비교" (click)="showCompareResult()" *ngIf="!isCompareStatus"></button>
   <button class="margin-bottom-20" type="button" pButton label="비교취소" (click)="showSingleResult()" *ngIf="isCompareStatus"></button>
   <div class="ui-g-12 ui-g-nopad margin-bottom-50">
-    <p-table #dt [columns]="playSectionStatisticsCols" [value]="playSectionStatisticsDatas" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" (sortFunction)="setTableIndex($event)" [customSort]="true">
+    <p-table #dt [columns]="playSectionStatisticsCols" [value]="playSectionStatisticsDatas" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" (sortFunction)="setTableIndex($event)" [customSort]="true">
       <ng-template pTemplate="caption">
         <div class="ui-helper-clearfix">
           <button type="button" pButton  label="다운로드" (click)="dt.exportCSV()" style="float:right"></button>

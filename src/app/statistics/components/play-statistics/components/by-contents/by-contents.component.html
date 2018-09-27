@@ -29,7 +29,7 @@
   </div>
 
   <div class="ui-g-12 ui-g-nopad">
-    <p-table #dt [columns]="contentsStatisticsCols" [value]="contentsStatisticsLists" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20, 50, 100]">
+    <p-table #dt [columns]="contentsStatisticsCols" [value]="contentsStatisticsLists" sortField="playCount" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20, 50, 100]">
       <ng-template pTemplate="caption">
         <div class="ui-helper-clearfix">
           <button type="button" pButton  label="다운로드" (click)="dt.exportCSV()" style="float:right"></button>

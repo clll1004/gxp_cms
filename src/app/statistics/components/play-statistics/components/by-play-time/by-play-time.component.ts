@@ -123,6 +123,9 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
             });
             i += 1;
           });
+          temp.sort((a, b) => {
+            return new Date(b.regdate).getTime() - new Date(a.regdate).getTime();
+          });
           this.playTimeStatisticsDatas = temp;
           this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
           this.compareItems = this.tempCompareItems;

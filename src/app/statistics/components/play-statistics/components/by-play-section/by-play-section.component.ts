@@ -137,6 +137,9 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
             });
             i += 1;
           });
+          temp.sort((a, b) => {
+            return new Date(b.regdate).getTime() - new Date(a.regdate).getTime();
+          });
           this.playSectionStatisticsDatas = temp;
           this.tempCompareItems = [this.playSectionStatisticsDatas[0]];
           this.compareItems = this.tempCompareItems;
