@@ -69,6 +69,10 @@ export class PlayerPresetComponent implements OnInit {
     target.getAttribute('class') === 'on' ? target.setAttribute('class', '') : target.setAttribute('class', 'on');
   }
 
+  refresh() {
+    window.location.reload();
+  }
+
   resetPreset() {
     this.confirmationService.confirm({
       message: '설정을 초기화하시겠습니까?',

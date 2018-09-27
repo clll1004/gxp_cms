@@ -26,4 +26,8 @@ export class TranscodingComponent implements OnInit {
       this.pageName = this.pagePath[this.params.id];
     });
   }
+
+  refresh() {
+    window.location.reload();
+  }
 }

@@ -1,6 +1,6 @@
 <div class="ui-g-12 ui-g-nopad content-sec">
   <div class="ui-g-12 ui-g-nopad page-title-sec">
-    <a routerLink="/home"><i class="fas fa-home"></i></a> > 설정 > 프리셋 설정 > <span class="path">플레이어 프리셋</span>
+    <a routerLink="/home"><i class="fas fa-home"></i></a> > <a routerLink="/settings/group-manager" (click)="refresh()">설정</a> > <span (click)="refresh()">프리셋 설정</span> > <span class="path" (click)="refresh()">플레이어 프리셋</span>
   </div>
   <p class="info-txt margin-bottom-20">클릭하여 삭제/추가 하실 수 있습니다.</p>
   <div class="ui-g-12 ui-g-nopad preset-container">

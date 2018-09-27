@@ -368,6 +368,7 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 
 /*페이지 타이틀*/
 .page-title-sec {margin: 20px 0 40px; box-sizing: border-box; font-size: 13px; color: #888;}
+.page-title-sec span {cursor: pointer;}
 .page-title-sec .path {color: #ff6400;}
 
 /*탭*/

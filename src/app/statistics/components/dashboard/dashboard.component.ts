@@ -73,6 +73,11 @@ export class DashboardComponent implements OnInit {
     this.loadContentsChart();
     this.loadCategoryChart();
   }
+
+  refresh() {
+    window.location.reload();
+  }
+
   loadGXPChart() {
     this.dashboardService.getLists(this.cmsApi.gxpDashboard)
       .toPromise()

@@ -73,4 +73,8 @@ export class UserModifyComponent implements OnInit {
         console.log(error);
       });
   }
+
+  refresh() {
+    window.location.reload();
+  }
 }

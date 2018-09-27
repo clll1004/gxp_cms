@@ -62,6 +62,10 @@ export class PlayStatisticsComponent implements OnInit {
     });
   }
 
+  refresh() {
+    window.location.reload();
+  }
+
   updateChoiceDuration(e) {
     this.selectDuration = e;
   }

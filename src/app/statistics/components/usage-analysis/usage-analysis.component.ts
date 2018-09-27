@@ -41,6 +41,10 @@ export class UsageAnalysisComponent implements OnInit {
     });
   }
 
+  refresh() {
+    window.location.reload();
+  }
+
   updateChoiceDuration(e) {
     this.selectDuration = e;
   }

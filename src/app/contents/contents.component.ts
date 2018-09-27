@@ -93,6 +93,10 @@ export class ContentsComponent implements OnInit {
     this.loadGroupList();
   }
 
+  refresh() {
+    window.location.reload();
+  }
+
   getGroupSeq() {
     this.groupSeq = this.loginService.getCookie('grp_seq');
   }

@@ -53,6 +53,10 @@ export class GroupMngComponent implements OnInit, OnChanges {
     this.loadGroupData();
   }
 
+  refresh() {
+    window.location.reload();
+  }
+
   loadGroupData() {
     this.settingsService.getLists(this.cmsApi.loadGroupMng + this.groupSeq)
       .toPromise()

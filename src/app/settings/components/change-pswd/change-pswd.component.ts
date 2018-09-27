@@ -72,4 +72,8 @@ export class ChangePswdComponent implements OnInit {
       usr_pw_cf: new FormControl(null, Validators.required) },
       { validator: PasswordFormValidator.checkPassword });
   }
+
+  refresh() {
+    window.location.reload();
+  }
 }
