@@ -87,7 +87,12 @@
     </div>
 
     <div class="ui-g-12 ui-g-nopad">
-      <p-table [value]="comparePlayTimeTableDatas" [columns]="compareResultHeaderCols">
+      <p-table  #rt [value]="comparePlayTimeTableDatas" [columns]="compareResultHeaderCols">
+        <ng-template pTemplate="caption">
+          <div class="ui-helper-clearfix">
+            <button type="button" pButton  label="다운로드" (click)="rt.exportCSV()" style="float:right"></button>
+          </div>
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th *ngFor="let col of columns">
