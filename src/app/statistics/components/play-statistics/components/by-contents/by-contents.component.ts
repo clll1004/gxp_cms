@@ -24,11 +24,11 @@ export class ByContentsComponent implements OnInit, OnChanges {
   public chartData: any[] = [];
   /*table cols*/
   public contentsStatisticsCols:any[] = [
-    { header: '순위', field: 'ranking' },
-    { header: '카테고리', field: 'category' },
-    { header: '파일명', field: 'content' },
-    { header: '재생수', field: 'playCount' },
-    { header: '등록일', field: 'regdate' },
+    { header: '순위', field: 'ranking', width: '10%' },
+    { header: '카테고리', field: 'category', width: '15%' },
+    { header: '파일명', field: 'content', width: '45%' },
+    { header: '재생수', field: 'playCount', width: '10%' },
+    { header: '등록일', field: 'regdate', width: '20%' },
   ];
   /*table data*/
   public contentsStatisticsLists:any[] = [];

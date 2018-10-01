@@ -18,16 +18,20 @@
   <button class="margin-bottom-20" type="button" pButton label="다중비교" (click)="showCompareResult()" *ngIf="!isCompareStatus"></button>
   <button class="margin-bottom-20" type="button" pButton label="비교취소" (click)="showSingleResult()" *ngIf="isCompareStatus"></button>
   <div class="ui-g-12 ui-g-nopad margin-bottom-50">
-    <p-table #dt [columns]="playSectionStatisticsCols" [value]="playSectionStatisticsDatas" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" (sortFunction)="setTableIndex($event)" [customSort]="true">
+    <p-table #dt [columns]="playSectionStatisticsCols" [value]="playSectionStatisticsDatas" [resizableColumns]="true" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" (sortFunction)="setTableIndex($event)" [customSort]="true">
       <ng-template pTemplate="caption">
         <div class="ui-helper-clearfix">
           <button type="button" pButton  label="다운로드" (click)="dt.exportCSV()" style="float:right"></button>
         </div>
       </ng-template>
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" [style.width]="col.width">
+        </colgroup>
+      </ng-template>
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th></th>
-          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
             {{ col.header }}
             <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           </th>
@@ -41,7 +45,7 @@
           <td>{{ playTimeStatisticsData['no'] }}</td>
           <td>{{ playTimeStatisticsData['groupName'] }}</td>
           <td>{{ playTimeStatisticsData['folderName'] }}</td>
-          <td>{{ playTimeStatisticsData['contentsName'] }}</td>
+          <td style="text-align: left; padding-left: 10px;">{{ playTimeStatisticsData['contentsName'] }}</td>
           <td>{{ playTimeStatisticsData['duration'] }}</td>
           <td>{{ playTimeStatisticsData['playTime'] }}</td>
           <td>{{ playTimeStatisticsData['playCount'] }}</td>
@@ -50,7 +54,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>
         <tr>
-          <td [attr.colspan]="columns.length + 1" class="emptyMessage">표시할 데이터가 없습니다.</td>
+          <td [attr.colspan]="columns.length" class="emptyMessage">표시할 데이터가 없습니다.</td>
         </tr>
       </ng-template>
     </p-table>

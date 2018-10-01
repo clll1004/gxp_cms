@@ -37,14 +37,15 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public compareLeaveSectionAverageValue:any[] = [];
   /*table cols*/
   public playSectionStatisticsCols:any[] = [
-    { header: 'No', field: 'no' },
-    { header: '그룹명', field: 'groupName' },
-    { header: '폴더명', field: 'folderName' },
-    { header: '파일명', field: 'contentsName' },
-    { header: '영상 시간', field: 'duration' },
-    { header: '재생시간', field: 'playTime' },
-    { header: '재생수', field: 'playCount' },
-    { header: '등록일', field: 'regdate' },
+    { header: '', field: '', width: '5%' },
+    { header: 'No', field: 'no', width: '5%' },
+    { header: '그룹명', field: 'groupName', width: '10%' },
+    { header: '폴더명', field: 'folderName', width: '10%' },
+    { header: '파일명', field: 'contentsName', width: '35%' },
+    { header: '영상 시간', field: 'duration', width: '10%' },
+    { header: '재생시간', field: 'playTime', width: '10%' },
+    { header: '재생수', field: 'playCount', width: '5%' },
+    { header: '등록일', field: 'regdate', width: '15%' },
   ];
   public compareSectionCols:any[] = [
     { header: '일자', field: 'date' },

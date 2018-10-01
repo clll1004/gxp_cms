@@ -32,22 +32,25 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   public isShowCheckLimitMessage:boolean = false;
   /*table cols*/
   public playTimeStatisticsCols:any[] = [
-    { header: 'No', field: 'no' },
-    { header: '그룹명', field: 'groupName' },
-    { header: '폴더명', field: 'folderName' },
-    { header: '파일명', field: 'contentsName' },
-    { header: '영상 시간', field: 'duration' },
-    { header: '재생시간', field: 'playTime' },
-    { header: '재생수', field: 'playCount' },
-    { header: '평균재생시간', field: 'averagePlayTime' },
-    { header: '등록일', field: 'regdate' },
+    { header: '', field: '', width: '5%' },
+    { header: 'No', field: 'no', width: '5%' },
+    { header: '그룹명', field: 'groupName', width: '10%' },
+    { header: '폴더명', field: 'folderName', width: '10%' },
+    { header: '파일명', field: 'contentsName', width: '30%' },
+    { header: '영상 시간', field: 'duration', width: '6%' },
+    { header: '재생시간', field: 'playTime', width: '7%' },
+    { header: '재생수', field: 'playCount', width: '6%' },
+    { header: '평균재생시간', field: 'averagePlayTime', width: '8%' },
+    { header: '등록일', field: 'regdate', width: '13%' },
   ];
   public compareHeaderCols:any[] = [
-    { header: '폴더명', field: 'folderName' },
-    { header: '파일명', field: 'contentsName' },
-    { header: '재생시간', field: 'playTime' },
-    { header: '재생수', field: 'playCount' },
-    { header: '평균재생시간', field: 'averagePlayTime' },
+    { header: '', field: '', width: '15%' },
+    { header: '폴더명', field: 'folderName', width: '10%' },
+    { header: '파일명', field: 'contentsName', width: '35%' },
+    { header: '재생시간', field: 'playTime', width: '10%' },
+    { header: '재생수', field: 'playCount', width: '10%' },
+    { header: '평균재생시간', field: 'averagePlayTime', width: '10%' },
+    { header: '', field: '', width: '10%' },
   ];
   public compareResultHeaderCols:any[] = [
     { header: '파일명', field: 'contentsName' },
