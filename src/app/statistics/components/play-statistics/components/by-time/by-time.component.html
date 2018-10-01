@@ -19,6 +19,7 @@
     <p-chart [type]="chartType" [data]="multiChartData" [options]="chartOptions" width="100%" height="300px"></p-chart>
   </div>
   <div class="ui-g-12 ui-g-nopad">
+    <p-button label="다운로드" style="float: right;"></p-button>
     <div class="margin-bottom-30" *ngFor="let i of durationLength">
       <h3 class="margin-bottom-20 time-table-title">
         {{ timeTableTitle[i] }}
