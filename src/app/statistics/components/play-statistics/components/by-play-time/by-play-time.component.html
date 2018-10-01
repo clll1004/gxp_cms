@@ -31,9 +31,9 @@
       </ng-template>
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+          <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
             {{ col.header }}
-            <p-sortIcon *ngIf="col.field !== 'no'" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            <p-sortIcon *ngIf="i !== 0 && i !== 1" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           </th>
         </tr>
       </ng-template>
@@ -71,9 +71,9 @@
       </ng-template>
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+          <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
             {{ col.header }}
-            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            <p-sortIcon *ngIf="i !== 0 && i !== 6" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           </th>
         </tr>
       </ng-template>

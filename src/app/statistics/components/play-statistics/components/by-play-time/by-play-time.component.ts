@@ -37,7 +37,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     { header: '그룹명', field: 'groupName', width: '10%' },
     { header: '폴더명', field: 'folderName', width: '10%' },
     { header: '파일명', field: 'contentsName', width: '30%' },
-    { header: '영상 시간', field: 'duration', width: '6%' },
+    { header: '영상시간', field: 'duration', width: '7%' },
     { header: '재생시간', field: 'playTime', width: '7%' },
     { header: '재생수', field: 'playCount', width: '6%' },
     { header: '평균재생시간', field: 'averagePlayTime', width: '8%' },
