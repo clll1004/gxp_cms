@@ -1,15 +1,23 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { LoginService } from '../../../login/login.service';
 import { SettingsService } from '../../../services/apis/cms/settings/settings.service';
 import { CmsApis } from '../../../services/apis/apis';
+import { ConfirmationService } from 'primeng/components/common/api';
 
 @Component({
   selector: 'group-manager',
   templateUrl: './group-mng.component.html',
   styleUrls: ['../../settings.component.css'],
-  providers: [SettingsService, CmsApis]})
+  providers: [LoginService, SettingsService, CmsApis, ConfirmationService]})
 
 export class GroupMngComponent implements OnInit, OnChanges {
   @Input() groupSeq: any;
+  public userSeq:string = '';
+  public playerPresetForm: FormGroup;
+  public submitted: boolean = false;
+  public isShowMessage: boolean = false;
+  public playerPresetKeys:any[] = ['playbackRate', 'loopPortion', 'bookmark', 'nextVideo', 'setting', 'fullscreen', 'cinemaMode', 'quality'];
 
   public groupData: object = {};
 
@@ -39,18 +47,34 @@ export class GroupMngComponent implements OnInit, OnChanges {
   public transFPS: any[] = [
         { label: 'copy', value: 'copy' },
         { label: '29.97', value: '29.97' }];
-  public isShowMessage: boolean = false;
 
   public tableStyle: any;
 
-  constructor(private settingsService: SettingsService, private cmsApi: CmsApis) { }
+  constructor(private formBuilder: FormBuilder,
+              private loginService: LoginService,
+              private settingsService: SettingsService,
+              private cmsApi: CmsApis,
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.loadGroupData();
+
+    this.playerPresetForm = this.formBuilder.group({
+      playbackRate: new FormControl('Y'),
+      loopPortion: new FormControl('Y'),
+      bookmark: new FormControl('Y'),
+      nextVideo: new FormControl('Y'),
+      setting: new FormControl('Y'),
+      fullscreen: new FormControl('Y'),
+      cinemaMode: new FormControl('Y'),
+      quality: new FormControl('Y'),
+    });
+    this.loadPlayerPreset();
   }
 
   ngOnChanges() {
     this.loadGroupData();
+    this.loadPlayerPreset();
   }
 
   refresh() {
@@ -66,6 +90,33 @@ export class GroupMngComponent implements OnInit, OnChanges {
         this.initDropDownOptions();
         this.initTableStyle();
       });
+  }
+
+  loadPlayerPreset() {
+    this.userSeq = this.loginService.getCookie('usr_seq');
+    this.settingsService.getLists(this.cmsApi.playerPreset + '/' + this.groupSeq)
+      .toPromise()
+      .then((cont) => {
+        const getData: any[] = JSON.parse(cont['_body']);
+        this.playerPresetKeys.forEach((key) => {
+          this.playerPresetForm.get(key).setValue(getData[key] === 'Y');
+        });
+
+        const labelButtons = document.getElementsByClassName('presetLabel');
+        const checkBoxs = document.getElementsByClassName('presetCheckbox');
+        let i = 0;
+        [].forEach.call(labelButtons, (item: HTMLElement) => {
+          if (item['htmlFor'] === checkBoxs[i]['id']) {
+            checkBoxs[i]['checked'] ? item.setAttribute('class', 'presetLabel on') : item.setAttribute('class', 'presetLabel');
+          }
+          i += 1;
+        });
+      });
+  }
+
+  setPlayerPreset(e) {
+    const target:HTMLElement = e.currentTarget;
+    target.getAttribute('class') === 'presetLabel on' ? target.setAttribute('class', 'presetLabel') : target.setAttribute('class', 'presetLabel on');
   }
 
   initDropDownOptions() {
@@ -111,5 +162,37 @@ export class GroupMngComponent implements OnInit, OnChanges {
     this.audioBit = document.getElementById('audioBit' + index);
     this.dstWidth = document.getElementById('dstWidth' + index);
     this.dstHeight = document.getElementById('dstHeight' + index);
+  }
+
+  resetPreset() {
+    this.confirmationService.confirm({
+      message: '설정을 초기화하시겠습니까?',
+      accept: () => {
+        this.loadPlayerPreset();
+      },
+    });
+  }
+
+  onSubmit(value:any) {
+    this.confirmationService.confirm({
+      message: '적용하시겠습니까?',
+      accept: () => {
+        const valueObject = {};
+        this.submitted = true;
+
+        valueObject['cus_seq'] = this.groupSeq;
+        this.playerPresetKeys.forEach((key) => {
+          valueObject[key] = value[key] ? 'Y' : 'N';
+        });
+
+        this.settingsService.updateData(this.cmsApi.playerPreset, valueObject)
+          .toPromise()
+          .then(() => {
+            this.isShowMessage = true;
+            this.submitted = false;
+            this.loadPlayerPreset();
+          });
+      },
+    });
   }
 }
