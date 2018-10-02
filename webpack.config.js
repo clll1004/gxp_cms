@@ -16,6 +16,7 @@ module.exports = function(env, argv) {
     mode: env.production ? 'production' : 'development',
 
     entry: {
+      chart: "./node_modules/chart.js/dist/Chart.js",
       app: "./src/main.ts",
       polyfills: "./src/polyfills.ts"
     },
