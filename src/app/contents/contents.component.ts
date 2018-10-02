@@ -19,7 +19,6 @@ export class ContentsComponent implements OnInit {
   public tempTreeData: any[] = [];
   public groupSeq: string = '';
   public folderPath: object = {};
-
   public transCodingStatusValue: object = {
     U: '업로드 완료',
     TR: '변환 요청',
@@ -28,31 +27,32 @@ export class ContentsComponent implements OnInit {
     TF: '변환실패',
     SF: '배포실패',
     SS: '완료' };
+  /*콘텐츠 리스트*/
+  public contentCols: any[] = [
+    { field: '', header: '', width: '5%' },
+    { field: '', header: '제목', width: '30%' },
+    { field: '', header: '크기', width: '15%' },
+    { field: '', header: '전체 변환율', width: '20%' },
+    { field: '', header: '생성 날짜', width: '20%' }];
   public contentsLists: any[] = [];
   public filterContentsLists: any[] = [];
+  /*search*/
   public selectItems: any[] = [];
   public searchKey: string = '';
-  public filterStatus: boolean = false;
-
-  public showInfo: boolean = false;
+  public searchStatus: boolean = false;
+  /*preview*/
+  public showPreview: boolean = false;
   public pvImg:any;
   public thumbPathArray:any[] = [];
   public thumbPath:string = '';
   public transCodingStatus: any[] = [];
   public originFileInfo: any[] = [];
-
+  /*folder*/
   public isShowFolderMessage: boolean = false;
   public showAddFolderForm: boolean = false;
   public folderForm: FormGroup;
   public ableFolderName: boolean = false;
   public showFolderNameDupMsg: boolean = false;
-
-  public contentCols: any[] = [
-        { field: '', header: '', width: '5%' },
-        { field: '', header: '제목', width: '30%' },
-        { field: '', header: '크기', width: '15%' },
-        { field: '', header: '전체 변환율', width: '20%' },
-        { field: '', header: '생성 날짜', width: '20%' }];
 
   /*다이얼로그*/
   public isModalDisplay: boolean = false;
@@ -91,10 +91,6 @@ export class ContentsComponent implements OnInit {
   load() {
     this.getGroupSeq();
     this.loadGroupList();
-  }
-
-  refresh() {
-    window.location.reload();
   }
 
   getGroupSeq() {
@@ -228,101 +224,51 @@ export class ContentsComponent implements OnInit {
   previewInit() {
     this.selectItems = [];
     this.originFileInfo = [];
-    this.showInfo = false;
+    this.showPreview = false;
   }
 
-  changeStatusRestart() {
+  changeItemStatus(action:string, mode:string) {
     if (this.selectItems.length && this.filterContentsLists) {
       this.confirmationService.confirm({
-        message: '변환을 재시작 하시겠습니까?',
+        message: action === 'restart' ? '변환을 재시작 하시겠습니까?' : '삭제하시겠습니까?',
         accept: () => {
-          const newItemArray: any[] = [];
-          let itemObject: any = {};
-          this.selectItems.forEach((item) => {
-            itemObject = {};
-            itemObject.fo_seq = item.fo_seq;
-            newItemArray.push(itemObject);
-          });
-
-          return this.contentsService.updateData(this.cmsApi.updateContentsStatus, newItemArray)
-            .toPromise()
-            .then(() => {
-              this.selectItems = [];
-              this.loadContent(this.selectGroup['gf_seq']);
-            })
-            .catch((error: any) => {
-              console.log(error);
+          let newItemArray: any[] = [];
+          if (mode === 'multi') {
+            let itemObject: any = {};
+            this.selectItems.forEach((item) => {
+              itemObject = {};
+              itemObject.fo_seq = item.fo_seq;
+              newItemArray.push(itemObject);
             });
+          } else if (mode === 'single') {
+            newItemArray = [{ fo_seq: this.originFileInfo['fo_seq'] }];
+          }
+
+          if (action === 'restart') {
+            this.contentsService.updateData(this.cmsApi.updateContentsStatus, newItemArray)
+              .toPromise()
+              .then(() => {
+                this.selectItems = [];
+                this.loadContent(this.selectGroup['gf_seq']);
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+          } else if (action === 'delete') {
+            this.contentsService.deleteData(this.cmsApi.updateContentsStatus, newItemArray)
+              .toPromise()
+              .then(() => {
+                this.selectItems = [];
+                this.loadContent(this.selectGroup['gf_seq']);
+                this.previewInit();
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+          }
         },
       });
     }
-  }
-
-  changeStatusDelete() {
-    if (this.selectItems.length && this.filterContentsLists) {
-      this.confirmationService.confirm({
-        message: '삭제하시겠습니까?',
-        accept: () => {
-          const newItemArray: any[] = [];
-          let itemObject: any = {};
-          this.selectItems.forEach((item) => {
-            itemObject = {};
-            itemObject.fo_seq = item.fo_seq;
-            newItemArray.push(itemObject);
-          });
-
-          return this.contentsService.deleteData(this.cmsApi.updateContentsStatus, newItemArray)
-           .toPromise()
-           .then(() => {
-             this.selectItems = [];
-             this.loadContent(this.selectGroup['gf_seq']);
-             this.previewInit();
-           })
-          .catch((error: any) => {
-            console.log(error);
-          });
-        },
-      });
-    }
-  }
-
-  changeStatusRestartItem() {
-    this.confirmationService.confirm({
-      message: '변환을 재시작 하시겠습니까?',
-      accept: () => {
-        const newItemArray: any[] = [{ fo_seq: this.originFileInfo['fo_seq'] }];
-
-        return this.contentsService.updateData(this.cmsApi.updateContentsStatus, newItemArray)
-          .toPromise()
-          .then(() => {
-            this.selectItems = [];
-            this.loadContent(this.selectGroup['gf_seq']);
-          })
-          .catch((error: any) => {
-            console.log(error);
-          });
-      },
-    });
-  }
-
-  changeStatusDeleteItem() {
-    this.confirmationService.confirm({
-      message: '삭제하시겠습니까?',
-      accept: () => {
-        const newItemArray: any[] = [{ fo_seq: this.originFileInfo['fo_seq'] }];
-
-        return this.contentsService.deleteData(this.cmsApi.updateContentsStatus, newItemArray)
-          .toPromise()
-          .then(() => {
-            this.selectItems = [];
-            this.loadContent(this.selectGroup['gf_seq']);
-            this.previewInit();
-          })
-         .catch((error: any) => {
-           console.log(error);
-         });
-      },
-    });
   }
 
   showFolderForm() {
@@ -382,7 +328,7 @@ export class ContentsComponent implements OnInit {
     if (!this.searchKey || !this.filterContentsLists) {
       return false;
     }
-    this.filterStatus = true;
+    this.searchStatus = true;
     this.filterContentsLists = [];
     this.contentsLists.filter((item) => {
       if (this.searchKey && item.fo_nm && item.fo_nm.indexOf(this.searchKey) >= 0) {
@@ -392,13 +338,13 @@ export class ContentsComponent implements OnInit {
   }
 
   resetFilter() {
-    this.filterStatus = false;
+    this.searchStatus = false;
     this.searchKey = '';
     this.filterContentsLists = this.contentsLists;
   }
 
-  showPreview(item: any) {
-    this.showInfo = true;
+  showInfo(item: any) {
+    this.showPreview = true;
     this.originFileInfo = item;
     this.loadPreviewThumbnail(item);
 
@@ -511,5 +457,9 @@ export class ContentsComponent implements OnInit {
 
   uploadInit() {
     this.uploadFiles = [];
+  }
+
+  refresh() {
+    window.location.reload();
   }
 }

@@ -32,12 +32,12 @@
             </form>
             <div class="filter-sec f-right">
                 <div class="fbtn-sec">
-                    <button class="btn margin-right-5" (click)="changeStatusRestart()"><i class="fas fa-redo"></i> 변환 재시작</button>
-                    <button class="btn margin-right-5" (click)="changeStatusDelete()"><i class="fas fa-trash-alt"></i> 삭제</button>
+                    <button class="btn margin-right-5" (click)="changeItemStatus('restart', 'multi')"><i class="fas fa-redo"></i> 변환 재시작</button>
+                    <button class="btn margin-right-5" (click)="changeItemStatus('delete', 'multi')"><i class="fas fa-trash-alt"></i> 삭제</button>
 
                     <label for="file-key"></label><input type="text" class="margin-right-5" id="file-key" [(ngModel)]="searchKey" pInputText placeholder="파일명 입력" autocomplete="off">
                     <button type="button" class="btn margin-right-5" (click)="contentSearch()"><i class="fas fa-search"></i> 검색</button>
-                    <button type="button" class="btn margin-right-5" (click)="resetFilter()" [disabled]="!filterStatus"><i class="fas fa-history"></i> 초기화</button>
+                    <button type="button" class="btn margin-right-5" (click)="resetFilter()" [disabled]="!searchStatus"><i class="fas fa-history"></i> 초기화</button>
 
                     <!--<div class="vbtn-sec dp-inb">-->
                     <!--<button class="vbtn f-left list-mode on"><i class="fas fa-bars"></i> <span class="blind">리스트 스타일 보기</span></button>-->
@@ -67,7 +67,7 @@
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-contentsList>
-                        <tr [pSelectableRow]="contentsList" (click)="showPreview(contentsList)" class="contentLists">
+                        <tr [pSelectableRow]="contentsList" (click)="showInfo(contentsList)" class="contentLists">
                             <td><p-tableCheckbox [value]="contentsList" ></p-tableCheckbox></td>
                             <td>{{ contentsList.fo_nm }}</td>
                             <td>{{ contentsList.fo_size }} MB</td>
@@ -89,26 +89,26 @@
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-search"></i> 썸네일 미리보기</h3>
                     <!--<preview-thumbnail class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" *ngIf="showInfos"></preview-thumbnail>-->
-                    <div class="ui-g-12 ui-g-nopad" id="thumbArea" [ngStyle]="{'display': showInfo ? 'block' : 'none'}">
+                    <div class="ui-g-12 ui-g-nopad" id="thumbArea" [ngStyle]="{'display': showPreview ? 'block' : 'none'}">
                         <img src="" id="pvThumbnail" alt="썸네일 이미지" title="썸네일 이미지" class="ui-g-12 ui-g-nopad padding-top-10 padding-bottom-10" />
                     </div>
-                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfo">데이터가 없습니다.</div>
+                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showPreview">데이터가 없습니다.</div>
                 </li>
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-spinner"></i> 트랜스코딩 진행상황</h3>
-                    <preview-status class="ui-g-12 ui-g-nopad" [transCodingStatus]="transCodingStatus" [folderPath]="folderPath" *ngIf="showInfo"></preview-status>
-                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfo">데이터가 없습니다.</div>
+                    <preview-status class="ui-g-12 ui-g-nopad" [transCodingStatus]="transCodingStatus" [folderPath]="folderPath" *ngIf="showPreview"></preview-status>
+                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showPreview">데이터가 없습니다.</div>
                 </li>
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-info-circle"></i> 원본 파일정보</h3>
-                    <preview-fInfo class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" [folderPath]="folderPath" *ngIf="showInfo"></preview-fInfo>
-                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showInfo">데이터가 없습니다.</div>
+                    <preview-fInfo class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" [folderPath]="folderPath" *ngIf="showPreview"></preview-fInfo>
+                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showPreview">데이터가 없습니다.</div>
                 </li>
             </ul>
 
-            <div class="btn-sec txt-center margin-bottom-30" *ngIf="showInfo">
-                <button type="button" class="btn margin-right-5" (click)="changeStatusRestartItem()"><i class="fas fa-redo"></i> 변환 재시작</button>
-                <button type="button" class="btn" (click)="changeStatusDeleteItem()"><i class="fas fa-trash-alt"></i> 삭제</button>
+            <div class="btn-sec txt-center margin-bottom-30" *ngIf="showPreview">
+                <button type="button" class="btn margin-right-5" (click)="changeItemStatus('restart', 'single')"><i class="fas fa-redo"></i> 변환 재시작</button>
+                <button type="button" class="btn" (click)="changeItemStatus('delete','single')"><i class="fas fa-trash-alt"></i> 삭제</button>
             </div>
         </div>
     </div>

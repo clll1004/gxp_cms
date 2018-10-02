@@ -443,6 +443,13 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .info-txt {font-size: 14px; color: #666;}
 .search-result {display: none; font-size:13px; color: #f52727;}
 
+input,ui-inputtext {
+    font-size: 13px !important;
+    height: 29px;
+}
+input:focus {
+    box-shadow: none !important;
+}
 button {
     border-radius: 0 !important;
     font-size: 14px;

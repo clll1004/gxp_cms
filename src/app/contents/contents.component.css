@@ -22,6 +22,9 @@ tr.contentLists:hover {
   background: #efefef;
   cursor: pointer;
 }
+tr.contentLists.ui-state-highlight:hover {
+  background: #0f5a89;
+}
 tr.contentLists:active {
   background: #ededed;
   cursor: pointer;
