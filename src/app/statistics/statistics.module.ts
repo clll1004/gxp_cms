@@ -5,14 +5,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+// import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartModule } from 'primeng/chart';
 import { DatePickerModule } from '../common/date-picker/date-picker.module';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { DialogModule, CalendarModule } from 'primeng/primeng';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -34,7 +34,6 @@ import { ByCategoryComponent } from './components/play-statistics/components/by-
 import { VisitorStatisticsComponent } from './components/visitor-statistics/visitor-statistics.component';
 import { FolderPickerComponent } from './components/folder-picker/folder-picker.component';
 import { ChartGroupComponent } from './components/play-statistics/components/chart-group/chart-group.component';
-import { TableGroupComponent } from './components/play-statistics/components/table-group/table-group.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -43,7 +42,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    ChartsModule,
+    ChartModule,
     DatePickerModule,
     RouterModule.forChild(appRoutes),
     BrowserModule,
@@ -52,7 +51,6 @@ const appRoutes: Routes = [
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    ChartModule,
     TableModule,
     DialogModule,
     CalendarModule,
@@ -77,7 +75,6 @@ const appRoutes: Routes = [
     VisitorStatisticsComponent,
     FolderPickerComponent,
     ChartGroupComponent,
-    TableGroupComponent,
   ]})
 
 export class StatisticsModule {
