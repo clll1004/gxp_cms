@@ -2,11 +2,14 @@
  * Created by GRE511 on 2018-09-10.
  */
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChartService } from '../../../../../services/apis/cms/chart/chart.service';
+import { CmsApis } from '../../../../../services/apis/apis';
 
 @Component({
   selector: 'by-gxp',
   templateUrl: './by-gxp.component.html',
-  styleUrls: ['../../usage-analysis.component.css']})
+  styleUrls: ['../../usage-analysis.component.css'],
+  providers: [CmsApis, ChartService]})
 
 export class ByGxpComponent implements OnInit, OnChanges {
   @Input() selectDuration;
@@ -19,14 +22,13 @@ export class ByGxpComponent implements OnInit, OnChanges {
   public barChartDataSet: object;
   public barChartOptions: object;
 
-  public dateArray:any[] = [];
   public backgroundColors:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9', '#bbdefb', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#f8bbd0'];
 
   /*table cols*/
   public gxpAnalysisCols: any[] = [
     { header: '날짜', field: 'date' },
     { header: '스토리지', field: 'storage' },
-    { header: '전송량', field: 'transmissionCapacity' },
+    { header: '전송량', field: 'traffic' },
   ];
   /*table data*/
   public gxpAnalysisLists: any[] = [];
@@ -35,7 +37,7 @@ export class ByGxpComponent implements OnInit, OnChanges {
     totalTransmissionCapacity: 0,
   };
 
-  constructor() {}
+  constructor(private cmsApi: CmsApis, private chartService: ChartService) {}
 
   ngOnInit() {}
 
@@ -47,22 +49,7 @@ export class ByGxpComponent implements OnInit, OnChanges {
   setChartData() {
     this.barChartLabels = [];
     this.barChartData = [];
-    const startDate = new Date(this.selectDuration.date[0]);
-    const endDate = new Date(this.selectDuration.date[1]);
-    this.dateArray = this.getDateArray(startDate, endDate);
-    const storageTemp:any[] = [];
-    const transmissionCapacityTemp:any[] = [];
-    this.dateArray.forEach((item) => {
-      const storageRandom = Math.floor(Math.random() * 100);
-      const transmissionCapacityRandom = Math.floor(Math.random() * 100);
-      this.barChartLabels.push((item.getMonth() + 1) + '/' + item.getDate());
-      storageTemp.push(storageRandom);
-      transmissionCapacityTemp.push(transmissionCapacityRandom);
-    });
-    this.barChartData.push(storageTemp);
-    this.barChartData.push(transmissionCapacityTemp);
 
-    const tempBackground:any = this.setBackgroundColor();
     this.pieChartDataSet = {
       labels: this.pieChartLabels,
       datasets: [
@@ -77,21 +64,29 @@ export class ByGxpComponent implements OnInit, OnChanges {
         position: 'bottom',
       },
     };
-    this.barChartDataSet = {
-      labels: this.barChartLabels,
-      datasets: [
-        {
-          label: '스토리지',
-          data: this.barChartData[0],
-          backgroundColor: tempBackground,
-        },
-      ],
-    };
-    this.barChartOptions = {
-      legend: {
-        display: false,
-      },
-    };
+
+    this.chartService.getLists(this.cmsApi.byGxpChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
+        this.barChartLabels = list['labels'].map((item) => {
+          const temp = new Date(item);
+          return ((temp.getMonth() + 1) < 10 ? '0' + (temp.getMonth() + 1) : (temp.getMonth() + 1)) + '/' + ((temp.getDate() < 10 ? '0' + temp.getDate() : temp.getDate()));
+        });
+        const tempBackground:any = this.setBackgroundColor();
+        this.barChartDataSet = {
+          labels: this.barChartLabels,
+          datasets: [
+            {
+              label: '스토리지',
+              data: list['datasets']['data'],
+              backgroundColor: tempBackground,
+            }],
+        };
+        this.barChartOptions = {
+          legend: {
+            position: 'bottom',
+          },
+        };
+      });
   }
 
   setBackgroundColor() {
@@ -113,31 +108,14 @@ export class ByGxpComponent implements OnInit, OnChanges {
     return tempBackground;
   }
 
-  getDateArray(startDate, endDate) {
-    const dateArray:any[] = [];
-    const currentDate = startDate;
-    while (currentDate <= endDate) {
-      dateArray.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-    return dateArray;
-  }
-
   setTableData() {
     this.gxpAnalysisLists = [];
-    let i = 0;
-    this.dateArray.forEach((item) => {
-      this.gxpAnalysisLists.push(
-        {
-          date: item.getFullYear() + '-' + ((item.getMonth() + 1) < 10 ? '0' + (item.getMonth() + 1) : (item.getMonth() + 1)) + '-' + (item.getDate() < 10 ? '0' + item.getDate() : item.getDate()),
-          storage: this.barChartData[0][i],
-          transmissionCapacity: this.barChartData[1][i],
-        },
-      );
-      i += 1;
-    });
-    this.gxpAnalysisLists.reverse();
-    this.setTotalData();
+    this.chartService.getLists(this.cmsApi.byGxpTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((data) => {
+        const list = data['list'] === null ? [] : data['list'];
+        this.gxpAnalysisLists = list;
+        this.setTotalData();
+      });
   }
 
   setTotalData() {
@@ -147,7 +125,7 @@ export class ByGxpComponent implements OnInit, OnChanges {
     };
     this.gxpAnalysisLists.forEach((item) => {
       this.totalData['totalStorage'] += item['storage'];
-      this.totalData['totalTransmissionCapacity'] += item['transmissionCapacity'];
+      this.totalData['traffic'] += item['traffic'];
     });
   }
 }

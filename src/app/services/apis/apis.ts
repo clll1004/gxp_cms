@@ -68,6 +68,8 @@ export class CmsApis {
   /**** Usage Analysis ****/
   public byStorageChart = '';
   public byStorageTable = '';
+  public byGxpChart = '';
+  public byGxpTable = '';
 
   /**** Player Preset ****/
   public playerPreset = '';
@@ -140,6 +142,8 @@ export class CmsApis {
     /**** Usage Analysis ****/
     this.byStorageChart = this.domain + 'cms/chart/usedstoragedata?';
     this.byStorageTable = this.domain + 'cms/chart/usedstoragelist?';
+    this.byGxpChart = this.domain + 'cms/chart/useddata?';
+    this.byGxpTable = this.domain + 'cms/chart/usedlist?';
 
     /**** Player Preset ****/
     this.playerPreset = this.domain + 'cms/setting/preset';
