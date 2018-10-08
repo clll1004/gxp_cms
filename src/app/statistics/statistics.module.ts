@@ -13,8 +13,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { DialogModule, CalendarModule } from 'primeng/primeng';
+import { DialogModule, CalendarModule, PanelModule } from 'primeng/primeng';
 import { CheckboxModule } from 'primeng/checkbox';
+import { BlockUIModule } from 'primeng/blockui';
 
 import { StatisticsComponent } from './statistics.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -54,6 +55,8 @@ const appRoutes: Routes = [
     DialogModule,
     CalendarModule,
     CheckboxModule,
+    BlockUIModule,
+    PanelModule,
   ],
   exports: [StatisticsComponent],
   declarations: [

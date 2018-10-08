@@ -12,10 +12,7 @@
 }
 .item-container .item-group .chart {
   position: relative;
-  /*height: 190px;*/
   padding: 10px 0 20px;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
 }
 .item-container .item-group .chart .info-txt {
   position: absolute;

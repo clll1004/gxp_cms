@@ -103,7 +103,8 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     const dateArray:any[] = [];
     const currentDate = startDate;
     while (currentDate <= endDate) {
-      dateArray.push(new Date(currentDate));
+      const td = new Date(currentDate).getFullYear() + '-' + (new Date(currentDate).getMonth() + 1 < 10 ? '0' + (new Date(currentDate).getMonth() + 1) : new Date(currentDate).getMonth() + 1) + '-' + (new Date(currentDate).getDate() < 10 ? '0' + new Date(currentDate).getDate() : new Date(currentDate).getDate());
+      dateArray.push(td);
       currentDate.setDate(currentDate.getDate() + 1);
     }
     return dateArray;
@@ -174,66 +175,21 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       this.comparePlaySectionData = [];
       return 0;
     }
-    let i = 0;
-    let tempCompareDatas:any[] = [];
-    // this.tempCompareItems.forEach((item) => {
-    //   this.compareSectionDatas = [];
-    //   tempCompareDatas = [];
-    //   this.chartService.getLists(this.cmsApi.byPlaySectionResultTable + 'ft_seq=' + '14366036' + '&sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
-    //     .then((list) => {
-    //       const obj:object = {};
-    //       list['list'].forEach((val) => {
-    //         const date = new Date(val['date']);
-    //         obj = {
-    //           contentsName: item['contentsName'],
-    //           date: date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()),
-    //           p10: val.percent['10'],
-    //           p20: val.percent['20'],
-    //           p30: val.percent['30'],
-    //           p40: val.percent['40'],
-    //           p50: val.percent['50'],
-    //           p60: val.percent['60'],
-    //           p70: val.percent['70'],
-    //           p80: val.percent['80'],
-    //           p90: val.percent['90'],
-    //           p100: val.percent['100'],
-    //           index: i,
-    //         };
-    //         i += 1;
-    //         tempCompareDatas.push(obj);
-    //       });
-    //       console.log(tempCompareDatas);
-    //       // this.compareSectionDatas = obj;
-    //     });
-    // });
-
     this.compareSectionDatas = [];
-    this.dateArray.forEach((date:Date) => {
-      tempCompareDatas = [];
-      this.tempCompareItems.forEach((item) => {
-        tempCompareDatas.push({
-          no: item.no,
-          contentsName: item.contentsName,
-          date: date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()),
-          p10: Math.floor(Math.random() * 1000),
-          p20: Math.floor(Math.random() * 1000),
-          p30: Math.floor(Math.random() * 1000),
-          p40: Math.floor(Math.random() * 1000),
-          p50: Math.floor(Math.random() * 1000),
-          p60: Math.floor(Math.random() * 1000),
-          p70: Math.floor(Math.random() * 1000),
-          p80: Math.floor(Math.random() * 1000),
-          p90: Math.floor(Math.random() * 1000),
-          p100: Math.floor(Math.random() * 1000),
-          index: i,
-        });
-        i += 1;
+
+    let seqString = '';
+    if (this.tempCompareItems.length === 2) {
+      seqString = this.tempCompareItems[0].ft_seq + ',' + this.tempCompareItems[1].ft_seq;
+    } else {
+      seqString = this.tempCompareItems[0].ft_seq;
+    }
+    this.chartService.getLists(this.cmsApi.byPlaySectionResultTable + 'ft_seq=' + seqString + '&sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
+      .then((list) => {
+        this.compareSectionDatas = list.data;
+        this.setAverageData();
+        this.getPopularOrLeaveSection();
+        this.setCompareSectionChartData();
       });
-      this.compareSectionDatas.push(tempCompareDatas);
-    });
-    this.setAverageData();
-    this.getPopularOrLeaveSection();
-    this.setCompareSectionChartData();
   }
 
   showCompareResult() {
@@ -333,30 +289,30 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
           tempData['index'] = j;
           tempData['date'] = this.selectDuration['date'][0] + ' ~ ' + this.selectDuration['date'][1];
           tempData['contentsName'] = this.compareSectionDatas[i][j]['contentsName'];
-          tempData['p10'] = tempData['p10'] + this.compareSectionDatas[i][j]['p10'];
-          tempData['p20'] = tempData['p20'] + this.compareSectionDatas[i][j]['p20'];
-          tempData['p30'] = tempData['p30'] + this.compareSectionDatas[i][j]['p30'];
-          tempData['p40'] = tempData['p40'] + this.compareSectionDatas[i][j]['p40'];
-          tempData['p50'] = tempData['p50'] + this.compareSectionDatas[i][j]['p50'];
-          tempData['p60'] = tempData['p60'] + this.compareSectionDatas[i][j]['p60'];
-          tempData['p70'] = tempData['p70'] + this.compareSectionDatas[i][j]['p70'];
-          tempData['p80'] = tempData['p80'] + this.compareSectionDatas[i][j]['p80'];
-          tempData['p90'] = tempData['p90'] + this.compareSectionDatas[i][j]['p70'];
-          tempData['p100'] = tempData['p100'] + this.compareSectionDatas[i][j]['p100'];
+          tempData['p10'] = Number(tempData['p10']) + Number(this.compareSectionDatas[i][j]['p10']);
+          tempData['p20'] = Number(tempData['p20']) + Number(this.compareSectionDatas[i][j]['p20']);
+          tempData['p30'] = Number(tempData['p30']) + Number(this.compareSectionDatas[i][j]['p30']);
+          tempData['p40'] = Number(tempData['p40']) + Number(this.compareSectionDatas[i][j]['p40']);
+          tempData['p50'] = Number(tempData['p50']) + Number(this.compareSectionDatas[i][j]['p50']);
+          tempData['p60'] = Number(tempData['p60']) + Number(this.compareSectionDatas[i][j]['p60']);
+          tempData['p70'] = Number(tempData['p70']) + Number(this.compareSectionDatas[i][j]['p70']);
+          tempData['p80'] = Number(tempData['p80']) + Number(this.compareSectionDatas[i][j]['p80']);
+          tempData['p90'] = Number(tempData['p90']) + Number(this.compareSectionDatas[i][j]['p90']);
+          tempData['p100'] = Number(tempData['p100']) + Number(this.compareSectionDatas[i][j]['p100']);
         } else {
           tempData2['index'] = j;
           tempData2['date'] = this.selectDuration['date'][0] + ' ~ ' + this.selectDuration['date'][1];
           tempData2['contentsName'] = this.compareSectionDatas[i][j]['contentsName'];
-          tempData2['p10'] = tempData2['p10'] + this.compareSectionDatas[i][j]['p10'];
-          tempData2['p20'] = tempData2['p20'] + this.compareSectionDatas[i][j]['p20'];
-          tempData2['p30'] = tempData2['p30'] + this.compareSectionDatas[i][j]['p30'];
-          tempData2['p40'] = tempData2['p40'] + this.compareSectionDatas[i][j]['p40'];
-          tempData2['p50'] = tempData2['p50'] + this.compareSectionDatas[i][j]['p50'];
-          tempData2['p60'] = tempData2['p60'] + this.compareSectionDatas[i][j]['p60'];
-          tempData2['p70'] = tempData2['p70'] + this.compareSectionDatas[i][j]['p70'];
-          tempData2['p80'] = tempData2['p80'] + this.compareSectionDatas[i][j]['p80'];
-          tempData2['p90'] = tempData2['p90'] + this.compareSectionDatas[i][j]['p70'];
-          tempData2['p100'] = tempData2['p100'] + this.compareSectionDatas[i][j]['p100'];
+          tempData2['p10'] = Number(tempData2['p10']) + Number(this.compareSectionDatas[i][j]['p10']);
+          tempData2['p20'] = Number(tempData2['p20']) + Number(this.compareSectionDatas[i][j]['p20']);
+          tempData2['p30'] = Number(tempData2['p30']) + Number(this.compareSectionDatas[i][j]['p30']);
+          tempData2['p40'] = Number(tempData2['p40']) + Number(this.compareSectionDatas[i][j]['p40']);
+          tempData2['p50'] = Number(tempData2['p50']) + Number(this.compareSectionDatas[i][j]['p50']);
+          tempData2['p60'] = Number(tempData2['p60']) + Number(this.compareSectionDatas[i][j]['p60']);
+          tempData2['p70'] = Number(tempData2['p70']) + Number(this.compareSectionDatas[i][j]['p70']);
+          tempData2['p80'] = Number(tempData2['p80']) + Number(this.compareSectionDatas[i][j]['p80']);
+          tempData2['p90'] = Number(tempData2['p90']) + Number(this.compareSectionDatas[i][j]['p90']);
+          tempData2['p100'] = Number(tempData2['p100']) + Number(this.compareSectionDatas[i][j]['p100']);
         }
       }
     }

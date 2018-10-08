@@ -15,6 +15,13 @@ import { DashboardService } from '../../../services/apis/cms/dashboard/dashboard
 export class DashboardComponent implements OnInit {
   public params:Params;
 
+  public isGxpLoading:boolean = false;
+  public isStorageLoading:boolean = false;
+  public isDateLoading:boolean = false;
+  public isTimeLoading:boolean = false;
+  public isContentsLoading:boolean = false;
+  public isCategoryLoading:boolean = false;
+
   /*pie chart test*/
   public chartOptions:object;
   public chartOptions2:object;
@@ -79,6 +86,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadGXPChart() {
+    this.isGxpLoading = true;
     this.dashboardService.getLists(this.cmsApi.gxpDashboard)
       .toPromise()
       .then((cont:object) => {
@@ -92,10 +100,14 @@ export class DashboardComponent implements OnInit {
             backgroundColor: ['#ffcdd2', '#e1bee7'],
           }],
         };
+      })
+      .then(() => {
+        this.isGxpLoading = false;
       });
   }
 
   loadStorageChart() {
+    this.isStorageLoading = true;
     this.dashboardService.getLists(this.cmsApi.storageDashboard)
       .toPromise()
       .then((cont:object) => {
@@ -109,10 +121,14 @@ export class DashboardComponent implements OnInit {
             backgroundColor: ['#ffcdd2', '#e1bee7'],
           }],
         };
+      })
+      .then(() => {
+        this.isStorageLoading = false;
       });
   }
 
   loadDateChart() {
+    this.isDateLoading = true;
     this.dashboardService.getLists(this.cmsApi.dateDashboard)
       .toPromise()
       .then((cont:object) => {
@@ -134,10 +150,14 @@ export class DashboardComponent implements OnInit {
               borderColor: '#ffcdd2',
             }],
         };
+      })
+      .then(() => {
+        this.isDateLoading = false;
       });
   }
 
   loadTimeChart() {
+    this.isTimeLoading = true;
     this.dashboardService.getLists(this.cmsApi.timeDashboard)
       .toPromise()
       .then((cont:object) => {
@@ -154,10 +174,14 @@ export class DashboardComponent implements OnInit {
               backgroundColor: this.backgroundColors,
             }],
         };
+      })
+      .then(() => {
+        this.isTimeLoading = false;
       });
   }
 
   loadContentsChart() {
+    this.isContentsLoading = true;
     this.dashboardService.getLists(this.cmsApi.contentsDashboard)
       .toPromise()
       .then((cont:object) => {
@@ -172,10 +196,14 @@ export class DashboardComponent implements OnInit {
               backgroundColor: this.backgroundColors,
             }],
         };
+      })
+      .then(() => {
+        this.isContentsLoading = false;
       });
   }
 
   loadCategoryChart() {
+    this.isCategoryLoading = true;
     this.dashboardService.getLists(this.cmsApi.categoryDashboard)
       .toPromise()
       .then((cont:object) => {
@@ -191,6 +219,9 @@ export class DashboardComponent implements OnInit {
               backgroundColor: this.backgroundColors,
             }],
         };
+      })
+      .then(() => {
+        this.isCategoryLoading = false;
       });
   }
 }
