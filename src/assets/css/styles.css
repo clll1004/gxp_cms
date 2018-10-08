@@ -443,6 +443,7 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .info-txt {font-size: 14px; color: #666;}
 .search-result {display: none; font-size:13px; color: #f52727;}
 
+/*primeng css*/
 input,ui-inputtext {
     font-size: 13px !important;
     height: 29px;
@@ -466,4 +467,9 @@ button {
 .ui-chkbox-label {
     font-weight: bold !important;
     font-size: 12px !important;
+}
+.ui-blockui { background: rgba(200,200,200,.5) !important; }
+.ui-blockui i { position: absolute; top: calc(50% - 7px); left: calc(50% - 16px); opacity: .5; }
+.item-container .item-group .chart .ui-panel {
+    padding: 20px 0 !important;
 }

@@ -22,6 +22,7 @@ import { HttpModule } from '@angular/http';
 import { TreeModule } from 'primeng/tree';
 import { StatisticsModule } from './statistics/statistics.module';
 import { ChartModule } from 'primeng/chart';
+import { BlockUIModule } from 'primeng/blockui';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -77,6 +78,7 @@ import { AppRoutingModule } from './app-routing.module';
     TreeModule,
     StatisticsModule,
     ChartModule,
+    BlockUIModule,
   ],
   declarations: [
     AppComponent,
