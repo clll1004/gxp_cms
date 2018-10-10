@@ -14,6 +14,12 @@ import { ConfirmationService } from 'primeng/components/common/api';
   providers: [FolderService, ContentsService, CmsApis, ConfirmationService]})
 
 export class ContentsComponent implements OnInit {
+  public isListLoading:boolean = false;
+  public isContentsLoading:boolean = false;
+  public isThumbLoading:boolean = false;
+  public isTcStatusLoading:boolean = false;
+  public isFileInfoLoading:boolean = false;
+
   public groupList: TreeNode[];
   public selectGroup: TreeNode;
   public tempTreeData: any[] = [];
@@ -98,6 +104,7 @@ export class ContentsComponent implements OnInit {
   }
 
   loadGroupList() {
+    this.isListLoading = true;
     this.folderService.getLists(this.cmsApi.loadFolderList + this.groupSeq)
       .toPromise()
       .then((res) => {
@@ -115,6 +122,9 @@ export class ContentsComponent implements OnInit {
         this.treeStyle = document.getElementById('treeObject').children[0];
         this.treeStyle.style['border-left'] = '0';
         this.treeStyle.style['border-right'] = '0';
+      })
+      .then(() => {
+        this.isListLoading = false;
       });
   }
 
@@ -201,6 +211,8 @@ export class ContentsComponent implements OnInit {
   }
 
   loadContent(folderSeq: string) {
+    this.filterContentsLists = [];
+    this.isContentsLoading = true;
     this.showAddFolderForm = false;
     this.showFolderNameDupMsg = false;
     this.ableFolderName = false;
@@ -218,6 +230,9 @@ export class ContentsComponent implements OnInit {
           });
         }
         this.filterContentsLists = this.contentsLists;
+      })
+      .then(() => {
+        this.isContentsLoading = false;
       });
   }
 
@@ -345,6 +360,8 @@ export class ContentsComponent implements OnInit {
 
   showInfo(item: any) {
     this.showPreview = true;
+    this.isTcStatusLoading = true;
+    this.isFileInfoLoading = true;
     this.originFileInfo = item;
     this.loadPreviewThumbnail(item);
 
@@ -363,10 +380,15 @@ export class ContentsComponent implements OnInit {
             }
           });
         }
+      })
+      .then(() => {
+        this.isTcStatusLoading = false;
+        this.isFileInfoLoading = false;
       });
   }
 
   loadPreviewThumbnail(item: any) {
+    this.isThumbLoading = true;
     this.thumbPath = '';
     this.thumbPathArray = item['fo_thumb_path'].split('/');
     this.pvImg = document.getElementById('pvThumbnail');
@@ -384,6 +406,9 @@ export class ContentsComponent implements OnInit {
         .toPromise()
         .then(() => {
           this.pvImg.src = 'http://' + this.thumbPath;
+        })
+        .then(() => {
+          this.isThumbLoading = false;
         })
         .catch(() => {
           this.pvImg.src = 'http://str.gomgxp.com/src/ci_gomc.jpg';

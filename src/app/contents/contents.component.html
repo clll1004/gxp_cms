@@ -4,7 +4,12 @@
     </div>
 
     <p class="group-list-title margin-bottom-10 padding-left-10"><i class="fas fa-users"></i> 서비스 목록</p>
-    <p-tree id="treeObject" [value]="groupList" selectionMode="single" [(selection)]="selectGroup" (onNodeSelect)="loadFolder()" class="ui-g-12 ui-g-nopad" [style]="{width: '100%', padding: '10px 0'}"></p-tree>
+    <p-panel class="ui-g-12 ui-g-nopad" [showHeader]="false" #service_list>
+        <p-blockUI [blocked]="isListLoading" [target]="service_list">
+            <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+        </p-blockUI>
+        <p-tree id="treeObject" [value]="groupList" selectionMode="single" [(selection)]="selectGroup" (onNodeSelect)="loadFolder()" [style]="{width: '100%', padding: '10px 0'}"></p-tree>
+    </p-panel>
 </div>
 
 <div class="ui-g-10 ui-g-nopad">
@@ -48,40 +53,45 @@
         </div>
         <!--리스트-->
         <div class="ui-g-9 ui-g-nopad">
-            <div class="ui-g-12 ui-g-nopad table-sec">
-                <p-table [value]="filterContentsLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50]" [(selection)]="selectItems" >
-                    <ng-template pTemplate="colgroup" let-columns>
-                        <colgroup>
-                            <col *ngFor="let col of contentCols" [style.width]="col.width">
-                        </colgroup>
-                    </ng-template>
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th style="width: 2.25em">
-                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                            </th>
-                            <th>제목</th>
-                            <th>크기</th>
-                            <th>전체 변환율</th>
-                            <th>생성날짜</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-contentsList>
-                        <tr [pSelectableRow]="contentsList" (click)="showInfo(contentsList)" class="contentLists">
-                            <td><p-tableCheckbox [value]="contentsList" ></p-tableCheckbox></td>
-                            <td>{{ contentsList.fo_nm }}</td>
-                            <td>{{ contentsList.fo_size }} MB</td>
-                            <td>{{ contentsList.statusLabel }}</td>
-                            <td>{{ contentsList.fo_reg_dtm }}</td>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td colspan="5" class="emptyMessage"> 표시할 데이터가 없습니다. </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
+            <p-blockUI [blocked]="isContentsLoading" [target]="contents_list">
+                <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+            </p-blockUI>
+            <p-panel class="ui-g-12 ui-g-nopad" [showHeader]="false" #contents_list>
+                <div class="table-sec">
+                    <p-table [value]="filterContentsLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50]" [(selection)]="selectItems" >
+                        <ng-template pTemplate="colgroup" let-columns>
+                            <colgroup>
+                                <col *ngFor="let col of contentCols" [style.width]="col.width">
+                            </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 2.25em">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th>제목</th>
+                                <th>크기</th>
+                                <th>전체 변환율</th>
+                                <th>생성날짜</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-contentsList>
+                            <tr [pSelectableRow]="contentsList" (click)="showInfo(contentsList)" class="contentLists">
+                                <td><p-tableCheckbox [value]="contentsList" ></p-tableCheckbox></td>
+                                <td>{{ contentsList.fo_nm }}</td>
+                                <td>{{ contentsList.fo_size }} MB</td>
+                                <td>{{ contentsList.statusLabel }}</td>
+                                <td>{{ contentsList.fo_reg_dtm }}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="emptyMessage"> 표시할 데이터가 없습니다. </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-panel>
         </div>
         <!--미리보기-->
         <div class="ui-g-3 ui-g-nopad list-sec contents-preview-sec">
@@ -89,20 +99,35 @@
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-search"></i> 썸네일 미리보기</h3>
                     <!--<preview-thumbnail class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" *ngIf="showInfos"></preview-thumbnail>-->
-                    <div class="ui-g-12 ui-g-nopad" id="thumbArea" [ngStyle]="{'display': showPreview ? 'block' : 'none'}">
-                        <img src="" id="pvThumbnail" alt="썸네일 이미지" title="썸네일 이미지" class="ui-g-12 ui-g-nopad padding-top-10 padding-bottom-10" />
-                    </div>
-                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showPreview">데이터가 없습니다.</div>
+                    <p-blockUI [blocked]="isThumbLoading" [target]="c_thumb">
+                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                    </p-blockUI>
+                    <p-panel class="ui-g-12 ui-g-nopad" [showHeader]="false" #c_thumb>
+                        <div id="thumbArea" [ngStyle]="{'display': showPreview ? 'block' : 'none'}">
+                            <img src="" id="pvThumbnail" alt="썸네일 이미지" title="썸네일 이미지" style="width: 100%; padding: 10px;" />
+                        </div>
+                        <div class="showEmpty padding-top-20 padding-bottom-30" *ngIf="!showPreview">데이터가 없습니다.</div>
+                    </p-panel>
                 </li>
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-spinner"></i> 트랜스코딩 진행상황</h3>
-                    <preview-status class="ui-g-12 ui-g-nopad" [transCodingStatus]="transCodingStatus" [folderPath]="folderPath" *ngIf="showPreview"></preview-status>
-                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showPreview">데이터가 없습니다.</div>
+                    <p-blockUI [blocked]="isTcStatusLoading" [target]="c_tInfo">
+                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                    </p-blockUI>
+                    <p-panel class="ui-g-12 ui-g-nopad" [showHeader]="false" #c_tInfo>
+                        <preview-status [transCodingStatus]="transCodingStatus" [folderPath]="folderPath" *ngIf="showPreview"></preview-status>
+                        <div class="showEmpty padding-top-20 padding-bottom-30" *ngIf="!showPreview">데이터가 없습니다.</div>
+                    </p-panel>
                 </li>
                 <li>
                     <h3 class="ui-g-12 ui-g-nopad list-title"><i class="fas fa-info-circle"></i> 원본 파일정보</h3>
-                    <preview-fInfo class="ui-g-12 ui-g-nopad" [originFileInfo]="originFileInfo" [folderPath]="folderPath" *ngIf="showPreview"></preview-fInfo>
-                    <div class="ui-g-12 ui-g-nopad showEmpty padding-top-20 padding-bottom-30" *ngIf="!showPreview">데이터가 없습니다.</div>
+                    <p-blockUI [blocked]="isFileInfoLoading" [target]="c_fInfo">
+                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                    </p-blockUI>
+                    <p-panel class="ui-g-12 ui-g-nopad" [showHeader]="false" #c_fInfo>
+                        <preview-fInfo [originFileInfo]="originFileInfo" [folderPath]="folderPath" *ngIf="showPreview"></preview-fInfo>
+                        <div class="showEmpty padding-top-20 padding-bottom-30" *ngIf="!showPreview">데이터가 없습니다.</div>
+                    </p-panel>
                 </li>
             </ul>
 
