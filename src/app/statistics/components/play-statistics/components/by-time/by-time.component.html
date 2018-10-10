@@ -15,50 +15,60 @@
 </div>
 
 <div class="ui-g-12 ui-g-nopad">
-  <div class="ui-g-12 ui-g-nopad margin-bottom-40 chart-container">
-    <p-chart [type]="chartType" [data]="multiChartData" [options]="chartOptions" width="100%" height="300px"></p-chart>
-  </div>
+  <p-blockUI [blocked]="isChartLoading" [target]="ps_time_chart">
+    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+  </p-blockUI>
+  <p-panel class="ui-g-12 ui-g-nopad margin-bottom-40" [showHeader]="false" #ps_time_chart>
+    <div class="chart-container">
+      <p-chart [type]="chartType" [data]="multiChartData" [options]="chartOptions" width="100%" height="300px"></p-chart>
+    </div>
+  </p-panel>
+
   <div class="ui-g-12 ui-g-nopad">
     <p-button label="다운로드" style="float: right;"></p-button>
     <div class="margin-bottom-30" *ngFor="let i of durationLength">
       <h3 class="margin-bottom-20 time-table-title">
         {{ timeTableTitle[i] }}
       </h3>
-      <p-table [id]="'timeTable' + i" [value]="timeStatisticsLists[i]" [columns]="timeStatisticsCols" sortField="date" [sortOrder]="1">
-        <ng-template pTemplate="header" let-columns>
-          <tr>
-            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-              {{ col.header }}
-              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-timeStatisticsList let-columns="columns">
-          <tr>
-            <td> {{ timeStatisticsList['date'] < 10 ? '0' + timeStatisticsList['date'] : timeStatisticsList['date'] }} 시 - {{ (timeStatisticsList['date'] + 1) < 10 ? '0' + (timeStatisticsList['date'] + 1) : (timeStatisticsList['date'] + 1) }} 시 </td>
-            <td> {{ timeStatisticsList['playCount'] }} 회</td>
-            <td> {{ timeStatisticsList['playTime'] }} 분</td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="footer" let-columns>
-          <tr>
-            <td>
-              Total
-            </td>
-            <td>
-              총합 {{ totalData[i]?.totalPlayCount }}회<br>
-              평균 재생수 {{ totalData[i]?.averagePlayCount }} 회
-            </td>
-            <td>평균 재생시간 {{ totalData[i]?.averagePlayTime }}분</td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage" let-columns>
-          <tr>
-            <td [attr.colspan]="columns.length" class="emptyMessage">표시할 데이터가 없습니다.</td>
-          </tr>
-        </ng-template>
-      </p-table>
-
+      <p-blockUI [blocked]="isTableLoading" [target]="ps_time_table">
+        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+      </p-blockUI>
+      <p-panel [showHeader]="false" #ps_time_table>
+        <p-table [id]="'timeTable' + i" [value]="timeStatisticsLists[i]" [columns]="timeStatisticsCols" sortField="date" [sortOrder]="1">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{ col.header }}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-timeStatisticsList let-columns="columns">
+            <tr>
+              <td> {{ timeStatisticsList['date'] < 10 ? '0' + timeStatisticsList['date'] : timeStatisticsList['date'] }} 시 - {{ (timeStatisticsList['date'] + 1) < 10 ? '0' + (timeStatisticsList['date'] + 1) : (timeStatisticsList['date'] + 1) }} 시 </td>
+              <td> {{ timeStatisticsList['playCount'] }} 회</td>
+              <td> {{ timeStatisticsList['playTime'] }} 분</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer" let-columns>
+            <tr>
+              <td>
+                Total
+              </td>
+              <td>
+                총합 {{ totalData[i]?.totalPlayCount }}회<br>
+                평균 재생수 {{ totalData[i]?.averagePlayCount }} 회
+              </td>
+              <td>평균 재생시간 {{ totalData[i]?.averagePlayTime }}분</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="columns.length" class="emptyMessage">표시할 데이터가 없습니다.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-panel>
       <div class="ui-g-12 ui-g-nopad margin-top-10 margin-bottom-30 txt-right">
         <button [id]="'foldingTableBtn'+ i" class="btn" type="button" (click)="foldingTable('foldingTableBtn'+ i, 'timeTable' + i)" [innerHtml]="'접기 >'"></button>
       </div>

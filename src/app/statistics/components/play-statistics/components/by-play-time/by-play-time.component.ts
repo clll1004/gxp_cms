@@ -15,6 +15,10 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
 
+  public isTableLoading:boolean = false;
+  public isChartLoading:boolean = false;
+  public isResultTableLoading:boolean = false;
+
   public selectFolder:object = { label:'카테고리 선택', value: null };
   public searchKey:string = '';
   public searchCount:number = 0;
@@ -98,6 +102,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   }
 
   setTableData(search:boolean) {
+    this.isTableLoading = true;
     let api:string = '';
     if (!search) {
       api = this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
@@ -140,7 +145,10 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
 
           this.showSingleResult();
         }
-      });
+      })
+      .then(() => {
+        this.isTableLoading = false;
+      })
   }
 
   getDateArray(startDate, endDate) {
@@ -198,6 +206,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   }
 
   setCompareChartData() {
+    this.isChartLoading = true;
     const tempDataSets:any[] = [];
     let i:number = 0;
     const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9'];
@@ -225,6 +234,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
         });
       i += 1;
     });
+    this.isChartLoading = false;
 
     this.chartOptions = {
       legend: {
@@ -246,6 +256,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   }
 
   setCompareTableData() {
+    this.isResultTableLoading = true;
     this.comparePlayTimeTableDatas = [];
 
     this.compareItems.forEach((item) => {
@@ -266,6 +277,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
           }
           this.setCompareTableAverageData();
         });
+      this.isResultTableLoading = false;
     });
   }
 

@@ -15,6 +15,10 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
 
+  public isTableLoading:boolean = false;
+  public isChartLoading:boolean = false;
+  public isResultTableLoading:boolean = false;
+
   public selectFolder:object = { label:'카테고리 선택', value: null };
   public searchKey:string = '';
   public searchCount:number = 0;
@@ -111,6 +115,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   }
 
   setTableData(search:boolean) {
+    this.isTableLoading = true;
     let api:string = '';
     if (!search) {
       api = this.cmsApi.byPlaySectionTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
@@ -153,7 +158,10 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
 
           this.showSingleResult();
         }
-      });
+      })
+      .then(() => {
+        this.isTableLoading = false;
+      })
   }
 
   onRowSelect() {
@@ -170,6 +178,9 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   }
 
   showPlaySectionResult() {
+    this.isChartLoading = true;
+    this.isResultTableLoading = true;
+
     if (this.tempCompareItems.length === 0) {
       this.compareSectionDatas = [];
       this.comparePlaySectionData = [];
@@ -189,6 +200,10 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
         this.setAverageData();
         this.getPopularOrLeaveSection();
         this.setCompareSectionChartData();
+      })
+      .then(() => {
+        this.isChartLoading = false;
+        this.isResultTableLoading = false;
       });
   }
 

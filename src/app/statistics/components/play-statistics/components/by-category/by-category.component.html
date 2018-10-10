@@ -14,21 +14,31 @@
   </div>
 </div>
 
-<div class="ui-g-12 ui-g-nopad">
-  <div class="ui-g-12 ui-g-nopad margin-bottom-40 chart-container">
-    <div class="change-chart-type-btns">
-      <button type="button" class="on changeType" id="bar-type" (click)="changeChartType($event)"><i class="fas fa-chart-line fa-2x"></i></button>
-      <button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>
-    </div>
-    <chart-group
-      [chartType]="chartType"
-      [chartFill]="false"
-      [chartLabels]="chartLabels"
-      [chartData]="chartData"
-    ></chart-group>
+<div class="ui-g-12 ui-g-nopad" style="position:relative;">
+  <div class="change-chart-type-btns">
+    <button type="button" class="on changeType" id="bar-type" (click)="changeChartType($event)"><i class="fas fa-chart-line fa-2x"></i></button>
+    <button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>
   </div>
+  <p-blockUI [blocked]="isChartLoading" [target]="ps_category_chart">
+    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+  </p-blockUI>
+  <p-panel class="ui-g-12 ui-g-nopad margin-bottom-40" [showHeader]="false" [style]="{'overflow': 'hidden'}" #ps_category_chart>
+    <div class="ui-g-12 ui-g-nopad chart-container">
+      <chart-group
+        [chartType]="chartType"
+        [chartFill]="false"
+        [chartLabels]="chartLabels"
+        [chartData]="chartData"
+      ></chart-group>
+    </div>
+  </p-panel>
+</div>
 
-  <div class="ui-g-12 ui-g-nopad">
+<div class="ui-g-12 ui-g-nopad">
+  <p-blockUI [blocked]="isTableLoading" [target]="ps_category_table">
+    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+  </p-blockUI>
+  <p-panel class="ui-g-12 ui-g-nopad" [showHeader]="false" #ps_category_table>
     <p-table #dt [columns]="categoryStatisticsCols" [value]="categoryStatisticsLists" sortField="playCount" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20, 50, 100]">
       <ng-template pTemplate="caption">
         <div class="ui-helper-clearfix">
@@ -65,5 +75,5 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
+  </p-panel>
 </div>

@@ -15,6 +15,9 @@ export class ByCategoryComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
 
+  public isChartLoading:boolean = false;
+  public isTableLoading:boolean = false;
+
   public selectFolder:object = { label:'카테고리 선택', value: null };
   public searchKey:string = '';
   public searchCount:number = 0;
@@ -65,6 +68,7 @@ export class ByCategoryComponent implements OnInit, OnChanges {
   }
 
   setChartData(search:boolean) {
+    this.isChartLoading = true;
     let api:string = '';
     if (!search) {
       api = this.cmsApi.byCategoryChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
@@ -83,10 +87,14 @@ export class ByCategoryComponent implements OnInit, OnChanges {
           document.getElementById('search-result')['style'].display = 'inline-block';
           this.searchCount = list['label'].length;
         }
+      })
+      .then(() => {
+        this.isChartLoading = false;
       });
   }
 
   setTableData(search:boolean) {
+    this.isTableLoading = true;
     let api:string = '';
     if (!search) {
       api = this.cmsApi.byCategoryTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
@@ -110,6 +118,9 @@ export class ByCategoryComponent implements OnInit, OnChanges {
         });
         this.categoryStatisticsLists = rankingArray;
         this.setTotalData();
+      })
+      .then(() => {
+        this.isTableLoading = false;
       });
   }
 

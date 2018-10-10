@@ -13,6 +13,10 @@ import { CmsApis } from '../../../../../services/apis/apis';
 
 export class ByUsageStorageComponent implements OnInit, OnChanges {
   @Input() selectDuration;
+
+  public isChartLoading:boolean = false;
+  public isTableLoading:boolean = false;
+
   public pieChartLabels: any[] = ['현재 사용량', '남은 용량'];
   public pieChartData: any[] = [30, 70];
   public pieChartDataSet: object;
@@ -48,6 +52,7 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
   }
 
   setChartData() {
+    this.isChartLoading = true;
     this.pieChartDataSet = {
       labels: this.pieChartLabels,
       datasets: [
@@ -91,10 +96,14 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
             }],
           },
         };
+      })
+      .then(() => {
+        this.isChartLoading = false;
       });
   }
 
   setTableData() {
+    this.isTableLoading = true;
     this.storageAnalysisLists = [];
     this.chartService.getLists(this.cmsApi.byStorageTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
       .then((data) => {
@@ -104,6 +113,9 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
         });
         this.storageAnalysisLists = list;
         this.setTotalData();
+      })
+      .then(() => {
+        this.isTableLoading = false;
       });
   }
 

@@ -13,6 +13,10 @@ import { CmsApis } from '../../../../../services/apis/apis';
 
 export class ByTransCodingComponent implements OnInit, OnChanges {
   @Input() selectDuration;
+
+  public isChartLoading:boolean = false;
+  public isTableLoading:boolean = false;
+
   public chartLabels: any[] = [];
   public chartDataSet: object;
   public chartOptions: any;
@@ -42,6 +46,7 @@ export class ByTransCodingComponent implements OnInit, OnChanges {
   }
 
   setChartData() {
+    this.isChartLoading = true;
     this.chartLabels = [];
 
     this.chartService.getLists(this.cmsApi.byStorageChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
@@ -63,7 +68,10 @@ export class ByTransCodingComponent implements OnInit, OnChanges {
             display: false,
           },
         };
-      });
+      })
+      .then(() => {
+        this.isChartLoading = false;
+      })
   }
 
   setBackgroundColor() {
@@ -86,13 +94,17 @@ export class ByTransCodingComponent implements OnInit, OnChanges {
   }
 
   setTableData() {
+    this.isTableLoading = true;
     this.transCodingAnalysisLists = [];
     this.chartService.getLists(this.cmsApi.byStorageTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
       .then((data) => {
         const list = data['list'] === null ? [] : data['list'];
         this.transCodingAnalysisLists = list;
         this.setTotalData();
-      });
+      })
+      .then(() => {
+        this.isTableLoading = false;
+      })
   }
 
   setTotalData() {

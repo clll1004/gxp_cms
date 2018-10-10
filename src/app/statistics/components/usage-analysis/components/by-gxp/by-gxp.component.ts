@@ -13,6 +13,10 @@ import { CmsApis } from '../../../../../services/apis/apis';
 
 export class ByGxpComponent implements OnInit, OnChanges {
   @Input() selectDuration;
+
+  public isChartLoading:boolean = false;
+  public isTableLoading:boolean = false;
+
   public pieChartLabels: any[] = ['현재 사용량', '남은 용량'];
   public pieChartData: any[] = [30, 70];
   public pieChartDataSet: object;
@@ -47,6 +51,7 @@ export class ByGxpComponent implements OnInit, OnChanges {
   }
 
   setChartData() {
+    this.isChartLoading = true;
     this.barChartLabels = [];
     this.barChartData = [];
 
@@ -86,6 +91,9 @@ export class ByGxpComponent implements OnInit, OnChanges {
             position: 'bottom',
           },
         };
+      })
+      .then(() => {
+        this.isChartLoading = false;
       });
   }
 
@@ -109,12 +117,16 @@ export class ByGxpComponent implements OnInit, OnChanges {
   }
 
   setTableData() {
+    this.isTableLoading = true;
     this.gxpAnalysisLists = [];
     this.chartService.getLists(this.cmsApi.byGxpTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1])
       .then((data) => {
         const list = data['list'] === null ? [] : data['list'];
         this.gxpAnalysisLists = list;
         this.setTotalData();
+      })
+      .then(() => {
+        this.isTableLoading = false;
       });
   }
 

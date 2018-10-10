@@ -16,6 +16,9 @@ export class ByTimeComponent implements OnInit, OnChanges {
   @Input() pathName:string;
   @Input() multiSelectDuration:any[];
 
+  public isChartLoading:boolean = false;
+  public isTableLoading:boolean = false;
+
   public selectFolder:object = { label:'카테고리 선택', value: null };
   public searchKey:string = '';
 
@@ -59,6 +62,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
   }
 
   setMultiChartData(search:boolean) {
+    this.isChartLoading = true;
     const tempDataSets:any[] = [];
     let i:number = 0;
     const bdc:any[] = ['#ffcdd2', '#e1bee7', '#c5cae9'];
@@ -93,6 +97,9 @@ export class ByTimeComponent implements OnInit, OnChanges {
             labels: tempLabel,
             datasets: tempDataSets,
           };
+        })
+        .then(() => {
+          this.isChartLoading = false;
         });
     });
     this.chartOptions = {
@@ -119,6 +126,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
   }
 
   setTableData(search:boolean) {
+    this.isTableLoading = true;
     this.durationLength = [];
     this.timeTableTitle = [];
     this.timeStatisticsLists = [];
@@ -144,7 +152,10 @@ export class ByTimeComponent implements OnInit, OnChanges {
           });
           this.timeStatisticsLists.push(tempLists);
           this.setTotalData(tempLists.length);
-        });
+        })
+        .then(() => {
+          this.isTableLoading = false;
+        })
     });
   }
 
