@@ -17,6 +17,8 @@ import { ConfirmationService } from 'primeng/components/common/api';
 export class TcListContainerComponent implements OnInit, OnDestroy {
   @Input() params: object;
 
+  public isLoading:boolean = false;
+
   public groupSeq: string = '';
   public url: string = '';
   /*for dropDown*/
@@ -151,6 +153,8 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
   }
 
   loadTranscodingList() {
+    this.filterTcMonitoringLists = [];
+    this.isLoading = true;
     this.transCodingService.getLists(this.url)
       .toPromise()
       .then((cont:any) => {
@@ -159,6 +163,9 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
           this.filterTcMonitoringLists = this.tcMonitoringLists['list'];
           this.tableInit();
         }
+      })
+      .then(() => {
+        this.isLoading = false;
       })
       .catch(() => { });
   }

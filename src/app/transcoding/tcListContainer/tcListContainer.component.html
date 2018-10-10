@@ -15,8 +15,11 @@
     ㆍTotal <span class="total-row">{{ getTotalListLength }}</span>건 <!--(<span class="now-page">{{ currentIndex }}</span>Page / <span class="total-page">{{ totalIndex }}</span>Page)-->
   </div>
 
-  <div class="ui-g-12 ui-g-nopad" *ngIf="params['id'] === 'standby'">
-    <p-table class="ui-g-12 ui-g-nopad margin-bottom-50" [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
+  <p-panel class="ui-g-12 ui-g-nopad margin-bottom-50" [showHeader]="false" *ngIf="params['id'] === 'standby'" #tc_standby_table>
+    <p-blockUI [blocked]="isLoading" [target]="tc_standby_table">
+      <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+    </p-blockUI>
+    <p-table [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col *ngFor="let col of tcStandByCols" [style.width]="col.width">
@@ -46,9 +49,12 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
-  <div class="ui-g-12 ui-g-nopad" *ngIf="params['id'] === 'request'">
-    <p-table class="ui-g-12 ui-g-nopad margin-bottom-50" [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
+  </p-panel>
+  <p-panel class="ui-g-12 ui-g-nopad margin-bottom-50" [showHeader]="false" *ngIf="params['id'] === 'request'" #tc_request_table>
+    <p-blockUI [blocked]="isLoading" [target]="tc_request_table">
+      <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+    </p-blockUI>
+    <p-table [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col *ngFor="let col of tcRequestCols" [style.width]="col.width">
@@ -78,9 +84,12 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
-  <div class="ui-g-12 ui-g-nopad" *ngIf="params['id'] === 'progress'">
-    <p-table class="ui-g-12 ui-g-nopad margin-bottom-50" [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
+  </p-panel>
+  <p-panel class="ui-g-12 ui-g-nopad margin-bottom-50" [showHeader]="false" *ngIf="params['id'] === 'progress'" #tc_progress_table>
+    <p-blockUI [blocked]="isLoading" [target]="tc_progress_table">
+      <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+    </p-blockUI>
+    <p-table [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col *ngFor="let col of tcProgressCols" [style.width]="col.width">
@@ -118,9 +127,12 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
-  <div class="ui-g-12 ui-g-nopad" *ngIf="params['id'] === 'complete'">
-    <p-table class="ui-g-12 ui-g-nopad margin-bottom-50" [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
+  </p-panel>
+  <p-panel class="ui-g-12 ui-g-nopad margin-bottom-50" [showHeader]="false" *ngIf="params['id'] === 'complete'" #tc_complete_table>
+    <p-blockUI [blocked]="isLoading" [target]="tc_complete_table">
+      <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+    </p-blockUI>
+    <p-table [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col *ngFor="let col of tcCompleteCols" [style.width]="col.width">
@@ -153,9 +165,12 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
-  <div class="ui-g-12 ui-g-nopad" *ngIf="params['id'] === 'fail'">
-    <p-table class="ui-g-12 ui-g-nopad margin-bottom-50" [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
+  </p-panel>
+  <p-panel class="ui-g-12 ui-g-nopad margin-bottom-50" [showHeader]="false" *ngIf="params['id'] === 'fail'"  #tc_fail_table>
+    <p-blockUI [blocked]="isLoading" [target]="tc_fail_table">
+      <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+    </p-blockUI>
+    <p-table [value]="filterTcMonitoringLists" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50,100]" [resizableColumns]="true" [(selection)]="selectItems">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col *ngFor="let col of tcFailCols" [style.width]="col.width">
@@ -188,7 +203,7 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
+  </p-panel>
 </div>
 
 <p-confirmDialog width="500" #confirm>
