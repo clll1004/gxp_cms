@@ -174,13 +174,14 @@ export class ContentsComponent implements OnInit {
     };
 
     treeData['grp'].forEach((grpItem: any) => {
+      let fol:any;
       if (treeData['fol']) {
-        const fol = treeData['fol'].filter((folItem: any) => {
+        fol = treeData['fol'].filter((folItem: any) => {
           return grpItem.grp_seq === folItem.gf_grp_seq;
         });
       }
 
-      if (treeData['fol']) {
+      if (fol) {
         grpItem['children'] = folderTree(fol, '0', grpItem.grp_seq);
       }
       tempTreeArray.push(grpItem);
