@@ -82,7 +82,6 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   ngOnInit() { }
 
   ngOnChanges() {
-    document.getElementById('search-result')['style'].display = 'none';
     this.searchKey = '';
     this.searchCount = 0;
     const startDate = new Date(this.selectDuration.date[0]);
