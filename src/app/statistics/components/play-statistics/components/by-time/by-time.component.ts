@@ -20,7 +20,6 @@ export class ByTimeComponent implements OnInit, OnChanges {
   public isTableLoading:boolean = false;
 
   public selectFolder:object = { label:'카테고리 선택', value: null };
-  public searchKey:string = '';
 
   public chartType: string = 'line';
   public chartLabels: any[] = [];
@@ -51,14 +50,15 @@ export class ByTimeComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.searchKey = '';
     this.setChartType();
     this.setMultiChartData(false);
     this.setTableData(false);
   }
 
-  updateChoiceFolder(e) {
+  categorySearch(e) {
     this.selectFolder = e;
+    this.setMultiChartData(true);
+    this.setTableData(true);
   }
 
   setMultiChartData(search:boolean) {
@@ -75,7 +75,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
         api = this.cmsApi.byTimeChart + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd');
       } else {
         api = this.cmsApi.byTimeChart + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&category=' +
-          (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+          (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=';
       }
 
       this.chartService.getLists(api)
@@ -137,7 +137,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
         api = this.cmsApi.byTimeTable + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd');
       } else {
         api = this.cmsApi.byTimeTable + 'sdate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&edate=' + this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd') + '&category=' +
-          (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+          (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=';
       }
 
       this.durationLength.push(i);
@@ -196,10 +196,5 @@ export class ByTimeComponent implements OnInit, OnChanges {
       }
       btn.innerText = '접기 >';
     }
-  }
-
-  search() {
-    this.setMultiChartData(true);
-    this.setTableData(true);
   }
 }

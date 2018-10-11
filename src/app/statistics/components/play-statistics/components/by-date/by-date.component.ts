@@ -19,7 +19,6 @@ export class ByDateComponent implements OnInit, OnChanges {
   public isTableLoading:boolean = false;
 
   public selectFolder:object = { label:'카테고리 선택', value: null };
-  public searchKey:string = '';
   public searchCount:number = 0;
 
   public chartType: string = 'line';
@@ -50,16 +49,16 @@ export class ByDateComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
-    document.getElementById('search-result')['style'].display = 'none';
-    this.searchKey = '';
     this.searchCount = 0;
     this.setChartType();
     this.setChartData(false);
     this.setTableData(false);
   }
 
-  updateChoiceFolder(e) {
+  categorySearch(e) {
     this.selectFolder = e;
+    this.setChartData(true);
+    this.setTableData(true);
   }
 
   setChartType() {
@@ -76,7 +75,7 @@ export class ByDateComponent implements OnInit, OnChanges {
     if (!search) {
       api = this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
     } else {
-      api = this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+      api = this.cmsApi.byDateChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=';
     }
     this.chartLabels = [];
     this.chartData = [];
@@ -89,7 +88,6 @@ export class ByDateComponent implements OnInit, OnChanges {
         });
         this.chartData = list['data'];
         if (search) {
-          document.getElementById('search-result')['style'].display = 'inline-block';
           this.searchCount = list['label'].length;
         }
       })
@@ -104,7 +102,7 @@ export class ByDateComponent implements OnInit, OnChanges {
     if (!search) {
       api = this.cmsApi.byDateTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
     } else {
-      api = this.cmsApi.byDateTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value'])  + '&content_nm=' + this.searchKey;
+      api = this.cmsApi.byDateTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value'])  + '&content_nm=';
     }
     this.dateStatisticsLists = [];
 
@@ -150,10 +148,5 @@ export class ByDateComponent implements OnInit, OnChanges {
       e.currentTarget.setAttribute('class', 'changeType on');
       this.chartType = 'pie';
     }
-  }
-
-  search() {
-    this.setChartData(true);
-    this.setTableData(true);
   }
 }
