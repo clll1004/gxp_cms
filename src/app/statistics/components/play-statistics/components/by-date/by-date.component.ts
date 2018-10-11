@@ -50,7 +50,6 @@ export class ByDateComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.searchCount = 0;
-    this.setChartType();
     this.setChartData(false);
     this.setTableData(false);
   }
@@ -59,14 +58,6 @@ export class ByDateComponent implements OnInit, OnChanges {
     this.selectFolder = e;
     this.setChartData(true);
     this.setTableData(true);
-  }
-
-  setChartType() {
-    this.chartType = 'line';
-    const lineType = document.getElementById('line-type');
-    const pieType = document.getElementById('pie-type');
-    lineType.setAttribute('class', 'on changeType');
-    pieType.setAttribute('class', 'changeType');
   }
 
   setChartData(search:boolean) {
@@ -133,20 +124,5 @@ export class ByDateComponent implements OnInit, OnChanges {
     });
     this.totalData['averagePlayCount'] = Math.floor(this.totalData['totalPlayCount'] / length);
     this.totalData['averageTotalPlayTime'] = Math.floor(this.totalData['totalPlayTime'] / length);
-  }
-
-  changeChartType(e) {
-    const temp = e.currentTarget.parentNode.children;
-    for (let i = 0 ; i < temp.length ; i += 1) {
-      temp[i].setAttribute('class', 'changeType');
-    }
-
-    if (e.currentTarget.getAttribute('id') === 'line-type') {
-      e.currentTarget.setAttribute('class', 'changeType on');
-      this.chartType = 'line';
-    } else {
-      e.currentTarget.setAttribute('class', 'changeType on');
-      this.chartType = 'pie';
-    }
   }
 }

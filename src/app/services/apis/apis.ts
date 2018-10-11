@@ -2,6 +2,7 @@
  * Created by GRE511 on 2018-07-26.
  */
 import { Injectable } from '@angular/core';
+import { LoginService } from '../../login/login.service';
 
 @Injectable()
 export class CmsApis {
@@ -74,12 +75,13 @@ export class CmsApis {
   /**** Player Preset ****/
   public playerPreset = '';
 
-  constructor() {
+  constructor(private loginService: LoginService) {
     if (process.env.NODE_ENV === 'development') {
       this.domain = 'http://183.110.11.49/';
     } else if (process.env.NODE_ENV === 'production') {
       this.domain = 'http://183.110.11.49/';
     }
+    const usrSeq = this.loginService.getCookie('usr_seq');
 
     /**** 로그인 ****/
     this.login = this.domain + 'cms/login';
@@ -113,37 +115,37 @@ export class CmsApis {
     this.updatePassword = this.domain + 'cms/setting/user/password';
 
     /**** Dashboard ****/
-    this.gxpDashboard = this.domain + 'cms/dashboard/used';
-    this.storageDashboard = this.domain + 'cms/dashboard/storage';
-    this.dateDashboard = this.domain + 'cms/dashboard/playcntdate';
-    this.timeDashboard = this.domain + 'cms/dashboard/playcnttime';
-    this.contentsDashboard = this.domain + 'cms/dashboard/playcntcontent';
-    this.categoryDashboard = this.domain + 'cms/dashboard/playcntcategory';
+    this.gxpDashboard = this.domain + 'cms/dashboard/used?usr_seq=' + usrSeq;
+    this.storageDashboard = this.domain + 'cms/dashboard/storage?usr_seq=' + usrSeq;
+    this.dateDashboard = this.domain + 'cms/dashboard/playcntdate?usr_seq=' + usrSeq;
+    this.timeDashboard = this.domain + 'cms/dashboard/playcnttime?usr_seq=' + usrSeq;
+    this.contentsDashboard = this.domain + 'cms/dashboard/playcntcontent?usr_seq=' + usrSeq;
+    this.categoryDashboard = this.domain + 'cms/dashboard/playcntcategory?usr_seq=' + usrSeq;
 
     /**** PlayStatistics ****/
-    this.byDateChart = this.domain + 'cms/chart/playdatedata?';
-    this.byDateTable = this.domain + 'cms/chart/playdatelist?';
-    this.byTimeChart = this.domain + 'cms/chart/playtimedata?';
-    this.byTimeTable = this.domain + 'cms/chart/playtimelist?';
-    this.byPlaySectionTable = this.domain + 'cms/chart/playplaysectionlist?';
-    this.byPlaySectionChart = this.domain + 'cms/chart/playplaysectiondata?';
-    this.byPlaySectionResultTable = this.domain + 'cms/chart/playplaysectionlistdetail?';
-    this.byPlayTimeTable = this.domain + 'cms/chart/playplaytimelist?';
-    this.byPlayTimeChart = this.domain + 'cms/chart/playplaytimedata?';
-    this.byPlayTimeResultTable = this.domain + 'cms/chart/playplaytimelistdetail?';
-    this.byContentsChart = this.domain + 'cms/chart/playcontentdata?';
-    this.byContentsTable = this.domain + 'cms/chart/playcontentlist?';
-    this.byCategoryChart = this.domain + 'cms/chart/playcategorydata?';
-    this.byCategoryTable = this.domain + 'cms/chart/playcategorylist?';
+    this.byDateChart = this.domain + 'cms/chart/playdatedata?usr_seq=' + usrSeq + '&';
+    this.byDateTable = this.domain + 'cms/chart/playdatelist?usr_seq=' + usrSeq + '&';
+    this.byTimeChart = this.domain + 'cms/chart/playtimedata?usr_seq=' + usrSeq + '&';
+    this.byTimeTable = this.domain + 'cms/chart/playtimelist?usr_seq=' + usrSeq + '&';
+    this.byPlaySectionTable = this.domain + 'cms/chart/playplaysectionlist?usr_seq=' + usrSeq + '&';
+    this.byPlaySectionChart = this.domain + 'cms/chart/playplaysectiondata?usr_seq=' + usrSeq + '&';
+    this.byPlaySectionResultTable = this.domain + 'cms/chart/playplaysectionlistdetail?usr_seq=' + usrSeq + '&';
+    this.byPlayTimeTable = this.domain + 'cms/chart/playplaytimelist?usr_seq=' + usrSeq + '&';
+    this.byPlayTimeChart = this.domain + 'cms/chart/playplaytimedata?usr_seq=' + usrSeq + '&';
+    this.byPlayTimeResultTable = this.domain + 'cms/chart/playplaytimelistdetail?usr_seq=' + usrSeq + '&';
+    this.byContentsChart = this.domain + 'cms/chart/playcontentdata?usr_seq=' + usrSeq + '&';
+    this.byContentsTable = this.domain + 'cms/chart/playcontentlist?usr_seq=' + usrSeq + '&';
+    this.byCategoryChart = this.domain + 'cms/chart/playcategorydata?usr_seq=' + usrSeq + '&';
+    this.byCategoryTable = this.domain + 'cms/chart/playcategorylist?usr_seq=' + usrSeq + '&';
 
     /** search **/
     this.loadCategoryKey = this.domain + 'cms/setting/user/category/';
 
     /**** Usage Analysis ****/
-    this.byStorageChart = this.domain + 'cms/chart/usedstoragedata?';
-    this.byStorageTable = this.domain + 'cms/chart/usedstoragelist?';
-    this.byGxpChart = this.domain + 'cms/chart/useddata?';
-    this.byGxpTable = this.domain + 'cms/chart/usedlist?';
+    this.byStorageChart = this.domain + 'cms/chart/usedstoragedata?usr_seq=' + usrSeq + '&';
+    this.byStorageTable = this.domain + 'cms/chart/usedstoragelist?usr_seq=' + usrSeq + '&';
+    this.byGxpChart = this.domain + 'cms/chart/useddata?usr_seq=' + usrSeq + '&';
+    this.byGxpTable = this.domain + 'cms/chart/usedlist?usr_seq=' + usrSeq + '&';
 
     /**** Player Preset ****/
     this.playerPreset = this.domain + 'cms/setting/preset';
