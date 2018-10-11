@@ -19,7 +19,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public isChartLoading:boolean = false;
   public isResultTableLoading:boolean = false;
 
-  public selectFolder:object = { label:'카테고리 선택', value: null };
+  public selectFolder:object = { label:'전체 카테고리', value: null };
   public searchKey:string = '';
   public searchCount:number = 0;
 
@@ -73,6 +73,9 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public compareLength:any[] = [];
   public comparePlaySectionData:any[] = [];
 
+  public apiParameter:string = '';
+  public apiSearchKey:string = '';
+
   constructor(private cmsApi: CmsApis, private chartService: ChartService) { }
 
   ngOnInit() { }
@@ -88,8 +91,26 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     this.setTableData(false);
   }
 
-  updateChoiceFolder(e) {
+  categorySearch(e) {
     this.selectFolder = e;
+    this.initialize();
+    if (!this.apiSearchKey) {
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']);
+    } else {
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
+    }
+    this.setTableData(true);
+  }
+
+  search() {
+    this.initialize();
+    this.apiSearchKey = this.searchKey;
+    if (!this.selectFolder['value']) {
+      this.apiParameter = '&content_nm=' + this.apiSearchKey;
+    } else {
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
+    }
+    this.setTableData(true);
   }
 
   initialize() {
@@ -120,8 +141,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     if (!search) {
       api = this.cmsApi.byPlaySectionTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
     } else {
-      api = this.cmsApi.byPlaySectionTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] +
-        '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+      api = this.cmsApi.byPlaySectionTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + this.apiParameter;
     }
     this.playSectionStatisticsDatas = [];
 
@@ -161,7 +181,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       })
       .then(() => {
         this.isTableLoading = false;
-      })
+      });
   }
 
   onRowSelect() {
@@ -420,10 +440,5 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       item['no'] = i;
       i += 1;
     });
-  }
-
-  search() {
-    this.initialize();
-    this.setTableData(true);
   }
 }

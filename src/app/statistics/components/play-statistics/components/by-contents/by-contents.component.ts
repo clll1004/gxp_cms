@@ -39,6 +39,9 @@ export class ByContentsComponent implements OnInit, OnChanges {
     totalPlayCount: 0,
   };
 
+  public apiParameter:string = '';
+  public apiSearchKey:string = '';
+
   constructor(private cmsApi: CmsApis, private chartService: ChartService) { }
 
   ngOnInit() {}
@@ -52,8 +55,26 @@ export class ByContentsComponent implements OnInit, OnChanges {
     this.setTableData(false);
   }
 
-  updateChoiceFolder(e) {
+  categorySearch(e) {
     this.selectFolder = e;
+    if (!this.apiSearchKey) {
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']);
+    } else {
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
+    }
+    this.setChartData(true);
+    this.setTableData(true);
+  }
+
+  search() {
+    this.apiSearchKey = this.searchKey;
+    if (!this.selectFolder['value']) {
+      this.apiParameter = '&content_nm=' + this.apiSearchKey;
+    } else {
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
+    }
+    this.setChartData(true);
+    this.setTableData(true);
   }
 
   setChartType() {
@@ -70,8 +91,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
     if (!search) {
       api = this.cmsApi.byContentsChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
     } else {
-      api = this.cmsApi.byContentsChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] +
-        '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+      api = this.cmsApi.byContentsChart + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + this.apiParameter;
     }
     this.chartLabels = [];
     this.chartData = [];
@@ -96,8 +116,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
     if (!search) {
       api = this.cmsApi.byContentsTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
     } else {
-      api = this.cmsApi.byContentsTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] +
-        '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+      api = this.cmsApi.byContentsTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + this.apiParameter;
     }
     this.contentsStatisticsLists = [];
 
@@ -140,10 +159,5 @@ export class ByContentsComponent implements OnInit, OnChanges {
       e.currentTarget.setAttribute('class', 'changeType on');
       this.chartType = 'pie';
     }
-  }
-
-  search() {
-    this.setChartData(true);
-    this.setTableData(true);
   }
 }

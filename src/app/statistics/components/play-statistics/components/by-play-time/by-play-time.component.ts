@@ -72,6 +72,9 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   public comparePlayTimeTableDatas:any[] = [];
   public compareSectionTotalData:any[] = [];
 
+  public apiParameter:string = '';
+  public apiSearchKey:string = '';
+
   constructor(private cmsApi: CmsApis, private chartService: ChartService) { }
 
   ngOnInit() { }
@@ -87,8 +90,26 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     this.setTableData(false);
   }
 
-  updateChoiceFolder(e) {
+  categorySearch(e) {
     this.selectFolder = e;
+    this.initialize();
+    if (!this.apiSearchKey) {
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']);
+    } else {
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
+    }
+    this.setTableData(true);
+  }
+
+  search() {
+    this.initialize();
+    this.apiSearchKey = this.searchKey;
+    if (!this.selectFolder['value']) {
+      this.apiParameter = '&content_nm=' + this.apiSearchKey;
+    } else {
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
+    }
+    this.setTableData(true);
   }
 
   initialize() {
@@ -107,8 +128,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     if (!search) {
       api = this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
     } else {
-      api = this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] +
-        '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.searchKey;
+      api = this.cmsApi.byPlayTimeTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1] + this.apiParameter;
     }
     this.playTimeStatisticsDatas = [];
 
@@ -372,10 +392,5 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
       item['no'] = i;
       i += 1;
     });
-  }
-
-  search() {
-    this.initialize();
-    this.setTableData(true);
   }
 }
