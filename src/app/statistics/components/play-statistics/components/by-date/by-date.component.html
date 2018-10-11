@@ -10,7 +10,7 @@
 <div class="ui-g-12 ui-g-nopad" style="position:relative;">
   <div class="change-chart-type-btns">
     <button type="button" class="on changeType" id="line-type" (click)="changeChartType($event)"><i class="fas fa-chart-line fa-2x"></i></button>
-    <button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>
+    <!--<button type="button" class="changeType" id="pie-type" (click)="changeChartType($event)"><i class="fas fa-chart-pie fa-2x"></i></button>-->
   </div>
   <p-blockUI [blocked]="isChartLoading" [target]="ps_date_chart">
     <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
