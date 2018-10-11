@@ -36,8 +36,8 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     }},
     {value: 'l-7days', text: '최근 7일', setDate: () => {
       let curr = new Date();
-      let start = curr.getDate() - 7;
-      let yesterday = curr.getDate() - 1;
+      let start = curr.getDate() - 6;
+      let yesterday = curr.getDate();
       this.selectedDate = [this.datePipe.transform(new Date().setDate(start), 'yyyy-MM-dd'), this.datePipe.transform(new Date().setDate(yesterday), 'yyyy-MM-dd')];
     }},
     {value: 't-week-0', text: '이번 주(일-어제)', setDate: () => {
@@ -216,22 +216,10 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   }
 
   setCalendarPosition(): void {
-    const calendarWidth = 270;
-    const screenWidth = window.screen.width;
     const thisWidth = this.elRef.nativeElement.offsetWidth;
-    const thisClientRectLeft = this.elRef.nativeElement.getBoundingClientRect().left;
     let calendarElement = this.elRef.nativeElement.querySelector('.calendar-container');
 
-    if (thisClientRectLeft < calendarWidth) {
-      //rightside
-      calendarElement.style.right = '';
-      calendarElement.style.left = thisWidth + 'px';
-
-    } else {
-      //leftside
-      calendarElement.style.left = '';
-      calendarElement.style.right = thisWidth + 'px';
-    }
+    calendarElement.style.left = thisWidth + 'px';
   }
 
   rangeClick(range: object): void {

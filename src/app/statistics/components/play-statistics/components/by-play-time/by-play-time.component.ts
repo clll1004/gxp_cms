@@ -22,6 +22,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   public selectFolder:object = { label:'카테고리 선택', value: null };
   public searchKey:string = '';
   public searchCount:number = 0;
+  public isSearchKeyMessage:boolean = false;
 
   public isCompareStatus:boolean = false;
 
@@ -102,14 +103,18 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
   }
 
   search() {
-    this.initialize();
-    this.apiSearchKey = this.searchKey;
-    if (!this.selectFolder['value']) {
-      this.apiParameter = '&content_nm=' + this.apiSearchKey;
+    if (this.searchKey) {
+      this.initialize();
+      this.apiSearchKey = this.searchKey;
+      if (!this.selectFolder['value']) {
+        this.apiParameter = '&content_nm=' + this.apiSearchKey;
+      } else {
+        this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
+      }
+      this.setTableData(true);
     } else {
-      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
+      this.isSearchKeyMessage = true;
     }
-    this.setTableData(true);
   }
 
   initialize() {

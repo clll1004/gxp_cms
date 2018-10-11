@@ -10,7 +10,10 @@
     <label for="search-key"></label><input type="text" class="margin-right-10" id="search-key" [(ngModel)]="searchKey" pInputText placeholder="검색어를 입력해주세요" autocomplete="off">
     <button type="button" class="btn margin-right-10" (click)="search()"><i class="fas fa-search"></i> 검색</button>
 
-    <span class="search-result" id="search-result">총 {{searchCount}}개 검색되었습니다.</span>
+    <span class="search-result" id="search-result" *ngIf="searchKey">
+      <span *ngIf="searchCount === 0">검색된 결과가 없습니다.</span>
+      <span *ngIf="searchCount !== 0">총 {{searchCount}}개 검색되었습니다.</span>
+    </span>
   </div>
 </div>
 
@@ -154,5 +157,11 @@
   <p class="txt-center margin-top-25 margin-bottom-25">2개까지 선택하실 수 있습니다.</p>
   <div class="txt-center">
     <button type="button" class="btn" (click)="isShowCheckLimitMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+  </div>
+</p-dialog>
+<p-dialog [(visible)]="isSearchKeyMessage" [width]="400" [modal]="true" [showHeader]="false">
+  <p class="txt-center margin-top-25 margin-bottom-25">검색어를 입력해 주세요.</p>
+  <div class="txt-center">
+    <button type="button" class="btn" (click)="isSearchKeyMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
   </div>
 </p-dialog>

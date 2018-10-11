@@ -110,7 +110,8 @@
     z-index: 3001;
     background-color: #ffffff;
     position: absolute;
-    top: 27px;
+    top: 27px; left: 0;
+    background: #fff;
 
     &.active {
       display: inline-block;

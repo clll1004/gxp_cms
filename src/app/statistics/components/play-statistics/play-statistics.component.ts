@@ -54,12 +54,19 @@ export class PlayStatisticsComponent implements OnInit {
   dateInit() {
     this.selectDuration = {};
     const tempDate = new Date();
-    const start = tempDate.getDate() - 7;
-    const yesterday = tempDate.getDate() - 1;
-    this.updateChoiceDuration({
-      range : 'l-7days',
-      date: [this.datePipe.transform(new Date().setDate(start), 'yyyy-MM-dd'), this.datePipe.transform(new Date().setDate(yesterday), 'yyyy-MM-dd')],
-    });
+    const start = tempDate.getDate() - 6;
+    const end = tempDate.getDate() ;
+    if (this.pathName !== '재생 구간' && this.pathName !== '재생 시간') {
+      this.updateChoiceDuration({
+        range : 'l-7days',
+        date: [this.datePipe.transform(new Date().setDate(start), 'yyyy-MM-dd'), this.datePipe.transform(new Date().setDate(end), 'yyyy-MM-dd')],
+      });
+    } else {
+      this.updateChoiceDuration({
+        range : 't',
+        date: [this.datePipe.transform(new Date().setDate(end), 'yyyy-MM-dd'), this.datePipe.transform(new Date().setDate(end), 'yyyy-MM-dd')],
+      });
+    }
   }
 
   refresh() {
