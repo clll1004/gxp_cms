@@ -8,7 +8,10 @@
     </div>
     <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)" class="ui-g-12 ui-g-nopad form-sec">
         <fieldset>
-            <div class="ui-g-12 ui-g-nopad table-sec">
+            <p-blockUI [blocked]="isLoading" [target]="user_modify">
+                <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+            </p-blockUI>
+            <p-panel class="ui-g-12 ui-g-nopad table-sec" [showHeader]="false" #user_modify>
                 <table>
                     <caption>개인정보 수정 테이블</caption>
                     <colgroup>
@@ -42,7 +45,7 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </p-panel>
             <div class="ui-g-12 ui-g-nopad btn-sec">
                 <button type="submit" class="btn margin-right-5" [disabled]="!userform.valid"><i class="fas fa-edit"></i> 수정</button>
                 <a routerLink="/settings/group-manager"><button type="button" class="btn"><i class="fas fa-times"></i> 취소</button></a>

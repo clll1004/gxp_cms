@@ -11,6 +11,7 @@ import { CmsApis } from '../../../services/apis/apis';
   providers: [LoginService, SettingsService, CmsApis]})
 
 export class UserModifyComponent implements OnInit {
+  public isLoading:boolean = false;
   public userSeq:string = '';
 
   public userform: FormGroup;
@@ -39,6 +40,7 @@ export class UserModifyComponent implements OnInit {
   }
 
   loadUserInfo() {
+    this.isLoading = true;
     this.userSeq = this.loginService.getCookie('usr_seq');
     this.settingsService.getLists(this.cmsApi.loadUserInfo + this.userSeq)
       .toPromise()
@@ -50,6 +52,9 @@ export class UserModifyComponent implements OnInit {
         this.userform.get('usr_mobile').setValue(getData['usr_mobile']);
         this.userform.get('usr_tel').setValue(getData['usr_tel']);
         this.userform.get('usr_remark').setValue(getData['usr_remark']);
+      })
+      .then(() => {
+        this.isLoading = false;
       });
   }
 

@@ -12,6 +12,7 @@ import { CmsApis } from '../services/apis/apis';
   providers: [SettingsService, CmsApis]})
 
 export class SettingsComponent implements OnInit {
+  public isLoading:boolean = false;
   public groupList: TreeNode[];
   public selectGroup: TreeNode;
   public groupSeq:string = this.loginService.getCookie('grp_seq');
@@ -60,6 +61,7 @@ export class SettingsComponent implements OnInit {
   }
 
   loadGroupList() {
+    this.isLoading = true;
     this.settingsService.getLists(this.cmsApi.loadFolderList + this.groupSeq)
       .toPromise()
       .then((res) => {
@@ -80,6 +82,9 @@ export class SettingsComponent implements OnInit {
         this.treeStyle = document.getElementById('treeObject').children[0];
         this.treeStyle.style['border-left'] = '0';
         this.treeStyle.style['border-right'] = '0';
+      })
+      .then(() => {
+        this.isLoading = false;
       });
   }
 

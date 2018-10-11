@@ -3,7 +3,10 @@
         <a routerLink="/home"><i class="fas fa-home"></i></a> > <a routerLink="/settings/group-manager" (click)="refresh()">설정</a> > <span class="path" (click)="refresh()">서비스관리</span>
     </div>
 
-    <div class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec">
+    <p-blockUI [blocked]="isLoading" [target]="settings_sInfo">
+        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+    </p-blockUI>
+    <p-panel class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec" [showHeader]="false" #settings_sInfo>
         <div class="ui-g-12 ui-g-nopad table-title-sec">
             <h3>서비스 기본 정보</h3>
         </div>
@@ -32,13 +35,16 @@
                 <td> {{ groupData['edate'] }} </td>
             </tr>
         </table>
-    </div>
+    </p-panel>
 
-    <div class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec">
-        <div class="ui-g-12 ui-g-nopad table-title-sec">
+    <p-blockUI [blocked]="isLoading" [target]="settings_preset">
+        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+    </p-blockUI>
+    <p-panel class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec" [showHeader]="false" #settings_preset>
+        <div class="table-title-sec">
             <h3>플레이어 설정</h3>
         </div>
-        <form [formGroup]="playerPresetForm" (ngSubmit)="onSubmit(playerPresetForm.value)" class="ui-g-12 ui-g-nopad padding-top-30 padding-bottom-30">
+        <form [formGroup]="playerPresetForm" (ngSubmit)="onSubmit(playerPresetForm.value)" class="padding-top-30 padding-bottom-30" style="overflow: hidden;">
             <fieldset>
                 <div class="ui-g-1 ui-g-nopad">&nbsp;</div>
                 <div class="ui-g-2 ui-g-nopad button-area">
@@ -80,13 +86,16 @@
                 </div>
             </fieldset>
         </form>
-    </div>
+    </p-panel>
 
-    <div class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec">
-        <div class="ui-g-12 ui-g-nopad table-title-sec">
+    <p-blockUI [blocked]="isLoading" [target]="settings_transOption">
+        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+    </p-blockUI>
+    <p-panel class="ui-g-12 ui-g-nopad table-sec groupMng-table-sec" [showHeader]="false" #settings_transOption>
+        <div class="table-title-sec">
             <h3>변환옵션 목록</h3>
         </div>
-        <p-table class="ui-g-12 ui-g-nopad" id="transOptionTable" [value]="transOptions" [resizableColumns]="true">
+        <p-table id="transOptionTable" [value]="transOptions" [resizableColumns]="true">
             <ng-template pTemplate="colgroup" let-columns>
                 <colgroup>
                     <col *ngFor="let col of transOptionsCols" [style.width]="col.width">
@@ -118,7 +127,7 @@
                 </tr>
             </ng-template>
         </p-table>
-    </div>
+    </p-panel>
 </div>
 
 <p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">

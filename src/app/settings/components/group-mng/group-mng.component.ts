@@ -13,6 +13,9 @@ import { ConfirmationService } from 'primeng/components/common/api';
 
 export class GroupMngComponent implements OnInit, OnChanges {
   @Input() groupSeq: any;
+
+  public isLoading:boolean = true;
+
   public userSeq:string = '';
   public playerPresetForm: FormGroup;
   public submitted: boolean = false;
@@ -82,6 +85,9 @@ export class GroupMngComponent implements OnInit, OnChanges {
   }
 
   loadGroupData() {
+    this.groupData = {};
+    this.transOptions = [];
+    this.isLoading = true;
     this.settingsService.getLists(this.cmsApi.loadGroupMng + this.groupSeq)
       .toPromise()
       .then((cont) => {
@@ -89,6 +95,9 @@ export class GroupMngComponent implements OnInit, OnChanges {
         this.transOptions = JSON.parse(cont['_body']).tcd;
         this.initDropDownOptions();
         this.initTableStyle();
+      })
+      .then(() => {
+        this.isLoading = false;
       });
   }
 
