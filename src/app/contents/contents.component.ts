@@ -114,7 +114,7 @@ export class ContentsComponent implements OnInit {
         this.groupList.forEach((item) => {
           item.expanded = true;
         });
-        if (this.groupList[0].children[0]) {
+        if (this.groupList[0].children) {
           this.selectGroup = this.groupList[0].children[0];
           this.loadFolder();
         }
@@ -135,13 +135,15 @@ export class ContentsComponent implements OnInit {
       item.expandedIcon = 'far fa-building';
       item.collapsedIcon = 'far fa-building';
     });
-    treeData['fol'].map((item: any) => {
-      item.label = item.gf_nm;
-      item.data = item.gf_nm;
-      item['gf_grp_seq'] = item.gf_grp_seq;
-      item.expandedIcon = 'fa fa-folder-open';
-      item.collapsedIcon = 'fa fa-folder';
-    });
+    if (treeData['fol']) {
+      treeData['fol'].map((item: any) => {
+        item.label = item.gf_nm;
+        item.data = item.gf_nm;
+        item['gf_grp_seq'] = item.gf_grp_seq;
+        item.expandedIcon = 'fa fa-folder-open';
+        item.collapsedIcon = 'fa fa-folder';
+      });
+    }
 
     const tempTreeArray: any[] = [];
 
@@ -172,11 +174,13 @@ export class ContentsComponent implements OnInit {
     };
 
     treeData['grp'].forEach((grpItem: any) => {
-      const fol = treeData['fol'].filter((folItem: any) => {
-        return grpItem.grp_seq === folItem.gf_grp_seq;
-      });
+      if (treeData['fol']) {
+        const fol = treeData['fol'].filter((folItem: any) => {
+          return grpItem.grp_seq === folItem.gf_grp_seq;
+        });
+      }
 
-      if (fol.length) {
+      if (treeData['fol']) {
         grpItem['children'] = folderTree(fol, '0', grpItem.grp_seq);
       }
       tempTreeArray.push(grpItem);
