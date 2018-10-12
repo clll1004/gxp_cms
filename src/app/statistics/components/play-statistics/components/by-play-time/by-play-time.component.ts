@@ -94,7 +94,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     this.selectFolder = e;
     this.initialize();
     if (!this.apiSearchKey) {
-      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']);
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=';
     } else {
       this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
     }
@@ -106,11 +106,11 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
       this.initialize();
       this.apiSearchKey = this.searchKey;
       if (!this.selectFolder['value']) {
-        this.apiParameter = '&content_nm=' + this.apiSearchKey;
+        this.apiParameter = '&category=&content_nm=' + this.apiSearchKey;
       } else {
         this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
       }
-      this.setTableData(true);
+      this.setTableData(true, true);
     } else {
       this.isSearchKeyMessage = true;
     }
@@ -126,7 +126,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     this.compareSectionTotalData = [];
   }
 
-  setTableData(search:boolean) {
+  setTableData(search:boolean, keySearch:boolean = false) {
     this.isTableLoading = true;
     let api:string = '';
     if (!search) {
@@ -162,7 +162,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
           this.tempCompareItems = [this.playTimeStatisticsDatas[0]];
           this.compareItems = this.tempCompareItems;
 
-          if (search) {
+          if (search && keySearch) {
             document.getElementById('search-result')['style'].display = 'inline-block';
             this.searchCount = list['list'].length;
           }

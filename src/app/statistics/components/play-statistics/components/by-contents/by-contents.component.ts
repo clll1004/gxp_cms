@@ -58,7 +58,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
   categorySearch(e) {
     this.selectFolder = e;
     if (!this.apiSearchKey) {
-      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']);
+      this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=';
     } else {
       this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
     }
@@ -70,11 +70,11 @@ export class ByContentsComponent implements OnInit, OnChanges {
     if (this.searchKey) {
       this.apiSearchKey = this.searchKey;
       if (!this.selectFolder['value']) {
-        this.apiParameter = '&content_nm=' + this.apiSearchKey;
+        this.apiParameter = '&category=&content_nm=' + this.apiSearchKey;
       } else {
         this.apiParameter = '&category=' + (this.selectFolder['value'] === null ? '' : this.selectFolder['value']) + '&content_nm=' + this.apiSearchKey;
       }
-      this.setChartData(true);
+      this.setChartData(true, true);
       this.setTableData(true);
     } else {
       this.isSearchKeyMessage = true;
@@ -89,7 +89,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
     pieType.setAttribute('class', 'changeType');
   }
 
-  setChartData(search:boolean) {
+  setChartData(search:boolean, keySearch:boolean = false) {
     this.isChartLoading = true;
     let api:string = '';
     if (!search) {
@@ -104,7 +104,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
       .then((list) => {
         this.chartLabels = list['label'];
         this.chartData = list['data'];
-        if (search) {
+        if (search && keySearch) {
           document.getElementById('search-result')['style'].display = 'inline-block';
           this.searchCount = list['label'].length;
         }
