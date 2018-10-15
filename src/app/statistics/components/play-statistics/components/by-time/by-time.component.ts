@@ -148,7 +148,6 @@ export class ByTimeComponent implements OnInit, OnChanges {
       }
 
       this.durationLength.push(i);
-      this.timeTableTitle.push(this.datePipe.transform(item.selectDuration, 'yyyy-MM-dd'));
       i += 1;
 
       const tempLists:any[] = [];
@@ -157,12 +156,13 @@ export class ByTimeComponent implements OnInit, OnChanges {
           list['list'].forEach((item) => {
             tempLists.push(item);
           });
+          this.timeTableTitle.push(list['date']);
           this.timeStatisticsLists.push(tempLists);
           this.setTotalData(tempLists.length);
         })
         .then(() => {
           this.isTableLoading = false;
-        })
+        });
     });
   }
 
