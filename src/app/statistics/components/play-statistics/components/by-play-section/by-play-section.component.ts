@@ -332,7 +332,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       p90: 0,
       p100: 0,
     };
-    for (let j = 0 ; j < this.compareItems.length ; j += 1) {
+    for (let j = 0 ; j < this.tempCompareItems.length ; j += 1) {
       for (let i = 0 ; i < this.compareSectionDatas.length ; i += 1) {
         if (j === 0) {
           tempData['index'] = j;
@@ -366,7 +366,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       }
     }
     this.compareSectionAverageData.push(tempData);
-    if (tempData2['p10']) {
+    if (tempData2['index']) {
       this.compareSectionAverageData.push(tempData2);
     }
     this.compareSectionAverageData.forEach((item) => {
