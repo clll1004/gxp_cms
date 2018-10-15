@@ -28,6 +28,7 @@ export class PlayStatisticsComponent implements OnInit {
   public multiSelectDuration:any[] = [
     { selectDuration: new Date() },
   ];
+  public invalidDates:any[] = [[]];
   public yearRange: string = `${new Date().getFullYear() - 3}:${new Date().getFullYear()}`;
   public localeObject: object = {
     firstDayOfWeek: 0,
@@ -77,14 +78,50 @@ export class PlayStatisticsComponent implements OnInit {
     this.selectDuration = e;
   }
 
-  updateMultiSelectDuration() {
+  useMultiMode() {
+    this.invalidDates = [];
     if (!this.isMultiSelectDuration) {
       this.durationCount = [0];
       this.multiSelectDuration = [{
-        selectDuration: this.multiSelectDuration[0].selectDuration,
+        selectDuration: this.multiSelectDuration[0]['selectDuration'],
       }];
+    } else {
+      this.durationCount = [0, 1];
+      this.multiSelectDuration.push({
+        selectDuration: '',
+      });
+      this.invalidDates.push([]);
+      this.invalidDates.push([this.multiSelectDuration[0].selectDuration]);
     }
+  }
+
+  updateMultiSelectDuration() {
     this.multiSelectDuration = [...this.multiSelectDuration];
+    this.invalidDates = [];
+
+    if (this.durationCount.length === 2) {
+      this.multiSelectDuration[1].selectDuration ? this.invalidDates.push([this.multiSelectDuration[1].selectDuration]) : this.invalidDates.push([null]);
+      this.invalidDates.push([this.multiSelectDuration[0].selectDuration]);
+    } else if (this.durationCount.length === 3) {
+      this.invalidDates.push([]);
+      this.invalidDates.push([this.multiSelectDuration[0].selectDuration]);
+      this.invalidDates.push([this.multiSelectDuration[0].selectDuration]);
+      if (this.multiSelectDuration[1].selectDuration) {
+        if (this.multiSelectDuration[2].selectDuration) {
+          this.invalidDates[0] = [this.multiSelectDuration[1].selectDuration, this.multiSelectDuration[2].selectDuration];
+          this.invalidDates[1] = [this.multiSelectDuration[0].selectDuration, this.multiSelectDuration[2].selectDuration];
+          this.invalidDates[2] = [this.multiSelectDuration[0].selectDuration, this.multiSelectDuration[1].selectDuration];
+        } else {
+          this.invalidDates[0] = [this.multiSelectDuration[1].selectDuration];
+          this.invalidDates[1] = [this.multiSelectDuration[0].selectDuration];
+          this.invalidDates[2] = [this.multiSelectDuration[0].selectDuration, this.multiSelectDuration[1].selectDuration];
+        }
+      } else if (this.multiSelectDuration[2].selectDuration && !this.multiSelectDuration[1].selectDuration) {
+        this.invalidDates[0] = [this.multiSelectDuration[2].selectDuration];
+        this.invalidDates[1] = [this.multiSelectDuration[0].selectDuration, this.multiSelectDuration[2].selectDuration];
+        this.invalidDates[2] = [this.multiSelectDuration[0].selectDuration];
+      }
+    }
   }
 
   upDurationCount() {
