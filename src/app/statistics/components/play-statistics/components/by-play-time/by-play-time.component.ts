@@ -294,9 +294,9 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
               groupName: val['group'],
               folderName: val['category'],
               dates: date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()),
-              playTime: 0,
+              playTime: val['detail']['playTime'][i],
               playCount: val['detail']['data'][i],
-              averagePlayTime: 0,
+              averagePlayTime: val['detail']['averagePlayTime'][i],
             });
           }
           this.setCompareTableAverageData();
