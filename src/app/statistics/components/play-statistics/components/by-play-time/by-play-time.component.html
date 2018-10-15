@@ -7,12 +7,11 @@
   ></folder-picker>
 
   <div class="dp-inb">
-    <label for="search-key"></label><input type="text" class="margin-right-10" id="search-key" [(ngModel)]="searchKey" pInputText placeholder="검색어를 입력해주세요" autocomplete="off">
+    <label for="search-key"></label><input type="text" class="margin-right-10" id="search-key" [(ngModel)]="searchKey" pInputText placeholder="" autocomplete="off" (input)="resetList()">
     <button type="button" class="btn margin-right-10" (click)="search()"><i class="fas fa-search"></i> 검색</button>
 
-    <span class="search-result" id="search-result" *ngIf="searchKey">
-      <span *ngIf="searchCount === 0">검색된 결과가 없습니다.</span>
-      <span *ngIf="searchCount !== 0">총 {{searchCount}}개 검색되었습니다.</span>
+    <span class="search-result" *ngIf="isSearch">
+      <span>총 {{searchCount}}개 검색되었습니다.</span>
     </span>
   </div>
 </div>

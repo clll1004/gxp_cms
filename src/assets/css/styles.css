@@ -441,7 +441,7 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .txt-center {text-align: center;}
 .border-0 {border: 0 !important;}
 .info-txt {font-size: 14px; color: #666;}
-.search-result {display: none; font-size:13px; color: #f52727;}
+.search-result {font-size:13px; color: #f52727;}
 
 /*primeng css*/
 input,ui-inputtext {

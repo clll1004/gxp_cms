@@ -22,6 +22,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
   public searchKey:string = '';
   public searchCount:number = 0;
   public isSearchKeyMessage:boolean = false;
+  public isSearch:boolean = false;
 
   public chartType: string = 'bar';
   public chartLabels: any[] = [];
@@ -48,6 +49,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
+    this.isSearch = false;
     this.searchKey = '';
     this.searchCount = 0;
     this.setChartType();
@@ -68,6 +70,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
 
   search() {
     if (this.searchKey) {
+      this.isSearch = true;
       this.apiSearchKey = this.searchKey;
       if (!this.selectFolder['value']) {
         this.apiParameter = '&category=&content_nm=' + this.apiSearchKey;
@@ -81,6 +84,14 @@ export class ByContentsComponent implements OnInit, OnChanges {
     }
   }
 
+  resetList() {
+    if (this.searchKey === '' && this.isSearch) {
+      this.isSearch = false;
+      this.setChartData();
+      this.setTableData();
+    }
+  }
+
   setChartType() {
     this.chartType = 'bar';
     const barType = document.getElementById('bar-type');
@@ -89,7 +100,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
     pieType.setAttribute('class', 'changeType');
   }
 
-  setChartData(search:boolean, keySearch:boolean = false) {
+  setChartData(search:boolean = false, keySearch:boolean = false) {
     this.isChartLoading = true;
     let api:string = '';
     if (!search) {
@@ -105,7 +116,6 @@ export class ByContentsComponent implements OnInit, OnChanges {
         this.chartLabels = list['label'];
         this.chartData = list['data'];
         if (search && keySearch) {
-          document.getElementById('search-result')['style'].display = 'inline-block';
           this.searchCount = list['label'].length;
         }
       })
@@ -114,7 +124,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
       });
   }
 
-  setTableData(search:boolean) {
+  setTableData(search:boolean = false) {
     this.isTableLoading = true;
     let api:string = '';
     if (!search) {
@@ -138,7 +148,7 @@ export class ByContentsComponent implements OnInit, OnChanges {
       })
       .then(() => {
         this.isTableLoading = false;
-      })
+      });
   }
 
   setTotalData() {

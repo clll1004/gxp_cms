@@ -23,6 +23,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public searchKey:string = '';
   public searchCount:number = 0;
   public isSearchKeyMessage:boolean = false;
+  public isSearch:boolean = false;
 
   public isCompareStatus:boolean = false;
 
@@ -82,6 +83,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   ngOnInit() { }
 
   ngOnChanges() {
+    this.isSearch = false;
     this.searchKey = '';
     this.searchCount = 0;
     const startDate = new Date(this.selectDuration.date[0]);
@@ -104,6 +106,7 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
 
   search() {
     if (this.searchKey) {
+      this.isSearch = true;
       this.initialize();
       this.apiSearchKey = this.searchKey;
       if (!this.selectFolder['value']) {
@@ -114,6 +117,13 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       this.setTableData(true, true);
     } else {
       this.isSearchKeyMessage = true;
+    }
+  }
+
+  resetList() {
+    if (this.searchKey === '' && this.isSearch) {
+      this.isSearch = false;
+      this.setTableData();
     }
   }
 
@@ -139,8 +149,9 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     return dateArray;
   }
 
-  setTableData(search:boolean, keySearch:boolean = false) {
+  setTableData(search:boolean = false, keySearch:boolean = false) {
     this.isTableLoading = true;
+    this.searchCount = 0;
     let api:string = '';
     if (!search) {
       api = this.cmsApi.byPlaySectionTable + 'sdate=' + this.selectDuration.date[0] + '&edate=' + this.selectDuration.date[1];
@@ -176,7 +187,6 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
           this.compareItems = this.tempCompareItems;
 
           if (search && keySearch) {
-            document.getElementById('search-result')['style'].display = 'inline-block';
             this.searchCount = list['list'].length;
           }
 
