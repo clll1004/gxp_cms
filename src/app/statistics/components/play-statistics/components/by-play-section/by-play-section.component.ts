@@ -426,6 +426,13 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
           tension: 0,
         },
       },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true,
+          },
+        }],
+      },
     };
   }
 

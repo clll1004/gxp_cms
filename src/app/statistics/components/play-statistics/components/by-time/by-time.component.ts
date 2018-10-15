@@ -111,6 +111,13 @@ export class ByTimeComponent implements OnInit, OnChanges {
           tension: 0,
         },
       },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true,
+          },
+        }],
+      },
     };
   }
 

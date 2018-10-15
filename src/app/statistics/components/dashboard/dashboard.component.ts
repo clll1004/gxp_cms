@@ -60,6 +60,13 @@ export class DashboardComponent implements OnInit {
       legend: {
         display: false,
       },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true,
+          },
+        }],
+      },
     };
     this.chartOptions3 = {
       legend: {
@@ -69,6 +76,11 @@ export class DashboardComponent implements OnInit {
         xAxes: [{
           ticks: {
             display: false,
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero:true,
           },
         }],
       },

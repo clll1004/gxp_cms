@@ -81,6 +81,11 @@ export class ChartGroupComponent implements OnInit, OnChanges {
               },
             },
           }],
+          yAxes: [{
+            ticks: {
+              beginAtZero:true,
+            },
+          }],
         },
         tooltips: {
           callbacks: {
