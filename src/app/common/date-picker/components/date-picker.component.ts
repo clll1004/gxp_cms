@@ -85,7 +85,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     {value: 't-month', text: '이번 달', setDate: () => {
       let curr = new Date();
       let start = new Date(curr.getFullYear(), curr.getMonth(), 1);
-      let last = (curr.getDate() === start.getDate())? start : new Date().setDate(curr.getDate() - 1);
+      let last = (curr.getDate() === start.getDate())? start : new Date().setDate(curr.getDate());
       this.selectedDate = [this.datePipe.transform(start, 'yyyy-MM-dd'), this.datePipe.transform(last, 'yyyy-MM-dd')];
     }},
     {value: 'l-month', text: '지난 달', setDate: () => {
