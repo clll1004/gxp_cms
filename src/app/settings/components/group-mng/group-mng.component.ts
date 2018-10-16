@@ -60,7 +60,6 @@ export class GroupMngComponent implements OnInit, OnChanges {
               private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    this.loadGroupData();
 
     this.playerPresetForm = this.formBuilder.group({
       playbackRate: new FormControl('Y'),
@@ -72,7 +71,6 @@ export class GroupMngComponent implements OnInit, OnChanges {
       cinemaMode: new FormControl('Y'),
       quality: new FormControl('Y'),
     });
-    this.loadPlayerPreset();
   }
 
   ngOnChanges() {
