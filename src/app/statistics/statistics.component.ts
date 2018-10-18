@@ -41,7 +41,7 @@ export class StatisticsComponent implements OnInit {
           item.children[0].children[0].setAttribute('class', 'fas fa-angle-down');
         }
       } else {
-        if ((item.getAttribute('id') === this.params['id']) && (this.params['id'] === 'dashboard' || this.params['id'] === 'visitor-statistics')) {
+        if ((item.getAttribute('id') === this.params['id']) && (this.params['id'] === 'dashboard' || this.params['id'] === 'visitor-statistics' || this.params['id'] === 'report')) {
           item.style.background = '#e9e9e9';
         } else {
           item.style.background = '#fff';
@@ -66,7 +66,7 @@ export class StatisticsComponent implements OnInit {
       }
     }
 
-    if (id === 'dashboard' || id === 'visitor-statistics') {
+    if (id === 'dashboard' || id === 'visitor-statistics' || id === 'report') {
       target.style.background = '#f3f3f3';
     }
 
