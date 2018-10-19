@@ -10,7 +10,6 @@
 .groupMng-table-sec table tr td select {max-width: 60px;}
 
   /*폼*/
-.req {color: #f52727;}
 .form-info-sec {margin-bottom: 30px; font-size: 13px; color: #666; }
 .form-sec table tr td input {width: 400px; height: 30px;}
 .form-sec table tr td textarea {width: 400px; height: 150px;}

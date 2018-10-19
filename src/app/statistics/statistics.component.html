@@ -1,7 +1,7 @@
 <div class="ui-g-2 ui-g-nopad">
   <nav class="ui-g-12 ui-g-nopad lnb-sec">
     <ul class="border-lnb">
-      <li (click)="showSubLnb($event)" id="dashboard"><a routerLink="/statistics/dashboard/db">대시보드</a></li>
+      <li (click)="showSubLnb($event)" id="dashboard"><a routerLink="/statistics/dashboard">대시보드</a></li>
       <li class="has-sub" id="play-statistics" (click)="showSubLnb($event)"><a routerLink="/statistics/play-statistics/date">재생 통계 <i class="fas fa-angle-down"></i></a></li>
       <ul class="sub-lnb">
         <li id="date" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/date">날짜별</a></li>
@@ -18,7 +18,10 @@
         <li id="trans-coding" (click)="isSubOn($event)"><a routerLink="/statistics/usage-analysis/trans-coding">트랜스코딩</a></li>
       </ul>
       <li id="visitor-statistics" (click)="showSubLnb($event)">
-        <a routerLink="/statistics/visitor-statistics/analytics">방문자 통계</a>
+        <a routerLink="/statistics/visitor-statistics">방문자 통계</a>
+      </li>
+      <li id="report" (click)="showSubLnb($event)">
+        <a routerLink="/statistics/report">리포트</a>
       </li>
     </ul>
   </nav>
@@ -28,4 +31,5 @@
   <play-statistics *ngIf="params['id'] === 'play-statistics'"></play-statistics>
   <usage-analysis *ngIf="params['id'] === 'usage-analysis'"></usage-analysis>
   <visitor-statistics *ngIf="params['id'] === 'visitor-statistics'"></visitor-statistics>
+  <report *ngIf="params['id'] === 'report'"></report>
 </div>

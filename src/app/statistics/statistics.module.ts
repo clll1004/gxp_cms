@@ -2,9 +2,9 @@
  * Created by GRE511 on 2018-08-22.
  */
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
 import { DatePickerModule } from '../common/date-picker/date-picker.module';
 
@@ -16,6 +16,8 @@ import { TableModule } from 'primeng/table';
 import { DialogModule, CalendarModule, PanelModule } from 'primeng/primeng';
 import { CheckboxModule } from 'primeng/checkbox';
 import { BlockUIModule } from 'primeng/blockui';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TabViewModule } from 'primeng/tabview';
 
 import { StatisticsComponent } from './statistics.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -32,21 +34,18 @@ import { ByPlayTimeComponent } from './components/play-statistics/components/by-
 import { ByContentsComponent } from './components/play-statistics/components/by-contents/by-contents.component';
 import { ByCategoryComponent } from './components/play-statistics/components/by-category/by-category.component';
 import { VisitorStatisticsComponent } from './components/visitor-statistics/visitor-statistics.component';
+import { ReportComponent } from './components/report/report.component';
 import { FolderPickerComponent } from './components/folder-picker/folder-picker.component';
 import { ChartGroupComponent } from './components/play-statistics/components/chart-group/chart-group.component';
-
-const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'play-statistics', component: PlayStatisticsComponent },
-];
 
 @NgModule({
   imports: [
     ChartModule,
     DatePickerModule,
-    RouterModule.forChild(appRoutes),
+    RouterModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     DropdownModule,
     InputTextModule,
     PasswordModule,
@@ -57,6 +56,8 @@ const appRoutes: Routes = [
     CheckboxModule,
     BlockUIModule,
     PanelModule,
+    RadioButtonModule,
+    TabViewModule,
   ],
   exports: [StatisticsComponent],
   declarations: [
@@ -75,6 +76,7 @@ const appRoutes: Routes = [
     ByContentsComponent,
     ByCategoryComponent,
     VisitorStatisticsComponent,
+    ReportComponent,
     FolderPickerComponent,
     ChartGroupComponent,
   ]})

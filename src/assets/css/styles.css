@@ -346,6 +346,7 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 /* end grid */
 
 
+.req {color: #f52727;}
 /*버튼*/
 .btn {padding: 5px 10px; border: 1px solid #ddd; border-radius: 5px; background: #fff; font-size: 13px; color: #666;}
 .btn:hover {background: #fbfbfb;}
@@ -440,7 +441,7 @@ select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px
 .txt-right {text-align: right;}
 .txt-center {text-align: center;}
 .border-0 {border: 0 !important;}
-.info-txt {font-size: 14px; color: #666;}
+.info-txt {font-size: 14px; color: #888;}
 .search-result {font-size:13px; color: #f52727;}
 
 /*primeng css*/
@@ -460,10 +461,6 @@ button {
     border-radius: 0 !important;
 }
 
-.ui-calendar .ui-inputtext {
-    padding: 7px 13px !important;
-    font-size: 12px !important;
-}
 .ui-chkbox-label {
     font-weight: bold !important;
     font-size: 12px !important;
@@ -478,3 +475,22 @@ p-panel .ui-panel-content { padding: 0 !important; }
 .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
     width: auto;
 }
+.ui-calendar .ui-inputtext {
+    min-width: 200px !important;
+    padding: 7px 13px !important;
+    font-size: 12px !important;
+}
+.ui-datepicker.ui-widget .ui-datepicker-calendar thead th { border: 0 none !important; font-size: inherit !important; }
+.ui-datepicker.ui-widget .ui-datepicker-calendar td { padding: 0!important; border: 0 none !important; font-size: inherit !important; }
+.ui-datepicker.ui-widget .ui-datepicker-calendar td a { border: 0 none !important; text-align: center !important; }
+.ui-datepicker.ui-widget .ui-datepicker-calendar td a.ui-state-active {
+    background-color: #186ba0 !important;
+    color: #ffffff !important;
+}
+
+p-tabview.reportTabView > .ui-widget-content { padding: 0!important; background: inherit!important; }
+p-tabview.reportTabView > .ui-widget-content .ui-tabview-panels { padding-top: 20px !important; }
+p-tabview.reportTabView .ui-tabview .ui-tabview-panel { padding: 0!important; }
+.reportCheckboxStyle .ui-chkbox-label { display: inline-block !important; width: 100px !important; }
+.reportDuration .ui-dropdown label.ui-dropdown-label { padding: 4px 13px !important; color: #888 !important; }
+.reportDuration .ui-dropdown-panel .ui-dropdown-item { padding: 5px 0 !important; }
