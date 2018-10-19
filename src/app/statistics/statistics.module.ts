@@ -34,7 +34,7 @@ import { ByPlayTimeComponent } from './components/play-statistics/components/by-
 import { ByContentsComponent } from './components/play-statistics/components/by-contents/by-contents.component';
 import { ByCategoryComponent } from './components/play-statistics/components/by-category/by-category.component';
 import { VisitorStatisticsComponent } from './components/visitor-statistics/visitor-statistics.component';
-// import { ReportComponent } from './components/report/report.component';
+import { TestComponent } from './components/test/test.component';
 import { FolderPickerComponent } from './components/folder-picker/folder-picker.component';
 import { ChartGroupComponent } from './components/play-statistics/components/chart-group/chart-group.component';
 
@@ -76,7 +76,7 @@ import { ChartGroupComponent } from './components/play-statistics/components/cha
     ByContentsComponent,
     ByCategoryComponent,
     VisitorStatisticsComponent,
-    // ReportComponent,
+    TestComponent,
     FolderPickerComponent,
     ChartGroupComponent,
   ]})
