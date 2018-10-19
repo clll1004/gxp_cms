@@ -1,0 +1,14 @@
+
+.reportTab li { float: left; padding: 10px; font-size: 14px; border-top: 1px solid #bbb; border-right: 1px solid #ddd; outline: none; background: #fff; cursor: pointer; }
+.reportTab li:first-child { border-left: 1px solid #bbb; }
+.reportTab li:last-child { border-right: 1px solid #bbb; }
+.reportTab li.on { background: #eee; }
+.reportTitle { display: inline-block; vertical-align: top; padding-top: 5px; font-size: 13px; }
+.reportDuration { padding: 20px 20px 10px; border: 1px solid #bbb; border-bottom: none; background: #fff; }
+.reportItems { padding: 10px 20px 20px; border: 1px solid #bbb; border-top: none; background: #fff; }
+
+.autoReportTitle { font-size: 21px; font-weight: bold; color: #777; }
+.btn.delete-btn { background: none; border: none; }
+.btn.delete-btn:hover { color: #ff6400; }
+.ui-chkbox-label { display: inline-block !important; width: 100px !important; }
+.fw-bold { font-weight: bold; }

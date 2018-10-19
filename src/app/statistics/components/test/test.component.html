@@ -1,0 +1,189 @@
+<div class="ui-g-12 ui-g-nopad margin-bottom-50">
+  <div class="ui-g-12 ui-g-nopad page-title-sec margin-bottom-40">
+    <a routerLink="/home">CMS</a> &gt; <a routerLink="/statistics/dashboard" (click)="refresh()">통계</a> &gt; <span class="path" (click)="refresh()"> 리포트 </span>
+  </div>
+
+  <ul class="ui-g-12 ui-g-nopad reportTab" id="reportTab">
+    <li tabindex="0" class="on" (click)="reportDurationChange($event)">일일리포트</li>
+    <li tabindex="1" class="" (click)="reportDurationChange($event)">주간리포트</li>
+    <li tabindex="2" class="" (click)="reportDurationChange($event)">월간리포트</li>
+    <li tabindex="3" class="" (click)="reportDurationChange($event)">연간리포트</li>
+  </ul>
+
+  <div class="ui-g-12 ui-g-nopad reportDuration">
+    <span class="reportTitle margin-right-15">기간설정</span>
+    <p-calendar *ngIf="this.reportDurationIndex === 0" [(ngModel)]="reportDurationDaily" [showIcon]="true" [readonlyInput]="true" [maxDate]="maxDateValue" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" [locale]="localeObject" dateFormat="yy-mm-dd"></p-calendar>
+    <p-calendar *ngIf="this.reportDurationIndex === 1" [(ngModel)]="reportDurationWeekly" selectionMode="range" [showIcon]="true" [readonlyInput]="true" [maxDate]="maxDateValue" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" [locale]="localeObject" dateFormat="yy-mm-dd"></p-calendar>
+    <p-calendar *ngIf="this.reportDurationIndex === 2" [(ngModel)]="reportDurationMonthly" view="month" dateFormat="yy-mm" [maxDate]="maxDateValue" [showIcon]="true" [yearNavigator]="true" [yearRange]="yearRange"></p-calendar>
+    <p-dropdown *ngIf="this.reportDurationIndex === 3" id="reportDurationYearly" [options]="durationYearlyOptions" [(ngModel)]="reportDurationYearly" placeholder="선택하세요" value="2018" [style]="{'height': '29px', 'font-size': '13px', 'outline': 'none'}"></p-dropdown>
+  </div>
+
+  <form [formGroup]="reportForm" class="ui-g-12 ui-g-nopad margin-bottom-50">
+    <fieldset>
+      <div class="ui-g-12 ui-g-nopad reportItems">
+        <span class="reportTitle margin-right-15">항목선택</span>
+        <div class="dp-inb reportCheckboxStyle">
+          <p-checkbox formControlName="selectTraffic" binary="true" label="트래픽" class="margin-right-20"></p-checkbox>
+          <p-checkbox formControlName="selectTransCoding" binary="true" label="트랜스코딩" class="margin-right-20"></p-checkbox>
+          <p-checkbox formControlName="selectStorage" binary="true" label="스토리지" class="margin-right-20"></p-checkbox>
+          <p-checkbox formControlName="selectDate" binary="true" label="날짜별 재생통계" class="margin-right-20"></p-checkbox> <div class="margin-bottom-10"></div>
+          <p-checkbox formControlName="selectGXP" binary="true" label="GXP 사용량" class="margin-right-20"></p-checkbox>
+          <p-checkbox formControlName="selectTime" binary="true" label="시간별 재생통계" class="margin-right-20"></p-checkbox>
+          <p-checkbox formControlName="selectPlaySection" binary="true" label="재생구간" class="margin-right-20"></p-checkbox>
+          <p-checkbox formControlName="selectPlayTime" binary="true" label="재생시간" class="margin-right-20"></p-checkbox> <div class="margin-bottom-10"></div>
+          <p-checkbox formControlName="selectContents" binary="true" label="콘텐츠 통계" class="margin-right-20"></p-checkbox>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-g-nopad margin-top-20 txt-center">
+        <button type="button" class="btn margin-right-5" (click)="downloadReportToLocal(reportForm.value)">다운로드</button>
+        <button type="button" class="btn" (click)="sendReportToMail(reportForm.value)">메일발송</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <form [formGroup]="autoReportForm" (ngSubmit)="autoReportSubmit(autoReportForm.value)" class="ui-g-12 ui-g-nopad">
+    <h3 class="margin-bottom-20 autoReportTitle">자동리포트 발송</h3>
+    <fieldset>
+      <p-blockUI [blocked]="isLoading" [target]="auto_report">
+        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+      </p-blockUI>
+      <p-panel class="ui-g-12 ui-g-nopad table-sec" [showHeader]="false" #auto_report>
+        <table>
+          <caption>자동리포트 발송 정보 테이블</caption>
+          <colgroup>
+            <col style="width: 260px;">
+            <col style="width: auto;">
+          </colgroup>
+          <tr>
+            <th>발송설정</th>
+            <td>
+              <p-radioButton formControlName="autoReportUse" name="autoReportUse" value="Y" label="자동리포트 발송 설정" class="margin-right-30"></p-radioButton>
+              <p-radioButton formControlName="autoReportUse" name="autoReportUse" value="N" label="자동리포트 발송 해제"></p-radioButton>
+            </td>
+          </tr>
+          <tr>
+            <th>발송기간</th>
+            <td>
+              <p-radioButton formControlName="autoPeriod" name="autoPeriod" value="continue" label="계속" class="margin-right-30" (click)="autoPeriodSetting()"></p-radioButton>
+              <p-radioButton formControlName="autoPeriod" name="autoPeriod" value="setting" label="기간설정" class="margin-right-10" (click)="autoPeriodSetting()"></p-radioButton>
+              <p-calendar formControlName="autoPeriodDates" selectionMode="range" [showIcon]="true" [readonlyInput]="true" [maxDate]="maxDateValue" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" [locale]="localeObject" dateFormat="yy-mm-dd"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <th><label for="autoCycle">발송주기</label></th>
+            <td>
+              <p-dropdown id="autoCycle" [options]="cycleOptions" formControlName="autoCycle" placeholder="선택하세요"></p-dropdown>
+            </td>
+          </tr>
+          <tr>
+            <th>리포트 타입 <span class="req">*</span></th>
+            <td class="reportCheckboxStyle">
+              <p-checkbox formControlName="reportTypeDaily" binary="true" label="일일리포트" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="reportTypeWeekly" binary="true" label="주간리포트" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="reportTypeMonthly" binary="true" label="월간리포트" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="reportTypeYearly" binary="true" label="연간리포트"></p-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <th>리포트 선택 <span class="req">*</span></th>
+            <td class="reportCheckboxStyle">
+              <p-checkbox formControlName="selectTraffic" binary="true" label="트래픽" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="selectTransCoding" binary="true" label="트랜스코딩" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="selectStorage" binary="true" label="스토리지" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="selectDate" binary="true" label="날짜별 재생통계" class="margin-right-20"></p-checkbox> <div class="margin-bottom-10"></div>
+              <p-checkbox formControlName="selectGXP" binary="true" label="GXP 사용량" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="selectTime" binary="true" label="시간별 재생통계" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="selectPlaySection" binary="true" label="재생구간" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="selectPlayTime" binary="true" label="재생시간" class="margin-right-20"></p-checkbox> <div class="margin-bottom-10"></div>
+              <p-checkbox formControlName="selectContents" binary="true" label="콘텐츠 통계" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="selectCategory" binary="true" label="카테고리 통계" class="margin-right-20"></p-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <th>수신 이메일 <span class="req">*</span></th>
+            <td>
+              <div>총 <span class="req">{{ emailLists.length }}</span>개 <button type="button" class="btn white-btn" (click)="emailDialog=true;">추가</button></div>
+              <div class="margin-top-10" style="width: 70%; padding: 15px; border: 1px solid #ddd;">
+                <ul *ngIf="emailLists[0]">
+                  <li *ngFor="let email of emailLists; let i = index;" class="padding-left-10">
+                    {{ email }} <button  type="button" class="btn delete-btn" (click)="excludeEmailList(emailLists, i)"><i class="fas fa-times"></i></button>
+                  </li>
+                </ul>
+                <div *ngIf="!emailLists[0]" class="info-txt txt-center">
+                  리스트를 추가해주세요.
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </p-panel>
+      <div class="ui-g-12 ui-g-nopad margin-top-20 txt-center">
+        <button type="submit" class="btn margin-right-5" [disabled]="!autoReportForm.valid">저장</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<p-dialog [(visible)]="emailDialog" [width]="600" [modal]="true" [showHeader]="false">
+  <div class="margin-top-15 margin-bottom-20">
+    <h2 class="txt-center margin-bottom-20">
+      받으실 이메일 주소를 입력하세요.
+    </h2>
+    <div class="margin-bottom-20">
+      <h3 class="dp-inb margin-right-20 fw-bold">메일주소</h3>
+      <input type="text" class="margin-right-10" pInputText [(ngModel)]="addEmail" (input)="isFavorite()"> <button type="button" class="btn margin-right-10" (click)="includeEmailList(addEmailLists)">추가</button>
+      <p-checkbox [(ngModel)]="isAddFavorite" binary="true" label="즐겨찾기 추가" class="margin-right-20" (click)="includeEmailList(favoritesEmailList, isAddFavorite)"></p-checkbox>
+    </div>
+    <div class="margin-bottom-20">
+      <h3 class="dp-inb margin-right-20 fw-bold">수신메일</h3> <span style="font-size: 13px;">총 <span class="req">{{ addEmailLists.length }}</span>개</span>
+      <div class="margin-top-10" style="padding: 15px; border: 1px solid #ddd;">
+        <ul *ngIf="addEmailLists[0]">
+          <li *ngFor="let email of addEmailLists; let i = index;" class="padding-left-10">
+            {{ email }} <button  type="button" class="btn delete-btn" (click)="excludeEmailList(addEmailLists, i)"><i class="fas fa-times"></i></button>
+          </li>
+        </ul>
+        <div *ngIf="!addEmailLists[0]" class="info-txt txt-center">
+          리스트를 추가해주세요.
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 class="dp-inb margin-right-20 fw-bold">즐겨찾기</h3> <span style="font-size: 13px;">총 <span class="req">{{ favoritesEmailList.length }}</span>개</span>
+      <div class="margin-top-10" style="padding: 15px; border: 1px solid #ddd;">
+        <ul *ngIf="favoritesEmailList[0]">
+          <li *ngFor="let favorites of favoritesEmailList; let i = index;" class="padding-left-10">
+            {{ favorites }} <button  type="button" class="btn delete-btn" (click)="excludeEmailList(favoritesEmailList, i)"><i class="fas fa-times"></i></button>
+          </li>
+        </ul>
+        <div *ngIf="!favoritesEmailList[0]" class="info-txt txt-center">
+          리스트를 추가해주세요.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="txt-center">
+    <button type="reset" class="btn margin-right-10" (click)="emailDialog=false; emptyAddEmailList()" label="confirm">취소</button>
+    <button type="submit" class="btn" (click)="emailDialog=false; addToEmailList()" label="confirm">저장</button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="isSelectReportType" [width]="400" [modal]="true" [showHeader]="false">
+  <p class="txt-center margin-top-15 margin-bottom-30">리포트 타입을 체크해주세요.</p>
+  <div class="txt-center">
+    <button type="button" class="btn" (click)="isSelectReportType=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="isSelectReportItem" [width]="400" [modal]="true" [showHeader]="false">
+  <p class="txt-center margin-top-15 margin-bottom-30">리포트 항목을 체크해주세요.</p>
+  <div class="txt-center">
+    <button type="button" class="btn" (click)="isSelectReportItem=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="isEmptyEmailLists" [width]="400" [modal]="true" [showHeader]="false">
+  <p class="txt-center margin-top-15 margin-bottom-30">이메일을 입력해주세요.</p>
+  <div class="txt-center">
+    <button type="button" class="btn" (click)="isEmptyEmailLists=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
+  </div>
+</p-dialog>
