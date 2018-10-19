@@ -21,7 +21,7 @@
         <a routerLink="/statistics/visitor-statistics">방문자 통계</a>
       </li>
       <li id="report" (click)="showSubLnb($event)">
-        <a routerLink="/statistics/report">리포트</a>
+        <a routerLink="/statistics/reporter">리포트</a>
       </li>
     </ul>
   </nav>
@@ -31,5 +31,5 @@
   <play-statistics *ngIf="params['id'] === 'play-statistics'"></play-statistics>
   <usage-analysis *ngIf="params['id'] === 'usage-analysis'"></usage-analysis>
   <visitor-statistics *ngIf="params['id'] === 'visitor-statistics'"></visitor-statistics>
-  <report *ngIf="params['id'] === 'report'"></report>
+  <reporter *ngIf="params['id'] === 'reporter'"></reporter>
 </div>

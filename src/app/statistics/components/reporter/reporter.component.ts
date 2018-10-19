@@ -7,12 +7,12 @@ import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'test',
-  templateUrl: 'test.component.html',
-  styleUrls: ['test.component.css'],
+  selector: 'reporter',
+  templateUrl: './reporter.component.html',
+  styleUrls: ['./reporter.component.css'],
   providers: [DatePipe]})
 
-export class TestComponent implements OnInit {
+export class ReporterComponent implements OnInit {
   public reportForm: FormGroup;
   public autoReportForm: FormGroup;
   public submitted: boolean = false;
