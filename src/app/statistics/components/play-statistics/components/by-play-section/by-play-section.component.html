@@ -103,7 +103,7 @@
           </ng-template>
           <ng-template pTemplate="body" let-compareItem let-columns="columns" let-rowIndex="rowIndex">
             <tr *ngFor="let item of compareItem;">
-              <td [attr.rowspan]="compareItems.length * dateArray.length" *ngIf="rowIndex === 0 && (item['contentsName'] === compareSectionDatas[0][0]['contentsName'])">구간 조회수</td>
+              <td [attr.rowspan]="compareItems.length * dateArray.length" *ngIf="rowIndex === 0 && item['index'] === 0">구간 조회수</td>
               <td [attr.rowspan]="compareItems.length" *ngIf="item['index'] === 0">{{ item['date'] }}</td>
               <td>{{ item['contentsName'] }}</td>
               <td [ngClass]="{'popular-section': item['p10'] === comparePopularSectionValue[item.index], 'leave-section': item['p10'] === compareLeaveSectionValue[item.index]}"> {{ item['p10'] }} </td>
