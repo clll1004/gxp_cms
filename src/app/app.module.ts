@@ -20,14 +20,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { TreeModule } from 'primeng/tree';
-import { StatisticsModule } from './statistics/statistics.module';
 import { ChartModule } from 'primeng/chart';
 import { BlockUIModule } from 'primeng/blockui';
 
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
+import { HomeModule } from './home/home.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
-import { HomeComponent } from './home/home.component';
 import { ContentsComponent } from './contents/contents.component';
 import { TranscodingComponent } from './transcoding/transcoding.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -78,15 +78,15 @@ import { CookieService } from './services/library/cookie/cookie.service';
     ConfirmDialogModule,
     PanelModule,
     TreeModule,
-    StatisticsModule,
     ChartModule,
     BlockUIModule,
     HeaderModule,
     FooterModule,
+    HomeModule,
+    StatisticsModule,
   ],
   declarations: [
     AppComponent,
-    HomeComponent,
     ContentsComponent,
     SettingsComponent,
     TranscodingComponent,

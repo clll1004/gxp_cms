@@ -2,14 +2,13 @@
  * Created by GRE511 on 2018-09-07.
  */
 import { Component, OnInit } from '@angular/core';
-import { CmsApis } from '../services/apis/apis';
-import { DashboardService } from '../services/apis/cms/dashboard/dashboard.service';
+import { CmsApis } from '../../services/apis/apis';
+import { DashboardService } from '../../services/apis/cms/dashboard/dashboard.service';
 
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-  providers: [CmsApis, DashboardService]})
+  styleUrls: ['./home.component.css']})
 
 export class HomeComponent implements OnInit {
   /*pie chart test*/
