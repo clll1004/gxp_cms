@@ -3,16 +3,16 @@
  */
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CmsApis } from '../../services/apis/apis';
-import { CookieService } from '../../services/library/cookie/cookie.service';
-import { TranscodingService } from '../../services/apis/cms/transcoding/transcoding.service';
+import { CmsApis } from '../../../services/apis/apis';
+import { CookieService } from '../../../services/library/cookie/cookie.service';
+import { TranscodingService } from '../../../services/apis/cms/transcoding/transcoding.service';
 import { ConfirmationService } from 'primeng/components/common/api';
 
 @Component({
   selector: 'tcListContainer',
   templateUrl: './tcListContainer.component.html',
   styleUrls: ['../transcoding.component.css'],
-  providers: [TranscodingService, CmsApis, ConfirmationService]})
+  providers: [ConfirmationService]})
 
 export class TcListContainerComponent implements OnInit, OnDestroy {
   @Input() params: object;

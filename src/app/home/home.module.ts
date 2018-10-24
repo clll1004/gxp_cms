@@ -2,6 +2,7 @@
  * Created by GRE511 on 2018-10-24.
  */
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/home.component';
 
@@ -14,6 +15,7 @@ import { BlockUIModule } from 'primeng/blockui';
 
 @NgModule({
   imports: [
+    RouterModule,
     PanelModule,
     ChartModule,
     BlockUIModule,
