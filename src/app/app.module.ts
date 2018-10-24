@@ -25,12 +25,12 @@ import { ChartModule } from 'primeng/chart';
 import { BlockUIModule } from 'primeng/blockui';
 
 import { HeaderModule } from './header/header.module';
+import { FooterModule } from './footer/footer.module';
 
 import { HomeComponent } from './home/home.component';
 import { ContentsComponent } from './contents/contents.component';
 import { TranscodingComponent } from './transcoding/transcoding.component';
 import { SettingsComponent } from './settings/settings.component';
-import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 
 import { LoginService } from './login/login.service';
@@ -82,6 +82,7 @@ import { CookieService } from './services/library/cookie/cookie.service';
     ChartModule,
     BlockUIModule,
     HeaderModule,
+    FooterModule,
   ],
   declarations: [
     AppComponent,
@@ -89,7 +90,6 @@ import { CookieService } from './services/library/cookie/cookie.service';
     ContentsComponent,
     SettingsComponent,
     TranscodingComponent,
-    FooterComponent,
     LoginComponent,
 
     PreviewThumbnailComponent,
