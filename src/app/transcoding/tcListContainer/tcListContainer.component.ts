@@ -4,7 +4,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CmsApis } from '../../services/apis/apis';
-import { LoginService } from '../../login/login.service';
+import { CookieService } from '../../services/library/cookie/cookie.service';
 import { TranscodingService } from '../../services/apis/cms/transcoding/transcoding.service';
 import { ConfirmationService } from 'primeng/components/common/api';
 
@@ -78,7 +78,7 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
   public progressInterval:any;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private loginService: LoginService,
+              private cookieService: CookieService,
               private transCodingService: TranscodingService,
               private cmsApi: CmsApis,
               private confirmationService: ConfirmationService) { }
@@ -117,7 +117,7 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
   }
 
   loadGroupSeq() {
-    this.groupSeq = this.loginService.getCookie('grp_seq');
+    this.groupSeq = this.cookieService.getCookie('grp_seq');
   }
 
   loadGroupList() {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../../login/login.service';
+import { CookieService } from '../../../services/library/cookie/cookie.service';
 import { FormControl, FormGroup, FormBuilder  } from '@angular/forms';
 import { SettingsService } from '../../../services/apis/cms/settings/settings.service';
 import { CmsApis } from '../../../services/apis/apis';
@@ -8,7 +8,7 @@ import { CmsApis } from '../../../services/apis/apis';
   selector: 'user-modify',
   templateUrl: './user-modify.component.html',
   styleUrls: ['../../settings.component.css'],
-  providers: [LoginService, SettingsService, CmsApis]})
+  providers: [SettingsService, CmsApis]})
 
 export class UserModifyComponent implements OnInit {
   public isLoading:boolean = false;
@@ -19,7 +19,7 @@ export class UserModifyComponent implements OnInit {
   public isShowMessage: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
-              private loginService: LoginService,
+              private cookieService: CookieService,
               private settingsService: SettingsService,
               private cmsApi: CmsApis) { }
 
@@ -41,7 +41,7 @@ export class UserModifyComponent implements OnInit {
 
   loadUserInfo() {
     this.isLoading = true;
-    this.userSeq = this.loginService.getCookie('usr_seq');
+    this.userSeq = this.cookieService.getCookie('usr_seq');
     this.settingsService.getLists(this.cmsApi.loadUserInfo + this.userSeq)
       .toPromise()
       .then((cont) => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { TreeNode } from 'primeng/api';
-import { LoginService } from '../login/login.service';
+import { CookieService } from '../services/library/cookie/cookie.service';
 import { SettingsService } from '../services/apis/cms/settings/settings.service';
 import { CmsApis } from '../services/apis/apis';
 
@@ -15,7 +15,7 @@ export class SettingsComponent implements OnInit {
   public isLoading:boolean = false;
   public groupList: TreeNode[];
   public selectGroup: TreeNode;
-  public groupSeq:string = this.loginService.getCookie('grp_seq');
+  public groupSeq:string = this.cookieService.getCookie('grp_seq');
   public params:Params;
   public tempTreeData:any[] = [];
   public treeData:any[] = [];
@@ -23,7 +23,7 @@ export class SettingsComponent implements OnInit {
   public treeStyle: any;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private loginService: LoginService,
+              private cookieService: CookieService,
               private settingsService: SettingsService,
               private cmsApi: CmsApis) {}
 

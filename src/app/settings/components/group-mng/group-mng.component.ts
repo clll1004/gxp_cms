@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { LoginService } from '../../../login/login.service';
+import { CookieService } from '../../../services/library/cookie/cookie.service';
 import { SettingsService } from '../../../services/apis/cms/settings/settings.service';
 import { CmsApis } from '../../../services/apis/apis';
 import { ConfirmationService } from 'primeng/components/common/api';
@@ -9,7 +9,7 @@ import { ConfirmationService } from 'primeng/components/common/api';
   selector: 'group-manager',
   templateUrl: './group-mng.component.html',
   styleUrls: ['../../settings.component.css'],
-  providers: [LoginService, SettingsService, CmsApis, ConfirmationService]})
+  providers: [SettingsService, CmsApis, ConfirmationService]})
 
 export class GroupMngComponent implements OnInit, OnChanges {
   @Input() groupSeq: any;
@@ -54,7 +54,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
   public tableStyle: any;
 
   constructor(private formBuilder: FormBuilder,
-              private loginService: LoginService,
+              private cookieService: CookieService,
               private settingsService: SettingsService,
               private cmsApi: CmsApis,
               private confirmationService: ConfirmationService) { }
@@ -100,7 +100,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
   }
 
   loadPlayerPreset() {
-    this.userSeq = this.loginService.getCookie('usr_seq');
+    this.userSeq = this.cookieService.getCookie('usr_seq');
     this.settingsService.getLists(this.cmsApi.playerPreset + '/' + this.groupSeq)
       .toPromise()
       .then((cont) => {
@@ -164,11 +164,11 @@ export class GroupMngComponent implements OnInit, OnChanges {
   }
 
   getChangeOptions(index:number) {
-    this.fileSuffix = document.getElementById('fileSuffix' + index);
-    this.videoBit = document.getElementById('videoBit' + index);
-    this.audioBit = document.getElementById('audioBit' + index);
-    this.dstWidth = document.getElementById('dstWidth' + index);
-    this.dstHeight = document.getElementById('dstHeight' + index);
+    this.fileSuffix = document.getElementById(`fileSuffix${index}`);
+    this.videoBit = document.getElementById(`videoBit${index}`);
+    this.audioBit = document.getElementById(`audioBit${index}`);
+    this.dstWidth = document.getElementById(`dstWidth${index}`);
+    this.dstHeight = document.getElementById(`dstHeight${index}`);
   }
 
   resetPreset() {

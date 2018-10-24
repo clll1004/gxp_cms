@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PasswordFormValidator } from './passwordVaildator';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from '../../../login/login.service';
+import { CookieService } from '../../../services/library/cookie/cookie.service';
 import { SettingsService } from '../../../services/apis/cms/settings/settings.service';
 import { Sha256 } from '../../../services/library/hash/sha256';
 import { CmsApis } from '../../../services/apis/apis';
@@ -10,7 +10,7 @@ import { CmsApis } from '../../../services/apis/apis';
   selector: 'change-password',
   templateUrl: './change-pswd.component.html',
   styleUrls: ['../../settings.component.css'],
-  providers: [LoginService, SettingsService, Sha256]})
+  providers: [SettingsService, Sha256]})
 
 export class ChangePswdComponent implements OnInit {
   public userSeq:string = '';
@@ -21,7 +21,7 @@ export class ChangePswdComponent implements OnInit {
   public isSuccess: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
-              private loginService: LoginService,
+              private cookieService: CookieService,
               private settingsService: SettingsService,
               private cmsApi: CmsApis,
               private sha256: Sha256) { }
@@ -36,7 +36,7 @@ export class ChangePswdComponent implements OnInit {
   }
 
   loadUserSeq() {
-    this.userSeq = this.loginService.getCookie('usr_seq');
+    this.userSeq = this.cookieService.getCookie('usr_seq');
   }
 
   onSubmit(value:any) {

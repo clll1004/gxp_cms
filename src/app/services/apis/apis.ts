@@ -2,7 +2,8 @@
  * Created by GRE511 on 2018-07-26.
  */
 import { Injectable } from '@angular/core';
-import { LoginService } from '../../login/login.service';
+// import { LoginService } from '../../login/login.service';
+import { CookieService } from '../../services/library/cookie/cookie.service';
 
 @Injectable()
 export class CmsApis {
@@ -75,13 +76,13 @@ export class CmsApis {
   /**** Player Preset ****/
   public playerPreset = '';
 
-  constructor(private loginService: LoginService) {
+  constructor(private cookieService: CookieService) {
     if (process.env.NODE_ENV === 'development') {
       this.domain = 'http://183.110.11.49/';
     } else if (process.env.NODE_ENV === 'production') {
       this.domain = 'http://183.110.11.49/';
     }
-    const usrSeq = this.loginService.getCookie('usr_seq');
+    const usrSeq = this.cookieService.getCookie('usr_seq');
 
     /**** 로그인 ****/
     this.login = this.domain + 'cms/login';

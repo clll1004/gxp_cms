@@ -1,26 +1,26 @@
 <div class="ui-g-2 ui-g-nopad">
   <nav class="ui-g-12 ui-g-nopad lnb-sec">
     <ul class="border-lnb">
-      <li (click)="showSubLnb($event)" id="dashboard"><a routerLink="/statistics/dashboard">대시보드</a></li>
-      <li class="has-sub" id="play-statistics" (click)="showSubLnb($event)"><a routerLink="/statistics/play-statistics/date">재생 통계 <i class="fas fa-angle-down"></i></a></li>
+      <li (click)="clickMainMenu($event)" id="dashboard"><a routerLink="/statistics/dashboard">대시보드</a></li>
+      <li class="has-sub" id="play-statistics" (click)="clickMainMenu($event)"><a routerLink="/statistics/play-statistics/date">재생 통계 <i class="fas fa-angle-down"></i></a></li>
       <ul class="sub-lnb">
-        <li id="date" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/date">날짜별</a></li>
-        <li id="time" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/time">시간별</a></li>
-        <li id="play-section" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/play-section">재생구간</a></li>
-        <li id="play-time" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/play-time">재생시간</a></li>
-        <li id="contents" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/contents">콘텐츠 통계</a></li>
-        <li id="category" (click)="isSubOn($event)"><a routerLink="/statistics/play-statistics/category">카테고리 통계</a></li>
+        <li id="date" (click)="clickSubMenu($event)"><a routerLink="/statistics/play-statistics/date">날짜별</a></li>
+        <li id="time" (click)="clickSubMenu($event)"><a routerLink="/statistics/play-statistics/time">시간별</a></li>
+        <li id="play-section" (click)="clickSubMenu($event)"><a routerLink="/statistics/play-statistics/play-section">재생구간</a></li>
+        <li id="play-time" (click)="clickSubMenu($event)"><a routerLink="/statistics/play-statistics/play-time">재생시간</a></li>
+        <li id="contents" (click)="clickSubMenu($event)"><a routerLink="/statistics/play-statistics/contents">콘텐츠 통계</a></li>
+        <li id="category" (click)="clickSubMenu($event)"><a routerLink="/statistics/play-statistics/category">카테고리 통계</a></li>
       </ul>
-      <li class="has-sub" id="usage-analysis" (click)="showSubLnb($event)"><a routerLink="/statistics/usage-analysis/storage">사용량 분석 <i class="fas fa-angle-down"></i></a></li>
+      <li class="has-sub" id="usage-analysis" (click)="clickMainMenu($event)"><a routerLink="/statistics/usage-analysis/storage">사용량 분석 <i class="fas fa-angle-down"></i></a></li>
       <ul class="sub-lnb">
-        <li id="storage" (click)="isSubOn($event)"><a routerLink="/statistics/usage-analysis/storage">스토리지</a></li>
-        <li id="gxp" (click)="isSubOn($event)"><a routerLink="/statistics/usage-analysis/gxp">GXP 사용량</a></li>
-        <li id="trans-coding" (click)="isSubOn($event)"><a routerLink="/statistics/usage-analysis/trans-coding">트랜스코딩</a></li>
+        <li id="storage" (click)="clickSubMenu($event)"><a routerLink="/statistics/usage-analysis/storage">스토리지</a></li>
+        <li id="gxp" (click)="clickSubMenu($event)"><a routerLink="/statistics/usage-analysis/gxp">GXP 사용량</a></li>
+        <li id="trans-coding" (click)="clickSubMenu($event)"><a routerLink="/statistics/usage-analysis/trans-coding">트랜스코딩</a></li>
       </ul>
-      <li id="visitor-statistics" (click)="showSubLnb($event)">
+      <li id="visitor-statistics" (click)="clickMainMenu($event)">
         <a routerLink="/statistics/visitor-statistics">방문자 통계</a>
       </li>
-      <li id="report" (click)="showSubLnb($event)">
+      <li id="report" (click)="clickMainMenu($event)">
         <a routerLink="/statistics/reporter">리포트</a>
       </li>
     </ul>

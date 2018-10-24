@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
+import { CookieService } from '../services/library/cookie/cookie.service';
 
 @Injectable()
 export class LoginService {
   public loginInfo:any = {};
   public loginStatus:boolean = false;
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(private http: Http, private router: Router, private cookieService: CookieService) { }
 
   setLogin() {
     this.loginStatus = true;
@@ -28,49 +29,30 @@ export class LoginService {
   }
 
   setCookieData(userInfo, userSeq, userName, groupSeq) {
-    this.setCookie('userInfo', userInfo, 7, true);
-    this.setCookie('usr_seq', userSeq, 7);
-    this.setCookie('usr_nm', userName, 7);
-    this.setCookie('grp_seq', groupSeq, 7);
+    this.cookieService.setCookie('userInfo', userInfo, 7, true);
+    this.cookieService.setCookie('usr_seq', userSeq, 7);
+    this.cookieService.setCookie('usr_nm', userName, 7);
+    this.cookieService.setCookie('grp_seq', groupSeq, 7);
   }
 
   logout() {
-    if (this.getCookie('userInfo')) {
+    if (this.cookieService.getCookie('userInfo')) {
       this.clearUserInfo();
     }
   }
 
   checkUserInfo() {
-    if (!(this.getCookie('userInfo'))) {
+    if (!(this.cookieService.getCookie('userInfo'))) {
       this.clearUserInfo();
     }
   }
 
   clearUserInfo() {
     this.setLogout();
-    this.deleteCookie('userInfo');
-    this.deleteCookie('usr_seq');
-    this.deleteCookie('usr_nm');
-    this.deleteCookie('grp_seq');
+    this.cookieService.deleteCookie('userInfo');
+    this.cookieService.deleteCookie('usr_seq');
+    this.cookieService.deleteCookie('usr_nm');
+    this.cookieService.deleteCookie('grp_seq');
     this.router.navigate(['/', 'login']);
-  }
-
-  /* Cookie */
-  getCookie(name:string, isDecoding:boolean = false) {
-    const data = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    const value = data ? data[2] : null;
-
-    return isDecoding ? atob(value) : value;
-  }
-
-  setCookie(name:string, value:string, exp:number, isEncoding:boolean = false) {
-    const date = new Date();
-    date.setTime(date.getTime() + exp * 1000 * 60 * 60 * 24);
-
-    document.cookie = name + '=' + (isEncoding ? btoa(value) : value) + '; expires=' + date.toUTCString() + '; path=/';
-  }
-
-  deleteCookie(name:string) {
-    this.setCookie(name, '', -1);
   }
 }

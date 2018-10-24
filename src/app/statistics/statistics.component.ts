@@ -50,7 +50,7 @@ export class StatisticsComponent implements OnInit {
     });
   }
 
-  showSubLnb(e) {
+  clickMainMenu(e) {
     const target = e.currentTarget;
     const id = target.getAttribute('id');
     const temp:any[] = target.parentNode.children;
@@ -83,7 +83,7 @@ export class StatisticsComponent implements OnInit {
     }
   }
 
-  isSubOn(e) {
+  clickSubMenu(e) {
     const lnb = document.getElementsByClassName('lnb-sec')[0].childNodes[0].childNodes;
     [].forEach.call(lnb, (item) => {
       if (item.getAttribute('class') === 'sub-lnb') {

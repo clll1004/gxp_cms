@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { CmsApis } from '../services/apis/apis';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from '../login/login.service';
+import { CookieService } from '../services/library/cookie/cookie.service';
 import { FolderService } from '../services/apis/cms/folder/folder.service';
 import { ContentsService } from '../services/apis/cms/contents/contents.service';
 import { ConfirmationService } from 'primeng/components/common/api';
@@ -78,7 +78,7 @@ export class ContentsComponent implements OnInit {
   public treeStyle: any;
 
   constructor(private formBuilder: FormBuilder,
-              private loginService: LoginService,
+              private cookieService: CookieService,
               private folderService: FolderService,
               private contentsService: ContentsService,
               private cmsApi: CmsApis,
@@ -100,7 +100,7 @@ export class ContentsComponent implements OnInit {
   }
 
   getGroupSeq() {
-    this.groupSeq = this.loginService.getCookie('grp_seq');
+    this.groupSeq = this.cookieService.getCookie('grp_seq');
   }
 
   loadGroupList() {

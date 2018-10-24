@@ -48,6 +48,7 @@ import { ChangePswdComponent } from './settings/components/change-pswd/change-ps
 import { PlayerPresetComponent } from './settings/components/preset-setting/components/player-preset/player-preset.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import {CookieService} from "./services/library/cookie/cookie.service";
 
 @NgModule({
   imports: [
@@ -101,7 +102,7 @@ import { AppRoutingModule } from './app-routing.module';
     UserModifyComponent,
     ChangePswdComponent,
     PlayerPresetComponent],
-  providers: [LoginService],
+  providers: [LoginService, CookieService],
   bootstrap: [AppComponent]})
 
 export class AppModule { }
