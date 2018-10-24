@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login/login.service';
-import { CookieService } from '../services/library/cookie/cookie.service';
+import { LoginService } from '../../login/login.service';
+import { CookieService } from '../../services/library/cookie/cookie.service';
 
 @Component({
   selector: 'header',

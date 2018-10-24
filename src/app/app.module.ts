@@ -24,7 +24,8 @@ import { StatisticsModule } from './statistics/statistics.module';
 import { ChartModule } from 'primeng/chart';
 import { BlockUIModule } from 'primeng/blockui';
 
-import { HeaderComponent } from './header/header.component';
+import { HeaderModule } from './header/header.module';
+
 import { HomeComponent } from './home/home.component';
 import { ContentsComponent } from './contents/contents.component';
 import { TranscodingComponent } from './transcoding/transcoding.component';
@@ -48,7 +49,7 @@ import { ChangePswdComponent } from './settings/components/change-pswd/change-ps
 import { PlayerPresetComponent } from './settings/components/preset-setting/components/player-preset/player-preset.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import {CookieService} from "./services/library/cookie/cookie.service";
+import { CookieService } from './services/library/cookie/cookie.service';
 
 @NgModule({
   imports: [
@@ -80,11 +81,11 @@ import {CookieService} from "./services/library/cookie/cookie.service";
     StatisticsModule,
     ChartModule,
     BlockUIModule,
+    HeaderModule,
   ],
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
     ContentsComponent,
     SettingsComponent,
     TranscodingComponent,
