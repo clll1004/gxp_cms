@@ -53,6 +53,11 @@ export class HomeComponent implements OnInit {
         yAxes: [{
           ticks: {
             beginAtZero:true,
+            userCallback: (label) => {
+              if (Math.floor(label) === label) {
+                return label;
+              }
+            },
           },
         }],
       },
@@ -70,6 +75,11 @@ export class HomeComponent implements OnInit {
         yAxes: [{
           ticks: {
             beginAtZero:true,
+            userCallback: (label) => {
+              if (Math.floor(label) === label) {
+                return label;
+              }
+            },
           },
         }],
       },

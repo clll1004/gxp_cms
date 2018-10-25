@@ -90,6 +90,18 @@ export class ByGxpComponent implements OnInit, OnChanges {
           legend: {
             position: 'bottom',
           },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero:true,
+                userCallback: (label) => {
+                  if (Math.floor(label) === label) {
+                    return label;
+                  }
+                },
+              },
+            }],
+          },
         };
       })
       .then(() => {

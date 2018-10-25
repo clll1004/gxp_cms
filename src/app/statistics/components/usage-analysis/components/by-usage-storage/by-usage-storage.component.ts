@@ -93,6 +93,14 @@ export class ByUsageStorageComponent implements OnInit, OnChanges {
             }],
             yAxes: [{
               stacked: true,
+              ticks: {
+                beginAtZero:true,
+                userCallback: (label) => {
+                  if (Math.floor(label) === label) {
+                    return label;
+                  }
+                },
+              },
             }],
           },
         };

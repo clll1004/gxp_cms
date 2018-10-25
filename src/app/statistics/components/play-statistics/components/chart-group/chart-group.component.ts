@@ -84,6 +84,11 @@ export class ChartGroupComponent implements OnInit, OnChanges {
           yAxes: [{
             ticks: {
               beginAtZero:true,
+              userCallback: (label) => {
+                if (Math.floor(label) === label) {
+                  return label;
+                }
+              },
             },
           }],
         },

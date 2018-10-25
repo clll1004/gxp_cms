@@ -64,6 +64,11 @@ export class DashboardComponent implements OnInit {
         yAxes: [{
           ticks: {
             beginAtZero:true,
+            userCallback: (label) => {
+              if (Math.floor(label) === label) {
+                return label;
+              }
+            },
           },
         }],
       },
@@ -81,6 +86,11 @@ export class DashboardComponent implements OnInit {
         yAxes: [{
           ticks: {
             beginAtZero:true,
+            userCallback: (label) => {
+              if (Math.floor(label) === label) {
+                return label;
+              }
+            },
           },
         }],
       },

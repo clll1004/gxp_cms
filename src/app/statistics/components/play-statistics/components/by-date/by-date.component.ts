@@ -24,7 +24,6 @@ export class ByDateComponent implements OnInit, OnChanges {
   public chartType: string = 'line';
   public chartLabels: any[] = [];
   public chartData: any[] = [];
-  public chartOptions: object;
   /*table cols*/
   public dateStatisticsCols: any[] = [
     { header: '날짜', field: 'date' },

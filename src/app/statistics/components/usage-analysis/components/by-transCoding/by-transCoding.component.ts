@@ -67,11 +67,23 @@ export class ByTransCodingComponent implements OnInit, OnChanges {
           legend: {
             display: false,
           },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero:true,
+                userCallback: (label) => {
+                  if (Math.floor(label) === label) {
+                    return label;
+                  }
+                },
+              },
+            }],
+          },
         };
       })
       .then(() => {
         this.isChartLoading = false;
-      })
+      });
   }
 
   setBackgroundColor() {
