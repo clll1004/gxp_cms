@@ -137,6 +137,11 @@ export class PlayStatisticsComponent implements OnInit {
   downDurationCount(e) {
     this.durationCount.pop();
     this.multiSelectDuration.splice(e, 1);
+    this.multiSelectDuration.forEach((item) => {
+      if (item.selectDuration === '') {
+        item.selectDuration = new Date();
+      }
+    });
     this.updateMultiSelectDuration();
   }
 }
