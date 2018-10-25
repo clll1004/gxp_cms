@@ -12,7 +12,8 @@
     <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
   </p-blockUI>
   <p-panel class="ui-g-12 ui-g-nopad margin-bottom-40" [showHeader]="false" #ps_time_chart>
-    <div class="chart-container">
+    <div class="chart-container" style="position: relative; padding-top: 50px;">
+      <span class="info-txt" style="position: absolute; top: 20px; left: 73px; font-weight: bold;">재생수</span>
       <p-chart [type]="chartType" [data]="multiChartData" [options]="chartOptions" width="100%" height="300px"></p-chart>
     </div>
   </p-panel>

@@ -80,14 +80,14 @@ export class ByTimeComponent implements OnInit, OnChanges {
 
       this.chartService.getLists(api)
         .then((list) => {
-          const tempLabel:any[] = list['label'].map((item) => {
-            return item + '시';
+          const tempLabel:any[] = list['label'].map((labelItem) => {
+            return `${labelItem}시`;
           });
           const tempData:any[] = [];
           this.chartData.push(tempData);
           tempDataSets.push(
             {
-              label: this.datePipe.transform(item.selectDuration, 'MM-dd'),
+              label: this.datePipe.transform(item.selectDuration, 'MM월 dd일'),
               data: list['data'],
               fill: false,
               borderColor: bdc[i],
