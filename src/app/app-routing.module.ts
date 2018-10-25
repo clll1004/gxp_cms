@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/components/header.component';
 import { HomeComponent } from './home/components/home.component';
-import { ContentsComponent } from './contents/contents.component';
+import { ContentsComponent } from './contents/components/contents.component';
 import { TranscodingComponent } from './transcoding/components/transcoding.component';
 import { StatisticsComponent } from './statistics/components/statistics.component';
 import { SettingsComponent } from './settings/components/settings.component';

@@ -5,8 +5,7 @@ import { CmsApis } from '../../../services/apis/apis';
 @Component({
   selector: 'preview-status',
   templateUrl: './preview-status.component.html',
-  styleUrls: ['../../contents.component.css'],
-  providers: [ContentsService, CmsApis]})
+  styleUrls: ['../contents.component.css']})
 
 export class PreviewStatusComponent implements OnInit {
   @Input() transCodingStatus: object;

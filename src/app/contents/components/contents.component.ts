@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { CmsApis } from '../services/apis/apis';
+import { CmsApis } from '../../services/apis/apis';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CookieService } from '../services/library/cookie/cookie.service';
-import { FolderService } from '../services/apis/cms/folder/folder.service';
-import { ContentsService } from '../services/apis/cms/contents/contents.service';
+import { CookieService } from '../../services/library/cookie/cookie.service';
+import { FolderService } from '../../services/apis/cms/folder/folder.service';
+import { ContentsService } from '../../services/apis/cms/contents/contents.service';
 import { ConfirmationService } from 'primeng/components/common/api';
 
 @Component({
   selector: 'contents',
   templateUrl: './contents.component.html',
   styleUrls: ['./contents.component.css'],
-  providers: [FolderService, ContentsService, CmsApis, ConfirmationService]})
+  providers: [ConfirmationService]})
 
 export class ContentsComponent implements OnInit {
   public isListLoading:boolean = false;
