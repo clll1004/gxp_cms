@@ -59,7 +59,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     { header: '', field: '', width: '10%' },
   ];
   public compareResultHeaderCols:any[] = [
-    { header: '파일명', field: 'contentsName' },
+    { header: '파일명', field: 'contentsName', width: '30%' },
     { header: '그룹명', field: 'groupName' },
     { header: '폴더명', field: 'folderName' },
     { header: '일자', field: 'date' },

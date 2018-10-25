@@ -87,16 +87,21 @@
         <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
       </p-blockUI>
       <p-panel [showHeader]="false" #ps_playSection_resultTable>
-        <p-table #rt [value]="compareSectionDatas" [columns]="compareSectionCols" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20, 50, 100]">
+        <p-table #rt [value]="compareSectionDatas" [columns]="compareSectionCols" [resizableColumns]="true" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20, 50, 100]">
           <ng-template pTemplate="caption">
             <div class="ui-helper-clearfix">
               <button type="button" pButton  label="다운로드" (click)="rt.exportCSV()" style="float:right"></button>
             </div>
           </ng-template>
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" [style.width]="col.width">
+            </colgroup>
+          </ng-template>
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th>재생구간</th>
-              <th *ngFor="let col of columns">
+              <th *ngFor="let col of columns" pResizableColumn>
                 {{ col.header }}
               </th>
             </tr>
@@ -105,7 +110,7 @@
             <tr *ngFor="let item of compareItem;">
               <td [attr.rowspan]="compareItems.length * dateArray.length" *ngIf="rowIndex === 0 && item['index'] === 0">구간 조회수</td>
               <td [attr.rowspan]="compareItems.length" *ngIf="item['index'] === 0">{{ item['date'] }}</td>
-              <td>{{ item['contentsName'] }}</td>
+              <td style="text-align: left; padding-left: 10px;">{{ item['contentsName'] }}</td>
               <td [ngClass]="{'popular-section': item['p10'] === comparePopularSectionValue[item.index], 'leave-section': item['p10'] === compareLeaveSectionValue[item.index]}"> {{ item['p10'] }} </td>
               <td [ngClass]="{'popular-section': item['p20'] === comparePopularSectionValue[item.index], 'leave-section': item['p20'] === compareLeaveSectionValue[item.index]}"> {{ item['p20'] }} </td>
               <td [ngClass]="{'popular-section': item['p30'] === comparePopularSectionValue[item.index], 'leave-section': item['p30'] === compareLeaveSectionValue[item.index]}"> {{ item['p30'] }} </td>
@@ -122,7 +127,7 @@
             <tr  *ngFor="let item of compareSectionAverageData">
               <td [attr.rowspan]="compareItems.length" *ngIf="item['index'] === 0">평균</td>
               <td [attr.rowspan]="compareItems.length" *ngIf="item['index'] === 0">{{ item['date'] }}</td>
-              <td> {{ item['contentsName'] }} </td>
+              <td style="text-align: left; padding-left: 10px;"> {{ item['contentsName'] }} </td>
               <td [ngClass]="{'popular-section': item['p10'] === comparePopularSectionAverageValue[item.index], 'leave-section': item['p10'] === compareLeaveSectionAverageValue[item.index]}"> {{ item['p10'] }} </td>
               <td [ngClass]="{'popular-section': item['p20'] === comparePopularSectionAverageValue[item.index], 'leave-section': item['p20'] === compareLeaveSectionAverageValue[item.index]}"> {{ item['p20'] }} </td>
               <td [ngClass]="{'popular-section': item['p30'] === comparePopularSectionAverageValue[item.index], 'leave-section': item['p30'] === compareLeaveSectionAverageValue[item.index]}"> {{ item['p30'] }} </td>

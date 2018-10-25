@@ -117,22 +117,27 @@
         <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
       </p-blockUI>
       <p-panel [showHeader]="false" #ps_playTime_resultTable>
-        <p-table  #rt [value]="comparePlayTimeTableDatas" [columns]="compareResultHeaderCols">
+        <p-table  #rt [value]="comparePlayTimeTableDatas" [columns]="compareResultHeaderCols" [resizableColumns]="true">
           <ng-template pTemplate="caption">
             <div class="ui-helper-clearfix">
               <button type="button" pButton  label="다운로드" (click)="rt.exportCSV()" style="float:right"></button>
             </div>
           </ng-template>
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" [style.width]="col.width">
+            </colgroup>
+          </ng-template>
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th *ngFor="let col of columns">
+              <th *ngFor="let col of columns" pResizableColumn>
                 {{ col.header }}
               </th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-comparePlayTimeTableData let-columns="columns">
             <tr>
-              <td [attr.rowspan]="dateArray.length" *ngIf="dateArray[0].getFullYear() + '-' + ((dateArray[0].getMonth() + 1) < 10 ? '0' + (dateArray[0].getMonth() + 1) : (dateArray[0].getMonth() + 1)) + '-' + (dateArray[0].getDate() < 10 ? '0' + dateArray[0].getDate() : dateArray[0].getDate()) === comparePlayTimeTableData.dates">
+              <td style="text-align: left; padding-left: 10px;" [attr.rowspan]="dateArray.length" *ngIf="dateArray[0].getFullYear() + '-' + ((dateArray[0].getMonth() + 1) < 10 ? '0' + (dateArray[0].getMonth() + 1) : (dateArray[0].getMonth() + 1)) + '-' + (dateArray[0].getDate() < 10 ? '0' + dateArray[0].getDate() : dateArray[0].getDate()) === comparePlayTimeTableData.dates">
                 {{ comparePlayTimeTableData['contentsName'] }}
               </td>
               <td [attr.rowspan]="dateArray.length" *ngIf="dateArray[0].getFullYear() + '-' + ((dateArray[0].getMonth() + 1) < 10 ? '0' + (dateArray[0].getMonth() + 1) : (dateArray[0].getMonth() + 1)) + '-' + (dateArray[0].getDate() < 10 ? '0' + dateArray[0].getDate() : dateArray[0].getDate()) === comparePlayTimeTableData.dates">
@@ -150,14 +155,14 @@
           <ng-template pTemplate="footer" let-columns>
             <tr *ngFor="let item of compareSectionTotalData; let i = index">
               <td colspan="2" [attr.rowspan]="compareSectionTotalData.length" *ngIf="i === 0">합계</td>
-              <td colspan="2">{{ item['contentsName'] }}</td>
+              <td colspan="2" style="text-align: left; padding-left: 10px;">{{ item['contentsName'] }}</td>
               <td>{{ item['totalPlayTime'] }}</td>
               <td>{{ item['totalPlayCount'] }}</td>
               <td>{{ item['totalAveragePlayTime'] }}</td>
             </tr>
             <tr *ngFor="let item of compareSectionTotalData; let i = index">
               <td colspan="2" [attr.rowspan]="compareSectionTotalData.length" *ngIf="i === 0">평균</td>
-              <td colspan="2">{{ item['contentsName'] }}</td>
+              <td colspan="2" style="text-align: left; padding-left: 10px;">{{ item['contentsName'] }}</td>
               <td>{{ item['totalPlayTime'] }}</td>
               <td>{{ item['totalPlayCount'] / dateArray.length | number:'1.0-0' }}</td>
               <td>{{ item['totalAveragePlayTime'] }}</td>

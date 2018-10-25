@@ -54,9 +54,9 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     { header: '등록일', field: 'regdate', width: '15%' },
   ];
   public compareSectionCols:any[] = [
-    { header: '일자', field: 'date' },
-    { header: '파일명', field: 'contentsName' },
-    { header: '10%', field: 'p10' },
+    { header: '일자', field: 'date', width: '10%'  },
+    { header: '파일명', field: 'contentsName', width: '10%' },
+    { header: '10%', field: 'p10', width: '35%' },
     { header: '20%', field: 'p20' },
     { header: '30%', field: 'p30' },
     { header: '40%', field: 'p40' },
