@@ -8,8 +8,8 @@ import { ConfirmationService } from 'primeng/components/common/api';
 @Component({
   selector: 'group-manager',
   templateUrl: './group-mng.component.html',
-  styleUrls: ['../../settings.component.css'],
-  providers: [SettingsService, CmsApis, ConfirmationService]})
+  styleUrls: ['../settings.component.css'],
+  providers: [ConfirmationService]})
 
 export class GroupMngComponent implements OnInit, OnChanges {
   @Input() groupSeq: any;
@@ -101,7 +101,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
 
   loadPlayerPreset() {
     this.userSeq = this.cookieService.getCookie('usr_seq');
-    this.settingsService.getLists(this.cmsApi.playerPreset + '/' + this.groupSeq)
+    this.settingsService.getLists(`${this.cmsApi.playerPreset}/${this.groupSeq}`)
       .toPromise()
       .then((cont) => {
         const getData: any[] = JSON.parse(cont['_body']);

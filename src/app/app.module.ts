@@ -28,9 +28,9 @@ import { FooterModule } from './footer/footer.module';
 import { HomeModule } from './home/home.module';
 import { TranscodingModule } from './transcoding/transcoding.module';
 import { StatisticsModule } from './statistics/statistics.module';
+import { SettingsModule } from './settings/settings.module';
 
 import { ContentsComponent } from './contents/contents.component';
-import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 
 import { LoginService } from './login/login.service';
@@ -39,12 +39,6 @@ import { LoginService } from './login/login.service';
 import { PreviewThumbnailComponent } from './contents/components/preview-thumbnail/preview-thumbnail.component';
 import { PreviewStatusComponent } from './contents/components/preview-status/preview-status.component';
 import { PreviewFInfoComponent } from './contents/components/preview-fInfo/preview-fInfo.component';
-/*SETTINGS*/
-import { AddGroupComponent } from './settings/components/add-group/add-group.component';
-import { GroupMngComponent } from './settings/components/group-mng/group-mng.component';
-import { UserModifyComponent } from './settings/components/user-modify/user-modify.component';
-import { ChangePswdComponent } from './settings/components/change-pswd/change-pswd.component';
-import { PlayerPresetComponent } from './settings/components/preset-setting/components/player-preset/player-preset.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CookieService } from './services/library/cookie/cookie.service';
@@ -83,22 +77,16 @@ import { CookieService } from './services/library/cookie/cookie.service';
     HomeModule,
     TranscodingModule,
     StatisticsModule,
+    SettingsModule,
   ],
   declarations: [
     AppComponent,
     ContentsComponent,
-    SettingsComponent,
     LoginComponent,
 
     PreviewThumbnailComponent,
     PreviewStatusComponent,
-    PreviewFInfoComponent,
-
-    AddGroupComponent,
-    GroupMngComponent,
-    UserModifyComponent,
-    ChangePswdComponent,
-    PlayerPresetComponent],
+    PreviewFInfoComponent],
   providers: [LoginService, CookieService],
   bootstrap: [AppComponent]})
 

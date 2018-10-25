@@ -19,7 +19,7 @@ import { BlockUIModule } from 'primeng/blockui';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabViewModule } from 'primeng/tabview';
 
-import { StatisticsComponent } from './statistics.component';
+import { StatisticsComponent } from './components/statistics.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UsageAnalysisComponent } from './components/usage-analysis/usage-analysis.component';
 import { ByTrafficComponent } from './components/usage-analysis/components/by-traffic/by-traffic.component';

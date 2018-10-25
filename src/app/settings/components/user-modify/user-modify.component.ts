@@ -7,8 +7,7 @@ import { CmsApis } from '../../../services/apis/apis';
 @Component({
   selector: 'user-modify',
   templateUrl: './user-modify.component.html',
-  styleUrls: ['../../settings.component.css'],
-  providers: [SettingsService, CmsApis]})
+  styleUrls: ['../settings.component.css']})
 
 export class UserModifyComponent implements OnInit {
   public isLoading:boolean = false;

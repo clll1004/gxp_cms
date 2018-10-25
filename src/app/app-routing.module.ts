@@ -6,8 +6,8 @@ import { HeaderComponent } from './header/components/header.component';
 import { HomeComponent } from './home/components/home.component';
 import { ContentsComponent } from './contents/contents.component';
 import { TranscodingComponent } from './transcoding/components/transcoding.component';
-import { StatisticsComponent } from './statistics/statistics.component';
-import { SettingsComponent } from './settings/settings.component';
+import { StatisticsComponent } from './statistics/components/statistics.component';
+import { SettingsComponent } from './settings/components/settings.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'contents', pathMatch: 'full' },

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { TreeNode } from 'primeng/api';
-import { CookieService } from '../services/library/cookie/cookie.service';
-import { SettingsService } from '../services/apis/cms/settings/settings.service';
-import { CmsApis } from '../services/apis/apis';
+import { CookieService } from '../../services/library/cookie/cookie.service';
+import { SettingsService } from '../../services/apis/cms/settings/settings.service';
+import { CmsApis } from '../../services/apis/apis';
 
 @Component({
   selector: 'settings',

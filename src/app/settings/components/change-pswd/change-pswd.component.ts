@@ -9,8 +9,8 @@ import { CmsApis } from '../../../services/apis/apis';
 @Component({
   selector: 'change-password',
   templateUrl: './change-pswd.component.html',
-  styleUrls: ['../../settings.component.css'],
-  providers: [SettingsService, Sha256]})
+  styleUrls: ['../settings.component.css'],
+  providers: [Sha256]})
 
 export class ChangePswdComponent implements OnInit {
   public userSeq:string = '';
