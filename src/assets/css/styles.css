@@ -494,3 +494,7 @@ p-tabview.reportTabView .ui-tabview .ui-tabview-panel { padding: 0!important; }
 .reportCheckboxStyle .ui-chkbox-label { display: inline-block !important; width: 100px !important; }
 .reportDuration .ui-dropdown label.ui-dropdown-label { padding: 4px 13px !important; color: #888 !important; }
 .reportDuration .ui-dropdown-panel .ui-dropdown-item { padding: 5px 0 !important; }
+
+.ui-helper-clearfix .ui-button, .download_btn .ui-button {
+    width: 80px !important; height: 25px !important; border: none !important; font-size: 12px !important;
+}
