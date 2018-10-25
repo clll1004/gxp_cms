@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
-import { CookieService } from '../services/library/cookie/cookie.service';
+import { CookieService } from '../../../library/cookie/cookie.service';
 
 @Injectable()
 export class LoginService {

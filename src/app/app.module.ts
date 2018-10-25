@@ -23,6 +23,7 @@ import { TreeModule } from 'primeng/tree';
 import { ChartModule } from 'primeng/chart';
 import { BlockUIModule } from 'primeng/blockui';
 
+import { LoginModule } from './login/login.module';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
 import { HomeModule } from './home/home.module';
@@ -31,10 +32,9 @@ import { TranscodingModule } from './transcoding/transcoding.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { SettingsModule } from './settings/settings.module';
 
-import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
-
 import { AppRoutingModule } from './app-routing.module';
+
+import { LoginService } from './services/apis/cms/login/login.service';
 import { CookieService } from './services/library/cookie/cookie.service';
 
 @NgModule({
@@ -66,6 +66,7 @@ import { CookieService } from './services/library/cookie/cookie.service';
     TreeModule,
     ChartModule,
     BlockUIModule,
+    LoginModule,
     HeaderModule,
     FooterModule,
     HomeModule,
@@ -76,7 +77,6 @@ import { CookieService } from './services/library/cookie/cookie.service';
   ],
   declarations: [
     AppComponent,
-    LoginComponent,
   ],
   providers: [LoginService, CookieService],
   bootstrap: [AppComponent]})

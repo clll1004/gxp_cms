@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { LoginService } from './login/login.service';
+import { LoginService } from './services/apis/cms/login/login.service';
 import '../assets/css/styles.css';
 
 @Component({

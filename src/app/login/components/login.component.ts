@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { Sha256 } from '../services/library/hash/sha256';
-import { CmsApis } from '../services/apis/apis';
-import { LoginService } from './login.service';
+import { Sha256 } from '../../services/library/hash/sha256';
+import { CmsApis } from '../../services/apis/apis';
+import { LoginService } from '../../services/apis/cms/login/login.service';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [Sha256, CmsApis]})
+  providers: [Sha256]})
 
 export class LoginComponent implements OnInit{
   public userData: any = {

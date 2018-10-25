@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { HeaderComponent } from './components/header.component';
 
-import { LoginService } from '../login/login.service';
+import { LoginService } from '../services/apis/cms/login/login.service';
 import { CookieService } from '../services/library/cookie/cookie.service';
 
 @NgModule({
