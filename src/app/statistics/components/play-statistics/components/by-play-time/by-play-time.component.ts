@@ -333,49 +333,132 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     const third = this.comparePlayTimeTableDatas.slice(length * 2, length * 3);
     let tempTotal:object = {
       contentsName: '',
-      totalPlayTime: 0,
       totalPlayCount: 0,
+      totalPlayTime: 0,
       totalAveragePlayTime: 0,
+      avgPlayTime: 0,
+      avgAveragePlayTime: 0,
     };
     this.compareSectionTotalData = [];
+    let playTimeArray:any[] = [];
+    let averagePlayTimeArray:any[] = [];
 
     first.forEach((item) => {
       tempTotal['contentsName'] = item['contentsName'];
-      tempTotal['totalPlayTime'] += item['playTime'];
       tempTotal['totalPlayCount'] += item['playCount'];
-      tempTotal['totalAveragePlayTime'] += item['averagePlayTime'];
+      playTimeArray.push(item['playTime'].split(':'));
+      averagePlayTimeArray.push(item['averagePlayTime'].split(':'));
     });
+
+    let convertPlayTimeToSS:any[] = playTimeArray.map((item) => {
+      return this.convertDateTimeTo('ss', item);
+    });
+    convertPlayTimeToSS.forEach((item) => {
+      tempTotal['totalPlayTime'] += item;
+    });
+    tempTotal['avgPlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(tempTotal['totalPlayTime'] / length));
+    tempTotal['totalPlayTime'] = this.convertDateTimeTo('hh:mm:ss', tempTotal['totalPlayTime']);
+
+    let convertAveragePlayTimeToSS:any[] = averagePlayTimeArray.map((item) => {
+      return this.convertDateTimeTo('ss', item);
+    });
+    convertAveragePlayTimeToSS.forEach((item) => {
+      tempTotal['totalAveragePlayTime'] += item;
+    });
+    tempTotal['totalAveragePlayTime'] = Math.floor(tempTotal['totalAveragePlayTime'] / length);
+    tempTotal['avgAveragePlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(tempTotal['totalAveragePlayTime'] / length));
+    tempTotal['totalAveragePlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(tempTotal['totalAveragePlayTime']));
+
     this.compareSectionTotalData.push(tempTotal);
-    tempTotal = {
-      contentsName: '',
-      totalPlayTime: 0,
-      totalPlayCount: 0,
-      totalAveragePlayTime: 0,
-    };
     if (second.length) {
+      tempTotal = {
+        contentsName: '',
+        totalPlayCount: 0,
+        totalPlayTime: 0,
+        totalAveragePlayTime: 0,
+        avgPlayTime: 0,
+        avgAveragePlayTime: 0,
+      };
+      playTimeArray = [];
+      averagePlayTimeArray = [];
       second.forEach((item) => {
         tempTotal['contentsName'] = item['contentsName'];
-        tempTotal['totalPlayTime'] += item['playTime'];
         tempTotal['totalPlayCount'] += item['playCount'];
-        tempTotal['totalAveragePlayTime'] += item['averagePlayTime'];
+        playTimeArray.push(item['playTime'].split(':'));
+        averagePlayTimeArray.push(item['averagePlayTime'].split(':'));
       });
+
+      convertPlayTimeToSS = playTimeArray.map((item) => {
+        return this.convertDateTimeTo('ss', item);
+      });
+      convertPlayTimeToSS.forEach((item) => {
+        tempTotal['totalPlayTime'] += item;
+      });
+      tempTotal['avgPlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(tempTotal['totalPlayTime'] / length));
+      tempTotal['totalPlayTime'] = this.convertDateTimeTo('hh:mm:ss', tempTotal['totalPlayTime']);
+
+      convertAveragePlayTimeToSS = averagePlayTimeArray.map((item) => {
+        return this.convertDateTimeTo('ss', item);
+      });
+      convertAveragePlayTimeToSS.forEach((item) => {
+        tempTotal['totalAveragePlayTime'] += item;
+      });
+      tempTotal['totalAveragePlayTime'] = Math.floor(tempTotal['totalAveragePlayTime'] / length);
+      tempTotal['avgAveragePlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(tempTotal['totalAveragePlayTime'] / length));
+      tempTotal['totalAveragePlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(tempTotal['totalAveragePlayTime']));
+
       this.compareSectionTotalData.push(tempTotal);
+    }
+    if (third.length) {
       tempTotal = {
         contentsName: '',
         totalPlayTime: 0,
         totalPlayCount: 0,
         totalAveragePlayTime: 0,
+        avgPlayTime: 0,
+        avgAveragePlayTime: 0,
       };
-    }
-    if (third.length) {
       third.forEach((item) => {
         tempTotal['contentsName'] = item['contentsName'];
-        tempTotal['totalPlayTime'] += item['playTime'];
         tempTotal['totalPlayCount'] += item['playCount'];
-        tempTotal['totalAveragePlayTime'] += item['averagePlayTime'];
+        playTimeArray.push(item['playTime'].split(':'));
+        averagePlayTimeArray.push(item['averagePlayTime'].split(':'));
       });
+
+      convertPlayTimeToSS = playTimeArray.map((item) => {
+        return this.convertDateTimeTo('ss', item);
+      });
+      convertPlayTimeToSS.forEach((item) => {
+        tempTotal['totalPlayTime'] += item;
+      });
+      tempTotal['avgPlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(tempTotal['totalPlayTime'] / length));
+      tempTotal['totalPlayTime'] = this.convertDateTimeTo('hh:mm:ss', tempTotal['totalPlayTime']);
+
+      convertAveragePlayTimeToSS = averagePlayTimeArray.map((item) => {
+        return this.convertDateTimeTo('ss', item);
+      });
+      convertAveragePlayTimeToSS.forEach((item) => {
+        tempTotal['totalAveragePlayTime'] += item;
+      });
+      tempTotal['totalAveragePlayTime'] = Math.floor(tempTotal['totalAveragePlayTime'] / length);
+      tempTotal['avgAveragePlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(tempTotal['totalAveragePlayTime'] / length));
+      tempTotal['totalAveragePlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(tempTotal['totalAveragePlayTime']));
+
       this.compareSectionTotalData.push(tempTotal);
     }
+  }
+
+  convertDateTimeTo(type:string = 'hh:mm:ss', time) {
+    if (type === 'ss') {
+      return (Number(time[0]) * 60 * 60) + (Number(time[1]) * 60) + Number(time[2]);
+    }
+    let hours:string = String(Math.floor(time / 3600));
+    let minutes:string = String(Math.floor((time - (Number(hours) * 3600)) / 60));
+    let seconds:string = String(time - (Number(hours) * 3600) - (Number(minutes) * 60));
+    if (Number(hours) < 10) { hours = `0${hours}`; }
+    if (Number(minutes) < 10) { minutes = `0${minutes}`; }
+    if (Number(seconds) < 10) { seconds = `0${seconds}`; }
+    return `${hours}:${minutes}:${seconds}`;
   }
 
   deleteCompareItem(target) {

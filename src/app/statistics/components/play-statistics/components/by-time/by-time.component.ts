@@ -202,12 +202,12 @@ export class ByTimeComponent implements OnInit, OnChanges {
     if (type === 'ss') {
       return (Number(time[0]) * 60 * 60) + (Number(time[1]) * 60) + Number(time[2]);
     }
-    const hours   = Math.floor(time / 3600);
-    const minutes = Math.floor((time - (hours * 3600)) / 60);
-    const seconds = time - (hours * 3600) - (minutes * 60);
-    // if (hours < 10) { hours = `0${String(hours)}`; }
-    // if (minutes < 10) { minutes = `0${String(minutes)}`; }
-    // if (seconds < 10) { seconds = `0${String(seconds)}`; }
+    let hours:string = String(Math.floor(time / 3600));
+    let minutes:string = String(Math.floor((time - (Number(hours) * 3600)) / 60));
+    let seconds:string = String(time - (Number(hours) * 3600) - (Number(minutes) * 60));
+    if (Number(hours) < 10) { hours = `0${hours}`; }
+    if (Number(minutes) < 10) { minutes = `0${minutes}`; }
+    if (Number(seconds) < 10) { seconds = `0${seconds}`; }
     return `${hours}:${minutes}:${seconds}`;
   }
 

@@ -163,9 +163,9 @@
             <tr *ngFor="let item of compareSectionTotalData; let i = index">
               <td colspan="2" [attr.rowspan]="compareSectionTotalData.length" *ngIf="i === 0">평균</td>
               <td colspan="2" style="text-align: left; padding-left: 10px;">{{ item['contentsName'] }}</td>
-              <td>{{ item['totalPlayTime'] }}</td>
+              <td>{{ item['avgPlayTime'] }}</td>
               <td>{{ item['totalPlayCount'] / dateArray.length | number:'1.0-0' }}</td>
-              <td>{{ item['totalAveragePlayTime'] }}</td>
+              <td>{{ item['avgAveragePlayTime'] }}</td>
             </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage" let-columns>
