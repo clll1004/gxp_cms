@@ -20,7 +20,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
   public playerPresetForm: FormGroup;
   public submitted: boolean = false;
   public isShowMessage: boolean = false;
-  public playerPresetKeys:any[] = ['playbackRate', 'loopPortion', 'bookmark', 'nextVideo', 'setting', 'fullscreen', 'cinemaMode', 'quality'];
+  public playerPresetKeys:any[] = ['playbackRate', 'loopPortion', 'bookmark', 'nextVideo', 'setting', 'fullscreen', 'cinemaMode', 'quality', 'subtitle'];
 
   public groupData: object = {};
 
@@ -70,6 +70,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
       fullscreen: new FormControl('Y'),
       cinemaMode: new FormControl('Y'),
       quality: new FormControl('Y'),
+      subtitle: new FormControl('Y'),
     });
   }
 
