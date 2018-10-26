@@ -5,12 +5,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { CmsApis } from '../../../services/apis/apis';
 import { DashboardService } from '../../../services/apis/cms/dashboard/dashboard.service';
+import { CookieService } from '../../../services/library/cookie/cookie.service';
 
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [CmsApis, DashboardService]})
+  providers: [CmsApis, DashboardService, CookieService]})
 
 export class DashboardComponent implements OnInit {
   public params:Params;
@@ -44,7 +45,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private cmsApi: CmsApis,
-              private dashboardService: DashboardService) { }
+              private dashboardService: DashboardService,
+              private cookieService: CookieService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
@@ -112,7 +114,7 @@ export class DashboardComponent implements OnInit {
 
   loadGXPChart() {
     this.isGxpLoading = true;
-    this.dashboardService.getLists(this.cmsApi.gxpDashboard)
+    this.dashboardService.getLists(this.cmsApi.gxpDashboard + this.cookieService.getCookie('usr_seq'))
       .toPromise()
       .then((cont:object) => {
         const list = JSON.parse(cont['_body']);
@@ -133,7 +135,7 @@ export class DashboardComponent implements OnInit {
 
   loadStorageChart() {
     this.isStorageLoading = true;
-    this.dashboardService.getLists(this.cmsApi.storageDashboard)
+    this.dashboardService.getLists(this.cmsApi.storageDashboard + this.cookieService.getCookie('usr_seq'))
       .toPromise()
       .then((cont:object) => {
         const list = JSON.parse(cont['_body']);
@@ -154,7 +156,7 @@ export class DashboardComponent implements OnInit {
 
   loadDateChart() {
     this.isDateLoading = true;
-    this.dashboardService.getLists(this.cmsApi.dateDashboard)
+    this.dashboardService.getLists(this.cmsApi.dateDashboard + this.cookieService.getCookie('usr_seq'))
       .toPromise()
       .then((cont:object) => {
         const list = JSON.parse(cont['_body']);
@@ -183,7 +185,7 @@ export class DashboardComponent implements OnInit {
 
   loadTimeChart() {
     this.isTimeLoading = true;
-    this.dashboardService.getLists(this.cmsApi.timeDashboard)
+    this.dashboardService.getLists(this.cmsApi.timeDashboard + this.cookieService.getCookie('usr_seq'))
       .toPromise()
       .then((cont:object) => {
         const list = JSON.parse(cont['_body']);
@@ -207,7 +209,7 @@ export class DashboardComponent implements OnInit {
 
   loadContentsChart() {
     this.isContentsLoading = true;
-    this.dashboardService.getLists(this.cmsApi.contentsDashboard)
+    this.dashboardService.getLists(this.cmsApi.contentsDashboard + this.cookieService.getCookie('usr_seq'))
       .toPromise()
       .then((cont:object) => {
         const list = JSON.parse(cont['_body']);
@@ -229,7 +231,7 @@ export class DashboardComponent implements OnInit {
 
   loadCategoryChart() {
     this.isCategoryLoading = true;
-    this.dashboardService.getLists(this.cmsApi.categoryDashboard)
+    this.dashboardService.getLists(this.cmsApi.categoryDashboard + this.cookieService.getCookie('usr_seq'))
       .toPromise()
       .then((cont:object) => {
         const list = JSON.parse(cont['_body']);

@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit{
         this.loginService.setLogin();
         const serverData = JSON.parse(data['_body']);
         const user = this.userData.userId + '/' + this.userData.userPassword;
+        this.cmsApi.usrSeq = serverData.usr_seq;
         this.loginService.setCookieData(user, serverData.usr_seq, serverData.usr_nm, serverData.grp_seq);
         this.router.navigate(['/', 'home']);
       })
