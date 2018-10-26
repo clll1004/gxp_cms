@@ -173,6 +173,7 @@ export class ByTimeComponent implements OnInit, OnChanges {
 
   setTotalData(length) {
     this.totalData = [];
+    const playTimeArray:any[] = [];
     this.timeStatisticsLists.forEach((item:any[]) => {
       this.tempTotalData = {
         totalPlayCount: 0,
@@ -181,12 +182,33 @@ export class ByTimeComponent implements OnInit, OnChanges {
       };
       item.forEach((value) => {
         this.tempTotalData['totalPlayCount'] += value['playCount'];
-        this.tempTotalData['averagePlayTime'] += value['playTime'];
+        playTimeArray.push(value['playTime'].split(':'));
       });
+
+      const convertPlayTimeToSS:any[] = playTimeArray.map((item) => {
+        return this.convertDateTimeTo('ss', item);
+      });
+      convertPlayTimeToSS.forEach((item) => {
+        this.tempTotalData['averagePlayTime'] += item;
+      });
+
       this.tempTotalData['averagePlayCount'] = Math.floor(this.tempTotalData['totalPlayCount'] / length);
-      this.tempTotalData['averagePlayTime'] = Math.floor(this.tempTotalData['averagePlayTime'] / length);
+      this.tempTotalData['averagePlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(this.tempTotalData['averagePlayTime'] / length));
       this.totalData.push(this.tempTotalData);
     });
+  }
+
+  convertDateTimeTo(type:string = 'hh:mm:ss', time) {
+    if (type === 'ss') {
+      return (Number(time[0]) * 60 * 60) + (Number(time[1]) * 60) + Number(time[2]);
+    }
+    let hours   = Math.floor(time / 3600);
+    let minutes = Math.floor((time - (hours * 3600)) / 60);
+    let seconds = time - (hours * 3600) - (minutes * 60);
+    hours < 10 ? hours = `0${String(hours)}` : String(hours);
+    minutes < 10 ? minutes = `0${String(minutes)}` : String(minutes);
+    seconds < 10 ? seconds = `0${String(seconds)}` : String(seconds);
+    return `${hours}:${minutes}:${seconds}`;
   }
 
   foldingTable(btnId, tableId) {

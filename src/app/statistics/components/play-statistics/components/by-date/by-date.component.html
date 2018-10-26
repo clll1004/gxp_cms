@@ -47,8 +47,8 @@
           <td> {{ dateStatisticsList['date'] }} </td>
           <td> {{ dateStatisticsList['contentsCount'] }} 개</td>
           <td> {{ dateStatisticsList['playCount'] }} 회</td>
-          <td> {{ dateStatisticsList['playTime'] }} 분</td>
-          <td> {{ dateStatisticsList['averagePlayTime'] }} 분</td>
+          <td> {{ dateStatisticsList['playTime'] }}</td>
+          <td> {{ dateStatisticsList['averagePlayTime'] }}</td>
           <td> {{ dateStatisticsList['variation'] }} 회</td>
         </tr>
       </ng-template>
@@ -60,8 +60,8 @@
             총 {{ totalData['totalPlayCount'] }}회<br>
             평균 재생 수 {{ totalData['averagePlayCount'] }}회
           </td>
-          <td>총 재생시간 {{ totalData['totalPlayTime'] }}분</td>
-          <td>평균 재생시간 {{ totalData['averageTotalPlayTime'] }}분</td>
+          <td>총 재생시간 {{ totalData['totalPlayTime'] }}</td>
+          <td>평균 재생시간 {{ totalData['averageTotalPlayTime'] }}</td>
           <td></td>
         </tr>
       </ng-template>

@@ -109,6 +109,8 @@ export class ByDateComponent implements OnInit, OnChanges {
 
   setTotalData() {
     const length = this.dateStatisticsLists.length;
+    const playTimeArray:any[] = [];
+    const averagePlayTimeArray:any[] = [];
     this.totalData = {
       totalContentsCount: 0,
       totalPlayCount: 0,
@@ -119,9 +121,39 @@ export class ByDateComponent implements OnInit, OnChanges {
     this.dateStatisticsLists.forEach((item) => {
       this.totalData['totalContentsCount'] += item['contentsCount'];
       this.totalData['totalPlayCount'] += item['playCount'];
-      this.totalData['totalPlayTime'] += item['playTime'];
+      playTimeArray.push(item['playTime'].split(':'));
+      averagePlayTimeArray.push(item['averagePlayTime'].split(':'));
     });
+
+    const convertPlayTimeToSS:any[] = playTimeArray.map((item) => {
+      return this.convertDateTimeTo('ss', item);
+    });
+    convertPlayTimeToSS.forEach((item) => {
+      this.totalData['totalPlayTime'] += item;
+    });
+
+    const convertAveragePlayTimeToSS:any[] = averagePlayTimeArray.map((item) => {
+      return this.convertDateTimeTo('ss', item);
+    });
+    convertAveragePlayTimeToSS.forEach((item) => {
+      this.totalData['averageTotalPlayTime'] += item;
+    });
+
     this.totalData['averagePlayCount'] = Math.floor(this.totalData['totalPlayCount'] / length);
-    this.totalData['averageTotalPlayTime'] = Math.floor(this.totalData['totalPlayTime'] / length);
+    this.totalData['totalPlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(this.totalData['totalPlayTime'] / length));
+    this.totalData['averageTotalPlayTime'] = this.convertDateTimeTo('hh:mm:ss', Math.floor(this.totalData['averageTotalPlayTime'] / length));
+  }
+
+  convertDateTimeTo(type:string = 'hh:mm:ss', time) {
+    if (type === 'ss') {
+      return (Number(time[0]) * 60 * 60) + (Number(time[1]) * 60) + Number(time[2]);
+    }
+    let hours   = Math.floor(time / 3600);
+    let minutes = Math.floor((time - (hours * 3600)) / 60);
+    let seconds = time - (hours * 3600) - (minutes * 60);
+    hours < 10 ? hours = `0${String(hours)}` : String(hours);
+    minutes < 10 ? minutes = `0${String(minutes)}` : String(minutes);
+    seconds < 10 ? seconds = `0${String(seconds)}` : String(seconds);
+    return `${hours}:${minutes}:${seconds}`;
   }
 }
