@@ -87,6 +87,6 @@ tr td {
   vertical-align: top;
 }
 
-.ui-widget-header .ui-button:enabled:active, .ui-widget-content .ui-button:enabled:active, .ui-widget.ui-button:enabled:active, .ui-button:enabled:active {
-  width: 80px !important; height: 25px !important; border: none !important; color: #777 !important; background: #fcd8a1 !important; font-size: 12px !important;
+.ui-helper-clearfix .ui-button, .download_btn .ui-button {
+  width: 80px !important; height: 25px !important; border: none !important; font-size: 12px !important;
 }
