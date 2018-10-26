@@ -85,6 +85,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
     this.isSearch = false;
     this.searchKey = '';
     this.searchCount = 0;
+    this.chartType = this.selectDuration.range === 't' ? 'bar' : 'line';
     const startDate = new Date(this.selectDuration.date[0]);
     const endDate = new Date(this.selectDuration.date[1]);
     this.dateArray = this.getDateArray(startDate, endDate);
@@ -260,6 +261,7 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
             let j = 0;
             tempDataSets.forEach((data) => {
               data['borderColor'] = bdc[j];
+              data['backgroundColor'] = bdc[j];
               j += 1;
             });
           }
@@ -279,6 +281,9 @@ export class ByPlayTimeComponent implements OnInit, OnChanges {
         },
       },
       scales: {
+        xAxes: [{
+          maxBarThickness: 100,
+        }],
         yAxes: [{
           ticks: {
             beginAtZero:true,

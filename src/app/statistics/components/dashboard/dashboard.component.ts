@@ -61,6 +61,9 @@ export class DashboardComponent implements OnInit {
         display: false,
       },
       scales: {
+        xAxes: [{
+          maxBarThickness: 100,
+        }],
         yAxes: [{
           ticks: {
             beginAtZero:true,

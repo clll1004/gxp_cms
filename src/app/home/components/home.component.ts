@@ -50,6 +50,9 @@ export class HomeComponent implements OnInit {
         display: false,
       },
       scales: {
+        xAxes: [{
+          maxBarThickness: 100,
+        }],
         yAxes: [{
           ticks: {
             beginAtZero:true,

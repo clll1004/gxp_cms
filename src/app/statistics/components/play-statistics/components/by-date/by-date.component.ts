@@ -48,6 +48,7 @@ export class ByDateComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
+    this.chartType = this.selectDuration.range === 't' ? 'bar' : 'line';
     this.searchCount = 0;
     this.setChartData(false);
     this.setTableData(false);

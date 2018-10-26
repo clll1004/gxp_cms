@@ -71,6 +71,7 @@ export class ChartGroupComponent implements OnInit, OnChanges {
         },
         scales: {
           xAxes: [{
+            maxBarThickness: 100,
             ticks: {
               autoSkip: false,
               callback: (value) => {
