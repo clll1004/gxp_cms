@@ -188,7 +188,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
         const valueObject = {};
         this.submitted = true;
 
-        valueObject['cus_seq'] = this.groupSeq;
+        valueObject['grp_seq'] = this.groupSeq;
         this.playerPresetKeys.forEach((key) => {
           valueObject[key] = value[key] ? 'Y' : 'N';
         });
