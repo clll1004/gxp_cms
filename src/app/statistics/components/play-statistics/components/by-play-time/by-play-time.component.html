@@ -24,7 +24,7 @@
     <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
   </p-blockUI>
   <p-panel class="ui-g-12 ui-g-nopad margin-bottom-50" [showHeader]="false" #ps_playTime_table>
-    <p-table #dt [columns]="playTimeStatisticsCols" [value]="playTimeStatisticsDatas" [resizableColumns]="true" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="10" [(selection)]="tempCompareItems" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" (sortFunction)="setTableIndex($event)" [customSort]="true">
+    <p-table class="selectTable" #dt [columns]="playTimeStatisticsCols" [value]="playTimeStatisticsDatas" [resizableColumns]="true" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="10" selectionMode="multiple" [(selection)]="tempCompareItems" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" (sortFunction)="setTableIndex($event)" [customSort]="true">
       <ng-template pTemplate="caption">
         <div class="ui-helper-clearfix">
           <button type="button" pButton  label="다운로드" (click)="dt.exportCSV()" style="float:right"></button>

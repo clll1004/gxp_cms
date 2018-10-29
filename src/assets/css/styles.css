@@ -445,6 +445,9 @@ select, input[type="text"], input[type="password"], input[type="checkbox"], text
 .search-result {font-size:13px; color: #f52727;}
 
 /*primeng css*/
+.selectTable tbody tr {
+    cursor: pointer !important;
+}
 input,ui-inputtext {
     font-size: 13px !important;
     height: 29px;
