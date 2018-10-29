@@ -18,7 +18,7 @@
                     <tr>
                         <th><label for="usr_pw_old">현재 비밀번호</label> <span class="req">*</span></th>
                         <td>
-                            <input pPassword [feedback]="false" type="password" id="usr_pw_old" title="현재 패스워드 입력" formControlName="usr_pw_old" value="" />
+                            <input type="password" id="usr_pw_old" title="현재 패스워드 입력" formControlName="usr_pw_old" value="" />
                             <div *ngIf="!changePasswordform.controls['usr_pw_old'].valid && changePasswordform.controls['usr_pw_old'].dirty">
                                 <p class="req info-txt margin-top-10" *ngIf="changePasswordform.controls['usr_pw_old'].errors['required']">필수입력 사항 입니다</p>
                             </div>
@@ -27,7 +27,7 @@
                     <tr>
                         <th><label for="usr_pw">새로운 비밀번호</label> <span class="req">*</span></th>
                         <td>
-                            <input pPassword [feedback]="false" type="password" id="usr_pw" title="현재 패스워드 입력" formControlName="usr_pw" value="" />
+                            <input type="password" id="usr_pw" title="현재 패스워드 입력" formControlName="usr_pw" value="" />
                             <div *ngIf="!changePasswordform.controls['usr_pw'].valid && changePasswordform.controls['usr_pw'].dirty">
                                 <p class="req info-txt margin-top-10" *ngIf="changePasswordform.controls['usr_pw'].errors['required']">필수입력 사항 입니다</p>
                             </div>
@@ -36,7 +36,7 @@
                     <tr>
                         <th><label for="usr_pw_cf">새로운 비밀번호 확인</label> <span class="req">*</span></th>
                         <td>
-                            <input pPassword [feedback]="false" type="password" id="usr_pw_cf" title="현재 패스워드 입력" formControlName="usr_pw_cf" value="" />
+                            <input type="password" id="usr_pw_cf" title="현재 패스워드 입력" formControlName="usr_pw_cf" value="" />
                             <div *ngIf="!changePasswordform.controls['usr_pw_cf'].valid && changePasswordform.controls['usr_pw_cf'].dirty">
                                 <p class="req info-txt margin-top-10" *ngIf="changePasswordform.controls['usr_pw_cf'].errors['required']">필수입력 사항 입니다</p>
                                 <p class="req info-txt margin-top-10" *ngIf="changePasswordform.controls['usr_pw_cf'].errors['checkPassword']">패스워드가 일치하지 않습니다</p>
