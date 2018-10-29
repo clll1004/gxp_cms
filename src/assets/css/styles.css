@@ -31,7 +31,7 @@ table {border-collapse: collapse; width: 100%;}
 body {min-width: 1200px;}
 #skipnavi {overflow: hidden; position: absolute; left: -9999px; top: 0; height: 1px; width: 0;}
 .blind {display: block; position: absolute; top: -2000em; left: -2000em; width: 1px; height: 1px; text-indent: 2000em; font-size: 1px;}
-select, input[type="text"], input[type="checkbox"], textarea {padding-left: 10px; background: #fdfdfd; box-sizing: border-box; border: 1px solid #ddd; color: #888;}
+select, input[type="text"], input[type="password"], input[type="checkbox"], textarea {padding-left: 10px; background: #fdfdfd; box-sizing: border-box; border: 1px solid #ddd; color: #888;}
 
 .content-sec {min-height: 850px; padding: 10px 40px 100px; border-left: 1px solid #eee; background: #fcfcfc;}
 

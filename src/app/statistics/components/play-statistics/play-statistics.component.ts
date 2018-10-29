@@ -32,8 +32,8 @@ export class PlayStatisticsComponent implements OnInit {
   public yearRange: string = `${new Date().getFullYear() - 3}:${new Date().getFullYear()}`;
   public localeObject: object = {
     firstDayOfWeek: 0,
-    dayNamesMin: ['일','월','화','수','목','금','토'],
-    monthNames: ['01','02','03','04','05','06','07','08','09','10','11','12'],
+    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+    monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
     today: 'Today',
     clear: 'Clear',
   };
