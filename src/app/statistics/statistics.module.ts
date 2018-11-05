@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
 import { DatePickerModule } from '../common/date-picker/date-picker.module';
+import { PopupModule } from '../common/popup/popup.module';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -41,7 +42,6 @@ import { ChartGroupComponent } from './components/play-statistics/components/cha
 @NgModule({
   imports: [
     ChartModule,
-    DatePickerModule,
     RouterModule,
     BrowserModule,
     FormsModule,
@@ -58,6 +58,8 @@ import { ChartGroupComponent } from './components/play-statistics/components/cha
     PanelModule,
     RadioButtonModule,
     TabViewModule,
+    DatePickerModule,
+    PopupModule,
   ],
   exports: [StatisticsComponent],
   declarations: [

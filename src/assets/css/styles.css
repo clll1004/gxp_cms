@@ -354,6 +354,7 @@ select, input[type="text"], input[type="password"], input[type="checkbox"], text
 .btn i {margin-top: 3px;}
 .big-btn {width: 90%; height: 45px; border: 1px solid #ccc; box-sizing: border-box; font-size: 15px; color: #666; background: #fff;}
 .big-btn:hover {background: #fbfbfb;}
+.btn.nobor {border: none;}
 
 .white-btn {padding: 5px 10px; border: 1px solid #ccc; border-radius: 50px; background: rgba(255,255,255,1); color: #777;}
 .white-btn:hover {background: #f5f5f5;}

@@ -8,7 +8,7 @@
 
   <div class="dp-inb">
     <label for="search-key"></label><input type="text" class="margin-right-10" id="search-key" [(ngModel)]="searchKey" pInputText placeholder="" autocomplete="off"(input)="resetList()">
-    <button type="button" class="btn margin-right-10" (click)="search()"><i class="fas fa-search"></i> 검색</button>
+    <button type="button" class="btn margin-right-10" (click)="search();"><i class="fas fa-search"></i> 검색</button>
 
     <span class="search-result" id="search-result" *ngIf="isSearch">
       <span>총 {{searchCount}}개 검색되었습니다.</span>
@@ -80,9 +80,4 @@
   </p-panel>
 </div>
 
-<p-dialog [(visible)]="isSearchKeyMessage" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-25 margin-bottom-25">검색어를 입력해 주세요.</p>
-  <div class="txt-center">
-    <button type="button" class="btn" (click)="isSearchKeyMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-  </div>
-</p-dialog>
+<popup *ngIf="isShow" (isShow)="isShowPopup($event)" [type]="'message'" [message]="'검색어를 입력해 주세요.'"></popup>
