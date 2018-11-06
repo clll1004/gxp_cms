@@ -14,8 +14,8 @@ module.exports = function(env, argv) {
 
     entry: {
       polyfills: "./src/polyfills.ts",
-      app: "./src/main.ts",
-      chart: "./node_modules/chart.js/dist/Chart.js"
+      chart: "./node_modules/chart.js/dist/Chart.js",
+      app: "./src/main.ts"
     },
 
     target: "web",
