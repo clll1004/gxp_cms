@@ -44,7 +44,7 @@
         <div class="table-title-sec">
             <h3>플레이어 설정</h3>
         </div>
-        <form [formGroup]="playerPresetForm" (ngSubmit)="onSubmit(playerPresetForm.value)" class="padding-top-30 padding-bottom-30" style="overflow: hidden;">
+        <form [formGroup]="playerPresetForm" (ngSubmit)="onSubmit()" class="padding-top-30 padding-bottom-30" style="overflow: hidden;">
             <fieldset>
                 <div class="ui-g-1 ui-g-nopad">&nbsp;</div>
                 <div class="ui-g-2 ui-g-nopad button-area">
@@ -130,11 +130,4 @@
     </p-panel>
 </div>
 
-<p-confirmDialog width="500" #confirm>
-    <p-footer>
-        <button type="button" class="btn margin-right-10" (click)="confirm.accept()"><i class="fas fa-check"></i> 확인</button>
-        <button type="button" class="btn" (click)="confirm.reject()"><i class="fas fa-times"></i> 취소</button>
-    </p-footer>
-</p-confirmDialog>
-
-<popup *ngIf="isShow" (isShow)="isShowPopup($event)" [type]="'message'" [message]="popupMessage">
+<popup *ngIf="isShow" (isShow)="isShowPopup($event)" (isConfirm)="isConfirmation($event)" [type]="popupType" [message]="popupMessage">

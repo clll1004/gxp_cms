@@ -10,13 +10,22 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class PopupComponent {
   @Input() type: string;
   @Input() message: string;
+  @Output() isShow: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() isConfirm: EventEmitter<boolean> = new EventEmitter<boolean>();
   public show:boolean = true;
-  @Output() isShow: EventEmitter<boolean> = new EventEmitter();
+  // public isConfirm:boolean = true;
 
   constructor() {}
+
+  confirm(check:boolean) {
+    this.isConfirm.emit(check);
+    this.closePopup();
+  }
 
   closePopup() {
     this.show = false;
     this.isShow.emit(this.show);
+    // this.type === 'message' ? ({ show: this.show, confirm: null }) : this.isShow.emit({ show: this.show, confirm: this.isConfirm });
   }
+
 }

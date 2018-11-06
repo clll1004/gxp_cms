@@ -16,7 +16,9 @@ export class GroupMngComponent implements OnInit, OnChanges {
 
   public isLoading:boolean = true;
   public isShow:boolean = false;
+  public popupType:string = '';
   public popupMessage:string = '';
+  public confirmType:string = '';
 
   public userSeq:string = '';
   public playerPresetForm: FormGroup;
@@ -82,10 +84,6 @@ export class GroupMngComponent implements OnInit, OnChanges {
 
   refresh() {
     window.location.reload();
-  }
-
-  isShowPopup(e:boolean) {
-    this.isShow = e;
   }
 
   loadGroupData() {
@@ -162,8 +160,9 @@ export class GroupMngComponent implements OnInit, OnChanges {
     this.settingsService.updateData(this.cmsApi.updateTransOption, newData)
       .toPromise()
       .then(() => {
+        this.popupType = 'message';
         this.popupMessage = '적용 완료 되었습니다.';
-        this.isShowPopup(true);
+        this.isShow = true;
       })
       .catch((error) => {
         console.log(error);
@@ -179,35 +178,48 @@ export class GroupMngComponent implements OnInit, OnChanges {
   }
 
   resetPreset() {
-    this.confirmationService.confirm({
-      message: '설정을 초기화하시겠습니까?',
-      accept: () => {
-        this.loadPlayerPreset();
-      },
-    });
+    this.confirmType = 'reset';
+    this.popupType = 'confirm';
+    this.popupMessage = '설정을 초기화하시겠습니까?';
+    this.isShow = true;
   }
 
-  onSubmit(value:any) {
-    this.confirmationService.confirm({
-      message: '적용하시겠습니까?',
-      accept: () => {
-        const valueObject = {};
-        this.submitted = true;
+  onSubmit() {
+    this.confirmType = 'submit';
+    this.popupType = 'confirm';
+    this.popupMessage = '적용하시겠습니까?';
+    this.isShow = true;
+  }
 
-        valueObject['grp_seq'] = this.groupSeq;
-        this.playerPresetKeys.forEach((key) => {
-          valueObject[key] = value[key] ? 'Y' : 'N';
-        });
+  isShowPopup(e:boolean) {
+    this.isShow = e;
+  }
 
-        this.settingsService.updateData(this.cmsApi.playerPreset, valueObject)
-          .toPromise()
-          .then(() => {
-            this.popupMessage = '적용 완료 되었습니다.';
-            this.isShowPopup(true);
-            this.submitted = false;
-            this.loadPlayerPreset();
-          });
-      },
+  isConfirmation(e:boolean) {
+    if (this.popupType === 'confirm' && e && this.confirmType === 'reset') {
+      this.loadPlayerPreset();
+    } else if (this.popupType === 'confirm' && e && this.confirmType === 'submit') {
+      this.updatePlayerPreset();
+    }
+  }
+
+  updatePlayerPreset() {
+    const valueObject = {};
+    this.submitted = true;
+
+    valueObject['grp_seq'] = this.groupSeq;
+    this.playerPresetKeys.forEach((key) => {
+      valueObject[key] = this.playerPresetForm.value[key] ? 'Y' : 'N';
     });
+
+    this.settingsService.updateData(this.cmsApi.playerPreset, valueObject)
+      .toPromise()
+      .then(() => {
+        this.popupType = 'message';
+        this.popupMessage = '적용 완료 되었습니다.';
+        this.isShow = true;
+        this.submitted = false;
+        this.loadPlayerPreset();
+      });
   }
 }
