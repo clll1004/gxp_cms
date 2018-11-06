@@ -15,7 +15,7 @@ export class UserModifyComponent implements OnInit {
 
   public userform: FormGroup;
   public submitted: boolean;
-  public isShowMessage: boolean = false;
+  public isShow: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private cookieService: CookieService,
@@ -36,6 +36,10 @@ export class UserModifyComponent implements OnInit {
 
   load() {
     this.loadUserInfo();
+  }
+
+  isShowPopup(e:boolean) {
+    this.isShow = e;
   }
 
   loadUserInfo() {
@@ -69,7 +73,7 @@ export class UserModifyComponent implements OnInit {
     this.settingsService.updateData(this.cmsApi.updateUserInfo, valueObject)
       .toPromise()
       .then(() => {
-        this.isShowMessage = true;
+        this.isShowPopup(true);
         this.submitted = false;
         this.loadUserInfo();
       })

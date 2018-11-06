@@ -167,23 +167,4 @@
   </div>
 </p-dialog>
 
-<p-dialog [(visible)]="isSelectReportType" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-15 margin-bottom-30">리포트 타입을 체크해주세요.</p>
-  <div class="txt-center">
-    <button type="button" class="btn" (click)="isSelectReportType=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-  </div>
-</p-dialog>
-
-<p-dialog [(visible)]="isSelectReportItem" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-15 margin-bottom-30">리포트 항목을 체크해주세요.</p>
-  <div class="txt-center">
-    <button type="button" class="btn" (click)="isSelectReportItem=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-  </div>
-</p-dialog>
-
-<p-dialog [(visible)]="isEmptyEmailLists" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-15 margin-bottom-30">이메일을 입력해주세요.</p>
-  <div class="txt-center">
-    <button type="button" class="btn" (click)="isEmptyEmailLists=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-  </div>
-</p-dialog>
+<popup *ngIf="isShow" (isShow)="isShowPopup($event)" [type]="'message'" [message]="popupMessage"></popup>

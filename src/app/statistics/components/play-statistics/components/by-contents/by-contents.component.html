@@ -87,9 +87,4 @@
   </p-panel>
 </div>
 
-<p-dialog [(visible)]="isSearchKeyMessage" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-25 margin-bottom-25">검색어를 입력해 주세요.</p>
-  <div class="txt-center">
-    <button type="button" class="btn" (click)="isSearchKeyMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-  </div>
-</p-dialog>
+<popup *ngIf="isShow" (isShow)="isShowPopup($event)" [type]="'message'" [message]="'검색어를 입력해 주세요.'"></popup>

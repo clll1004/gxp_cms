@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="show" [width]="400" [modal]="true" [showHeader]="false">
+<p-dialog *ngIf="type === 'message'" [(visible)]="show" [width]="400" [modal]="true" [showHeader]="false">
   <div class="txt-right">
     <button type="button" class="btn nobor" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
   </div>

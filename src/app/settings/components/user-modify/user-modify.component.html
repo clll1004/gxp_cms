@@ -54,9 +54,4 @@
     </form>
 </div>
 
-<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">
-    <p class="txt-center margin-top-15 margin-bottom-20">수정완료 되었습니다.</p>
-    <div class="txt-center">
-        <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-    </div>
-</p-dialog>
+<popup *ngIf="isShow" (isShow)="isShowPopup($event)" [type]="'message'" [message]="'수정완료 되었습니다.'">

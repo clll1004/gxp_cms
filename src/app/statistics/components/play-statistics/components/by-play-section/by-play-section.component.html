@@ -151,21 +151,4 @@
   </div>
 </div>
 
-<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-25 margin-bottom-25">비교할 파일을 선택해주세요.</p>
-  <div class="txt-center">
-    <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-  </div>
-</p-dialog>
-<p-dialog [(visible)]="isShowCheckLimitMessage" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-25 margin-bottom-25">2개까지 선택하실 수 있습니다.</p>
-  <div class="txt-center">
-    <button type="button" class="btn" (click)="isShowCheckLimitMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-  </div>
-</p-dialog>
-<p-dialog [(visible)]="isSearchKeyMessage" [width]="400" [modal]="true" [showHeader]="false">
-  <p class="txt-center margin-top-25 margin-bottom-25">검색어를 입력해 주세요.</p>
-  <div class="txt-center">
-    <button type="button" class="btn" (click)="isSearchKeyMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-  </div>
-</p-dialog>
+<popup *ngIf="isShow" (isShow)="isShowPopup($event)" [type]="'message'" [message]="popupMessage"></popup>

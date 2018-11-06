@@ -15,6 +15,9 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   @Input() pathName;
   @Input() selectDuration;
 
+  public isShow:boolean = false;
+  public popupMessage:string = '';
+
   public isTableLoading:boolean = false;
   public isChartLoading:boolean = false;
   public isResultTableLoading:boolean = false;
@@ -22,7 +25,6 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public selectFolder:object = { label:'전체 카테고리', value: null };
   public searchKey:string = '';
   public searchCount:number = 0;
-  public isSearchKeyMessage:boolean = false;
   public isSearch:boolean = false;
 
   public isCompareStatus:boolean = false;
@@ -34,8 +36,6 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
   public dateArray:any[] = [];
   public tempCompareItems:any[] = [];
   public compareItems:any[] = [];
-  public isShowMessage:boolean = false;
-  public isShowCheckLimitMessage:boolean = false;
 
   public comparePopularSectionValue:any[] = [];
   public compareLeaveSectionValue:any[] = [];
@@ -93,6 +93,10 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
     this.setTableData(false);
   }
 
+  isShowPopup(e:boolean) {
+    this.isShow = e;
+  }
+
   categorySearch(e) {
     this.selectFolder = e;
     this.initialize();
@@ -116,7 +120,8 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       }
       this.setTableData(true, true);
     } else {
-      this.isSearchKeyMessage = true;
+      this.popupMessage = '검색어를 입력해 주세요.';
+      this.isShowPopup(true);
     }
   }
 
@@ -200,7 +205,8 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
 
   onRowSelect() {
     if (this.tempCompareItems.length > 2) {
-      this.isShowCheckLimitMessage = true;
+      this.popupMessage = '2개까지 선택하실 수 있습니다.';
+      this.isShowPopup(true);
       this.tempCompareItems.pop();
       return 0;
     }
@@ -247,7 +253,8 @@ export class ByPlaySectionComponent implements OnInit, OnChanges {
       this.compareItems = this.tempCompareItems;
       this.showPlaySectionResult();
     } else {
-      this.isShowMessage = true;
+      this.popupMessage = '비교할 파일을 선택해주세요.';
+      this.isShowPopup(true);
     }
   }
 

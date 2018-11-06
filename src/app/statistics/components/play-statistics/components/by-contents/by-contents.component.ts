@@ -21,8 +21,8 @@ export class ByContentsComponent implements OnInit, OnChanges {
   public selectFolder:object = { label:'카테고리 선택', value: null };
   public searchKey:string = '';
   public searchCount:number = 0;
-  public isSearchKeyMessage:boolean = false;
   public isSearch:boolean = false;
+  public isShow:boolean = false;
 
   public chartType: string = 'bar';
   public chartLabels: any[] = [];
@@ -80,8 +80,12 @@ export class ByContentsComponent implements OnInit, OnChanges {
       this.setChartData(true, true);
       this.setTableData(true);
     } else {
-      this.isSearchKeyMessage = true;
+      this.isShowPopup(true);
     }
+  }
+
+  isShowPopup(e:boolean) {
+    this.isShow = e;
   }
 
   resetList() {

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit{
     userPassword: ''};
   public loginForm: FormGroup;
   public submitted: boolean = false;
-  public isShowLoginMessage: boolean = false;
+  public isShow:boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -48,8 +48,12 @@ export class LoginComponent implements OnInit{
         this.router.navigate(['/', 'home']);
       })
       .catch((error) => {
-        this.isShowLoginMessage = true;
+        this.isShowPopup(true);
         console.log(error);
       });
+  }
+
+  isShowPopup(e:boolean) {
+    this.isShow = e;
   }
 }

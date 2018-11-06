@@ -130,16 +130,11 @@
     </p-panel>
 </div>
 
-<p-dialog [(visible)]="isShowMessage" [width]="400" [modal]="true" [showHeader]="false">
-    <p class="txt-center margin-top-15 margin-bottom-20">적용 완료 되었습니다.</p>
-    <div class="txt-center">
-        <button type="button" class="btn" (click)="isShowMessage=false;" label="confirm"><i class="fas fa-check"></i> 확인</button>
-    </div>
-</p-dialog>
-
 <p-confirmDialog width="500" #confirm>
     <p-footer>
         <button type="button" class="btn margin-right-10" (click)="confirm.accept()"><i class="fas fa-check"></i> 확인</button>
         <button type="button" class="btn" (click)="confirm.reject()"><i class="fas fa-times"></i> 취소</button>
     </p-footer>
 </p-confirmDialog>
+
+<popup *ngIf="isShow" (isShow)="isShowPopup($event)" [type]="'message'" [message]="popupMessage">

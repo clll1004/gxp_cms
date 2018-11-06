@@ -35,9 +35,8 @@ export class ReporterComponent implements OnInit {
   public addEmailLists:any[] = [];
   public favoritesEmailList:any[] = [];
 
-  public isSelectReportType:boolean = false;
-  public isSelectReportItem:boolean = false;
-  public isEmptyEmailLists:boolean = false;
+  public isShow:boolean = false;
+  public popupMessage:string = '';
 
   public reportDurationIndex:number = 0;
   public reportDurationDaily:Date = new Date();
@@ -88,6 +87,10 @@ export class ReporterComponent implements OnInit {
     window.location.reload();
   }
 
+  isShowPopup(e:boolean) {
+    this.isShow = e;
+  }
+
   reportDurationChange(e) {
     const target = e.currentTarget;
     if (target.getAttribute('class') !== 'on') {
@@ -102,7 +105,8 @@ export class ReporterComponent implements OnInit {
 
   downloadReportToLocal(value:any) {
     if (!value.selectTraffic && !value.selectTransCoding && !value.selectStorage && !value.selectDate && !value.selectGXP && !value.selectTime && !value.selectPlaySection && !value.selectPlayTime && !value.selectContents && !value.selectCategory) {
-      this.isSelectReportItem = true;
+      this.popupMessage = '리포트 항목을 체크해주세요.';
+      this.isShowPopup(true);
       return false;
     }
     const newValue = this.setReportDuration(value);
@@ -111,7 +115,8 @@ export class ReporterComponent implements OnInit {
 
   sendReportToMail(value:any) {
     if (!value.selectTraffic && !value.selectTransCoding && !value.selectStorage && !value.selectDate && !value.selectGXP && !value.selectTime && !value.selectPlaySection && !value.selectPlayTime && !value.selectContents && !value.selectCategory) {
-      this.isSelectReportItem = true;
+      this.popupMessage = '리포트 항목을 체크해주세요.';
+      this.isShowPopup(true);
       return false;
     }
     const newValue = this.setReportDuration(value);
@@ -189,15 +194,18 @@ export class ReporterComponent implements OnInit {
 
   autoReportSubmit(value:any) {
     if (!value.reportTypeDaily && !value.reportTypeWeekly && !value.reportTypeMonthly && !value.reportTypeYearly) {
-      this.isSelectReportType = true;
+      this.popupMessage = '리포트 타입을 체크해주세요.';
+      this.isShowPopup(true);
       return false;
     }
     if (!value.selectTraffic && !value.selectTransCoding && !value.selectStorage && !value.selectDate && !value.selectGXP && !value.selectTime && !value.selectPlaySection && !value.selectPlayTime && !value.selectContents && !value.selectCategory) {
-      this.isSelectReportItem = true;
+      this.popupMessage = '리포트 항목을 체크해주세요.';
+      this.isShowPopup(true);
       return false;
     }
     if (!this.emailLists[0]) {
-      this.isEmptyEmailLists = true;
+      this.popupMessage = '이메일을 입력해주세요.';
+      this.isShowPopup(true);
       return false;
     }
 
@@ -215,5 +223,3 @@ export class ReporterComponent implements OnInit {
   }
 }
 
-// const today = new Date();
-// durationArray[1] = new Date(durationArray[1]).getTime() > today.getTime() ? this.datePipe.transform(today, 'yyyy-MM-dd') : durationArray[1];

@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PopupModule } from '../common/popup/popup.module';
 
 import { SettingsComponent } from './components/settings.component';
 import { GroupMngComponent } from './components/group-mng/group-mng.component';
@@ -30,6 +31,7 @@ import { PasswordModule } from 'primeng/password';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    PopupModule,
     PanelModule,
     BlockUIModule,
     TableModule,

@@ -17,8 +17,8 @@ export class ChangePswdComponent implements OnInit {
 
   public changePasswordform: FormGroup;
   public submitted: boolean;
-  public isShowMessage: boolean = false;
-  public isSuccess: boolean = false;
+  public isShow:boolean = false;
+  public popupMessage:string = '';
 
   constructor(private formBuilder: FormBuilder,
               private cookieService: CookieService,
@@ -33,6 +33,10 @@ export class ChangePswdComponent implements OnInit {
 
   load() {
     this.loadUserSeq();
+  }
+
+  isShowPopup(e:boolean) {
+    this.isShow = e;
   }
 
   loadUserSeq() {
@@ -51,12 +55,12 @@ export class ChangePswdComponent implements OnInit {
       .toPromise()
       .then((data) => {
         if (data.status === 200) {
-          this.isShowMessage = true;
-          this.isSuccess = true;
+          this.popupMessage = '수정완료 되었습니다.';
+          this.isShowPopup(true);
           this.initForm();
         } else if (data.status === 204) {
-          this.isShowMessage = true;
-          this.isSuccess = false;
+          this.popupMessage = '현재 비밀번호를 확인해주세요.';
+          this.isShowPopup(true);
         }
       })
       .catch((error) => {

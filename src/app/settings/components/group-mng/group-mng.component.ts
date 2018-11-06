@@ -15,11 +15,12 @@ export class GroupMngComponent implements OnInit, OnChanges {
   @Input() groupSeq: any;
 
   public isLoading:boolean = true;
+  public isShow:boolean = false;
+  public popupMessage:string = '';
 
   public userSeq:string = '';
   public playerPresetForm: FormGroup;
   public submitted: boolean = false;
-  public isShowMessage: boolean = false;
   public playerPresetKeys:any[] = ['playbackRate', 'loopPortion', 'bookmark', 'nextVideo', 'setting', 'fullscreen', 'cinemaMode', 'quality', 'subtitle'];
 
   public groupData: object = {};
@@ -81,6 +82,10 @@ export class GroupMngComponent implements OnInit, OnChanges {
 
   refresh() {
     window.location.reload();
+  }
+
+  isShowPopup(e:boolean) {
+    this.isShow = e;
   }
 
   loadGroupData() {
@@ -157,7 +162,8 @@ export class GroupMngComponent implements OnInit, OnChanges {
     this.settingsService.updateData(this.cmsApi.updateTransOption, newData)
       .toPromise()
       .then(() => {
-        this.isShowMessage = true;
+        this.popupMessage = '적용 완료 되었습니다.';
+        this.isShowPopup(true);
       })
       .catch((error) => {
         console.log(error);
@@ -196,7 +202,8 @@ export class GroupMngComponent implements OnInit, OnChanges {
         this.settingsService.updateData(this.cmsApi.playerPreset, valueObject)
           .toPromise()
           .then(() => {
-            this.isShowMessage = true;
+            this.popupMessage = '적용 완료 되었습니다.';
+            this.isShowPopup(true);
             this.submitted = false;
             this.loadPlayerPreset();
           });

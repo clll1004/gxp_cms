@@ -3,25 +3,27 @@
  */
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PopupModule } from '../common/popup/popup.module';
 
 import { LoginComponent } from './components/login.component';
 
 import { CmsApis } from '../services/apis/apis';
 import { LoginService } from '../services/apis/cms/login/login.service';
 
-import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   imports: [
     RouterModule,
-    DialogModule,
+    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
     PasswordModule,
+    PopupModule,
   ],
   exports: [LoginComponent],
   declarations: [LoginComponent],
