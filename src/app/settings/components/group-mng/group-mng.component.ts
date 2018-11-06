@@ -3,13 +3,11 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { CookieService } from '../../../services/library/cookie/cookie.service';
 import { SettingsService } from '../../../services/apis/cms/settings/settings.service';
 import { CmsApis } from '../../../services/apis/apis';
-import { ConfirmationService } from 'primeng/components/common/api';
 
 @Component({
   selector: 'group-manager',
   templateUrl: './group-mng.component.html',
-  styleUrls: ['../settings.component.css'],
-  providers: [ConfirmationService]})
+  styleUrls: ['../settings.component.css']})
 
 export class GroupMngComponent implements OnInit, OnChanges {
   @Input() groupSeq: any;
@@ -59,8 +57,7 @@ export class GroupMngComponent implements OnInit, OnChanges {
   constructor(private formBuilder: FormBuilder,
               private cookieService: CookieService,
               private settingsService: SettingsService,
-              private cmsApi: CmsApis,
-              private confirmationService: ConfirmationService) { }
+              private cmsApi: CmsApis) { }
 
   ngOnInit() {
 

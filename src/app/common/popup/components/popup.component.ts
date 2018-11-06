@@ -13,7 +13,6 @@ export class PopupComponent {
   @Output() isShow: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() isConfirm: EventEmitter<boolean> = new EventEmitter<boolean>();
   public show:boolean = true;
-  // public isConfirm:boolean = true;
 
   constructor() {}
 
@@ -25,7 +24,6 @@ export class PopupComponent {
   closePopup() {
     this.show = false;
     this.isShow.emit(this.show);
-    // this.type === 'message' ? ({ show: this.show, confirm: null }) : this.isShow.emit({ show: this.show, confirm: this.isConfirm });
   }
 
 }

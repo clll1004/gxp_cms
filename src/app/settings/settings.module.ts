@@ -20,8 +20,6 @@ import { PanelModule } from 'primeng/panel';
 import { BlockUIModule } from 'primeng/blockui';
 import { TableModule } from 'primeng/table';
 import { TreeModule } from 'primeng/tree';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 
@@ -36,8 +34,6 @@ import { PasswordModule } from 'primeng/password';
     BlockUIModule,
     TableModule,
     TreeModule,
-    ConfirmDialogModule,
-    DialogModule,
     DropdownModule,
     PasswordModule,
   ],
