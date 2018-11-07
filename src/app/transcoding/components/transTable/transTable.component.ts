@@ -2,21 +2,22 @@
  * Created by GRE511 on 2018-07-17.
  */
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { CmsApis } from '../../../services/apis/apis';
 import { CookieService } from '../../../services/library/cookie/cookie.service';
 import { TranscodingService } from '../../../services/apis/cms/transcoding/transcoding.service';
 
 @Component({
-  selector: 'tcListContainer',
-  templateUrl: './tcListContainer.component.html',
+  selector: 'transTable',
+  templateUrl: './transTable.component.html',
   styleUrls: ['../transcoding.component.css']})
 
-export class TcListContainerComponent implements OnInit, OnDestroy {
-  @Input() params: object;
-
+export class TransTableComponent implements OnInit, OnDestroy {
   public isLoading:boolean = false;
   public isShow:boolean = false;
+  public popupType:string = '';
+  public popupMessage:string = '';
+
+  public tableType:string = 'standby';
 
   public groupSeq: string = '';
   public url: string = '';
@@ -76,8 +77,7 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
 
   public progressInterval:any;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private cookieService: CookieService,
+  constructor(private cookieService: CookieService,
               private transCodingService: TranscodingService,
               private cmsApi: CmsApis) { }
 
@@ -89,33 +89,15 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
     fail: this.cmsApi.loadFailList};
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params) => {
-      this.params = params;
-      this.load();
-      this.pageInit();
-      this.loadTranscodingList();
-
-      if (this.params['id'] === 'progress') {
-        this.progressInterval = setInterval(() => { this.loadTranscodingList(); }, 5000);
-      } else {
-        clearInterval(this.progressInterval);
-      }
-    });
+    this.groupSeq = this.cookieService.getCookie('grp_seq');
+    this.loadGroupList();
+    this.init();
   }
 
   ngOnDestroy() {
     if (this.progressInterval) {
       clearInterval(this.progressInterval);
     }
-  }
-
-  load() {
-    this.loadGroupSeq();
-    this.loadGroupList();
-  }
-
-  loadGroupSeq() {
-    this.groupSeq = this.cookieService.getCookie('grp_seq');
   }
 
   loadGroupList() {
@@ -140,13 +122,20 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
       .catch((error) => { console.log(error); });
   }
 
-  pageInit() {
+  init() {
     this.searchKey = '';
     this.selectItems = [];
     this.tcMonitoringLists = [];
     this.getTotalListLength = 0;
-    if (this.urlList.hasOwnProperty(this.params['id'])) {
-      this.url = this.urlList[this.params['id']] + this.groupSeq;
+    if (this.urlList.hasOwnProperty(this.tableType)) {
+      this.url = this.urlList[this.tableType] + this.groupSeq;
+    }
+    this.loadTranscodingList();
+
+    if (this.tableType === 'progress') {
+      this.progressInterval = setInterval(() => { this.loadTranscodingList(); }, 5000);
+    } else {
+      clearInterval(this.progressInterval);
     }
   }
 
@@ -197,14 +186,26 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
     this.tableInit();
   }
 
-  isShowPopup(e:boolean) {
-    this.isShow = e;
+  isShowPopup(is:boolean) {
+    this.isShow = is;
   }
 
-  isConfirmation(e:boolean) {
-    if (this.selectItems.length && this.filterTcMonitoringLists && e) {
+  isConfirmation(is:boolean) {
+    if (is) {
       this.changeStatusRestart();
     }
+  }
+
+  restart() {
+    if (!this.selectItems.length) {
+      this.popupType = 'message';
+      this.popupMessage = '콘텐츠를 선택해주세요.';
+      this.isShow = true;
+      return false;
+    }
+    this.popupType = 'confirm';
+    this.popupMessage = '변환을 재시작 하시겠습니까?';
+    this.isShow = true;
   }
 
   changeStatusRestart() {

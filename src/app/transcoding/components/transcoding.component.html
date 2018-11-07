@@ -1,18 +1,10 @@
 <div class="ui-g-2 ui-g-nopad">
-    <nav class="ui-g-12 ui-g-nopad lnb-sec">
-        <ul class="border-lnb">
-            <li id="standby"><a routerLink="/transcoding/list/standby">변환 대기 목록</a></li>
-            <li id="request"><a routerLink="/transcoding/list/request">변환 요청 목록</a></li>
-            <li id="progress"><a routerLink="/transcoding/list/progress">변환 진행 목록</a></li>
-            <li id="complete"><a routerLink="/transcoding/list/complete">변환 완료 목록</a></li>
-            <li id="fail"><a routerLink="/transcoding/list/fail">변환 실패 목록</a></li>
-        </ul>
-    </nav>
+    &nbsp;
 </div>
 <div class="ui-g-10 ui-g-nopad content-sec">
     <div class="ui-g-12 ui-g-nopad page-title-sec margin-bottom-40">
-        <a routerLink="/home">CMS</a> &gt; <a routerLink="/transcoding/list/standby" (click)="refresh()">트랜스코딩</a> &gt; <span class="path" (click)="refresh()"> {{ pageName }} </span>
+        <a routerLink="/home">CMS</a> &gt; <span class="path" (click)="refresh()"> 트랜스코딩 </span>
     </div>
-
-    <tcListContainer [params]="params"></tcListContainer>
+    <filtering></filtering>
+    <transTable></transTable>
 </div>

@@ -16,7 +16,6 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'contents', component: ContentsComponent },
     { path: 'transcoding', component: TranscodingComponent },
-    { path: 'transcoding/list/:id', component: TranscodingComponent },
     { path: 'statistics', component: StatisticsComponent },
     { path: 'statistics/:id', component: StatisticsComponent },
     { path: 'statistics/:id/:sub-id', component: StatisticsComponent },

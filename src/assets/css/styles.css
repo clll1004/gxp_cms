@@ -502,3 +502,5 @@ p-tabview.reportTabView .ui-tabview .ui-tabview-panel { padding: 0!important; }
 .ui-helper-clearfix .ui-button, .download_btn .ui-button {
     width: 80px !important; height: 25px !important; border: none !important; font-size: 12px !important;
 }
+
+p-radioButton label { font-size: 14px!important; cursor: pointer!important; }

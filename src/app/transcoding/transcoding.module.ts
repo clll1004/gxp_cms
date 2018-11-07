@@ -8,8 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PopupModule } from '../common/popup/popup.module';
 
 import { TranscodingComponent } from './components/transcoding.component';
-import { TcListContainerComponent } from './components/tcListContainer/tcListContainer.component';
-
+import { FilteringComponent } from './components/filtering/filtering.component';
+import { TransTableComponent } from './components/transTable/transTable.component';
 import { CmsApis } from '../services/apis/apis';
 import { CookieService } from '../services/library/cookie/cookie.service';
 import { TranscodingService } from '../services/apis/cms/transcoding/transcoding.service';
@@ -17,10 +17,10 @@ import { TranscodingService } from '../services/apis/cms/transcoding/transcoding
 import { PanelModule } from 'primeng/panel';
 import { BlockUIModule } from 'primeng/blockui';
 import { TableModule } from 'primeng/table';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   imports: [
@@ -31,16 +31,17 @@ import { ProgressBarModule } from 'primeng/progressbar';
     PanelModule,
     BlockUIModule,
     TableModule,
-    ConfirmDialogModule,
     DropdownModule,
     InputTextModule,
     ProgressBarModule,
+    RadioButtonModule,
     PopupModule,
   ],
   exports: [TranscodingComponent],
   declarations: [
     TranscodingComponent,
-    TcListContainerComponent,
+    FilteringComponent,
+    TransTableComponent,
   ],
   providers: [
     CmsApis,
