@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PopupModule } from '../common/popup/popup.module';
 
 import { TranscodingComponent } from './components/transcoding.component';
 import { TcListContainerComponent } from './components/tcListContainer/tcListContainer.component';
@@ -34,6 +35,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     DropdownModule,
     InputTextModule,
     ProgressBarModule,
+    PopupModule,
   ],
   exports: [TranscodingComponent],
   declarations: [

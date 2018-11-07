@@ -6,18 +6,17 @@ import { ActivatedRoute } from '@angular/router';
 import { CmsApis } from '../../../services/apis/apis';
 import { CookieService } from '../../../services/library/cookie/cookie.service';
 import { TranscodingService } from '../../../services/apis/cms/transcoding/transcoding.service';
-import { ConfirmationService } from 'primeng/components/common/api';
 
 @Component({
   selector: 'tcListContainer',
   templateUrl: './tcListContainer.component.html',
-  styleUrls: ['../transcoding.component.css'],
-  providers: [ConfirmationService]})
+  styleUrls: ['../transcoding.component.css']})
 
 export class TcListContainerComponent implements OnInit, OnDestroy {
   @Input() params: object;
 
   public isLoading:boolean = false;
+  public isShow:boolean = false;
 
   public groupSeq: string = '';
   public url: string = '';
@@ -80,8 +79,7 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
               private cookieService: CookieService,
               private transCodingService: TranscodingService,
-              private cmsApi: CmsApis,
-              private confirmationService: ConfirmationService) { }
+              private cmsApi: CmsApis) { }
 
   public urlList: object = {
     standby: this.cmsApi.loadStandbyList,
@@ -199,34 +197,37 @@ export class TcListContainerComponent implements OnInit, OnDestroy {
     this.tableInit();
   }
 
-  changeStatusRestart() {
-    if (this.selectItems.length && this.filterTcMonitoringLists) {
-      this.confirmationService.confirm({
-        message: '변환을 재시작 하시겠습니까?',
-        accept: () => {
-          const newItemArray: any[] = [];
-          let itemObject: any = {};
-          this.selectItems.forEach((item) => {
-            itemObject = {};
-            itemObject.ft_seq = item.ft_seq;
-            itemObject.ft_status = item.ft_status;
-            newItemArray.push(itemObject);
-          });
+  isShowPopup(e:boolean) {
+    this.isShow = e;
+  }
 
-          this.transCodingService.updateData(this.cmsApi.restartTransCoding, newItemArray)
-            .toPromise()
-            .then(() => {
-              this.selectItems = [];
-              this.loadTranscodingList();
-              this.getTotalListLength = this.filterTcMonitoringLists.length;
-              this.setTableIndex();
-            })
-            .catch((error: any) => {
-              console.log(error);
-            });
-        },
-      });
+  isConfirmation(e:boolean) {
+    if (this.selectItems.length && this.filterTcMonitoringLists && e) {
+      this.changeStatusRestart();
     }
+  }
+
+  changeStatusRestart() {
+    const newItemArray: any[] = [];
+    let itemObject: any = {};
+    this.selectItems.forEach((item) => {
+      itemObject = {};
+      itemObject.ft_seq = item.ft_seq;
+      itemObject.ft_status = item.ft_status;
+      newItemArray.push(itemObject);
+    });
+
+    this.transCodingService.updateData(this.cmsApi.restartTransCoding, newItemArray)
+      .toPromise()
+      .then(() => {
+        this.selectItems = [];
+        this.loadTranscodingList();
+        this.getTotalListLength = this.filterTcMonitoringLists.length;
+        this.setTableIndex();
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
   }
 
   setTableIndex() {

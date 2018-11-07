@@ -20,6 +20,12 @@ export class ContentsComponent implements OnInit {
   public isTcStatusLoading:boolean = false;
   public isFileInfoLoading:boolean = false;
 
+  public isShow:boolean = false;
+  public popupType:string = '';
+  public popupMessage:string = '';
+  public changeStatusAction:string = '';
+  public changeStatusMode:string = '';
+
   public groupList: TreeNode[];
   public selectGroup: TreeNode;
   public tempTreeData: any[] = [];
@@ -54,7 +60,6 @@ export class ContentsComponent implements OnInit {
   public transCodingStatus: any[] = [];
   public originFileInfo: any[] = [];
   /*folder*/
-  public isShowFolderMessage: boolean = false;
   public showAddFolderForm: boolean = false;
   public folderForm: FormGroup;
   public ableFolderName: boolean = false;
@@ -62,7 +67,6 @@ export class ContentsComponent implements OnInit {
 
   /*다이얼로그*/
   public isModalDisplay: boolean = false;
-  public isShowUploadMessage: boolean = false;
   /*파일 업로드 세팅*/
   public cid: string = '';
   public gid: string = '';
@@ -247,53 +251,68 @@ export class ContentsComponent implements OnInit {
     this.showPreview = false;
   }
 
-  changeItemStatus(action:string, mode:string) {
-    if (this.selectItems.length && this.filterContentsLists) {
-      this.confirmationService.confirm({
-        message: action === 'restart' ? '변환을 재시작 하시겠습니까?' : '삭제하시겠습니까?',
-        accept: () => {
-          let newItemArray: any[] = [];
-          if (mode === 'multi') {
-            let itemObject: any = {};
-            this.selectItems.forEach((item) => {
-              itemObject = {};
-              itemObject.fo_seq = item.fo_seq;
-              newItemArray.push(itemObject);
-            });
-          } else if (mode === 'single') {
-            newItemArray = [{ fo_seq: this.originFileInfo['fo_seq'] }];
-          }
+  isShowPopup(e:boolean) {
+    this.isShow = e;
+  }
 
-          if (action === 'restart') {
-            this.contentsService.updateData(this.cmsApi.updateContentsStatus, newItemArray)
-              .toPromise()
-              .then(() => {
-                this.selectItems = [];
-                this.loadContent(this.selectGroup['gf_seq']);
-              })
-              .catch((error: any) => {
-                console.log(error);
-              });
-          } else if (action === 'delete') {
-            this.contentsService.deleteData(this.cmsApi.updateContentsStatus, newItemArray)
-              .toPromise()
-              .then(() => {
-                this.selectItems = [];
-                this.loadContent(this.selectGroup['gf_seq']);
-                this.previewInit();
-              })
-              .catch((error: any) => {
-                console.log(error);
-              });
-          }
-        },
+  changeItemStatus(action:string, mode:string) {
+    if (mode === 'multi' && !this.selectItems.length) {
+      this.popupType = 'message';
+      this.popupMessage = '콘텐츠를 선택해주세요';
+      this.isShow = true;
+      return false;
+    }
+    this.changeStatusAction = action;
+    this.changeStatusMode = mode;
+    this.popupType = 'confirm';
+    this.popupMessage = action === 'restart' ? '변환을 재시작 하시겠습니까?' : '삭제하시겠습니까?';
+    this.isShow = true;
+  }
+
+  isConfirmation(e:boolean) {
+    let newItemArray: any[] = [];
+    if (this.selectItems.length && this.filterContentsLists && this.changeStatusMode === 'multi' && e) {
+      console.log('multi');
+      let itemObject: any = {};
+      this.selectItems.forEach((item) => {
+        itemObject = {};
+        itemObject.fo_seq = item.fo_seq;
+        newItemArray.push(itemObject);
       });
+    } else if (this.changeStatusMode === 'single' && e) {
+      console.log('single');
+      newItemArray = [{ fo_seq: this.originFileInfo['fo_seq'] }];
+    }
+
+    if (this.changeStatusAction === 'restart') {
+      this.contentsService.updateData(this.cmsApi.updateContentsStatus, newItemArray)
+        .toPromise()
+        .then(() => {
+          this.selectItems = [];
+          this.loadContent(this.selectGroup['gf_seq']);
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    } else {
+      this.contentsService.deleteData(this.cmsApi.updateContentsStatus, newItemArray)
+        .toPromise()
+        .then(() => {
+          this.selectItems = [];
+          this.loadContent(this.selectGroup['gf_seq']);
+          this.previewInit();
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
     }
   }
 
   showFolderForm() {
     if (Number(this.selectGroup['gf_level']) >= 8) {
-      this.isShowFolderMessage = true;
+      this.popupType = 'message';
+      this.popupMessage = '폴더 추가는 8개까지 하실 수 있습니다.';
+      this.isShow = true;
     } else {
       this.showAddFolderForm = true;
       if (this.selectGroup['gf_grp_seq']) { // 폴더인 경우
@@ -437,7 +456,9 @@ export class ContentsComponent implements OnInit {
       .toPromise()
       .then(() => {
         this.progressPercent = 100;
-        this.isShowUploadMessage = true;
+        this.popupType = 'message';
+        this.popupMessage = '파일 업로드가 완료되었습니다. \n목록 반영까지 1~3분 소요됩니다.';
+        this.isShow = true;
         this.loadContent(this.selectGroup['gf_seq']);
         form.clear();
       })

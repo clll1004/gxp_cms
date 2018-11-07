@@ -4,6 +4,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PopupModule } from '../common/popup/popup.module';
 
 import { ContentsComponent } from './components/contents.component';
 import { PreviewThumbnailComponent } from './components/preview-thumbnail/preview-thumbnail.component';
@@ -34,6 +35,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     ConfirmDialogModule,
     DialogModule,
     FileUploadModule,
+    PopupModule,
   ],
   exports: [ContentsComponent],
   declarations: [
