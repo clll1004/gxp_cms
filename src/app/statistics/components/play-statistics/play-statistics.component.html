@@ -19,7 +19,7 @@
       <div class="margin-bottom-10" *ngFor="let count of durationCount">
         <p-calendar [maxDate]="maxDateValue" [(ngModel)]="multiSelectDuration[count]['selectDuration']" [disabledDates]="invalidDates[count]" [locale]="localeObject" [showIcon]="true" dateFormat="yy-mm-dd" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" (onSelect)="updateMultiSelectDuration()"></p-calendar>
         <button class="btn margin-left-40" type="button" *ngIf="isMultiSelectDuration && (count !== 0)" (click)="downDurationCount(count)"><i class="fas fa-trash-alt"></i> 삭제</button>
-        <button class="btn margin-left-5" type="button" *ngIf="isMultiSelectDuration && (count === 1)" (click)="upDurationCount()" [disabled]="durationCount.length === 3"><i class="fas fa-plus"></i> 추가</button>
+        <button class="btn margin-left-5" type="button" *ngIf="isMultiSelectDuration && (count === 1)" (click)="upDurationCount()" [disabled]="(durationCount.length === 2 && !multiSelectDuration[1]['selectDuration']) || durationCount.length === 3"><i class="fas fa-plus"></i> 추가</button>
       </div>
     </div>
   </div>
