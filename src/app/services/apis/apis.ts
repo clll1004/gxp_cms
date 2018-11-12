@@ -80,9 +80,9 @@ export class CmsApis {
 
   constructor(private cookieService: CookieService) {
     if (process.env.NODE_ENV === 'development') {
-      this.domain = 'http://183.110.11.49/';
+      this.domain = 'https://api.gomgxp.com/';
     } else if (process.env.NODE_ENV === 'production') {
-      this.domain = 'http://183.110.11.49/';
+      this.domain = 'https://api.gomgxp.com/';
     }
     this.usrSeq = this.cookieService.getCookie('usr_seq');
 
