@@ -1,7 +1,8 @@
 {
   "name": "GXP-CMS",
-  "version": "1.0.0",
-  "description": "GXP-CMS for GOMPlayer-",
+  "version": "0.1.0",
+  "description": "GXP-CMS for GOMPlayer",
+  "author": "Chealin Kim",
   "scripts": {
     "build-dev": "webpack --config webpack.config.js --env.development --progress --profile --bail",
     "build-prod": "webpack --config webpack.config.js --env.production --progress --profile --bail",
