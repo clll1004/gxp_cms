@@ -1,5 +1,5 @@
 const webpack = require("webpack");
-const ngcWebpack = require("ngc-webpack");
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -86,11 +86,11 @@ module.exports = function(env, argv) {
         title: 'index html',
         template: path.resolve(__dirname, 'src/index.html')
       }),
-      new ngcWebpack.NgcWebpackPlugin({
+      new AngularCompilerPlugin({
         tsConfigPath: "./tsconfig.json",
-        mainPath: "./src/main.ts"
+        mainPath: "./src/main.ts",
+        sourceMap: true
       }),
-
       new MiniCssExtractPlugin({
         filename: "app-[contenthash].css"
       }),
