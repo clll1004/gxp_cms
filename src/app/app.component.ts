@@ -12,9 +12,9 @@ export class AppComponent implements AfterViewInit {
 
   megaMenuMode = 'dark';
 
-  menuMode = 'light';
+  menuMode = 'dark';
 
-  profileMode = 'inline';
+  profileMode = 'top';
 
   topbarMenuActive: boolean;
 

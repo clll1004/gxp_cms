@@ -807,9 +807,19 @@
   display: inline-block;
   text-align: center;
 }
-.login-body .login-topbar .logo img {
-  height: 40px;
+
+.layout-wrapper .layout-topbar .logo img {
+  line-height: 60px;
+  vertical-align: middle;
 }
+.layout-wrapper .layout-topbar .logo img.logo-icon {
+  width: 30px;
+  margin-right: 10px;
+}
+.layout-wrapper .layout-topbar .logo img.logo-text {
+  width: 128px;
+}
+
 .login-body .login-image {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -900,9 +910,7 @@
   display: inline-block;
   text-align: center;
 }
-.exception-body .exception-topbar .logo img {
-  height: 40px;
-}
+
 .exception-body .exception-image {
   position: absolute;
   top: 60px;
@@ -941,9 +949,7 @@
   padding-top: 10px;
   display: inline-block;
 }
-.landing-wrapper #header .header-top .logo img {
-  height: 40px;
-}
+
 .landing-wrapper #header .header-top .header-menu {
   text-decoration: none;
   padding: 0;
@@ -1316,13 +1322,11 @@ body a {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 230px;
-  padding: 10px 0;
+  line-height: 60px;
   display: inline-block;
   text-align: center;
 }
-.layout-wrapper .layout-topbar .logo img {
-  height: 40px;
-}
+
 .layout-wrapper .layout-topbar .usermenu a {
   position: relative;
 }
@@ -1373,11 +1377,13 @@ body a {
   line-height: inherit;
 }
 .layout-wrapper .layout-topbar #topbar-menu-button {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: block;
-  position: absolute;
-  right: 80px;
-  top: 10px;
-  height: 40px;
+  float: right;
+  margin-right: 10px;
+  line-height: 55px;
   color: #ffffff;
 }
 .layout-wrapper .layout-topbar #topbar-menu-button img {
@@ -1395,7 +1401,7 @@ body a {
 }
 @media screen and (max-width: 1024px) {
   .layout-wrapper .layout-topbar {
-    height: 105px;
+    height: 60px;
   }
   .layout-wrapper .layout-topbar .logo {
     margin-left: 60px;
@@ -1405,9 +1411,6 @@ body a {
   }
   .layout-wrapper .layout-topbar #topbar-menu-button {
     right: 65px;
-  }
-  .layout-wrapper .layout-topbar #topbar-menu-button span {
-    display: none;
   }
   .layout-wrapper .layout-topbar #right-sidebar-button {
     right: 0;
@@ -1665,7 +1668,7 @@ body a {
 }
 .layout-wrapper .layout-sidebar .layout-menu li > a {
   display: block;
-  padding: 8px 12px;
+  padding: 15px;
   color: #212121;
   position: relative;
 }
@@ -1906,7 +1909,7 @@ body a {
 }
 .usermenu.usermenu-overlay {
   position: fixed;
-  background: #fe875d;
+  background: #fff;
   width: 200px;
   z-index: 999;
   display: none;
@@ -1914,8 +1917,8 @@ body a {
   -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
-.usermenu.usermenu-overlay li a:hover {
-  background-color: #B34621;
+.usermenu.usermenu-overlay li {
+  border-bottom: 1px solid rgba(120, 130, 140, 0.13);
 }
 .usermenu.usermenu-active {
   display: block;
@@ -1925,8 +1928,8 @@ body a {
 }
 .usermenu li a {
   display: block;
-  padding: 6px 12px;
-  color: #ffffff;
+  padding: 10px 15px;
+  color: #666;
   text-align: left;
 }
 .usermenu li a i {
@@ -2078,7 +2081,7 @@ body a {
 @media screen and (max-width: 1024px) {
   .layout-wrapper .layout-main {
     margin-left: 0;
-    padding-top: 105px;
+    padding-top: 60px;
   }
 }
 #layout-right-sidebar {
@@ -2319,40 +2322,28 @@ body a {
   }
 }
 .layout-footer {
+  box-sizing: border-box;
+  padding: 20px 10px;
   background-color: #272624;
-  padding: 20px 25px;
 }
-.layout-footer h3 {
-  font-size: 24px;
-  font-weight: 500;
-  text-align: left;
-  color: #ffffff;
-  margin: 0;
+.layout-footer .footer-list {
+  overflow: hidden;
 }
-.layout-footer p {
-  color: #9faebf;
-  font-size: 14px;
-  display: block;
-  opacity: 0.9;
-  margin-top: 10px;
-  margin-bottom: 0;
+.layout-footer .footer-list li {
+  list-style: none;
+  float: left;
+  margin-right: 15px;
 }
 .layout-footer a {
   color: #9faebf;
 }
-.layout-footer a i {
-  padding: 0;
-  font-size: 24px;
-  line-height: 24px;
-  text-align: right;
-  margin-left: 30px;
-}
 .layout-footer a:hover {
   color: #ffffff;
 }
-.layout-footer .footer-right {
-  padding-top: 25px;
-  text-align: right;
+.layout-footer address {
+  margin: 14px 0;
+  font-style: normal;
+  color: #999;
 }
 
 /* Add your customizations of layout here */
