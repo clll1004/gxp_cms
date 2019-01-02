@@ -15,6 +15,9 @@ module.exports = function(env, argv) {
     entry: {
       polyfills: "./src/polyfills.ts",
       chart: "./node_modules/chart.js/dist/Chart.js",
+      fullcalendar: "./node_modules/fullcalendar/dist/fullcalendar.js",
+      prism: "./node_modules/prismjs/prism.js",
+      quill: "./node_modules/quill/dist/quill.js",
       app: "./src/main.ts"
     },
 

@@ -27,7 +27,7 @@
     "chart.js": "^2.7.2",
     "core-js": "^2.6.0",
     "font-awesome": "^4.7.0",
-    "primeicons": "^1.0.0-beta.8",
+    "primeicons": "1.0.0",
     "rxjs": "~6.3.3",
     "tslint": "^5.11.0",
     "tslint-loader": "^3.6.0",
@@ -36,7 +36,8 @@
     "web-animations-js": "2.3.1",
     "intl": "1.2.5",
     "primeng": "7.0.0",
-    "quill": "1.1.8"
+    "quill": "1.1.8",
+    "prismjs": "1.15.0"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^7.1.3",
