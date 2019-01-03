@@ -8,6 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StatisticsComponent } from './components/statistics.component';
 import { PlayStatisticsComponent } from './components/playStatistics/playStatistics.component';
+import { UsageAnalysisComponent } from './components/usageAnalysis/usageAnalysis.component';
+import { VisitorStatisticsComponent } from './components/visitorStatistics/visitorStatistics.component';
+import { ReporterComponent } from './components/reporter/reporter.component';
 
 @NgModule({
   imports: [
@@ -20,6 +23,9 @@ import { PlayStatisticsComponent } from './components/playStatistics/playStatist
   declarations: [
     StatisticsComponent,
     PlayStatisticsComponent,
+    UsageAnalysisComponent,
+    VisitorStatisticsComponent,
+    ReporterComponent,
   ]})
 
 export class StatisticsModule {

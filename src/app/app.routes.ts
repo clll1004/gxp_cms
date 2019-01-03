@@ -17,7 +17,7 @@ import { DocumentationComponent } from './demo/view/documentation.component';
 import { StatisticsComponent } from './demo/view/statistics/components/statistics.component';
 
 export const routes: Routes = [
-    { path: 'dashboard', component: DashboardDemoComponent },
+    { path: '', component: DashboardDemoComponent },
     { path: 'statistics/:id', component: StatisticsComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
