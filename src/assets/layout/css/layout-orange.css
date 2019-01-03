@@ -1,6 +1,9 @@
 /*Badge*/
 /* RouteBar */
 /* Add your variable customizations of layout here */
+button {
+  outline: none;
+}
 .splash-screen {
   min-height: 100%;
 }
@@ -2347,3 +2350,20 @@ body a {
 }
 
 /* Add your customizations of layout here */
+.txt-center { width: 350px; margin: 0 auto; }
+.dashboardUseService { margin-bottom: 30px; font-size: 15px; }
+.dashboardUseService .useService { display: inline-block; margin-right: 20px; font-weight: bold; color: #f87910; }
+.price_info_sec { width: 100%; box-sizing: border-box; text-align: center; }
+.price_info_sec .price_title_sec { width: 100%; height: 170px; padding-top: 40px; padding-left: 20px; text-align: left; border-radius: 20px 20px 0 0; background: url('../images/gxp/service.png') no-repeat #f87910; box-sizing: border-box; }
+.price_info_sec .price_title_sec h2 { color: #fff; font-size: 26px; margin-bottom: 5px; }
+.price_info_sec .price_title_sec p { color: #fff; font-size: 14px; line-height: 22px; font-weight: 100; }
+.price_info_sec .price_contents_sec { width: 100%; height: 610px; border-radius: 0 0 20px 20px; box-shadow: 0px 0px 30px rgba(0,0,0,.1); }
+.price_info_sec .price_contents { width: 100%; height: 490px; padding-top: 20px; box-sizing: border-box; }
+.price_info_sec .price_contents img { margin-bottom: 30px; }
+.price_info_sec .price_contents span { font-size: 20px; font-weight: bold; }
+.price_info_sec .price_contents span:last-child { font-size: 30px; font-weight: 800; margin-left: 10px; }
+.price_info_sec .price_contents_sec .btn_sec { height: 120px; padding: 30px 0; box-sizing: border-box; background: #feead9; border-radius: 0 0 20px 20px; }
+.price_info_sec .price_contents_sec .btn_sec button { width: 170px; height: 62px; font-size: 20px; font-weight: bold; border-radius: 50px; border: 1px solid #f87910; color: #f87910; background: #fff; cursor: pointer; }
+.price_info_sec .price_contents_sec .btn_sec button a { color: #f87910; }
+.price_info_sec .price_contents_sec .btn_sec button:hover { background: #f87910; color: #fff; }
+.price_info_sec .price_contents_sec .btn_sec button:active { background: #e5734a; color: rgba(255,255,255,0.8); }
