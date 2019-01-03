@@ -23,14 +23,9 @@ export class DashboardDemoComponent implements OnInit {
         {
           label: 'First Dataset',
           data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: '#ff5f00'
-        },
-        {
-          label: 'Second Dataset',
-          data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
-          borderColor: '#f37931'
+          fill: true,
+          backgroundColor: 'rgba(248,121,16,.2)',
+          borderColor: '#f87910'
         }
       ]
     };
@@ -40,28 +35,20 @@ export class DashboardDemoComponent implements OnInit {
       datasets: [
         {
           label: 'My First dataset',
-          backgroundColor: '#ff5f00',
-          borderColor: '#ff5f00',
+          backgroundColor: 'rgba(248,121,16,.6)',
           data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-          label: 'My Second dataset',
-          backgroundColor: '#ffcbba',
-          borderColor: '#ffcbba',
-          data: [28, 48, 40, 19, 86, 27, 90]
         }
       ]
     };
 
     this.pieData = {
-      labels: ['A', 'B', 'C'],
+      labels: ['A', 'B'],
       datasets: [
         {
-          data: [300, 50, 100],
+          data: [90, 10],
           backgroundColor: [
-            '#ff5f00',
-            '#ffcbba',
-            '#f37931'
+            '#f87910',
+            '#ddd',
           ]
         }]
     };
