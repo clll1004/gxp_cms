@@ -1,1 +1,8 @@
-b
+<p-tabMenu [model]="tabMenuItems" [activeItem]="tabMenuItems[0]"></p-tabMenu>
+<byDate *ngIf="params['subId'] === 'byDate'"></byDate>
+<byTime *ngIf="params['subId'] === 'byTime'"></byTime>
+<byPlaySection *ngIf="params['subId'] === 'byPlaySection'"></byPlaySection>
+<byPlayTime *ngIf="params['subId'] === 'byPlayTime'"></byPlayTime>
+<byContents *ngIf="params['subId'] === 'byContents'"></byContents>
+<byCategory *ngIf="params['subId'] === 'byCategory'"></byCategory>
+<byAd *ngIf="params['subId'] === 'byAd'"></byAd>

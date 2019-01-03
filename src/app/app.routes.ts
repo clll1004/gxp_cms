@@ -18,7 +18,7 @@ import { StatisticsComponent } from './demo/view/statistics/components/statistic
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
-    { path: 'statistics/:id', component: StatisticsComponent },
+    { path: 'statistics/:id/:subId', component: StatisticsComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },

@@ -12,12 +12,35 @@ import { UsageAnalysisComponent } from './components/usageAnalysis/usageAnalysis
 import { VisitorStatisticsComponent } from './components/visitorStatistics/visitorStatistics.component';
 import { ReporterComponent } from './components/reporter/reporter.component';
 
+import { ByDateComponent } from './components/playStatistics/components/byDate/byDate.component';
+import { ByTimeComponent } from './components/playStatistics/components/byTime/byTime.component';
+import { ByPlaySectionComponent } from './components/playStatistics/components/byPlaySection/byPlaySection.component';
+import { ByPlayTimeComponent } from './components/playStatistics/components/byPlayTime/byPlayTime.component';
+import { ByContentsComponent } from './components/playStatistics/components/byContents/byContents.component';
+import { ByCategoryComponent } from './components/playStatistics/components/byCategory/byCategory.component';
+import { ByAdComponent } from './components/playStatistics/components/byAd/byAd.component';
+
+import { TabMenuModule } from 'primeng/tabmenu';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+
 @NgModule({
   imports: [
     RouterModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    TabMenuModule,
+    CalendarModule,
+    DropdownModule,
+    InputTextModule,
+    ButtonModule,
+    TableModule,
+    TooltipModule,
   ],
   exports: [StatisticsComponent],
   declarations: [
@@ -26,6 +49,13 @@ import { ReporterComponent } from './components/reporter/reporter.component';
     UsageAnalysisComponent,
     VisitorStatisticsComponent,
     ReporterComponent,
+    ByDateComponent,
+    ByTimeComponent,
+    ByPlaySectionComponent,
+    ByPlayTimeComponent,
+    ByContentsComponent,
+    ByCategoryComponent,
+    ByAdComponent,
   ]})
 
 export class StatisticsModule {

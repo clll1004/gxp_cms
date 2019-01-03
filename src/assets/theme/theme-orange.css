@@ -3188,12 +3188,13 @@ body .ui-tabmenu {
 }
 body .ui-tabmenu .ui-tabmenu-nav {
   padding: 0;
-  background: #fe875d;
-  border: 0 none;
+  background: #fe875d !important;
+  border: 0 none !important;
 }
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem {
   position: static;
-  background-color: #fe875d;
+  border: none;
+  background-color: #fe875d !important;
   margin: 0;
   -moz-transition: background-color 0.2s;
   -o-transition: background-color 0.2s;
@@ -3215,8 +3216,9 @@ body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem .ui-menuitem-link .ui-menuitem-
   margin-right: 0.571em;
 }
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem:not(.ui-state-active):not(.ui-state-disabled):hover {
-  background-color: #B34621;
-  border-bottom: 4px solid #B34621;
+  background-color: #B34621 !important;
+  border-top: 4px solid rgba(0,0,0,0) !important;
+  border-bottom: 4px solid #B34621 !important;
 }
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem:not(.ui-state-active):not(.ui-state-disabled):hover .ui-menuitem-link .ui-menuitem-text {
   color: #ffffff;

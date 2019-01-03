@@ -1,0 +1,14 @@
+.left { float: left; }
+.right { float: right; }
+
+.filterArea { margin: 30px 0; }
+.filterArea .right input { height: 29px; vertical-align: top; }
+
+.searchArea { margin-bottom: 30px;}
+.searchArea span.c_red { color: #fe875d; font-weight: bold; }
+
+.graphArea { height: 300px; margin-bottom: 50px; border: 1px solid #ddd; background: #fff; }
+
+.dataArea { margin-bottom: 30px;}
+
+.infoArea { margin-bottom: 100px; font-size: 13px; line-height: 25px; color: #777; }
