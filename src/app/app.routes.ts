@@ -14,8 +14,11 @@ import { ChartsDemoComponent } from './demo/view/chartsdemo.component';
 import { FileDemoComponent } from './demo/view/filedemo.component';
 import { DocumentationComponent } from './demo/view/documentation.component';
 
+import { StatisticsComponent } from './demo/view/statistics/components/statistics.component';
+
 export const routes: Routes = [
-    { path: '', component: DashboardDemoComponent },
+    { path: 'dashboard', component: DashboardDemoComponent },
+    { path: 'statistics/:id', component: StatisticsComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },
