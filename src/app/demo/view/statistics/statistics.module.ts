@@ -27,6 +27,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { TooltipModule } from 'primeng/tooltip';
     ButtonModule,
     TableModule,
     TooltipModule,
+    ChartModule,
   ],
   exports: [StatisticsComponent],
   declarations: [

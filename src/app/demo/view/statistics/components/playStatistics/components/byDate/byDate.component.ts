@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './byDate.component.html'})
 
 export class ByDateComponent implements OnInit {
+  public rangeDates:Date[] = [new Date(), new Date()];
   public searchTypeOption:any = [{ label: '재생목록', value: 'playList' }, { label: '동영상', value: 'video' }];
   public searchSelectedType: any;
 
@@ -23,8 +24,6 @@ export class ByDateComponent implements OnInit {
 
   public videoOption:any = [{ label: '초1영어 1강', value: 'opt0' }, { label: '중1영어 1강', value: 'opt1' }];
   public selectedVideo: any = 'opt1';
-
-  public rangeDates:Date[] = [new Date(), new Date()];
 
   public searchCols0:any[] = [
     { header: '재생목록', field: 'playList' },
