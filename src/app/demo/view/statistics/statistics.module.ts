@@ -28,6 +28,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChartModule } from 'primeng/chart';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { ChartModule } from 'primeng/chart';
     TableModule,
     TooltipModule,
     ChartModule,
+    CheckboxModule,
   ],
   exports: [StatisticsComponent],
   declarations: [

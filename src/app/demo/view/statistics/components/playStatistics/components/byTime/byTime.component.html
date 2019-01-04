@@ -1,1 +1,74 @@
-time
+<div class="ui-g-nopad ui-g-12">
+  <div class="ui-g-nopad ui-g-12 filterArea">
+    <span class="dp-inb">
+        <p-checkbox [(ngModel)]="isMultiSelectDuration" binary="true" label="다중 비교" (onChange)="useMultiMode()" [style]="{'margin-top':'-2px'}"></p-checkbox>
+    </span>
+    <div class="multiSelectDurationContainer dp-inb">
+      <div class="margin-bottom-10" *ngFor="let count of durationCount">
+        <p-calendar [maxDate]="maxDateValue" [(ngModel)]="multiSelectDuration[count]['selectDuration']" [disabledDates]="invalidDates[count]" [locale]="localeObject" [showIcon]="true" dateFormat="yy-mm-dd" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" (onSelect)="updateMultiSelectDuration()"></p-calendar>
+        <button pButton type="button" label="삭제" class="btn margin-left-40" *ngIf="isMultiSelectDuration && (count !== 0)" (click)="downDurationCount(count)"></button>
+        <button pButton type="button" label="추가" class="btn margin-left-5" *ngIf="isMultiSelectDuration && (count === 1)" (click)="upDurationCount()" [disabled]="durationCount.length === 3"></button>
+      </div>
+    </div>
+    <div class="right">
+      <p-dropdown [options]="searchTypeOption" [(ngModel)]="searchSelectedType" placeholder="유형 선택"></p-dropdown>&nbsp;&nbsp;
+      <input type="text" pInputText placeholder="검색">
+    </div>
+  </div>
+
+  <div class="ui-g-nopad ui-g-12 graphArea">
+    <div class="graph">
+      <p-chart type="line" [data]="lineData" width="100%" height="200px"></p-chart>
+    </div>
+  </div>
+
+  <div class="ui-g-nopad ui-g-12 dataArea">
+    <div class="ui-g-nopad ui-g-12" style="margin-bottom: 30px;">
+      <div class="left">
+        <p-dropdown [options]="typeOption" [(ngModel)]="selectedType"></p-dropdown>&nbsp;&nbsp;
+        <p-dropdown [options]="mediaOption" [(ngModel)]="selectedMedia"></p-dropdown>
+      </div>
+      <div class="right">
+        <button pButton type="button" label="다운로드"></button>
+      </div>
+    </div>
+    <div class="margin-bottom-30" *ngFor="let i of durationLength">
+      <h3 class="margin-bottom-20 time-table-title">
+        {{ timeTableTitle[i] }}
+      </h3>
+      <p-table [id]="'timeTable' + i" [value]="timeStatisticsLists[i]" [columns]="timeStatisticsCols" sortField="date" [sortOrder]="1">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{ col.header }}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-timeStatisticsList let-columns="columns">
+          <tr>
+            <td> {{ timeStatisticsList['date'] < 10 ? '0' + timeStatisticsList['date'] : timeStatisticsList['date'] }} 시 - {{ (timeStatisticsList['date'] + 1) < 10 ? '0' + (timeStatisticsList['date'] + 1) : (timeStatisticsList['date'] + 1) }} 시 </td>
+            <td> {{ timeStatisticsList['reqContentsCount'] }} 회</td>
+            <td> {{ timeStatisticsList['totalPlayCount'] }}</td>
+            <td> {{ timeStatisticsList['uniquePlayCount'] }}</td>
+            <td> {{ timeStatisticsList['viewingTime'] }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="columns.length" class="emptyMessage">표시할 데이터가 없습니다.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <div class="ui-g-12 ui-g-nopad margin-top-10 margin-bottom-30" style="text-align: right;">
+        <button [id]="'foldingTableBtn'+ i" class="btn" type="button" (click)="foldingTable('foldingTableBtn'+ i, 'timeTable' + i)" [innerHtml]="'접기 >'"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui-g-nopad ui-g-12 infoArea">
+    ※ 유니크 재생수 : 동일IP 재생 1회로 카운팅<br>
+    ※ 전체 재생수 : 반복재생, 드래그이동, 구간반복 등 1개의 재생 시작점~끝점 1회로 카운팅<br>
+    ※ 점유율 : 유니크 재생수 기준 비율<br>
+  </div>
+</div>

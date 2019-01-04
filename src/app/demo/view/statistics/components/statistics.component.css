@@ -1,9 +1,15 @@
 .left { float: left; }
 .right { float: right; }
+.dp-inb { display: inline-block; }
 span.c_red { color: #fe875d; font-weight: bold; }
 
 .filterArea { margin: 30px 0; }
 .filterArea .right input { height: 29px; vertical-align: top; }
+.multiSelectDurationContainer {
+  width: 400px;
+  margin-left: 20px;
+  vertical-align: top;
+}
 
 .searchArea { margin-bottom: 30px;}
 
