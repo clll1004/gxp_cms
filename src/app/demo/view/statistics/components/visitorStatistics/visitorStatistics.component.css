@@ -1,0 +1,33 @@
+.info-txt {
+  clear: both;
+  font-size: 14px;
+  color: #666;
+}
+.analytics-container {
+  width: 800px;
+  padding: 80px;
+  background: #eaeaea;
+  text-align: center;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.analytics-container .title-container {
+  border-bottom: 3px solid #ffc518;
+}
+.analytics-container .link-google-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 10px;
+  border: 3px solid #fff;
+  background: #f7902a;
+  font-size: 14px;
+  color: #fff;
+}
+.analytics-container .link-google-btn:hover {
+  background: #ea7d17;
+}
+.analytics-container .link-google-btn:active {
+  background: #d36900;
+}

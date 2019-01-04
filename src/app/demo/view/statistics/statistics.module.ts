@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 import { StatisticsComponent } from './components/statistics.component';
 import { PlayStatisticsComponent } from './components/playStatistics/playStatistics.component';
@@ -36,6 +37,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    BreadcrumbModule,
     TabMenuModule,
     CalendarModule,
     DropdownModule,
