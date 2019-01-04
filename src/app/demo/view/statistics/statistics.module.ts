@@ -17,7 +17,7 @@ import { ByTimeComponent } from './components/playStatistics/components/byTime/b
 import { ByPlaySectionComponent } from './components/playStatistics/components/byPlaySection/byPlaySection.component';
 import { ByPlayTimeComponent } from './components/playStatistics/components/byPlayTime/byPlayTime.component';
 import { ByContentsComponent } from './components/playStatistics/components/byContents/byContents.component';
-import { ByCategoryComponent } from './components/playStatistics/components/byCategory/byCategory.component';
+import { ByPlayListComponent } from './components/playStatistics/components/byPlayList/byPlayList.component';
 import { ByAdComponent } from './components/playStatistics/components/byAd/byAd.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -56,7 +56,7 @@ import { ChartModule } from 'primeng/chart';
     ByPlaySectionComponent,
     ByPlayTimeComponent,
     ByContentsComponent,
-    ByCategoryComponent,
+    ByPlayListComponent,
     ByAdComponent,
   ]})
 

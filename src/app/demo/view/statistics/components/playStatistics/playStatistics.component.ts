@@ -26,7 +26,7 @@ export class PlayStatisticsComponent implements OnInit {
       { label: '재생구간', routerLink: ['/statistics/play-statistics/byPlaySection'] },
       { label: '재생시간', routerLink: ['/statistics/play-statistics/byPlayTime'] },
       { label: '콘텐츠 통계', routerLink: ['/statistics/play-statistics/byContents'] },
-      { label: '카테고리 통계', routerLink: ['/statistics/play-statistics/byCategory'] },
+      { label: '재생목록 통계', routerLink: ['/statistics/play-statistics/byPlayList'] },
       { label: '광고 통계', routerLink: ['/statistics/play-statistics/byAd'] },
     ];
   }
