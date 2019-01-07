@@ -25,6 +25,9 @@ import { ByGXPComponent } from './components/usageAnalysis/components/byGXP/byGX
 import { ByStorageComponent } from './components/usageAnalysis/components/byStorage/byStorage.component';
 import { ByEncodingComponent } from './components/usageAnalysis/components/byEncoding/byEncoding.component';
 
+import { ExportReportComponent } from './components/reporter/components/exportReport/exportReport.component';
+import { AutoReportComponent } from './components/reporter/components/autoReport/autoReport.component';
+
 import { TabMenuModule } from 'primeng/tabmenu';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -69,6 +72,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     ByGXPComponent,
     ByStorageComponent,
     ByEncodingComponent,
+    ExportReportComponent,
+    AutoReportComponent,
   ]})
 
 export class StatisticsModule {

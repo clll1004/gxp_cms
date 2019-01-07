@@ -1,1 +1,3 @@
-e
+<p-tabMenu [model]="tabMenuItems"></p-tabMenu>
+<exportReport *ngIf="params['subId'] === 'exportReport'"></exportReport>
+<autoReport *ngIf="params['subId'] === 'autoReport'"></autoReport>

@@ -29,7 +29,7 @@ export class AppMenuComponent implements OnInit {
           { label: '재생통계', routerLink: ['/statistics/play-statistics/byDate'] },
           { label: '사용량분석', routerLink: ['/statistics/usage-analysis/byGXP'] },
           { label: '방문자 통계', routerLink: ['/statistics/visitor-statistics'] },
-          { label: '리포트', routerLink: ['/statistics/reporter'] },
+          { label: '리포트', routerLink: ['/statistics/reporter/exportReport'] },
         ],
       },
       {
