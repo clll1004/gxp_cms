@@ -18,6 +18,7 @@ span.c_red { color: #fe875d; font-weight: bold; }
 .graphArea .graph { width: 90%; margin: 0 auto; }
 
 .dataArea { margin-bottom: 30px;}
+.emptyMessage { padding: 20px 0 !important; text-align: center;}
 
 .infoArea { font-size: 13px; line-height: 25px; color: #777; }
 
