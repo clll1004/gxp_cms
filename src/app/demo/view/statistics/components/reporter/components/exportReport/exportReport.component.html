@@ -1,1 +1,28 @@
-a
+<div class="ui-g-12 ui-g-nopad">
+  <div class="ui-g-12 ui-lg-8 margin-top-20 margin-bottom-50">
+    <div class="card">
+      <form [formGroup]="reportForm">
+        <fieldset>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">기간 설정</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <p-calendar formControlName="reportDuration" selectionMode="range" [readonlyInput]="true" [showIcon]="true"  dateFormat="yy.mm.dd"></p-calendar>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">항목 선택</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <p-checkbox formControlName="selectDate" binary="true" label="날짜별 재생통계" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="selectTime" binary="true" label="시간별 재생통계" class="margin-right-20"></p-checkbox>
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+            <button pButton type="button" class="btn margin-right-5 ui-button-secondary" label="다운로드"></button>
+            <button pButton type="button" class="btn" label="메일발송"></button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,8 @@
 .right { float: right; }
 .dp-inb { display: inline-block; }
 span.c_red { color: #fe875d; font-weight: bold; }
+fieldset { border: none; }
+.txt-center { text-align: center; }
 
 .filterArea { margin: 30px 0; }
 .filterArea .right input { height: 29px; vertical-align: top; }
@@ -44,4 +46,13 @@ span.c_red { color: #fe875d; font-weight: bold; }
 }
 .popular-repeat-section {
   border: 3px solid red;
+}
+
+.form-row { padding: 20px 0; border-bottom: 1px solid #eee; }
+.form-title { font-weight: bold; }
+.form-data {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }

@@ -3,6 +3,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../../../../../../breadcrumb.service';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'exportReport',
@@ -10,7 +11,10 @@ import { BreadcrumbService } from '../../../../../../../breadcrumb.service';
   templateUrl: './exportReport.component.html'})
 
 export class ExportReportComponent implements OnInit {
-  constructor(private breadcrumbService: BreadcrumbService) {
+  public reportForm: FormGroup;
+  public rangeDates:Date[] = [new Date(), new Date()];
+
+  constructor(private breadcrumbService: BreadcrumbService, private formBuilder: FormBuilder) {
     this.breadcrumbService.setItems([
       { label: '통계', routerLink: ['/statistics/play-statistics/byDate'] },
       { label: '리포트', routerLink: ['/statistics/reporter/exportReport'] },
@@ -19,6 +23,10 @@ export class ExportReportComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.reportForm = this.formBuilder.group({
+      reportDuration: new FormControl(null),
+      selectDate: new FormControl(false),
+      selectTime: new FormControl(false),
+    });
   }
 }
