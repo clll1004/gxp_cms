@@ -37,6 +37,9 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   imports: [
@@ -54,6 +57,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     TooltipModule,
     ChartModule,
     CheckboxModule,
+    RadioButtonModule,
+    InputSwitchModule,
+    DialogModule
   ],
   exports: [StatisticsComponent],
   declarations: [

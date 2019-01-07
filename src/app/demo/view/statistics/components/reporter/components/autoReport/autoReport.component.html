@@ -1,1 +1,87 @@
-b
+<div class="ui-g-12 ui-g-nopad">
+  <div class="ui-g-12 ui-g-nopad margin-top-20 margin-bottom-50">
+    <div class="card">
+      <form [formGroup]="autoReportForm">
+        <fieldset>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">자동리포트 발송</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <span class="switchTitle margin-right-5">OFF</span> <p-inputSwitch formControlName="autoReportUse"></p-inputSwitch> <span class="switchTitle margin-left-5">ON</span>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">발송 기간</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <p-radioButton formControlName="autoPeriod" name="autoPeriod" value="continue" label="계속" class="margin-right-30" (click)="autoPeriodSetting()"></p-radioButton>
+              <p-radioButton formControlName="autoPeriod" name="autoPeriod" value="setting" label="기간설정" class="margin-right-10" (click)="autoPeriodSetting()"></p-radioButton>
+              <p-calendar formControlName="autoPeriodDates" selectionMode="range" [showIcon]="true" [readonlyInput]="true" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" [locale]="localeObject" dateFormat="yy-mm-dd"></p-calendar>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">발송 주기</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <p-dropdown id="autoCycle" [options]="cycleOptions" formControlName="autoCycle" placeholder="선택하세요"></p-dropdown>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">항목 선택</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <p-checkbox formControlName="selectDate" binary="true" label="날짜별 재생통계" class="margin-right-20"></p-checkbox>
+              <p-checkbox formControlName="selectTime" binary="true" label="시간별 재생통계" class="margin-right-20"></p-checkbox>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">수신자</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <div>총 <span class="c_red">{{ emailLists.length }}</span>개 <button pButton type="button" (click)="emailDialog=true;" label="추가"></button></div>
+              <div class="margin-top-10" style="width: 70%; padding: 15px; border: 1px solid #ddd;">
+                <ul *ngIf="emailLists[0]">
+                  <li *ngFor="let email of emailLists; let i = index;" class="padding-left-10">
+                    {{ email }} <button  type="button" class="btn delete-btn" (click)="excludeEmailList(emailLists, i)"><i class="fas fa-times"></i></button>
+                  </li>
+                </ul>
+                <div *ngIf="!emailLists[0]" class="info-txt txt-center">
+                  리스트를 추가해주세요.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+            <button pButton type="button" class="btn margin-right-5 ui-button-secondary" label="초기화"></button>
+            <button pButton type="button" class="btn" label="저장"></button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<p-dialog [(visible)]="emailDialog" [width]="600" [modal]="true" [showHeader]="false">
+  <div class="margin-top-15 margin-bottom-20">
+    <div class="txt-center margin-bottom-20">
+      받으실 이메일 주소를 입력하세요.
+    </div>
+    <div class="margin-bottom-20">
+      <h3 class="dp-inb margin-right-20 fw-bold">메일주소</h3>
+      <input type="text" class="margin-right-10" pInputText [(ngModel)]="addEmail"> <button type="button" pButton="" (click)="includeEmailList(addEmailLists)" label="추가"></button>
+    </div>
+    <div class="margin-bottom-20">
+      <h3 class="dp-inb margin-right-20 fw-bold">수신메일</h3> <span style="font-size: 13px;">총 <span class="c_red">{{ addEmailLists.length }}</span>개</span>
+      <div class="margin-top-10" style="padding: 15px; border: 1px solid #ddd;">
+        <ul *ngIf="addEmailLists[0]">
+          <li *ngFor="let email of addEmailLists; let i = index;" class="padding-left-10">
+            {{ email }} <button  type="button" class="btn delete-btn" (click)="excludeEmailList(addEmailLists, i)"><i class="fas fa-times"></i></button>
+          </li>
+        </ul>
+        <div *ngIf="!addEmailLists[0]" class="info-txt txt-center">
+          리스트를 추가해주세요.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="txt-center margin-top-20 margin-bottom-20">
+    <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="emailDialog=false; emptyAddEmailList()" label="취소"></button>
+    <button pButton type="submit" class="btn" (click)="emailDialog=false; addToEmailList()" label="저장"></button>
+  </div>
+</p-dialog>

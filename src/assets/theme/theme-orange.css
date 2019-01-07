@@ -838,7 +838,7 @@ body .ui-datepicker .ui-datepicker-header {
   font-weight: bold;
   line-height: 20;
   padding: 0.571em 1.143em;
-  background-color: #fe875d;
+  background-color: #fe875d !important;
   color: #ffffff;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;

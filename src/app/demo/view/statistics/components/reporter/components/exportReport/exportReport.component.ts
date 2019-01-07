@@ -12,7 +12,6 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 export class ExportReportComponent implements OnInit {
   public reportForm: FormGroup;
-  public rangeDates:Date[] = [new Date(), new Date()];
 
   constructor(private breadcrumbService: BreadcrumbService, private formBuilder: FormBuilder) {
     this.breadcrumbService.setItems([

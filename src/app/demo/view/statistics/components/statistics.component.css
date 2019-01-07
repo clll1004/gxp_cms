@@ -56,3 +56,6 @@ fieldset { border: none; }
   margin-inline-start: 0px;
   margin-inline-end: 0px;
 }
+.switchTitle { display: inline-block; vertical-align: top; padding-top: 4px; }
+.btn.delete-btn { background: none; border: none; }
+.btn.delete-btn:hover { color: #ff6400; }
