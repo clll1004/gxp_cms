@@ -1,1 +1,4 @@
-c
+<p-tabMenu [model]="tabMenuItems"></p-tabMenu>
+<byGXP *ngIf="params['subId'] === 'byGXP'"></byGXP>
+<byStorage *ngIf="params['subId'] === 'byStorage'"></byStorage>
+<byEncoding *ngIf="params['subId'] === 'byEncoding'"></byEncoding>

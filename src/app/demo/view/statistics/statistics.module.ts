@@ -21,6 +21,10 @@ import { ByContentsComponent } from './components/playStatistics/components/byCo
 import { ByPlayListComponent } from './components/playStatistics/components/byPlayList/byPlayList.component';
 import { ByAdComponent } from './components/playStatistics/components/byAd/byAd.component';
 
+import { ByGXPComponent } from './components/usageAnalysis/components/byGXP/byGXP.component';
+import { ByStorageComponent } from './components/usageAnalysis/components/byStorage/byStorage.component';
+import { ByEncodingComponent } from './components/usageAnalysis/components/byEncoding/byEncoding.component';
+
 import { TabMenuModule } from 'primeng/tabmenu';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -62,6 +66,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     ByContentsComponent,
     ByPlayListComponent,
     ByAdComponent,
+    ByGXPComponent,
+    ByStorageComponent,
+    ByEncodingComponent,
   ]})
 
 export class StatisticsModule {
