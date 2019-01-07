@@ -12,7 +12,9 @@ import { BreadcrumbService } from '../../../../../../../breadcrumb.service';
 export class ByStorageComponent implements OnInit {
   public rangeDates:Date[] = [new Date(), new Date()];
 
-  public barData:any;
+  public barChartDataSet: object;
+  public barChartOptions: object;
+  public barChartLabels = ['09/01', '09/02', '09/03', '09/04', '09/05', '09/06', '09/07'];
   public pieData:any;
 
   public storageCols:any[] = [
@@ -32,15 +34,41 @@ export class ByStorageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.barData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    this.barChartDataSet = {
+      labels: this.barChartLabels,
       datasets: [
         {
-          label: 'My First dataset',
+          label: '원본파일',
+          data: [65, 59, 80, 81, 56, 55, 40],
           backgroundColor: 'rgba(248,121,16,.6)',
-          data: [65, 59, 80, 81, 56, 55, 40]
+        },
+        {
+          label: '인코딩파일',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          backgroundColor: 'rgba(248,121,16,.3)',
         },
       ],
+    };
+    this.barChartOptions = {
+      legend: {
+        position: 'bottom',
+      },
+      scales: {
+        xAxes: [{
+          stacked: true,
+        }],
+        yAxes: [{
+          stacked: true,
+          ticks: {
+            beginAtZero:true,
+            userCallback: (label) => {
+              if (Math.floor(label) === label) {
+                return label;
+              }
+            },
+          },
+        }],
+      },
     };
 
     this.pieData = {
