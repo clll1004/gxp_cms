@@ -16,6 +16,7 @@ span.c_red { color: #fe875d; font-weight: bold; }
 
 .graphArea { height: 300px; margin-bottom: 50px; padding-top: 50px; border: 1px solid #ddd; background: #fff; }
 .graphArea .graph { width: 90%; margin: 0 auto; }
+.centerText { text-align: center; }
 
 .dataArea { margin-bottom: 30px;}
 .emptyMessage { padding: 20px 0 !important; text-align: center;}
