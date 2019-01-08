@@ -49,6 +49,10 @@ export class MediaStorageComponent implements OnInit {
   public selectSettingItems:any[] = [];
 
   public settingDialog:boolean = false;
+  public moveDialog:boolean = false;
+  public notSelectDialog:boolean = false;
+
+  public selectedMoveStorage:any = 'transmitAd';
 
   constructor(private activatedRoute: ActivatedRoute, private breadcrumbService: BreadcrumbService, private datePipe: DatePipe) {
     this.breadcrumbService.setItems([
@@ -64,6 +68,12 @@ export class MediaStorageComponent implements OnInit {
 
   closePopup() {
     this.settingDialog = false;
+    this.moveDialog = false;
+    this.notSelectDialog = false;
+  }
+
+  moveStorage() {
+    this.tempCompareItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
   }
 }
 

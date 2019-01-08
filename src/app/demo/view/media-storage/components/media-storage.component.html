@@ -13,9 +13,9 @@
     <div class="dataArea margin-bottom-50">
       <div class="ui-g-nopad ui-g-12" style="margin-bottom: 30px;">
         <div class="left">
-          <button pButton type="button" label="선택 이동" class="margin-right-10"></button>
+          <button pButton type="button" label="선택 이동" class="margin-right-10" (click)="moveStorage();"></button>
           <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
-          총 <span class="c_red">{{ mediaStorageRowData.length }}</span>개
+          총 <span class="c_red">{{ mediaStorageRowData.length }}</span>개a
         </div>
         <div class="right">
           <input type="text" pInputText placeholder="검색">
@@ -109,5 +109,32 @@
   <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-40">
     <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="settingDialog=false;" label="취소"></button>
     <button pButton type="submit" class="btn" (click)="settingDialog=false;" label="저장"></button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="moveDialog" [width]="400" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    <h2 class="margin-bottom-40">선택파일 이동</h2>
+    <span class="margin-right-10">미디어보관함</span>
+    <p-dropdown [options]="storageList" [(ngModel)]="selectedMoveStorage"></p-dropdown>
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="moveDialog=false;" label="취소"></button>
+    <button pButton type="submit" class="btn" (click)="moveDialog=false;" label="확인"></button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="notSelectDialog" [width]="400" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    항목을 선택해주세요.
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="submit" (click)="notSelectDialog=false;" label="확인"></button>
   </div>
 </p-dialog>
