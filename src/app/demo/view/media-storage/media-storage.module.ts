@@ -9,6 +9,11 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 import { MediaStorageComponent } from './components/media-storage.component';
 
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
+
 @NgModule({
   imports: [
     RouterModule,
@@ -16,6 +21,10 @@ import { MediaStorageComponent } from './components/media-storage.component';
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbModule,
+    DropdownModule,
+    ButtonModule,
+    InputTextModule,
+    TableModule,
   ],
   exports: [MediaStorageComponent],
   declarations: [

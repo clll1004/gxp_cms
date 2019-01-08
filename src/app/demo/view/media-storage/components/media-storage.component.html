@@ -1,0 +1,62 @@
+<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 35vh;">
+  <div class="ui-g-12 card" style="padding: 25px;">
+    <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
+      <div class="left">
+        <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage"></p-dropdown>
+        <button type="button" class="margin-left-10 setting_btn"><i class="fas fa-cog"></i></button>
+      </div>
+      <div class="right">
+        <button pButton type="button" label="파일 올리기"></button>
+      </div>
+    </div>
+
+    <div class="dataArea margin-bottom-50">
+      <div class="ui-g-nopad ui-g-12" style="margin-bottom: 30px;">
+        <div class="left">
+          <button pButton type="button" label="선택 이동" class="margin-right-10"></button>
+          <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
+          총 <span class="c_red">0</span>개
+        </div>
+        <div class="right">
+          <input type="text" pInputText placeholder="검색">
+        </div>
+      </div>
+      <div class="ui-g-nopad ui-g-12">
+        <p-table #dt class="selectTable" [columns]="mediaStorageCols" [value]="mediaStorageRowData" [resizableColumns]="true" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" [style.width]="col.width">
+            </colgroup>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 3em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+                {{ col.header }}
+                <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-mediaStorage>
+            <tr [pSelectableRow]="mediaStorage">
+              <td>
+                <p-tableCheckbox [value]="mediaStorage"></p-tableCheckbox>
+              </td>
+              <td>{{ mediaStorage['cid'] }}</td>
+              <td><img [src]="mediaStorage['thumbnail']" alt="썸네일" style="width: 100%; height: auto;"></td>
+              <td>{{ mediaStorage['mediaStorage'] }}</td>
+              <td style="text-align: left; padding-left: 10px;">{{ mediaStorage['contentsName'] }}</td>
+              <td>{{ mediaStorage['fileName'] }}</td>
+              <td>{{ mediaStorage['fileType'] }}</td>
+              <td>{{ mediaStorage['fileSize'] }}</td>
+              <td>{{ mediaStorage['transitionStatus'] }}</td>
+              <td>{{ mediaStorage['regdate'] }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
