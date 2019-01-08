@@ -2,7 +2,7 @@
   <div class="ui-g-12 card" style="padding: 25px;">
     <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
       <div class="left">
-        <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage"></p-dropdown>
+        <p-dropdown [options]="playListList" [(ngModel)]="selectedPlayList"></p-dropdown>
         <button type="button" class="margin-left-10 setting_btn" (click)="settingDialog=true;"><i class="fas fa-cog"></i></button>
       </div>
     </div>
@@ -10,7 +10,7 @@
     <div class="dataArea margin-bottom-50">
       <div class="ui-g-nopad ui-g-12 margin-bottom-30">
         <div class="left">
-          <button pButton type="button" label="선택 이동" class="margin-right-10"></button>
+          <button pButton type="button" label="선택 이동" class="margin-right-10" (click)="movePlayList();"></button>
           <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
           총 <span class="c_red">{{ playListRowData.length }}</span>개
         </div>
@@ -116,5 +116,32 @@
   <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-40">
     <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="settingDialog=false;" label="취소"></button>
     <button pButton type="submit" class="btn" (click)="settingDialog=false;" label="저장"></button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="moveDialog" [width]="400" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    <h2 class="margin-bottom-40">선택 재생목록으로 이동</h2>
+    <span class="margin-right-10">재생목록</span>
+    <p-dropdown [options]="playListList" [(ngModel)]="selectedMovePlayList"></p-dropdown>
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="moveDialog=false;" label="취소"></button>
+    <button pButton type="submit" class="btn" (click)="moveDialog=false;" label="확인"></button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="notSelectDialog" [width]="400" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    항목을 선택해주세요.
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="submit" (click)="notSelectDialog=false;" label="확인"></button>
   </div>
 </p-dialog>

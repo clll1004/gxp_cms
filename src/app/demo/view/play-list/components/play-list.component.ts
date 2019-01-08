@@ -13,8 +13,8 @@ import { BreadcrumbService } from '../../../../breadcrumb.service';
 export class PlayListComponent implements OnInit {
   public params:Params;
 
-  public storageList:any = [{ label: '전체', value: 'all' }, { label: '광고전송', value: 'transmitAd' }, { label: '스킨변경', value: 'changeSkin' }];
-  public selectedStorage: any = 'all';
+  public playListList:any = [{ label: '전체', value: 'all' }, { label: '광고전송', value: 'transmitAd' }, { label: '스킨변경', value: 'changeSkin' }];
+  public selectedPlayList: any = 'all';
 
   public playListCols:any[] = [
     { header: 'CID', field: 'cid' },
@@ -48,6 +48,10 @@ export class PlayListComponent implements OnInit {
   public selectSettingItems:any[] = [];
 
   public settingDialog:boolean = false;
+  public moveDialog:boolean = false;
+  public notSelectDialog:boolean = false;
+
+  public selectedMovePlayList:any = 'transmitAd';
 
   constructor(private activatedRoute: ActivatedRoute, private breadcrumbService: BreadcrumbService) {
     this.breadcrumbService.setItems([
@@ -63,6 +67,12 @@ export class PlayListComponent implements OnInit {
 
   closePopup() {
     this.settingDialog = false;
+    this.moveDialog = false;
+    this.notSelectDialog = false;
+  }
+
+  movePlayList() {
+    this.tempCompareItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
   }
 }
 
