@@ -33,6 +33,22 @@ export class PlayListComponent implements OnInit {
   ];
   public tempCompareItems:any[] = [];
 
+  public playListSettingCols:any[] = [
+    { header: '재생목록', field: 'playList' },
+    { header: '콘텐츠 수', field: 'contentsCount' },
+    { header: '크기', field: 'fileSize' },
+    { header: '서비스상태', field: 'status' },
+    { header: '등록일시', field: 'regdate' },
+    { header: '수정일시', field: 'updateDate' },
+  ];
+  public playListSettingRowData:any[] = [
+    { index: 0, playList: '중학교 1학년 영어', contentsCount: '10', fileSize: '150', status: 'ON', regdate: '2018.10.16', updateDate: '2018.10.16' },
+    { index: 1, playList: '중학교 1학년 국어', contentsCount: '10', fileSize: '150', status: 'ON', regdate: '2018.10.16', updateDate: '2018.10.16' },
+  ];
+  public selectSettingItems:any[] = [];
+
+  public settingDialog:boolean = false;
+
   constructor(private activatedRoute: ActivatedRoute, private breadcrumbService: BreadcrumbService) {
     this.breadcrumbService.setItems([
       { label: '재생목록', routerLink: ['/playList'] },
@@ -43,6 +59,10 @@ export class PlayListComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
     });
+  }
+
+  closePopup() {
+    this.settingDialog = false;
   }
 }
 
