@@ -4,11 +4,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BreadcrumbService } from '../../../../breadcrumb.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'media-storage',
   styleUrls: ['./media-storage.component.css'],
-  templateUrl: './media-storage.component.html'})
+  templateUrl: './media-storage.component.html',
+  providers: [DatePipe]})
 
 export class MediaStorageComponent implements OnInit {
   public params:Params;
@@ -33,7 +35,22 @@ export class MediaStorageComponent implements OnInit {
   ];
   public tempCompareItems:any[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private breadcrumbService: BreadcrumbService) {
+  public mediaSettingCols:any[] = [
+    { header: '미디어보관함 명', field: 'mediaStorage' },
+    { header: '콘텐츠 수', field: 'contentsCount' },
+    { header: '크기', field: 'fileSize' },
+    { header: '등록일시', field: 'regdate' },
+    { header: '수정일시', field: 'updateDate' },
+  ];
+  public mediaSettingRowData:any[] = [
+    { index: 0, mediaStorage: '중학교 1학년 영어', contentsCount: '10', fileSize: '150', regdate: '2018.10.16', updateDate: '2018.10.16' },
+    { index: 1, mediaStorage: '중학교 1학년 국어', contentsCount: '10', fileSize: '150', regdate: '2018.10.16', updateDate: '2018.10.16' },
+  ];
+  public selectSettingItems:any[] = [];
+
+  public settingDialog:boolean = false;
+
+  constructor(private activatedRoute: ActivatedRoute, private breadcrumbService: BreadcrumbService, private datePipe: DatePipe) {
     this.breadcrumbService.setItems([
       { label: '미디어보관함', routerLink: ['/mediaStorage'] },
     ]);
@@ -43,6 +60,10 @@ export class MediaStorageComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
     });
+  }
+
+  closePopup() {
+    this.settingDialog = false;
   }
 }
 
