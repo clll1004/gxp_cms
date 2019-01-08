@@ -104,6 +104,7 @@ import {BreadcrumbService} from './breadcrumb.service';
 /*custom*/
 import { StatisticsModule } from './demo/view/statistics/statistics.module';
 import { MediaStorageModule } from './demo/view/media-storage/media-storage.module';
+import { PlayListModule } from './demo/view/play-list/play-list.module';
 
 @NgModule({
   imports: [
@@ -180,6 +181,7 @@ import { MediaStorageModule } from './demo/view/media-storage/media-storage.modu
     VirtualScrollerModule,
     StatisticsModule,
     MediaStorageModule,
+    PlayListModule,
   ],
   declarations: [
     AppComponent,

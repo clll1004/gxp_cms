@@ -22,7 +22,7 @@ export class AppMenuComponent implements OnInit {
       { label: '대시보드', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
       { label: '미디어보관함', icon: 'fas fa-fw fa-hdd', routerLink: ['/media-storage'] },
       { label: '변환 모니터링', icon: 'fa fa-fw fa-desktop', routerLink: ['/'] },
-      { label: '재생목록', icon: 'fa fa-fw fa-list', routerLink: ['/'] },
+      { label: '재생목록', icon: 'fa fa-fw fa-list', routerLink: ['/play-list'] },
       {
         label: '통계', icon: 'fa fa-fw fa-chart-pie' ,
         items: [

@@ -1,0 +1,63 @@
+<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 35vh;">
+  <div class="ui-g-12 card" style="padding: 25px;">
+    <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
+      <div class="left">
+        <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage"></p-dropdown>
+        <button type="button" class="margin-left-10 setting_btn"><i class="fas fa-cog"></i></button>
+      </div>
+    </div>
+
+    <div class="dataArea margin-bottom-50">
+      <div class="ui-g-nopad ui-g-12 margin-bottom-30">
+        <div class="left">
+          <button pButton type="button" label="선택 이동" class="margin-right-10"></button>
+          <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
+          총 <span class="c_red">{{ playListRowData.length }}</span>개
+        </div>
+        <div class="right">
+          <input type="text" pInputText placeholder="검색">
+        </div>
+      </div>
+      <div class="ui-g-nopad ui-g-12 margin-bottom-30">
+        <p-table #dt class="selectTable" [columns]="playListCols" [value]="playListRowData" [resizableColumns]="true" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" [style.width]="col.width">
+            </colgroup>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 3em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+                {{ col.header }}
+                <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-playList>
+            <tr [pSelectableRow]="playList">
+              <td>
+                <p-tableCheckbox [value]="playList"></p-tableCheckbox>
+              </td>
+              <td>{{ playList['cid'] }}</td>
+              <td><img [src]="playList['thumbnail']" alt="썸네일" style="width: 100%; height: auto;"></td>
+              <td>{{ playList['mediaStorage'] }}</td>
+              <td style="text-align: left; padding-left: 10px;">{{ playList['contentsName'] }}</td>
+              <td>{{ playList['fileName'] }}</td>
+              <td>{{ playList['fileType'] }}</td>
+              <td>{{ playList['fileSize'] }}</td>
+              <td>{{ playList['regdate'] }}</td>
+              <td>{{ playList['status'] }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="ui-g-12 ui-g-nopad">
+        <button pButton type="button" label="선택파일 위로 이동" class="margin-right-10" ></button>
+        <span>※ 재생목록에 등록된 파일 순으로 재생됩니다.</span>
+      </div>
+    </div>
+  </div>
+</div>
