@@ -3,7 +3,6 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../../../../breadcrumb.service';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'storage-list',
@@ -11,8 +10,6 @@ import { DatePipe } from '@angular/common';
   templateUrl: './storage-list.component.html'})
 
 export class StorageListComponent implements OnInit {
-  public params:Params;
-
   public storageList:any = [{ label: '전체', value: 'all' }, { label: '광고전송', value: 'transmitAd' }, { label: '스킨변경', value: 'changeSkin' }];
   public selectedStorage: any = 'all';
 
