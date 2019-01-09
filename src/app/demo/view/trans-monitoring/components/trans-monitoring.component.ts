@@ -12,19 +12,20 @@ import { BreadcrumbService } from '../../../../breadcrumb.service';
 export class TransMonitoringComponent implements OnInit {
   public tabIndex:number = 0;
   public transMonitoringCols:any[] = [
-    { header: 'CID', field: 'cid' },
-    { header: '썸네일', field: 'thumbnail' },
     { header: '미디어보관함', field: 'mediaStorage' },
-    { header: '영상 제목', field: 'contentsName' },
     { header: '파일명', field: 'fileName' },
-    { header: '파일형태', field: 'fileType' },
-    { header: '크기', field: 'fileSize' },
+    { header: '파일경로', field: 'filePath' },
     { header: '변환상태', field: 'transitionStatus' },
-    { header: '등록일시', field: 'regdate' },
+    { header: '진행률', field: 'progress' },
+    { header: '원본 파일 크기', field: 'fileOriSize' },
+    { header: '변환 파일 크기', field: 'fileSize' },
+    { header: '변환시작일', field: 'startDate' },
+    { header: '최종 작업시간', field: 'totalTransTime' },
   ];
   public transMonitoringRowData:any[] = [
-    { cid: '1231', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', mediaStorage: 'GXP', contentsName: '자격증 교육', fileName: 'adf.mp4', fileType: 'mp4', fileSize: '241MB', transitionStatus: '완료', regdate: '2019-09-09' },
-    { cid: '4567', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%95/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%950001.jpg', mediaStorage: 'GXP', contentsName: '자격증 교육', fileName: 'adf.mp4', fileType: 'mp4', fileSize: '241MB', transitionStatus: '완료', regdate: '2019-09-09' },
+    { mediaStorage: '초등교육', fileName: 'adf.mp4', filePath: '/path/2018', transitionStatus: '완료', progress: '55', fileOriSize: '150', fileSize: '30', startDate: '2018-05-30 05:30:22', totalTransTime: '2018-05-30 05:30:20' },
+    { mediaStorage: '중등교육', fileName: 'adf.mp4', filePath: '/path/2018', transitionStatus: '완료', progress: '55', fileOriSize: '150', fileSize: '30', startDate: '2018-05-30 05:30:22', totalTransTime: '2018-05-30 05:30:20' },
+    { mediaStorage: '고등교육', fileName: 'adf.mp4', filePath: '/path/2018', transitionStatus: '완료', progress: '55', fileOriSize: '150', fileSize: '30', startDate: '2018-05-30 05:30:22', totalTransTime: '2018-05-30 05:30:20' },
   ];
   public tempCompareItems:any[] = [];
 

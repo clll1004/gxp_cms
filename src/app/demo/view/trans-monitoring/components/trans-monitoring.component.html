@@ -1,4 +1,4 @@
-<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 200px;">
+<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 280px;">
   <div class="ui-g-12 ui-g-nopad txt-right margin-bottom-40">
     <button pButton type="button" label="파일 올리기"></button>
   </div>
@@ -42,17 +42,15 @@
             <td>
               <p-tableCheckbox [value]="transMonitoring"></p-tableCheckbox>
             </td>
-            <td>{{ transMonitoring['cid'] }}</td>
-            <td>
-              <img [src]="transMonitoring['thumbnail']" alt="썸네일" style="width: 100%; height: auto;">
-            </td>
             <td>{{ transMonitoring['mediaStorage'] }}</td>
-            <td style="text-align: left; padding-left: 10px;">{{ transMonitoring['contentsName'] }}</td>
             <td>{{ transMonitoring['fileName'] }}</td>
-            <td>{{ transMonitoring['fileType'] }}</td>
-            <td>{{ transMonitoring['fileSize'] }}</td>
+            <td>{{ transMonitoring['filePath'] }}</td>
             <td>{{ transMonitoring['transitionStatus'] }}</td>
-            <td>{{ transMonitoring['regdate'] }}</td>
+            <td>{{ transMonitoring['progress'] }}</td>
+            <td>{{ transMonitoring['fileOriSize'] }}</td>
+            <td>{{ transMonitoring['fileSize'] }}</td>
+            <td>{{ transMonitoring['startDate'] }}</td>
+            <td>{{ transMonitoring['totalTransTime'] }}</td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage" let-columns>
