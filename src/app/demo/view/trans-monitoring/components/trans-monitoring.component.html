@@ -1,7 +1,67 @@
-<ul class="ui-g-12 ui-g-nopad select_tab_menu" id="selectTab">
-  <li tabindex="0" class="on" (click)="selectItem($event)"><a>전체</a></li>
-  <li tabindex="1" class="" (click)="selectItem($event)"><a>변환요청</a></li>
-  <li tabindex="2" class="" (click)="selectItem($event)"><a>변환진행</a></li>
-  <li tabindex="3" class="" (click)="selectItem($event)"><a>변환완료</a></li>
-  <li tabindex="4" class="" (click)="selectItem($event)"><a>변환실패</a></li>
-</ul>
+<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 200px;">
+  <div class="ui-g-12 ui-g-nopad txt-right margin-bottom-40">
+    <button pButton type="button" label="파일 올리기"></button>
+  </div>
+  <ul class="ui-g-12 ui-g-nopad select_tab_menu margin-bottom-40" id="selectTab">
+    <li tabindex="0" class="on" (click)="selectItem($event)"><a>전체</a></li>
+    <li tabindex="1" class="" (click)="selectItem($event)"><a>변환요청</a></li>
+    <li tabindex="2" class="" (click)="selectItem($event)"><a>변환진행</a></li>
+    <li tabindex="3" class="" (click)="selectItem($event)"><a>변환완료</a></li>
+    <li tabindex="4" class="" (click)="selectItem($event)"><a>변환실패</a></li>
+  </ul>
+  <div class="ui-g-12 ui-g-nopad margin-bottom-50">
+    <div class="ui-g-nopad ui-g-12 margin-bottom-30">
+      <div class="left">
+        <button pButton type="button" label="변환 재시작" class="margin-right-10"></button>
+        총 <span class="c_red">3</span>개
+      </div>
+      <div class="right">
+        <button pButton type="button" label="새로고침"></button>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-g-nopad margin-bottom-50">
+      <p-table #dt class="selectTable" [columns]="transMonitoringCols" [value]="transMonitoringRowData" [resizableColumns]="true" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
+        <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+            <col *ngFor="let col of columns" [style.width]="col.width">
+          </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3em">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+              {{ col.header }}
+              <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-transMonitoring>
+          <tr [pSelectableRow]="transMonitoring" style="cursor: pointer;">
+            <td>
+              <p-tableCheckbox [value]="transMonitoring"></p-tableCheckbox>
+            </td>
+            <td>{{ transMonitoring['cid'] }}</td>
+            <td>
+              <img [src]="transMonitoring['thumbnail']" alt="썸네일" style="width: 100%; height: auto;">
+            </td>
+            <td>{{ transMonitoring['mediaStorage'] }}</td>
+            <td style="text-align: left; padding-left: 10px;">{{ transMonitoring['contentsName'] }}</td>
+            <td>{{ transMonitoring['fileName'] }}</td>
+            <td>{{ transMonitoring['fileType'] }}</td>
+            <td>{{ transMonitoring['fileSize'] }}</td>
+            <td>{{ transMonitoring['transitionStatus'] }}</td>
+            <td>{{ transMonitoring['regdate'] }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="columns.length" class="emptyMessage">표시할 데이터가 없습니다.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+

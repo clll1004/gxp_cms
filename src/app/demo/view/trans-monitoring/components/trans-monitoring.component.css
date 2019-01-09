@@ -1,4 +1,9 @@
 * { outline: none; }
+.txt-right { text-align: right; }
+.left { float: left; }
+.right { float: right; }
+.c_red { color: #d01212; }
+
 .select_tab_menu {
   padding: 0;
   background: #fe875d !important;

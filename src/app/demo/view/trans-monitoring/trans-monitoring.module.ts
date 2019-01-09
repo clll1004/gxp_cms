@@ -9,7 +9,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 import { TransMonitoringComponent } from './components/trans-monitoring.component';
 
-import { TabMenuModule } from 'primeng/tabmenu';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbModule,
-    TabMenuModule,
+    ButtonModule,
+    TableModule,
   ],
   exports: [TransMonitoringComponent],
   declarations: [
