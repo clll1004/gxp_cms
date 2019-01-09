@@ -21,7 +21,7 @@ export class AppMenuComponent implements OnInit {
     this.model = [
       { label: '대시보드', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
       { label: '미디어보관함', icon: 'fas fa-fw fa-hdd', routerLink: ['/media-storage/list'] },
-      { label: '변환 모니터링', icon: 'fa fa-fw fa-desktop', routerLink: ['/'] },
+      { label: '변환 모니터링', icon: 'fa fa-fw fa-desktop', routerLink: ['/trans-monitoring'] },
       { label: '재생목록', icon: 'fa fa-fw fa-list', routerLink: ['/play-list'] },
       {
         label: '통계', icon: 'fa fa-fw fa-chart-pie' ,

@@ -15,12 +15,14 @@ import { FileDemoComponent } from './demo/view/filedemo.component';
 import { DocumentationComponent } from './demo/view/documentation.component';
 
 import { StatisticsComponent } from './demo/view/statistics/components/statistics.component';
+import { TransMonitoringComponent } from './demo/view/trans-monitoring/components/trans-monitoring.component';
 import { MediaStorageComponent } from './demo/view/media-storage/components/media-storage.component';
 import { PlayListComponent } from './demo/view/play-list/components/play-list.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
     { path: 'media-storage/:id', component: MediaStorageComponent },
+    { path: 'trans-monitoring', component: TransMonitoringComponent },
     { path: 'play-list', component: PlayListComponent },
     { path: 'statistics/:id', component: StatisticsComponent },
     { path: 'statistics/:id/:subId', component: StatisticsComponent },
