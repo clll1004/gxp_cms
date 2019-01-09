@@ -9,3 +9,8 @@ span.c_red { color: #fe875d; font-weight: bold; }
 .setting_btn { height: 30px; padding: 0 10px; vertical-align: bottom; border: none; background: #2399e5; color: #fff; cursor: pointer; }
 .setting_btn:hover { background: #1f89ce; }
 .close_btn { border: none; background: #fff; cursor: pointer; }
+
+/*detail css*/
+table caption { display: none; }
+table tr th { text-align: left; padding: 5px 10px; }
+table tr td { padding: 5px 10px; }

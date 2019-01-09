@@ -1406,10 +1406,10 @@ body .ui-panel {
   border: 0 none;
 }
 body .ui-panel .ui-panel-titlebar {
-  border: 1px solid #d6d7d9;
+  border: 1px solid #d6d7d9 !important;
   padding: 0.571em 1.143em;
   background-color: #fe875d;
-  color: #ffffff;
+  color: #444;
   -moz-border-radius-topleft: 0;
   -webkit-border-top-left-radius: 0;
   border-top-left-radius: 0;
@@ -1428,11 +1428,12 @@ body .ui-panel .ui-panel-titlebar .ui-panel-title {
   font-weight: 700;
 }
 body .ui-panel .ui-panel-titlebar .ui-panel-titlebar-icon {
+  outline: none;
   margin: 0;
   position: relative;
   font-size: 14px;
-  color: #ffffff;
-  border: 1px solid transparent;
+  color: #444 !important;
+  background: none !important;
   -moz-transition: color 0.2s;
   -o-transition: color 0.2s;
   -webkit-transition: color 0.2s;

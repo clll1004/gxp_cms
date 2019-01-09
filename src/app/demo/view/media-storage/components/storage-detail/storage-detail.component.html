@@ -1,0 +1,222 @@
+<div class="ui-g-12 ui-g-nopad">
+  <div class="ui-g-12 card" style="padding: 25px;">
+    <div class="ui-g-6 ui-g-nopad" style="padding-right: 10px;">
+      <div class="ui-g-12 ui-g-nopad previewArea">
+        <img src="../../../../../../assets/layout/images/gxp/preivew.png" alt="미리보기" class="ui-g-12 margin-bottom-20">
+        <table class="margin-bottom-20">
+          <caption style="display: none;">미디어보관함 정보</caption>
+          <colgroup>
+            <col style="width: 120px;">
+            <col style="width: auto;">
+          </colgroup>
+          <tbody>
+            <tr>
+              <th>CID</th>
+              <td>CN-1212</td>
+            </tr>
+            <tr>
+              <th>파일명</th>
+              <td>798_26.mp4</td>
+            </tr>
+            <tr>
+              <th>미디어보관함</th>
+              <th>영상제목</th>
+            </tr>
+            <tr>
+              <td><p-dropdown [options]="storageList" [(ngModel)]="selectedStorage"></p-dropdown></td>
+              <td><input pInputText type="text" value="798_26.mp4" placeholder="제목을 입력해주세요." style="height: 37px;"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ui-g-12 ui-g-nopad originInfoArea">
+        <p-panel header="원본파일 정보" [toggleable]="true">
+          <table>
+            <caption>원본파일 정보</caption>
+            <colgroup>
+              <col style="width: 120px;">
+              <col style="width: auto;">
+            </colgroup>
+            <tbody>
+            <tr>
+              <th>원본 파일명</th>
+              <td>교육 5차.mp4</td>
+            </tr>
+            <tr>
+              <th>원본 파일 크기</th>
+              <td>452.23MB</td>
+            </tr>
+            <tr>
+              <th>재생시간</th>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>미디어 보관함</th>
+              <td>중등교육</td>
+            </tr>
+            <tr>
+              <th>경로</th>
+              <td>/path/CMS 홈 2018/교육</td>
+            </tr>
+            </tbody>
+          </table>
+        </p-panel>
+      </div>
+    </div>
+    <div class="ui-g-6 ui-g-nopad" style="padding-left: 10px;">
+      <div class="ui-g-12 ui-g-nopad transformArea">
+        <p-panel header="트랜스파일 정보" [toggleable]="true" class="ui-g-12 ui-g-nopad margin-bottom-20">
+          <table>
+            <caption>트랜스파일 정보</caption>
+            <colgroup>
+              <col style="width: 120px;">
+              <col style="width: auto;">
+            </colgroup>
+            <thead>
+            <tr>
+              <th>변환옵션</th>
+              <th>진행상황</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th>SD</th>
+              <td>완료</td>
+            </tr>
+            <tr>
+              <th>HD</th>
+              <td>완료</td>
+            </tr>
+            <tr>
+              <th>FHD</th>
+              <td>완료</td>
+            </tr>
+            </tbody>
+          </table>
+        </p-panel>
+        <p-panel header="변환파일정보 SD" [toggleable]="true" class="ui-g-12 ui-g-nopad margin-bottom-20">
+          <table>
+            <caption>변환파일정보 SD</caption>
+            <colgroup>
+              <col style="width: 120px;">
+              <col style="width: auto;">
+            </colgroup>
+            <tbody>
+            <tr>
+              <th>파일명</th>
+              <td>교육 5차.mp4</td>
+            </tr>
+            <tr>
+              <th>파일크기</th>
+              <td>456.23MB</td>
+            </tr>
+            <tr>
+              <th>재생시간</th>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>미디어보관함</th>
+              <td>중등교육</td>
+            </tr>
+            <tr>
+              <th>경로</th>
+              <td>/path/CMS 홈 2018/교육/</td>
+            </tr>
+            <tr>
+              <th>변환시간</th>
+              <td>2018-07-29 11:12:35 ~ 2018-07-29 11:15:10</td>
+            </tr>
+            <tr>
+              <th>변환상태</th>
+              <td>완료</td>
+            </tr>
+            </tbody>
+          </table>
+        </p-panel>
+        <p-panel header="변환파일정보 HD" [toggleable]="true" class="ui-g-12 ui-g-nopad margin-bottom-20">
+          <table>
+            <caption>변환파일정보 HD</caption>
+            <colgroup>
+              <col style="width: 120px;">
+              <col style="width: auto;">
+            </colgroup>
+            <tbody>
+            <tr>
+              <th>파일명</th>
+              <td>교육 5차.mp4</td>
+            </tr>
+            <tr>
+              <th>파일크기</th>
+              <td>456.23MB</td>
+            </tr>
+            <tr>
+              <th>재생시간</th>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>미디어보관함</th>
+              <td>중등교육</td>
+            </tr>
+            <tr>
+              <th>경로</th>
+              <td>/path/CMS 홈 2018/교육/</td>
+            </tr>
+            <tr>
+              <th>변환시간</th>
+              <td>2018-07-29 11:12:35 ~ 2018-07-29 11:15:10</td>
+            </tr>
+            <tr>
+              <th>변환상태</th>
+              <td>완료</td>
+            </tr>
+            </tbody>
+          </table>
+        </p-panel>
+        <p-panel header="변환파일정보 FHD" [toggleable]="true" class="ui-g-12 ui-g-nopad margin-bottom-20">
+          <table>
+            <caption>변환파일정보 FHD</caption>
+            <colgroup>
+              <col style="width: 120px;">
+              <col style="width: auto;">
+            </colgroup>
+            <tbody>
+            <tr>
+              <th>파일명</th>
+              <td>교육 5차.mp4</td>
+            </tr>
+            <tr>
+              <th>파일크기</th>
+              <td>456.23MB</td>
+            </tr>
+            <tr>
+              <th>재생시간</th>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>미디어보관함</th>
+              <td>중등교육</td>
+            </tr>
+            <tr>
+              <th>경로</th>
+              <td>/path/CMS 홈 2018/교육/</td>
+            </tr>
+            <tr>
+              <th>변환시간</th>
+              <td>2018-07-29 11:12:35 ~ 2018-07-29 11:15:10</td>
+            </tr>
+            <tr>
+              <th>변환상태</th>
+              <td>완료</td>
+            </tr>
+            </tbody>
+          </table>
+        </p-panel>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+      <a routerLink="/media-storage/list"><button pButton type="reset" class="margin-right-5 ui-button-secondary" label="취소"></button></a>
+      <button pButton type="submit" class="margin-right-5" label="저장"></button>
+      <button pButton type="button" label="변환재시작"></button>
+    </div>
+  </div>
+</div>

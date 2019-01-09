@@ -20,7 +20,7 @@ import { PlayListComponent } from './demo/view/play-list/components/play-list.co
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
-    { path: 'media-storage', component: MediaStorageComponent },
+    { path: 'media-storage/:id', component: MediaStorageComponent },
     { path: 'play-list', component: PlayListComponent },
     { path: 'statistics/:id', component: StatisticsComponent },
     { path: 'statistics/:id/:subId', component: StatisticsComponent },
