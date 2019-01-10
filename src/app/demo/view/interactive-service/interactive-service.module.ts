@@ -10,6 +10,10 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { InteractiveServiceComponent } from './components/interactive-service.component';
 import { RemoteControlComponent } from './components/remote-control/remote-control.component';
 
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
+
 @NgModule({
   imports: [
     RouterModule,
@@ -17,6 +21,9 @@ import { RemoteControlComponent } from './components/remote-control/remote-contr
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbModule,
+    CalendarModule,
+    InputTextModule,
+    TableModule,
   ],
   exports: [InteractiveServiceComponent],
   declarations: [

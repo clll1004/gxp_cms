@@ -1,0 +1,10 @@
+* { outline: none; }
+.left { float: left; }
+.right { float: right; }
+.dp-inb { display: inline-block; }
+span.c_red { color: #fe875d; font-weight: bold; }
+fieldset { border: none; }
+.txt-center { text-align: center; }
+
+.filterArea { margin: 30px 0; }
+.emptyMessage { padding: 20px 0 !important; text-align: center;}
