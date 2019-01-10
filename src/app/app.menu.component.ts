@@ -39,7 +39,7 @@ export class AppMenuComponent implements OnInit {
           { label: '라이브방송', routerLink: ['/sample'] },
           { label: '이벤트플레이어', routerLink: ['/sample'] },
           { label: '실시간 광고전송', routerLink: ['/sample'] },
-          { label: '리모콘 연결관리', routerLink: ['/sample'] },
+          { label: '리모콘 연결관리', routerLink: ['/interactive-service/remote-control'] },
         ]
       },
       {

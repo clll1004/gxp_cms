@@ -106,6 +106,7 @@ import { StatisticsModule } from './demo/view/statistics/statistics.module';
 import { MediaStorageModule } from './demo/view/media-storage/media-storage.module';
 import { TransMonitoringModule } from './demo/view/trans-monitoring/trans-monitoring.module';
 import { PlayListModule } from './demo/view/play-list/play-list.module';
+import { InteractiveServiceModule } from './demo/view/interactive-service/interactive-service.module';
 
 @NgModule({
   imports: [
@@ -184,6 +185,7 @@ import { PlayListModule } from './demo/view/play-list/play-list.module';
     MediaStorageModule,
     PlayListModule,
     TransMonitoringModule,
+    InteractiveServiceModule,
   ],
   declarations: [
     AppComponent,
