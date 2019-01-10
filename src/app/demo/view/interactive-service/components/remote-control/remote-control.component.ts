@@ -28,7 +28,7 @@ export class RemoteControlComponent implements OnInit {
 
   constructor(private breadcrumbService: BreadcrumbService) {
     this.breadcrumbService.setItems([
-      { label: '양방향서비스', routerLink: ['/interactive-service/remote-control'] },
+      { label: '양방향서비스', routerLink: ['/interactive-service/live-chat/list'] },
       { label: '리모콘 연결 관리', routerLink: ['/interactive-service/remote-control'] },
     ]);
   }

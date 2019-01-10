@@ -8,11 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 import { InteractiveServiceComponent } from './components/interactive-service.component';
+import { LiveChatComponent } from './components/live-chat/live-chat.component';
+import { LiveListComponent } from './components/live-chat/components/live-list/live-list.component';
 import { RemoteControlComponent } from './components/remote-control/remote-control.component';
 
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   imports: [
@@ -23,11 +27,15 @@ import { TableModule } from 'primeng/table';
     BreadcrumbModule,
     CalendarModule,
     InputTextModule,
+    ButtonModule,
     TableModule,
+    CheckboxModule,
   ],
   exports: [InteractiveServiceComponent],
   declarations: [
     InteractiveServiceComponent,
+    LiveChatComponent,
+    LiveListComponent,
     RemoteControlComponent,
   ]})
 
