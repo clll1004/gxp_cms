@@ -1408,7 +1408,6 @@ body .ui-panel {
 body .ui-panel .ui-panel-titlebar {
   border: 1px solid #d6d7d9 !important;
   padding: 0.571em 1.143em;
-  background-color: #fe875d;
   color: #444;
   -moz-border-radius-topleft: 0;
   -webkit-border-top-left-radius: 0;

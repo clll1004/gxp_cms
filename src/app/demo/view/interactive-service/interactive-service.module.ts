@@ -10,6 +10,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { InteractiveServiceComponent } from './components/interactive-service.component';
 import { LiveChatComponent } from './components/live-chat/live-chat.component';
 import { LiveListComponent } from './components/live-chat/components/live-list/live-list.component';
+import { LiveAddComponent } from './components/live-chat/components/live-add/live-add.component';
 import { RemoteControlComponent } from './components/remote-control/remote-control.component';
 
 import { CalendarModule } from 'primeng/calendar';
@@ -17,6 +18,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   imports: [
@@ -30,12 +34,16 @@ import { CheckboxModule } from 'primeng/checkbox';
     ButtonModule,
     TableModule,
     CheckboxModule,
+    RadioButtonModule,
+    DialogModule,
+    DropdownModule,
   ],
   exports: [InteractiveServiceComponent],
   declarations: [
     InteractiveServiceComponent,
     LiveChatComponent,
     LiveListComponent,
+    LiveAddComponent,
     RemoteControlComponent,
   ]})
 

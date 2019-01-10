@@ -5,6 +5,20 @@
 span.c_red { color: #fe875d; font-weight: bold; }
 fieldset { border: none; }
 .txt-center { text-align: center; }
+.txt-right { text-align: right; }
 
 .filterArea { margin: 30px 0; }
 .emptyMessage { padding: 20px 0 !important; text-align: center;}
+
+.form-row { padding: 20px 0; border-bottom: 1px solid #eee; }
+.form-title { font-weight: bold; }
+.form-data {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.switchTitle { display: inline-block; vertical-align: top; padding-top: 4px; }
+.btn.delete-btn { background: none; border: none; }
+.btn.delete-btn:hover { color: #ff6400; }
+.close_btn { border: none; background: #fff; cursor: pointer; }
