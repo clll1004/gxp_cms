@@ -12,6 +12,9 @@ import { LiveChatComponent } from './components/live-chat/live-chat.component';
 import { LiveListComponent } from './components/live-chat/components/live-list/live-list.component';
 import { LiveAddComponent } from './components/live-chat/components/live-add/live-add.component';
 import { LiveDetailComponent } from './components/live-chat/components/live-detail/live-detail.component';
+import { LiveBroadcastComponent } from './components/live-broadcast/live-broadcast.component';
+import { BroadListComponent } from './components/live-broadcast/components/broad-list/broad-list.component';
+import { BroadAddComponent } from './components/live-broadcast/components/broad-add/broad-add.component';
 import { RemoteControlComponent } from './components/remote-control/remote-control.component';
 
 import { CalendarModule } from 'primeng/calendar';
@@ -48,6 +51,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     LiveListComponent,
     LiveAddComponent,
     LiveDetailComponent,
+    LiveBroadcastComponent,
+    BroadListComponent,
+    BroadAddComponent,
     RemoteControlComponent,
   ]})
 
