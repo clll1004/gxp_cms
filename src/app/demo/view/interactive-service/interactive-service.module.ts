@@ -11,6 +11,7 @@ import { InteractiveServiceComponent } from './components/interactive-service.co
 import { LiveChatComponent } from './components/live-chat/live-chat.component';
 import { LiveListComponent } from './components/live-chat/components/live-list/live-list.component';
 import { LiveAddComponent } from './components/live-chat/components/live-add/live-add.component';
+import { LiveDetailComponent } from './components/live-chat/components/live-detail/live-detail.component';
 import { RemoteControlComponent } from './components/remote-control/remote-control.component';
 
 import { CalendarModule } from 'primeng/calendar';
@@ -21,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   imports: [
@@ -37,6 +39,7 @@ import { DropdownModule } from 'primeng/dropdown';
     RadioButtonModule,
     DialogModule,
     DropdownModule,
+    InputTextareaModule,
   ],
   exports: [InteractiveServiceComponent],
   declarations: [
@@ -44,6 +47,7 @@ import { DropdownModule } from 'primeng/dropdown';
     LiveChatComponent,
     LiveListComponent,
     LiveAddComponent,
+    LiveDetailComponent,
     RemoteControlComponent,
   ]})
 

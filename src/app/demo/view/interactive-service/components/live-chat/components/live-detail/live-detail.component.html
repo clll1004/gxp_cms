@@ -1,0 +1,172 @@
+<div class="ui-g-12 ui-g-nopad">
+  <div class="ui-g-12 ui-lg-4">
+    <div class="card">
+      <table class="margin-bottom-20">
+        <caption>미디어보관함 정보</caption>
+        <colgroup>
+          <col style="width: 100px;">
+          <col style="width: auto;">
+        </colgroup>
+        <tbody>
+        <tr>
+          <th>채팅일자</th>
+          <td>2018-10-22 15:00 ~ 2018-10-31 21:00</td>
+        </tr>
+        <tr>
+          <th>콘텐츠</th>
+          <td><span class="c_red">중1영어 1강</span> andf.mp4</td>
+        </tr>
+        <tr>
+          <th>라이브 채팅</th>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>접속 현황</h2>
+      <span><span class="c_red">100</span>명 접속중</span>
+
+      <div class="uig-12 ui-g-nopad" style="border: 1px solid #ddd; padding: 10px;">
+        <p-table [columns]="userCols" [value]="userRowData" [paginator]="true" [rows]="20" [responsive]="true">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns">
+                <span class="ui-column-title">{{col.header}}</span>
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="columns.length" class="emptyMessage">표시할 데이터가 없습니다.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-lg-4">
+    <div class="ui-g-12 card">
+      <h2 class="ui-g-12 ui-g-nopad">채팅</h2>
+      <div class="ui-g-12 ui-g-nopad" style="height: 500px; overflow-y: scroll; padding: 20px; border: 1px solid #ddd; border-bottom: none;">
+        -
+      </div>
+      <div class="ui-g-12 ui-g-nopad txt-center" style="padding: 10px; border: 1px solid #ddd;">
+        <textarea pInputTextarea placeholder="메세지를 입력해주세요." style="width: calc(100% - 80px); height: 80px; vertical-align: top;"></textarea>
+        <button pButton type="button" label="보내기" style="height: 80px;"></button>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-lg-4">
+    <div class="card">
+      <h2 class="ui-g-12 ui-g-nopad">파일 보내기</h2>
+      <form [formGroup]="sendFileForm" (ngSubmit)="onSubmit(sendFileForm.value)">
+        <fieldset>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-4 ui-g-nopad">수신인a</p>
+            <div class="form-data ui-g-8 ui-g-nopad">
+              <p-radioButton formControlName="target" name="target" value="all" label="전체" class="margin-bottom-10" (click)="autoPeriodSetting()"></p-radioButton><br/>
+              <p-radioButton formControlName="target" name="target" value="appoint" label="직접 지정" class="margin-right-10" (click)="autoPeriodSetting()"></p-radioButton><br/>
+              <input type="text" pInputText formControlName="appointTarget" style="width: calc(100% - 80px); cursor: pointer;" (click)="searchDialog = true;" readonly>
+              <button type="button" pButton label="찾기" [disabled]="sendFileForm.get('appointTarget').disabled" (click)="searchDialog = true;"></button>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-4 ui-g-nopad">URL 전송</p>
+            <div class="form-data ui-g-8 ui-g-nopad">
+              <input type="text" pInputText formControlName="url" style="width: calc(100% - 80px);">
+              <button type="button" pButton label="전송"></button>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-4 ui-g-nopad">이미지/영상</p>
+            <div class="form-data ui-g-8 ui-g-nopad">
+              <input type="file" pInputText formControlName="file" style="width: calc(100% - 80px);">
+              <button type="button" pButton label="전송" style="height: 34px;"></button>
+            </div>
+
+            <div class="ui-g-12 ui-g-nopad margin-top-10 margin-bottom-10 txt-center" *ngIf="sendFileForm.get('file').value !== null">
+              <img src="../../../../../../../../assets/layout/images/gxp/preivew.png" alt="미리보기" style="width: 70%; height: auto;">
+            </div>
+
+            <div class="ui-g-12 ui-g-nopad" style="border: 1px solid #ddd;">
+              <ul>
+                <li>
+                  2018-10-25 15:30 url(www.gom.com) 전송완료
+                </li>
+                <li>
+                  2018-10-25 15:30 url(www.gom.com) 전송완료
+                </li>
+                <li>
+                  2018-10-25 15:30 url(www.gom.com) 전송완료
+                </li>
+              </ul>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<p-dialog [(visible)]="searchDialog" [width]="600" [modal]="true" [showHeader]="false">
+  <div class="margin-top-15 margin-bottom-20">
+    <div class="txt-right margin-top-15">
+      <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+    </div>
+    <h2 class="txt-center margin-bottom-20">
+      수신인 지정
+    </h2>
+    <div class="margin-bottom-20">
+      <input type="text" pInputText placeholder="콘텐츠 명 또는 파일명을 입력해주세요." class="ui-g-6 ui-g-nopad" style="width: calc(100% - 80px); height: 29px;">
+      <button pButton type="button" label="찾기"></button>
+    </div>
+    <div class="margin-bottom-40">
+      <span style="font-size: 13px;"><span class="c_red"> {{ userRowData.length }}</span>명 접속중 &nbsp;&nbsp;&nbsp; ※수신인을 선택해주세요.</span>
+      <div class="margin-top-10" style="padding: 15px; border: 1px solid #ddd; max-height: 200px; overflow-y: scroll;">
+        <p-table [columns]="userCols" [value]="userRowData" [(selection)]="selectedUser">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 3em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+                {{ col.header }}
+                <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td>
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+              </td>
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="columns.length + 1" class="emptyMessage">표시할 데이터가 없습니다.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="txt-center margin-top-20 margin-bottom-20">
+    <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="searchDialog=false;" label="취소"></button>
+    <button pButton type="submit" class="btn" (click)="searchDialog=false; appendTarget();" label="선택 완료"></button>
+  </div>
+</p-dialog>

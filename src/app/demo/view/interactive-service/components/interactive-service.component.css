@@ -4,6 +4,7 @@
 .dp-inb { display: inline-block; }
 span.c_red { color: #fe875d; font-weight: bold; }
 fieldset { border: none; }
+caption { display: none; }
 .txt-center { text-align: center; }
 .txt-right { text-align: right; }
 
@@ -22,3 +23,9 @@ fieldset { border: none; }
 .btn.delete-btn { background: none; border: none; }
 .btn.delete-btn:hover { color: #ff6400; }
 .close_btn { border: none; background: #fff; cursor: pointer; }
+
+
+/*detail css*/
+table caption { display: none; }
+table tr th { text-align: left; padding: 5px 10px; }
+table tr td { padding: 5px 10px; }
