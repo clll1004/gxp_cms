@@ -29,3 +29,41 @@ caption { display: none; }
 table caption { display: none; }
 table tr th { text-align: left; padding: 5px 10px; }
 table tr td { padding: 5px 10px; }
+
+/*tab css*/
+.select_tab_menu {
+  padding: 0;
+  background: #fe875d !important;
+  border: 0 none !important;
+}
+
+.select_tab_menu li {
+  position: static;
+  display: block;
+  list-style: none;
+  float: left;
+  width: 14.28%;
+  text-align: center;
+  border: none;
+  background-color: #fe875d !important;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  white-space: nowrap;
+}
+
+.select_tab_menu li a { display: block; padding: 0.571em 1.714em 0.571em 1.143em; color: #ffffff; cursor: pointer; }
+.select_tab_menu li.on { border-bottom: 4px solid #B34621; }
+.select_tab_menu li:not(.on):hover {
+  background-color: #B34621 !important;
+  border-top: 4px solid rgba(0,0,0,0) !important;
+  border-bottom: 4px solid #B34621 !important;
+}
+.change_date_btn { height: 40px; margin: 16px 0; border: none; background: none; font-size: 30px; color: #fe875d; cursor: pointer; }
+.change_date_btn:hover, .change_date_btn:active { color: #E26134; }

@@ -1,1 +1,57 @@
-list
+<div class="ui-g-nopad ui-g-12" style="margin-bottom: 26vh;">
+  <div class="ui-g-nopad ui-g-12">
+    <button class="ui-g-1 ui-g-nopad change_date_btn"><i class="fas fa-angle-left"></i></button>
+    <ul class="ui-g-10 ui-g-nopad select_tab_menu" id="selectTab">
+      <li tabindex="0" class="on" (click)="selectItem($event)"><a>2019.09.18 (월)</a></li>
+      <li tabindex="1" class="" (click)="selectItem($event)"><a>2019.09.19 (화)</a></li>
+      <li tabindex="2" class="" (click)="selectItem($event)"><a>2019.09.20 (수)</a></li>
+      <li tabindex="3" class="" (click)="selectItem($event)"><a>2019.09.21 (목)</a></li>
+      <li tabindex="4" class="" (click)="selectItem($event)"><a>2019.09.22 (금)</a></li>
+      <li tabindex="5" class="" (click)="selectItem($event)"><a>2019.09.23 (토)</a></li>
+      <li tabindex="6" class="" (click)="selectItem($event)"><a>2019.09.24 (일)</a></li>
+    </ul>
+    <button class="ui-g-1 ui-g-nopad change_date_btn"><i class="fas fa-angle-right"></i></button>
+  </div>
+  <div class="ui-g-nopad ui-g-12 filterArea">
+    <div class="left">
+      <a routerLink="/interactive-service/live-broadcast/add"><button type="button" pButton class="margin-right-10" label="라이브방송 등록"></button></a>
+    </div>
+    <div class="right">
+      <input type="text" pInputText placeholder="검색">
+    </div>
+  </div>
+  <div class="ui-g-nopad ui-g-12 margin-bottom-50">
+    <p-table #dt [columns]="broadCols" [value]="broadRowData" [resizableColumns]="true">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" [style.width]="col.width">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+            {{ col.header }}
+            <p-sortIcon *ngIf="i !== 1" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-broad>
+        <tr routerLink="/interactive-service/live-broadcast/detail" style="cursor: pointer;">
+          <td>{{ broad['time'] }}</td>
+          <td>
+            <img [src]="broad['thumbnail']" alt="썸네일" style="width: 100%; height: auto;">
+          </td>
+          <td>{{ broad['broadName'] }}</td>
+          <td>{{ broad['contentsName'] }}</td>
+          <td>{{ broad['regdate'] }}</td>
+          <td>{{ broad['updateDate'] }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length" class="emptyMessage">표시할 데이터가 없습니다.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
