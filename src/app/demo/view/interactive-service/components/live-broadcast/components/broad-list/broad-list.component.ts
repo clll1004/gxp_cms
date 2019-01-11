@@ -22,6 +22,7 @@ export class BroadListComponent implements OnInit {
     { time: '12:00 ~ 13:00', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', broadName: '2018 영어문법특강 1강', contentsName: '자격증 교육', regdate: '2019-09-09 05:30', updateDate: '2019-09-09 05:30' },
     { time: '12:00 ~ 13:00', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%95/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%950001.jpg', broadName: '2018 영어문법특강 1강', contentsName: '자격증 교육', regdate: '2019-09-09 05:30', updateDate: '2019-09-09 05:30' },
   ];
+  public tabIndex:number = 0;
 
   constructor(private breadcrumbService: BreadcrumbService) {
     this.breadcrumbService.setItems([
