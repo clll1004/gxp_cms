@@ -1,1 +1,45 @@
-list
+<div class="ui-g-nopad ui-g-12" style="margin-bottom: 45vh;">
+  <div class="ui-g-nopad ui-g-12 filterArea">
+    <div class="left">
+      <a routerLink="/interactive-service/event-player/add"><button type="button" pButton class="margin-right-10" label="이벤트 등록"></button></a>
+      <button type="button" pButton class="margin-right-10" label="선택 삭제"></button>
+    </div>
+    <div class="right">
+      <input type="text" pInputText placeholder="검색">
+    </div>
+  </div>
+  <div class="ui-g-nopad ui-g-12 margin-bottom-50">
+    <p-table #dt class="selectTable" [columns]="eventCols" [value]="eventRowData" [resizableColumns]="true" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" [style.width]="col.width">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+            {{ col.header }}
+            <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-eventRow>
+        <tr [pSelectableRow]="eventRow">
+          <td>
+            <p-tableCheckbox [value]="eventRow"></p-tableCheckbox>
+          </td>
+          <td>{{ eventRow['eventTitle'] }}</td>
+          <td>{{ eventRow['mediaStorage'] }}</td>
+          <td>{{ eventRow['targetContentName'] }}</td>
+          <td>{{ eventRow['targetFileName'] }}</td>
+          <td>{{ eventRow['status'] }}</td>
+          <td>{{ eventRow['regdate'] }}</td>
+          <td>{{ eventRow['updateDate'] }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
