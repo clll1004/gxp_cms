@@ -73,7 +73,7 @@
       <form [formGroup]="sendFileForm" (ngSubmit)="onSubmit(sendFileForm.value)">
         <fieldset>
           <div class="form-row ui-g-12 ui-g-nopad">
-            <p class="form-title ui-g-4 ui-g-nopad">수신인a</p>
+            <p class="form-title ui-g-4 ui-g-nopad">수신인</p>
             <div class="form-data ui-g-8 ui-g-nopad">
               <p-radioButton formControlName="target" name="target" value="all" label="전체" class="margin-bottom-10" (click)="autoPeriodSetting()"></p-radioButton><br/>
               <p-radioButton formControlName="target" name="target" value="appoint" label="직접 지정" class="margin-right-10" (click)="autoPeriodSetting()"></p-radioButton><br/>
