@@ -54,4 +54,8 @@ export class BroadAddComponent implements OnInit {
     value.content = this.selectedContent;
     console.log(value);
   }
+
+  closePopup() {
+    this.searchDialog = false;
+  }
 }
