@@ -7,7 +7,7 @@ import { CookieService } from '../../demo/service/cookie-service';
 
 @Injectable()
 export class DashboardService {
-  public usrSeq:number = 0;
+  public usrSeq:any = 0;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.usrSeq = this.cookieService.getCookie('usr_seq');
