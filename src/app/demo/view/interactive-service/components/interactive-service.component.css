@@ -6,6 +6,7 @@ span.c_red { color: #fe875d; font-weight: bold; }
 fieldset { border: none; }
 caption { display: none; }
 .txt-center { text-align: center; }
+.txt-left { text-align: left; }
 .txt-right { text-align: right; }
 
 .filterArea { margin: 30px 0; }
@@ -67,3 +68,14 @@ table tr td { padding: 5px 10px; }
 }
 .change_date_btn { height: 40px; margin: 16px 0; border: none; background: none; font-size: 30px; color: #fe875d; cursor: pointer; }
 .change_date_btn:hover, .change_date_btn:active { color: #E26134; }
+
+.switchTitle { display: inline-block; vertical-align: top; padding-top: 4px; }
+
+.event_list {width: 80%; margin: 0 auto; text-align: left; }
+.event_list li {padding: 20px; border: 1px solid #ccc; position: relative; list-style: none;}
+.event_list li button.close_btn {width: 25px; height: 25px; position: absolute; top: 10px; right: 10px; border: none; cursor: pointer;}
+.event_list li input[type="text"].range_input {width: 70px; height: 30px; padding-left: 0; border: 1px solid #ddd; border-left: none; border-right: none; text-align: center; float: left; box-sizing: border-box;}
+.event_list li .event_title .pick {display: inline-block; width: 13px; height: 20px; vertical-align: top;}
+.event_list li .event_title .pick.pick0 {background: #c00000;}
+.event_list li .event_title .pick.pick1 {background: #002060;}
+.event_list li .event_title .pick.pick2 {background: #00b050;}

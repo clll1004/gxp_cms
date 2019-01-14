@@ -27,7 +27,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-eventRow>
-        <tr [pSelectableRow]="eventRow">
+        <tr [pSelectableRow]="eventRow" routerLink="/interactive-service/event-player/detail" style="cursor: pointer;">
           <td>
             <p-tableCheckbox [value]="eventRow"></p-tableCheckbox>
           </td>

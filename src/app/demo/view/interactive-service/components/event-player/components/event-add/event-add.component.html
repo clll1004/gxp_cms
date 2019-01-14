@@ -1,1 +1,113 @@
-add
+<div class="ui-g-nopad ui-g-12" style="margin-bottom: 30vh;">
+  <div class="card">
+    <form [formGroup]="eventAddForm" (ngSubmit)="onSubmit(eventAddForm.value)">
+      <fieldset>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">이벤트 플레이어 명</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            <input type="text" pInputText formControlName="evenTitle" placeholder="한글, 영문, 숫자, 기호 10자 이내">
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">적용 영상선택</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            <input type="text" pInputText placeholder="콘텐츠를 선택해 주세요." style="cursor: pointer;" (click)="searchDialog = true;">
+            <button pButton type="button" label="찾기" (click)="searchDialog = true;" class="margin-right-20 margin-bottom-10"></button>
+            <span class="c_red margin-right-10"> {{ selectedContent['contentsName'] }} </span> {{ selectedContent['fileName'] }}
+
+            <div class="margin-top-10">
+              <img src="../../../../../../../../assets/layout/images/gxp/preivew.png" alt="미리보기" style="width: 70%; height: auto;">
+            </div>
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">상태</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            <span class="switchTitle margin-right-5">OFF</span> <p-inputSwitch formControlName="status"></p-inputSwitch> <span class="switchTitle margin-left-5">ON</span>
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <div class="form-data ui-g-12 ui-g-nopad txt-center" formArrayName="events">
+            <ul class="event_list">
+              <li class="first_event ui-g-12 ui-g-nopad margin-bottom-15" [formGroupName]="i" *ngFor="let event of eventsData.controls; let i = index;">
+                <button class="close_btn" type="button" (click)="removeEvent(i)"><i class="fas fa-times"></i></button>
+                <div class="ui-g-12 ui-g-nopad margin-bottom-10">
+                  <span class="ui-g-2 ui-g-nopad event_title"><span class="pick pick{{i}}"></span> 이벤트 추가</span>
+                  <div class="ui-g-10 ui-g-nopad range_sec">
+                    <input type="text" pInputText formControlName="eventTime" placeholder="HH:MM:SS">
+                  </div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad event_type_sec padding-left-20">
+                  <p-radioButton formControlName="eventType" name="eventType{{i}}" value="confirm" label="확인 이벤트" class="margin-right-30"></p-radioButton><br/>
+                  <p-radioButton formControlName="eventType" name="eventType{{i}}" value="quiz" label="퀴즈" class="margin-right-30"></p-radioButton>
+                  <input formControlName="quizSrc" type="file" title="퀴즈 이미지 등록" /><br/>
+                  <p style="padding-left: 86px; color: #999;">jpg, png 파일만 등록하실 수 있습니다.</p>
+                </div>
+              </li>
+            </ul>
+            <div>
+              <button pButton type="button" label="새로운 이벤트 추가" (click)="addEvent()" [disabled]="eventsData.length === 3"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+          <a routerLink="/interactive-service/event-player/list"><button pButton type="reset" class="btn margin-right-5 ui-button-secondary" label="취소"></button></a>
+          <button pButton type="submit" class="btn" label="적용"></button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+
+<p-dialog [(visible)]="searchDialog" [width]="600" [modal]="true" [showHeader]="false">
+  <div class="margin-top-15 margin-bottom-20">
+    <div class="txt-right margin-top-15">
+      <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+    </div>
+    <h2 class="txt-center margin-bottom-20">
+      영상 검색
+    </h2>
+    <div class="margin-bottom-20">
+      <h3 class="margin-right-20 fw-bold">미디어보관함</h3>
+      <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage" class="ui-g-3 ui-g-nopad margin-right-10"></p-dropdown>
+      <input type="text" pInputText placeholder="콘텐츠 명 또는 파일명을 입력해주세요." class="ui-g-6 ui-g-nopad" style="height: 29px;">
+      <button pButton type="button" label="찾기"></button>
+    </div>
+    <div class="margin-bottom-40">
+      <span style="font-size: 13px;">총 <span class="c_red"> {{ searchContentRowData.length }}</span>개 &nbsp;&nbsp;&nbsp; ※영상을 선택해주세요.</span>
+      <div class="margin-top-10" style="padding: 15px; border: 1px solid #ddd; max-height: 200px; overflow-y: scroll;">
+        <p-table [columns]="searchContentCols" [value]="searchContentRowData" [(selection)]="selectedContent">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 3em"></th>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td>
+                <p-tableRadioButton [value]="rowData"></p-tableRadioButton>
+              </td>
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="columns.length + 1" class="emptyMessage">표시할 데이터가 없습니다.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="txt-center margin-top-20 margin-bottom-20">
+    <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="searchDialog=false;" label="취소"></button>
+    <button pButton type="submit" class="btn" (click)="searchDialog=false;" label="선택 완료"></button>
+  </div>
+</p-dialog>

@@ -29,6 +29,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     DialogModule,
     DropdownModule,
     InputTextareaModule,
+    InputSwitchModule,
   ],
   exports: [InteractiveServiceComponent],
   declarations: [
