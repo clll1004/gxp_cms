@@ -1,27 +1,27 @@
 <div class="dashboard">
     <div class="ui-g-12">
-      <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"  dateFormat="yy.mm.dd"></p-calendar>
+      <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"  dateFormat="yy.mm.dd" (onSelect)="tranceDateType();"></p-calendar>
     </div>
     <div class="ui-g-12 ui-lg-4">
         <div class="card">
             <h1 class="centerText">GXP 사용량</h1>
-            <p-chart type="pie" [data]="pieData"></p-chart>
+            <p-chart type="pie" [data]="gxpDataSet" [options]="chartOptions"></p-chart>
         </div>
 
         <div class="card">
             <h1 class="centerText">시간별</h1>
-            <p-chart type="line" [data]="lineData"></p-chart>
+            <p-chart type="line" [data]="timeDataSet" [options]="chartOptions2"></p-chart>
         </div>
     </div>
     <div class="ui-g-12 ui-lg-4">
         <div class="card">
             <h1 class="centerText">스토리지</h1>
-            <p-chart type="pie" [data]="pieData"></p-chart>
+            <p-chart type="pie" [data]="storageDataSet" [options]="chartOptions"></p-chart>
         </div>
 
         <div class="card">
             <h1 class="centerText">콘텐츠</h1>
-            <p-chart type="bar" [data]="barData"></p-chart>
+            <p-chart type="bar" [data]="contentsDataSet" [options]="chartOptions3"></p-chart>
         </div>
     </div>
     <div class="ui-g-12 ui-lg-4">
@@ -32,7 +32,7 @@
 
         <div class="card">
             <h1 class="centerText">카테고리</h1>
-            <p-chart type="bar" [data]="barData"></p-chart>
+            <p-chart type="bar" [data]="categoryDataSet" [options]="chartOptions2"></p-chart>
         </div>
     </div>
     <div class="ui-g-12 ui-lg-6">

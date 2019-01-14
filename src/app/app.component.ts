@@ -44,7 +44,9 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ScrollPanel;
 
-  constructor(public renderer: Renderer2) {}
+  constructor(public renderer: Renderer2) {
+    document.cookie = 'usr_seq=11';
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {this.layoutMenuScrollerViewChild.moveBar(); }, 100);

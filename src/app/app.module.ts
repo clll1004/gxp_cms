@@ -101,12 +101,16 @@ import {EventService} from './demo/service/eventservice';
 import {NodeService} from './demo/service/nodeservice';
 import {BreadcrumbService} from './breadcrumb.service';
 
-/*custom*/
+/*custom module*/
 import { StatisticsModule } from './demo/view/statistics/statistics.module';
 import { MediaStorageModule } from './demo/view/media-storage/media-storage.module';
 import { TransMonitoringModule } from './demo/view/trans-monitoring/trans-monitoring.module';
 import { PlayListModule } from './demo/view/play-list/play-list.module';
 import { InteractiveServiceModule } from './demo/view/interactive-service/interactive-service.module';
+
+/*custom service*/
+import { CookieService } from './demo/service/cookie-service';
+import { DashboardService } from './demo/service/dashboard-service';
 
 @NgModule({
   imports: [
@@ -214,7 +218,8 @@ import { InteractiveServiceModule } from './demo/view/interactive-service/intera
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    CarService, CountryService, EventService, NodeService, BreadcrumbService
+    CarService, CountryService, EventService, NodeService, BreadcrumbService,
+    CookieService, DashboardService,
   ],
   bootstrap: [AppComponent]
 })
