@@ -13,4 +13,4 @@ span.c_red { color: #fe875d; font-weight: bold; }
 /*detail css*/
 table caption { display: none; }
 table tr th { text-align: left; padding: 5px 10px; }
-table tr td { padding: 5px 10px; }
+td { padding: 5px 10px; word-break: break-all; }

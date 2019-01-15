@@ -46,6 +46,7 @@ export class AppComponent implements AfterViewInit {
 
   constructor(public renderer: Renderer2) {
     document.cookie = 'usr_seq=11';
+    document.cookie = 'grp_seq=24';
   }
 
   ngAfterViewInit() {

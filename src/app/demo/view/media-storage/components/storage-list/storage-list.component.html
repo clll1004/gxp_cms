@@ -1,8 +1,8 @@
-<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 35vh;">
+<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 25vh;">
   <div class="ui-g-12 card" style="padding: 25px;">
     <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
       <div class="left">
-        <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage"></p-dropdown>
+        <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage" [style]="{'width': '200px'}"></p-dropdown>
         <button type="button" class="margin-left-10 setting_btn" (click)="settingDialog=true;"><i class="fas fa-cog"></i></button>
       </div>
       <div class="right">
@@ -22,18 +22,19 @@
         </div>
       </div>
       <div class="ui-g-nopad ui-g-12">
-        <p-table #dt class="selectTable" [columns]="mediaStorageCols" [value]="mediaStorageRowData" [resizableColumns]="true" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
+        <p-table #dt class="selectTable" [columns]="mediaStorageCols" [value]="mediaStorageRowData" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
+              <col style="width: 3em">
               <col *ngFor="let col of columns" [style.width]="col.width">
             </colgroup>
           </ng-template>
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th style="width: 3em">
+              <th>
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+              <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field">
                 {{ col.header }}
                 <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
               </th>
@@ -44,17 +45,17 @@
               <td>
                 <p-tableCheckbox [value]="mediaStorage"></p-tableCheckbox>
               </td>
-              <td>{{ mediaStorage['cid'] }}</td>
+              <td>{{ mediaStorage['fo_seq'] }}</td>
               <td>
-                <a routerLink="/media-storage/detail"><img [src]="mediaStorage['thumbnail']" alt="썸네일" style="width: 100%; height: auto;"></a>
+                <a routerLink="/media-storage/detail"><img [src]="mediaStorage['fo_thumb_path']" alt="썸네일" style="width: 100%; height: auto;"></a>
               </td>
-              <td>{{ mediaStorage['mediaStorage'] }}</td>
-              <td style="text-align: left; padding-left: 10px;">{{ mediaStorage['contentsName'] }}</td>
-              <td>{{ mediaStorage['fileName'] }}</td>
-              <td>{{ mediaStorage['fileType'] }}</td>
-              <td>{{ mediaStorage['fileSize'] }}</td>
-              <td>{{ mediaStorage['transitionStatus'] }}</td>
-              <td>{{ mediaStorage['regdate'] }}</td>
+              <td>{{ mediaStorage['gf_nm'] }}</td>
+              <td>{{ mediaStorage['title'] }}</td>
+              <td>{{ mediaStorage['fo_nm'] }}</td>
+              <td>{{ mediaStorage['filetype'] }}</td>
+              <td>{{ mediaStorage['fo_size'] }} MB</td>
+              <td>{{ mediaStorage['fo_status'] }}</td>
+              <td>{{ mediaStorage['fo_reg_dtm'] }}</td>
             </tr>
           </ng-template>
         </p-table>

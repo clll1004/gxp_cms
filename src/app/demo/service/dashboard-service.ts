@@ -7,6 +7,7 @@ import { CookieService } from '../../demo/service/cookie-service';
 
 @Injectable()
 export class DashboardService {
+  public domain:string = 'https://api.gomgxp.com/cms/dashboard';
   public usrSeq:any = 0;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
@@ -14,7 +15,7 @@ export class DashboardService {
   }
 
   getGXPUsage() {
-    return this.http.get<any>(`https://api.gomgxp.com/cms/dashboard/used?usr_seq=${this.usrSeq}`)
+    return this.http.get<any>(`${this.domain}/used?usr_seq=${this.usrSeq}`)
       .toPromise()
       .then((cont) => {
         return cont;
@@ -22,7 +23,7 @@ export class DashboardService {
   }
 
   getStorageUsage() {
-    return this.http.get<any>(`https://api.gomgxp.com/cms/dashboard/storage?usr_seq=${this.usrSeq}`)
+    return this.http.get<any>(`${this.domain}/storage?usr_seq=${this.usrSeq}`)
       .toPromise()
       .then((cont) => {
         return cont;
@@ -30,7 +31,7 @@ export class DashboardService {
   }
 
   getTimePlayCount(range:any[]) {
-    return this.http.get<any>(`https://api.gomgxp.com/cms/dashboard/playcnttime?usr_seq=${this.usrSeq}&sdate=${range[0]}&edate=${range[1]}`)
+    return this.http.get<any>(`${this.domain}/playcnttime?usr_seq=${this.usrSeq}&sdate=${range[0]}&edate=${range[1]}`)
       .toPromise()
       .then((cont) => {
         return cont;
@@ -38,7 +39,7 @@ export class DashboardService {
   }
 
   getContentsPlayCount(range:any[]) {
-    return this.http.get<any>(`https://api.gomgxp.com/cms/dashboard/playcntcontent?usr_seq=${this.usrSeq}&sdate=${range[0]}&edate=${range[1]}`)
+    return this.http.get<any>(`${this.domain}/playcntcontent?usr_seq=${this.usrSeq}&sdate=${range[0]}&edate=${range[1]}`)
       .toPromise()
       .then((cont) => {
         return cont;
@@ -46,7 +47,7 @@ export class DashboardService {
   }
 
   getCategoryPlayCount(range:any[]) {
-    return this.http.get<any>(`https://api.gomgxp.com/cms/dashboard/playcntcategory?usr_seq=${this.usrSeq}&sdate=${range[0]}&edate=${range[1]}`)
+    return this.http.get<any>(`${this.domain}/playcntcategory?usr_seq=${this.usrSeq}&sdate=${range[0]}&edate=${range[1]}`)
       .toPromise()
       .then((cont) => {
         return cont;

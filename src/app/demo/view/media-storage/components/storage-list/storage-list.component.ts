@@ -3,6 +3,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../../../../breadcrumb.service';
+import { MediaStorageService } from '../../../../../demo/service/mediaStorageService';
 
 @Component({
   selector: 'storage-list',
@@ -10,24 +11,29 @@ import { BreadcrumbService } from '../../../../../breadcrumb.service';
   templateUrl: './storage-list.component.html'})
 
 export class StorageListComponent implements OnInit {
-  public storageList:any = [{ label: '전체', value: 'all' }, { label: '광고전송', value: 'transmitAd' }, { label: '스킨변경', value: 'changeSkin' }];
-  public selectedStorage: any = 'all';
+  public storageList:any = [];
+  public selectedStorage:any = 'all';
 
   public mediaStorageCols:any[] = [
-    { header: 'CID', field: 'cid' },
-    { header: '썸네일', field: 'thumbnail' },
-    { header: '미디어보관함', field: 'mediaStorage' },
-    { header: '영상 제목', field: 'contentsName' },
-    { header: '파일명', field: 'fileName' },
-    { header: '파일형태', field: 'fileType' },
-    { header: '크기', field: 'fileSize' },
-    { header: '변환상태', field: 'transitionStatus' },
-    { header: '등록일시', field: 'regdate' },
+    { header: 'CID', field: 'fo_seq', width: '5%' },
+    { header: '썸네일', field: 'fo_thumb_path', width: '10%' },
+    { header: '미디어보관함', field: 'gf_nm', width: '10%' },
+    { header: '영상 제목', field: 'title', width: '10%' },
+    { header: '파일명', field: 'fo_nm', width: '15%' },
+    { header: '파일형태', field: 'filetype', width: '5%' },
+    { header: '크기', field: 'fo_size', width: '5%' },
+    { header: '변환상태', field: 'fo_status', width: '5%' },
+    { header: '등록일시', field: 'fo_reg_dtm', width: '15%' },
   ];
-  public mediaStorageRowData:any[] = [
-    { cid: '1231', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', mediaStorage: 'GXP', contentsName: '자격증 교육', fileName: 'adf.mp4', fileType: 'mp4', fileSize: '241MB', transitionStatus: '완료', regdate: '2019-09-09' },
-    { cid: '4567', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%95/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%950001.jpg', mediaStorage: 'GXP', contentsName: '자격증 교육', fileName: 'adf.mp4', fileType: 'mp4', fileSize: '241MB', transitionStatus: '완료', regdate: '2019-09-09' },
-  ];
+  public mediaStorageRowData:any[] = [];
+  public transCodingStatusValue: object = {
+    U: '업로드 완료',
+    TR: '변환 요청',
+    OF: '원본전송실패',
+    TT: '변환중',
+    TF: '변환실패',
+    SF: '배포실패',
+    SS: '완료' };
   public tempCompareItems:any[] = [];
 
   public mediaSettingCols:any[] = [
@@ -49,13 +55,48 @@ export class StorageListComponent implements OnInit {
 
   public selectedMoveStorage:any = 'transmitAd';
 
-  constructor(private breadcrumbService: BreadcrumbService) {
+  constructor(private breadcrumbService: BreadcrumbService, private mediaStorageService: MediaStorageService) {
     this.breadcrumbService.setItems([
       { label: '미디어보관함', routerLink: ['/media-storage'] },
     ]);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.load();
+  }
+
+  load() {
+    this.loadMediaStorageListTitle();
+    this.loadMediaStorageList();
+  }
+
+  loadMediaStorageListTitle() {
+    this.mediaStorageService.getStorageListTitle()
+      .then((cont) => {
+        this.storageList = cont['list'].map((item) => {
+          const temp:object = {};
+          temp['label'] = item.title;
+          temp['value'] = item.title;
+          return temp;
+        });
+        this.storageList.unshift({
+          label: '전체',
+          value: 'all',
+        });
+        this.selectedStorage = 'all';
+      });
+  }
+
+  loadMediaStorageList() {
+    this.mediaStorageService.getStorageList()
+      .then((cont) => {
+        this.mediaStorageRowData = cont['list'];
+        this.mediaStorageRowData.reverse();
+        this.mediaStorageRowData.forEach((item) => {
+          this.transCodingStatusValue.hasOwnProperty(item.fo_status) ? item.fo_status = this.transCodingStatusValue[item.fo_status] : item.fo_status = 'null';
+        });
+      });
+  }
 
   closePopup() {
     this.settingDialog = false;
