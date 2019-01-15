@@ -112,6 +112,7 @@ import { InteractiveServiceModule } from './demo/view/interactive-service/intera
 import { CookieService } from './demo/service/cookie-service';
 import { DashboardService } from './demo/service/dashboard-service';
 import { MediaStorageService } from './demo/service/mediaStorageService';
+import { PlayListService } from './demo/service/playListService';
 
 @NgModule({
   imports: [
@@ -220,7 +221,7 @@ import { MediaStorageService } from './demo/service/mediaStorageService';
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     CarService, CountryService, EventService, NodeService, BreadcrumbService,
-    CookieService, DashboardService, MediaStorageService
+    CookieService, DashboardService, MediaStorageService, PlayListService,
   ],
   bootstrap: [AppComponent]
 })

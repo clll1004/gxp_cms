@@ -4,6 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BreadcrumbService } from '../../../../breadcrumb.service';
+import { PlayListService } from '../../../../demo/service/playListService';
 
 @Component({
   selector: 'play-list',
@@ -13,24 +14,29 @@ import { BreadcrumbService } from '../../../../breadcrumb.service';
 export class PlayListComponent implements OnInit {
   public params:Params;
 
-  public playListList:any = [{ label: '전체', value: 'all' }, { label: '광고전송', value: 'transmitAd' }, { label: '스킨변경', value: 'changeSkin' }];
+  public playListList:any = [];
   public selectedPlayList: any = 'all';
 
   public playListCols:any[] = [
-    { header: 'CID', field: 'cid' },
-    { header: '썸네일', field: 'thumbnail' },
-    { header: '미디어보관함', field: 'mediaStorage' },
-    { header: '영상 제목', field: 'contentsName' },
-    { header: '파일명', field: 'fileName' },
-    { header: '파일형태', field: 'fileType' },
-    { header: '크기', field: 'fileSize' },
-    { header: '등록일시', field: 'regdate' },
-    { header: '상태', field: 'status' },
+    { header: 'CID', field: 'ft_seq', width: '5%' },
+    { header: '썸네일', field: 'ft_thumb_path', width: '10%' },
+    { header: '미디어보관함', field: 'pl_nm', width: '10%' },
+    { header: '영상 제목', field: 'title', width: '10%' },
+    { header: '파일명', field: 'ft_nm', width: '15%' },
+    { header: '파일형태', field: 'filetype', width: '7%' },
+    { header: '크기', field: 'ft_size', width: '5%' },
+    { header: '등록일시', field: 'ft_reg_dtm', width: '15%' },
+    { header: '상태', field: 'ft_status', width: '5%' },
   ];
-  public playListRowData:any[] = [
-    { cid: '4567', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%95/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%950001.jpg', mediaStorage: 'GXP', contentsName: '자격증 교육', fileName: 'adf.mp4', fileType: 'mp4', fileSize: '241MB', regdate: '2019-09-09', status: '완료' },
-    { cid: '1231', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', mediaStorage: 'GXP', contentsName: '자격증 교육', fileName: 'adf.mp4', fileType: 'mp4', fileSize: '241MB', regdate: '2019-09-09', status: '완료' },
-  ];
+  public playListRowData:any[] = [];
+  public transCodingStatusValue: object = {
+    U: '업로드 완료',
+    TR: '변환 요청',
+    OF: '원본전송실패',
+    TT: '변환중',
+    TF: '변환실패',
+    SF: '배포실패',
+    SS: '완료' };
   public tempCompareItems:any[] = [];
 
   public playListSettingCols:any[] = [
@@ -53,7 +59,7 @@ export class PlayListComponent implements OnInit {
 
   public selectedMovePlayList:any = 'transmitAd';
 
-  constructor(private activatedRoute: ActivatedRoute, private breadcrumbService: BreadcrumbService) {
+  constructor(private activatedRoute: ActivatedRoute, private breadcrumbService: BreadcrumbService, private playListService: PlayListService) {
     this.breadcrumbService.setItems([
       { label: '재생목록', routerLink: ['/playList'] },
     ]);
@@ -63,6 +69,41 @@ export class PlayListComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
     });
+
+    this.load();
+  }
+
+  load() {
+    this.loadPlayListTitle();
+    this.loadPlayList();
+  }
+
+  loadPlayListTitle() {
+    this.playListService.getPlayListTitle()
+      .then((cont) => {
+        this.playListList = cont['list'].map((item) => {
+          const temp:object = {};
+          temp['label'] = item.title;
+          temp['value'] = item.title;
+          return temp;
+        });
+        this.playListList.unshift({
+          label: '전체',
+          value: 'all',
+        });
+        this.selectedPlayList = 'all';
+      });
+  }
+
+  loadPlayList() {
+    this.playListService.getPlayList()
+      .then((cont) => {
+        this.playListRowData = cont['list'];
+        this.playListRowData.reverse();
+        this.playListRowData.forEach((item) => {
+          this.transCodingStatusValue.hasOwnProperty(item.fo_status) ? item.fo_status = this.transCodingStatusValue[item.fo_status] : item.fo_status = 'null';
+        });
+      });
   }
 
   closePopup() {

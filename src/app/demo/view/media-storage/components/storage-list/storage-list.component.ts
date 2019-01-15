@@ -20,9 +20,9 @@ export class StorageListComponent implements OnInit {
     { header: '미디어보관함', field: 'gf_nm', width: '10%' },
     { header: '영상 제목', field: 'title', width: '10%' },
     { header: '파일명', field: 'fo_nm', width: '15%' },
-    { header: '파일형태', field: 'filetype', width: '5%' },
+    { header: '파일형태', field: 'filetype', width: '7%' },
     { header: '크기', field: 'fo_size', width: '5%' },
-    { header: '변환상태', field: 'fo_status', width: '5%' },
+    { header: '변환상태', field: 'fo_status', width: '7%' },
     { header: '등록일시', field: 'fo_reg_dtm', width: '15%' },
   ];
   public mediaStorageRowData:any[] = [];
