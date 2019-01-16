@@ -28,6 +28,8 @@ export class DashboardDemoComponent implements OnInit {
   public contentsDataSet:object;
   /*카테고리*/
   public categoryDataSet:object;
+  /*트래픽*/
+  public trafficDataSet:object;
 
   constructor(private breadcrumbService: BreadcrumbService, private dashboardService: DashboardService) {
     this.breadcrumbService.setItems([
@@ -45,6 +47,7 @@ export class DashboardDemoComponent implements OnInit {
     this.loadTimePlayCount();
     this.loadContentsPlayCount();
     this.loadCategoryPlayCount();
+    this.loadTraffic();
 
     this.chartOptions = {
       legend: {
@@ -217,6 +220,25 @@ export class DashboardDemoComponent implements OnInit {
             {
               label: '재생 수',
               data: list['data'],
+              backgroundColor: 'rgba(248,121,16,.6)',
+            }],
+        };
+      });
+  }
+
+  loadTraffic() {
+    this.dashboardService.getTraffic(this.transeDate)
+      .then((list) => {
+        const tempLabel:any[] = list['label'].map((item) => {
+          const tempDate = new Date(item);
+          return `${tempDate.getMonth() + 1}/${tempDate.getDate()}`;
+        });
+        this.trafficDataSet = {
+          labels: tempLabel.reverse(),
+          datasets: [
+            {
+              label: '트래픽',
+              data: list['data'].reverse(),
               backgroundColor: 'rgba(248,121,16,.6)',
             }],
         };

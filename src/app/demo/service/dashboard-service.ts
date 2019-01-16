@@ -53,4 +53,12 @@ export class DashboardService {
         return cont;
       });
   }
+
+  getTraffic(range:any[]) {
+    return this.http.get<any>(`${this.domain}/traffic?usr_seq=${this.usrSeq}&sdate=${range[0]}&edate=${range[1]}`)
+      .toPromise()
+      .then((cont) => {
+        return cont;
+      });
+  }
 }
