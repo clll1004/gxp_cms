@@ -3,7 +3,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../../../../breadcrumb.service';
-import { MediaStorageService } from '../../../../../demo/service/mediaStorageService';
+import { MediaStorageService } from '../../../../service/mediaStorage.service';
 
 @Component({
   selector: 'storage-list',

@@ -3,7 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CookieService } from '../../demo/service/cookie-service';
+import { CookieService } from './cookie.service';
 
 @Injectable()
 export class PlayListService {

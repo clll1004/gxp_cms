@@ -1,9 +1,9 @@
 /**
- * Created by GRE511 on 2019-01-14.
+ * Created by GRE511 on 2019-01-16.
  */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CookieService } from '../../demo/service/cookie-service';
+import { CookieService } from './cookie.service';
 
 @Injectable()
 export class MediaStorageService {

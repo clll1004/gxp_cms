@@ -4,7 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BreadcrumbService } from '../../../../breadcrumb.service';
-import { PlayListService } from '../../../../demo/service/playListService';
+import { PlayListService } from '../../../service/playList.service';
 
 @Component({
   selector: 'play-list',

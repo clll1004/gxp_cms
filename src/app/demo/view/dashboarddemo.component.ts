@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../breadcrumb.service';
-import { DashboardService } from '../../demo/service/dashboard-service';
+import { DashboardService } from '../service/dashboard.service';
 
 @Component({
   templateUrl: './dashboard.component.html',

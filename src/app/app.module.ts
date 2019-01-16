@@ -109,10 +109,10 @@ import { PlayListModule } from './demo/view/play-list/play-list.module';
 import { InteractiveServiceModule } from './demo/view/interactive-service/interactive-service.module';
 
 /*custom service*/
-import { CookieService } from './demo/service/cookie-service';
-import { DashboardService } from './demo/service/dashboard-service';
-import { MediaStorageService } from './demo/service/mediaStorageService';
-import { PlayListService } from './demo/service/playListService';
+import { CookieService } from './demo/service/cookie.service';
+import { DashboardService } from './demo/service/dashboard.service';
+import { MediaStorageService } from './demo/service/mediaStorage.service';
+import { PlayListService } from './demo/service/playList.service';
 
 @NgModule({
   imports: [
