@@ -22,8 +22,14 @@ export class PlayListService {
       });
   }
 
-  getPlayList() {
-    return this.http.get<any>(`${this.domain}/list?usr_seq=${this.usrSeq}`)
+  getPlayList(seq:any) {
+    let apis:string = '';
+    if (seq === 'all') {
+      apis = `${this.domain}/list?usr_seq=${this.usrSeq}`;
+    } else {
+      apis = `${this.domain}/list?usr_seq=${this.usrSeq}&pl_seq=${seq}`;
+    }
+    return this.http.get<any>(apis)
       .toPromise()
       .then((cont) => {
         return cont;

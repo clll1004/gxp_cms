@@ -2,7 +2,7 @@
   <div class="ui-g-12 card" style="padding: 25px;">
     <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
       <div class="left">
-        <p-dropdown [options]="playListList" [(ngModel)]="selectedPlayList" [style]="{'width': '200px'}"></p-dropdown>
+        <p-dropdown [options]="playListList" [(ngModel)]="selectedPlayList" [style]="{'width': '200px'}" (onChange)="loadPlayList(selectedPlayList);"></p-dropdown>
         <button type="button" class="margin-left-10 setting_btn" (click)="settingDialog=true;"><i class="fas fa-cog"></i></button>
       </div>
     </div>

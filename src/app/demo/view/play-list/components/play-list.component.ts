@@ -84,7 +84,7 @@ export class PlayListComponent implements OnInit {
         this.playListList = cont['list'].map((item) => {
           const temp:object = {};
           temp['label'] = item.title;
-          temp['value'] = item.title;
+          temp['value'] = item.pl_seq;
           return temp;
         });
         this.playListList.unshift({
@@ -95,8 +95,8 @@ export class PlayListComponent implements OnInit {
       });
   }
 
-  loadPlayList() {
-    this.playListService.getPlayList()
+  loadPlayList(seq:any = 'all') {
+    this.playListService.getPlayList(seq)
       .then((cont) => {
         this.playListRowData = cont['list'];
         this.playListRowData.reverse();
