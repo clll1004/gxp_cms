@@ -1,0 +1,5 @@
+<p-tabMenu [model]="tabMenuItems"></p-tabMenu>
+<manager *ngIf="params['subId'] === 'manager'"></manager>
+<transmit *ngIf="params['subId'] === 'transmit'"></transmit>
+<transmit-history *ngIf="params['subId'] === 'transmit-history'"></transmit-history>
+<skin-manager *ngIf="params['subId'] === 'skin-manager'"></skin-manager>

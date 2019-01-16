@@ -38,7 +38,7 @@ export class AppMenuComponent implements OnInit {
           { label: '라이브채팅', routerLink: ['/interactive-service/live-chat/list'] },
           { label: '라이브방송', routerLink: ['/interactive-service/live-broadcast/list'] },
           { label: '이벤트플레이어', routerLink: ['/interactive-service/event-player/list'] },
-          { label: '실시간 광고전송', routerLink: ['/sample'] },
+          { label: '실시간 광고전송', routerLink: ['/interactive-service/ad-manage/manager'] },
           { label: '리모콘 연결관리', routerLink: ['/interactive-service/remote-control'] },
         ]
       },

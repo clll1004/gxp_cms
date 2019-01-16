@@ -18,8 +18,14 @@ import { BroadAddComponent } from './components/live-broadcast/components/broad-
 import { EventPlayerComponent } from './components/event-player/event-player.component';
 import { EventListComponent } from './components/event-player/components/event-list/event-list.component';
 import { EventAddComponent } from './components/event-player/components/event-add/event-add.component';
+import { AdManageComponent } from './components/ad-manage/ad-manage.component';
+import { ManagerComponent } from './components/ad-manage/components/manager/manager.component';
+import { TransmitComponent } from './components/ad-manage/components/transmit/transmit.component';
+import { TransmitHistoryComponent } from './components/ad-manage/components/transmit-history/transmit-history.component';
+import { SkinManagerComponent } from './components/ad-manage/components/skin-manager/skin-manager.component';
 import { RemoteControlComponent } from './components/remote-control/remote-control.component';
 
+import { TabMenuModule } from 'primeng/tabmenu';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -38,6 +44,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbModule,
+    TabMenuModule,
     CalendarModule,
     InputTextModule,
     ButtonModule,
@@ -62,6 +69,11 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     EventPlayerComponent,
     EventListComponent,
     EventAddComponent,
+    AdManageComponent,
+    ManagerComponent,
+    TransmitComponent,
+    TransmitHistoryComponent,
+    SkinManagerComponent,
     RemoteControlComponent,
   ]})
 
