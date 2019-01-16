@@ -40,6 +40,7 @@ export class StorageListComponent implements OnInit {
     { index: 1, mediaStorage: '중학교 1학년 국어', contentsCount: '10', fileSize: '150', regdate: '2018.10.16', updateDate: '2018.10.16' },
   ];
   public selectSettingItems:any[] = [];
+  public rowIndex:number = 2;
 
   public settingDialog:boolean = false;
   public moveDialog:boolean = false;
@@ -95,6 +96,13 @@ export class StorageListComponent implements OnInit {
 
   moveStorage() {
     this.tempCompareItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
+  }
+
+  addMediaStorage() {
+    const today = new Date();
+    const convertDate = `${today.getFullYear()}.${today.getMonth() + 1}.${today.getDate()}`;
+    this.mediaSettingRowData.unshift({ index: this.rowIndex, mediaStorage: '', contentsCount: '-', fileSize: '-', regdate: convertDate, updateDate: convertDate });
+    this.rowIndex += 1;
   }
 }
 
