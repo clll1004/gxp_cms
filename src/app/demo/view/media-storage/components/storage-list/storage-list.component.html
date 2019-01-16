@@ -2,7 +2,7 @@
   <div class="ui-g-12 card" style="padding: 25px;">
     <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
       <div class="left">
-        <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage" [style]="{'width': '200px'}"></p-dropdown>
+        <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage" [style]="{'width': '200px'}" (onChange)="loadMediaStorageList(selectedStorage);"></p-dropdown>
         <button type="button" class="margin-left-10 setting_btn" (click)="settingDialog=true;"><i class="fas fa-cog"></i></button>
       </div>
       <div class="right">
@@ -15,7 +15,7 @@
         <div class="left">
           <button pButton type="button" label="선택 이동" class="margin-right-10" (click)="moveStorage();"></button>
           <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
-          총 <span class="c_red">{{ mediaStorageRowData.length }}</span>개
+          총 <span class="c_red">{{ mediaStorageRowData.length }}</span>개z
         </div>
         <div class="right">
           <input type="text" pInputText placeholder="검색">
@@ -54,8 +54,13 @@
               <td>{{ mediaStorage['fo_nm'] }}</td>
               <td>{{ mediaStorage['filetype'] }}</td>
               <td>{{ mediaStorage['fo_size'] }} MB</td>
-              <td>{{ mediaStorage['fo_status'] }}</td>
+              <td>{{ mediaStorage['status'] }}</td>
               <td>{{ mediaStorage['fo_reg_dtm'] }}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="columns.length + 1" class="emptyMessage">표시할 데이터가 없습니다.</td>
             </tr>
           </ng-template>
         </p-table>

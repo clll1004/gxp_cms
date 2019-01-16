@@ -22,8 +22,14 @@ export class MediaStorageService {
       });
   }
 
-  getStorageList() {
-    return this.http.get<any>(`${this.domain}/list?usr_seq=${this.usrSeq}`)
+  getStorageList(seq:any) {
+    let apis:string = '';
+    if (seq === 'all') {
+      apis = `${this.domain}/list?usr_seq=${this.usrSeq}`;
+    } else {
+      apis = `${this.domain}/list?usr_seq=${this.usrSeq}&gf_seq=${seq}`;
+    }
+    return this.http.get<any>(apis)
       .toPromise()
       .then((cont) => {
         return cont;

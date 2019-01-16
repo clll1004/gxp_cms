@@ -22,18 +22,10 @@ export class StorageListComponent implements OnInit {
     { header: '파일명', field: 'fo_nm', width: '15%' },
     { header: '파일형태', field: 'filetype', width: '7%' },
     { header: '크기', field: 'fo_size', width: '5%' },
-    { header: '변환상태', field: 'fo_status', width: '7%' },
+    { header: '변환상태', field: 'status', width: '7%' },
     { header: '등록일시', field: 'fo_reg_dtm', width: '15%' },
   ];
   public mediaStorageRowData:any[] = [];
-  public transCodingStatusValue: object = {
-    U: '업로드 완료',
-    TR: '변환 요청',
-    OF: '원본전송실패',
-    TT: '변환중',
-    TF: '변환실패',
-    SF: '배포실패',
-    SS: '완료' };
   public tempCompareItems:any[] = [];
 
   public mediaSettingCols:any[] = [
@@ -76,7 +68,7 @@ export class StorageListComponent implements OnInit {
         this.storageList = cont['list'].map((item) => {
           const temp:object = {};
           temp['label'] = item.title;
-          temp['value'] = item.title;
+          temp['value'] = item.gf_seq;
           return temp;
         });
         this.storageList.unshift({
@@ -87,14 +79,11 @@ export class StorageListComponent implements OnInit {
       });
   }
 
-  loadMediaStorageList() {
-    this.mediaStorageService.getStorageList()
+  loadMediaStorageList(seq:any = 'all') {
+    this.mediaStorageService.getStorageList(seq)
       .then((cont) => {
         this.mediaStorageRowData = cont['list'];
         this.mediaStorageRowData.reverse();
-        this.mediaStorageRowData.forEach((item) => {
-          this.transCodingStatusValue.hasOwnProperty(item.fo_status) ? item.fo_status = this.transCodingStatusValue[item.fo_status] : item.fo_status = 'null';
-        });
       });
   }
 
