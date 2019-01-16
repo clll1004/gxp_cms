@@ -113,6 +113,7 @@ import { CookieService } from './demo/service/cookie.service';
 import { DashboardService } from './demo/service/dashboard.service';
 import { MediaStorageService } from './demo/service/mediaStorage.service';
 import { PlayListService } from './demo/service/playList.service';
+import { MediaTransformService } from './demo/service/mediaTransform.service';
 
 @NgModule({
   imports: [
@@ -221,7 +222,7 @@ import { PlayListService } from './demo/service/playList.service';
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     CarService, CountryService, EventService, NodeService, BreadcrumbService,
-    CookieService, DashboardService, MediaStorageService, PlayListService,
+    CookieService, DashboardService, MediaStorageService, PlayListService, MediaTransformService,
   ],
   bootstrap: [AppComponent]
 })

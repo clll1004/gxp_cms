@@ -3,6 +3,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../../../breadcrumb.service';
+import { MediaTransformService } from '../../../../demo/service/mediaTransform.service';
 
 @Component({
   selector: 'trans-monitoring',
@@ -12,30 +13,42 @@ import { BreadcrumbService } from '../../../../breadcrumb.service';
 export class TransMonitoringComponent implements OnInit {
   public tabIndex:number = 0;
   public transMonitoringCols:any[] = [
-    { header: '미디어보관함', field: 'mediaStorage' },
-    { header: '파일명', field: 'fileName' },
-    { header: '파일경로', field: 'filePath' },
-    { header: '변환상태', field: 'transitionStatus' },
-    { header: '진행률', field: 'progress' },
-    { header: '원본 파일 크기', field: 'fileOriSize' },
-    { header: '변환 파일 크기', field: 'fileSize' },
-    { header: '변환시작일', field: 'startDate' },
-    { header: '최종 작업시간', field: 'totalTransTime' },
+    { header: '미디어보관함', field: 'gf_nm', width: '10%' },
+    { header: '파일명', field: 'fo_nm', width: '15%' },
+    { header: '파일경로', field: 'fo_path', width: '15%' },
+    { header: '변환상태', field: 'status', width: '6%' },
+    { header: '진행률', field: 'ft_progress', width: '5%' },
+    { header: '원본 파일 크기', field: 'fo_size', width: '10%' },
+    { header: '변환 파일 크기', field: 'ft_size', width: '10%' },
+    { header: '변환시작일', field: 'ft_start_dtm', width: '10%' },
+    { header: '최종 작업시간', field: 'ft_end_dtm', width: '10%' },
   ];
-  public transMonitoringRowData:any[] = [
-    { mediaStorage: '초등교육', fileName: 'adf.mp4', filePath: '/path/2018', transitionStatus: '완료', progress: '55', fileOriSize: '150', fileSize: '30', startDate: '2018-05-30 05:30:22', totalTransTime: '2018-05-30 05:30:20' },
-    { mediaStorage: '중등교육', fileName: 'adf.mp4', filePath: '/path/2018', transitionStatus: '완료', progress: '55', fileOriSize: '150', fileSize: '30', startDate: '2018-05-30 05:30:22', totalTransTime: '2018-05-30 05:30:20' },
-    { mediaStorage: '고등교육', fileName: 'adf.mp4', filePath: '/path/2018', transitionStatus: '완료', progress: '55', fileOriSize: '150', fileSize: '30', startDate: '2018-05-30 05:30:22', totalTransTime: '2018-05-30 05:30:20' },
-  ];
+  public transMonitoringRowData:any[] = [];
   public tempCompareItems:any[] = [];
+  public transCodingStatusValue:any[] = ['전체', '대기', '진행', '완료', '실패'];
 
-  constructor(private breadcrumbService: BreadcrumbService) {
+  constructor(private breadcrumbService: BreadcrumbService, private mediaTransformService: MediaTransformService) {
     this.breadcrumbService.setItems([
       { label: '변환 모니터링', routerLink: ['/trans-monitoring'] },
     ]);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.load();
+  }
+
+  load() {
+    this.loadTransList();
+  }
+
+  loadTransList() {
+    const status = this.transCodingStatusValue[this.tabIndex];
+    this.mediaTransformService.getTransList(status)
+      .then((cont) => {
+        this.transMonitoringRowData = cont['list'];
+        this.transMonitoringRowData.reverse();
+      });
+  }
 
   selectItem(e) {
     const target = e.currentTarget;
@@ -47,6 +60,7 @@ export class TransMonitoringComponent implements OnInit {
       target.setAttribute('class', 'on');
     }
     this.tabIndex = target.tabIndex;
+    this.loadTransList();
   }
 }
 
