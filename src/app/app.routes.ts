@@ -29,6 +29,7 @@ export const routes: Routes = [
     { path: 'statistics/:id/:subId', component: StatisticsComponent },
     { path: 'interactive-service/:id', component: InteractiveServiceComponent },
     { path: 'interactive-service/:id/:subId', component: InteractiveServiceComponent },
+    { path: 'interactive-service/:id/:subId/:detail', component: InteractiveServiceComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },

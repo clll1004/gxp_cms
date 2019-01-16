@@ -20,6 +20,8 @@ import { EventListComponent } from './components/event-player/components/event-l
 import { EventAddComponent } from './components/event-player/components/event-add/event-add.component';
 import { AdManageComponent } from './components/ad-manage/ad-manage.component';
 import { ManagerComponent } from './components/ad-manage/components/manager/manager.component';
+import { ManagerListComponent } from './components/ad-manage/components/manager/components/manager-list/manager-list.component';
+import { ManagerDetailComponent } from './components/ad-manage/components/manager/components/manager-detail/manager-detail.component';
 import { TransmitComponent } from './components/ad-manage/components/transmit/transmit.component';
 import { TransmitHistoryComponent } from './components/ad-manage/components/transmit-history/transmit-history.component';
 import { SkinManagerComponent } from './components/ad-manage/components/skin-manager/skin-manager.component';
@@ -71,6 +73,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     EventAddComponent,
     AdManageComponent,
     ManagerComponent,
+    ManagerListComponent,
+    ManagerDetailComponent,
     TransmitComponent,
     TransmitHistoryComponent,
     SkinManagerComponent,
