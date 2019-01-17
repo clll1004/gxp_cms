@@ -1,1 +1,43 @@
-detail
+<div class="ui-g-nopad ui-g-12 margin-top-30" style="margin-bottom: 30vh;">
+  <div class="card">
+    <form [formGroup]="adAddForm" (ngSubmit)="onSubmit(adAddForm.value)">
+      <fieldset>
+        <div class="ui-g-7 ui-g-nopad">
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">광고명</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <input type="text" formControlName="adName" [(ngModel)]="adNameLength" pInputText placeholder="광고명을 입력해주세요."> &nbsp;&nbsp;
+              <span [class]="adNameLength.length > 15 ? 'c_red' : ''">({{ adNameLength.length }} / 15)</span>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">이미지 등록</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <input type="file" pInputText formControlName="thumbnail">
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">등록일시</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              {{ adAddForm.get('regDate').value }}
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">최종수정일시</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              {{ adAddForm.get('updateAt').value }}
+            </div>
+          </div>
+        </div>
+        <div class="ui-g-5 ui-g-nopad">
+          <img src="http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg" alt="미리보기" style="width: 100%; height: auto;">
+        </div>
+
+        <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+          <a routerLink="/interactive-service/ad-manage/manager/manager-list"><button pButton type="reset" class="btn margin-right-5 ui-button-secondary" label="취소"></button></a>
+          <button pButton type="submit" class="btn" label="저장" [disabled]="!adAddForm.valid"></button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
