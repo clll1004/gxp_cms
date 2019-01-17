@@ -2,13 +2,20 @@
  * Created by GRE511 on 2019-01-16.
  */
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'transmit',
   templateUrl: './transmit.component.html'})
 
 export class TransmitComponent implements OnInit {
-  constructor() {}
+  public params:Params;
 
-  ngOnInit() {}
+  constructor(private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.params = params;
+    });
+  }
 }

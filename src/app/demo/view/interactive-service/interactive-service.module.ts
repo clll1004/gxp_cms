@@ -23,6 +23,8 @@ import { ManagerComponent } from './components/ad-manage/components/manager/mana
 import { ManagerListComponent } from './components/ad-manage/components/manager/components/manager-list/manager-list.component';
 import { ManagerDetailComponent } from './components/ad-manage/components/manager/components/manager-detail/manager-detail.component';
 import { TransmitComponent } from './components/ad-manage/components/transmit/transmit.component';
+import { TransmitListComponent } from './components/ad-manage/components/transmit/components/transmit-list/transmit-list.component';
+import { TransmitDetailComponent } from './components/ad-manage/components/transmit/components/transmit-detail/transmit-detail.component';
 import { TransmitHistoryComponent } from './components/ad-manage/components/transmit-history/transmit-history.component';
 import { SkinManagerComponent } from './components/ad-manage/components/skin-manager/skin-manager.component';
 import { RemoteControlComponent } from './components/remote-control/remote-control.component';
@@ -76,6 +78,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     ManagerListComponent,
     ManagerDetailComponent,
     TransmitComponent,
+    TransmitListComponent,
+    TransmitDetailComponent,
     TransmitHistoryComponent,
     SkinManagerComponent,
     RemoteControlComponent,

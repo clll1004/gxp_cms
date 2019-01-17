@@ -18,6 +18,7 @@ export class ManagerDetailComponent implements OnInit {
     this.breadcrumbService.setItems([
       { label: '양방향서비스', routerLink: ['/interactive-service/live-chat/list'] },
       { label: '실시간 광고 전송', routerLink: ['/interactive-service/ad-manage/manager/manager-list'] },
+      { label: '광고 관리', routerLink: ['/interactive-service/ad-manage/manager/manager-list'] },
     ]);
   }
 
