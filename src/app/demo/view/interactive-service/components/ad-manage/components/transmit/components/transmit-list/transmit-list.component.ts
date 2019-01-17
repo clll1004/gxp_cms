@@ -10,6 +10,18 @@ import { BreadcrumbService } from '../../../../../../../../../breadcrumb.service
   templateUrl: './transmit-list.component.html'})
 
 export class TransmitListComponent implements OnInit {
+  public transmitCols:any[] = [
+    { header: '광고', field: 'ad', width: '200px' },
+    { header: '제목', field: 'title' },
+    { header: '등록일시', field: 'regDate' },
+    { header: '최종 수정일시', field: 'updateAt' },
+  ];
+  public transmitRowData:any[] = [
+    { ad: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', title: '광고01', regDate: '2018.10.23', updateAt: '2018.10.23' },
+    { ad: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', title: '광고02', regDate: '2018.10.23', updateAt: '2018.10.23' },
+    { ad: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', title: '광고03', regDate: '2018.10.23', updateAt: '2018.10.23' },
+  ];
+
   constructor(private breadcrumbService: BreadcrumbService) {
     this.breadcrumbService.setItems([
       { label: '양방향서비스', routerLink: ['/interactive-service/live-chat/list'] },

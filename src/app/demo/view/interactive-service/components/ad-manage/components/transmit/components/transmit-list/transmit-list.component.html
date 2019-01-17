@@ -1,1 +1,40 @@
-list
+<div class="ui-g-nopad ui-g-12" style="margin-bottom: 150px;">
+  <div class="ui-g-nopad ui-g-12 filterArea">
+    <div class="left padding-top-10">
+      <span class="info-txt">전송하시려는 광고를 클릭해주세요. 상세페이지에서 광고를 전송하실 수 있습니다.</span>
+    </div>
+    <div class="right">
+      <input type="text" pInputText placeholder="검색">
+    </div>
+  </div>
+  <div class="ui-g-nopad ui-g-12 margin-bottom-50">
+    <p-table #dt class="selectTable" [columns]="transmitCols" [value]="transmitRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" [style.width]="col.width">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+            {{ col.header }}
+            <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-transmitRow>
+        <tr [pSelectableRow]="rowData" routerLink="/interactive-service/ad-manage/transmit/transmit-detail" style="cursor: pointer;">
+          <td><img [src]="transmitRow['ad']" alt="광고썸네일" style="width: 100%;"></td>
+          <td>{{ transmitRow['title'] }}</td>
+          <td>{{ transmitRow['regDate'] }}</td>
+          <td>{{ transmitRow['updateAt'] }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length + 1" class="emptyMessage">표시할 데이터가 없습니다.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

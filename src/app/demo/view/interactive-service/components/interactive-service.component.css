@@ -8,6 +8,10 @@ caption { display: none; }
 .txt-center { text-align: center; }
 .txt-left { text-align: left; }
 .txt-right { text-align: right; }
+.info-txt {
+  font-size: 14px;
+  color: #666;
+}
 
 .filterArea { margin: 30px 0; }
 .emptyMessage { padding: 20px 0 !important; text-align: center;}
@@ -30,7 +34,7 @@ caption { display: none; }
 table caption { display: none; }
 table tr th { text-align: left; padding: 5px 10px; }
 table tr td { padding: 5px 10px; }
-
+tr:hover { background: #eee !important; }
 /*tab css*/
 .select_tab_menu {
   padding: 0;
