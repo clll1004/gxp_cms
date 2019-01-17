@@ -3,7 +3,7 @@
     <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
       <div class="left">
         <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage" [style]="{'width': '200px'}" (onChange)="loadMediaStorageList(selectedStorage);"></p-dropdown>
-        <button type="button" class="margin-left-10 setting_btn" (click)="settingDialog=true;"><i class="fas fa-cog"></i></button>
+        <button type="button" class="margin-left-10 setting_btn" (click)="settingDialog=true; loadMediaStorage();"><i class="fas fa-cog"></i></button>
       </div>
       <div class="right">
         <button pButton type="button" label="파일 올리기"></button>
@@ -77,8 +77,8 @@
     <h2 class="txt-center margin-bottom-40">미디어보관함 관리</h2>
     <div>
       <button pButton type="button" class="margin-right-5 margin-bottom-20" label="새로 추가" (click)="addMediaStorage();"></button>
-      <button pButton type="button" class="margin-right-5" label="선택 삭제"></button>
-      <button pButton type="button" label="수정"></button>
+      <button pButton type="button" class="margin-right-5" label="선택 삭제" (click)="deleteMediaStorage();"></button>
+      <button pButton type="button" label="수정" (click)="modifyMediaStorage();"></button>
 
       <div style="width: 100%; max-height: 300px; overflow-y: scroll;">
         <p-table class="selectTable" [columns]="mediaSettingCols" [value]="mediaSettingRowData" [resizableColumns]="true" [(selection)]="selectSettingItems">
@@ -103,13 +103,16 @@
               <td>
                 <p-tableCheckbox [value]="mediaSetting"></p-tableCheckbox>
               </td>
-              <td>
-                <input type="text" value="{{ mediaSetting['mediaStorage'] }}" placeholder="보관함명을 입력해주세요" style="width: 100%; padding: 5px 10px; border: 1px solid #ccc;">
+              <td *ngIf="mediaSetting['mode'] === 'add' || mediaSetting['mode'] === 'modify'">
+                <input type="text" [(ngModel)]="mediaSetting['gf_nm']" placeholder="보관함명을 입력해주세요" style="width: 100%; padding: 5px 10px; border: 1px solid #ccc;">
               </td>
-              <td>{{ mediaSetting['contentsCount'] }} 개</td>
-              <td>{{ mediaSetting['fileSize'] }} MB</td>
-              <td>{{ mediaSetting['regdate'] }}</td>
-              <td>{{ mediaSetting['updateDate'] }}</td>
+              <td *ngIf="mediaSetting['mode'] === 'normal'">
+                {{ mediaSetting['gf_nm'] }}
+              </td>
+              <td>{{ mediaSetting['content_cnt'] }} <span *ngIf="mediaSetting['mode'] !== 'add'">개</span></td>
+              <td>{{ mediaSetting['content_size'] }} <span *ngIf="mediaSetting['mode'] !== 'add'">MB</span></td>
+              <td>{{ mediaSetting['gf_reg_dtm'] }}</td>
+              <td>{{ mediaSetting['updated_at'] }}</td>
             </tr>
           </ng-template>
         </p-table>
@@ -118,7 +121,7 @@
   </div>
   <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-40">
     <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="settingDialog=false;" label="취소"></button>
-    <button pButton type="submit" class="btn" (click)="settingDialog=false;" label="저장"></button>
+    <button pButton type="submit" class="btn" label="저장" (click)="updateMediaStorage();"></button>
   </div>
 </p-dialog>
 

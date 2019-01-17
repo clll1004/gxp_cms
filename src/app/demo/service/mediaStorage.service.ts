@@ -14,6 +14,7 @@ export class MediaStorageService {
     this.usrSeq = this.cookieService.getCookie('usr_seq');
   }
 
+  /*미디어 보관함 타이틀*/
   getStorageListTitle() {
     return this.http.get<any>(`${this.domain}/title?usr_seq=${this.usrSeq}`)
       .toPromise()
@@ -22,6 +23,32 @@ export class MediaStorageService {
       });
   }
 
+  /*미디어 보관함 리스트*/
+  getStorage() {
+    return this.http.get<any>(`${this.domain}/boxlist?usr_seq=${this.usrSeq}`)
+      .toPromise()
+      .then((cont) => {
+        return cont;
+      });
+  }
+
+  postStorage(valueArray) {
+    const headers:Headers = new Headers();
+    headers.append('Content-Type', 'text/html; charset=UTF-8');
+
+    const data:object = {
+      usr_seq: this.usrSeq,
+      list: valueArray
+    };
+
+    return this.http.post(`${this.domain}/boxadd`, data, { headers: headers })
+      .toPromise()
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  /*미디어 보관함 별 콘텐츠 리스트*/
   getStorageList(seq:any) {
     let apis:string = '';
     if (seq === 'all') {

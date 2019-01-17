@@ -29,22 +29,20 @@ export class StorageListComponent implements OnInit {
   public tempCompareItems:any[] = [];
 
   public mediaSettingCols:any[] = [
-    { header: '미디어보관함 명', field: 'mediaStorage' },
-    { header: '콘텐츠 수', field: 'contentsCount' },
-    { header: '크기', field: 'fileSize' },
-    { header: '등록일시', field: 'regdate' },
-    { header: '수정일시', field: 'updateDate' },
+    { header: '미디어보관함 명', field: 'gf_nm' },
+    { header: '콘텐츠 수', field: 'content_cnt' },
+    { header: '크기', field: 'content_size' },
+    { header: '등록일시', field: 'gf_reg_dtm' },
+    { header: '수정일시', field: 'updated_at' },
   ];
-  public mediaSettingRowData:any[] = [
-    { index: 0, mediaStorage: '중학교 1학년 영어', contentsCount: '10', fileSize: '150', regdate: '2018.10.16', updateDate: '2018.10.16' },
-    { index: 1, mediaStorage: '중학교 1학년 국어', contentsCount: '10', fileSize: '150', regdate: '2018.10.16', updateDate: '2018.10.16' },
-  ];
+  public mediaSettingOriginData:any[] = [];
+  public mediaSettingRowData:any[] = [];
   public selectSettingItems:any[] = [];
-  public rowIndex:number = 2;
 
   public settingDialog:boolean = false;
   public moveDialog:boolean = false;
   public notSelectDialog:boolean = false;
+  public rowIndex:number = 0;
 
   public selectedMoveStorage:any = 'transmitAd';
 
@@ -98,11 +96,73 @@ export class StorageListComponent implements OnInit {
     this.tempCompareItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
   }
 
+  /* 미디어 보관함 관리 팝업*/
+  loadMediaStorage() {
+    this.mediaStorageService.getStorage()
+      .then((cont) => {
+        this.mediaSettingOriginData = cont['list'];
+        this.mediaSettingRowData = this.mediaSettingOriginData;
+        this.mediaSettingRowData.forEach((item) => {
+          item.mode = 'normal';
+        });
+      });
+  }
+
+  updateMediaStorage() {
+    const valueArray:array = [];
+    this.mediaSettingRowData.forEach((item) => {
+      if (item.gf_nm !== '') {
+        const temp:object = {};
+        temp.gf_seq = item.gf_seq;
+        temp.gf_nm = item.gf_nm;
+        valueArray.push(temp);
+      }
+    });
+    this.mediaStorageService.postStorage(valueArray)
+      .then(() => {
+        this.settingDialog = false;
+      });
+  }
+
   addMediaStorage() {
-    const today = new Date();
-    const convertDate = `${today.getFullYear()}.${today.getMonth() + 1}.${today.getDate()}`;
-    this.mediaSettingRowData.unshift({ index: this.rowIndex, mediaStorage: '', contentsCount: '-', fileSize: '-', regdate: convertDate, updateDate: convertDate });
+    this.mediaSettingRowData.unshift({ rowIndex: `add${this.rowIndex}`, mode: 'add', gf_seq: '', gf_nm: '' });
     this.rowIndex += 1;
+  }
+
+  deleteMediaStorage() {
+    if (this.selectSettingItems.length === 0) {
+      return false;
+    }
+    const deleteSeqArray:any[] = [];
+    this.selectSettingItems.forEach((item) => {
+      item.mode === 'add' ? deleteSeqArray.push(item.rowIndex) : deleteSeqArray.push(item.gf_seq);
+    });
+    deleteSeqArray.forEach((seq) => {
+      for (let i = 0 ; i < this.mediaSettingRowData.length ; i += 1) {
+        if (this.mediaSettingRowData[i].gf_seq === seq || this.mediaSettingRowData[i].rowIndex === seq) {
+          this.mediaSettingRowData.splice(i, 1);
+        }
+      }
+    });
+  }
+
+  modifyMediaStorage() {
+    if (this.selectSettingItems.length === 0) {
+      return false;
+    }
+    const modifySeqArray:any[] = [];
+    this.selectSettingItems.forEach((item) => {
+      if (item.mode === 'normal') {
+        modifySeqArray.push(item.gf_seq);
+      }
+    });
+    modifySeqArray.forEach((seq) => {
+      for (let i = 0 ; i < this.mediaSettingRowData.length ; i += 1) {
+        if (this.mediaSettingRowData[i].gf_seq === seq) {
+          this.mediaSettingRowData[i].mode = 'modify';
+        }
+      }
+    });
   }
 }
 
