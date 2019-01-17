@@ -109,12 +109,12 @@ export class StorageListComponent implements OnInit {
   }
 
   updateMediaStorage() {
-    const valueArray:array = [];
+    const valueArray:any[] = [];
     this.mediaSettingRowData.forEach((item) => {
       if (item.gf_nm !== '') {
-        const temp:object = {};
-        temp.gf_seq = item.gf_seq;
-        temp.gf_nm = item.gf_nm;
+        const temp:object = { gf_seq: '', gf_nm: '' };
+        temp['gf_seq'] = item.gf_seq;
+        temp['gf_nm'] = item.gf_nm;
         valueArray.push(temp);
       }
     });

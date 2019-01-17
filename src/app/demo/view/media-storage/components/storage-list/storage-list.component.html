@@ -41,13 +41,13 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-rowData let-columns="columns" let-mediaStorage>
-            <tr [pSelectableRow]="mediaStorage" style="cursor: pointer;">
+            <tr [pSelectableRow]="mediaStorage" routerLink="/media-storage/detail" style="cursor: pointer;">
               <td>
                 <p-tableCheckbox [value]="mediaStorage"></p-tableCheckbox>
               </td>
               <td>{{ mediaStorage['fo_seq'] }}</td>
               <td>
-                <a routerLink="/media-storage/detail"><img [src]="mediaStorage['fo_thumb_path']" alt="썸네일" style="width: 100%; height: auto;"></a>
+                <img [src]="mediaStorage['fo_thumb_path']" alt="썸네일" style="width: 100%; height: auto;">
               </td>
               <td>{{ mediaStorage['gf_nm'] }}</td>
               <td>{{ mediaStorage['title'] }}</td>
