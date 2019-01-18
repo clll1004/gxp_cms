@@ -1,2 +1,48 @@
-
-list
+<div class="ui-g-nopad ui-g-12" style="margin-bottom: 150px;">
+  <div class="ui-g-nopad ui-g-12 filterArea">
+    <div class="left">
+      <a routerLink="/interactive-service/ad-manage/manager/manager-detail"><button type="button" pButton class="margin-right-10" label="새 스킨 등록"></button></a>
+      <button type="button" pButton class="margin-right-10" label="선택 삭제"></button>
+      <button type="button" pButton label="선택 상태변경"></button>
+    </div>
+    <div class="right">
+      <input type="text" pInputText placeholder="검색">
+    </div>
+  </div>
+  <div class="ui-g-nopad ui-g-12 margin-bottom-50">
+    <p-table [columns]="skinCols" [value]="skinRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempItems">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col style="width: 3em">
+          <col *ngFor="let col of columns" [style.width]="col.width">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+            {{ col.header }}
+            <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-item>
+        <tr [pSelectableRow]="rowData">
+          <td>
+            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+          </td>
+          <td><img [src]="item['skin']" alt="광고썸네일" style="width: 100%;"></td>
+          <td>{{ item['title'] }}</td>
+          <td>{{ item['contentsCount'] }}개</td>
+          <td>{{ item['status'] }}</td>
+          <td>{{ item['startDate'] }}</td>
+          <td>{{ item['endDate'] }}</td>
+          <td>{{ item['regDate'] }}</td>
+          <td>{{ item['updateAt'] }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -35,7 +35,7 @@ table caption { display: none; }
 table tr th { text-align: left; padding: 5px 10px; }
 table tr td { padding: 5px 10px; }
 td { word-break: break-all; }
-tr:hover { background: #eee !important; }
+tr:not(.ui-state-highlight):hover { background: #eee !important; }
 /*tab css*/
 .select_tab_menu {
   padding: 0;
