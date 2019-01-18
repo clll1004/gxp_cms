@@ -1,1 +1,54 @@
-detail
+<div class="ui-g-nopad ui-g-12 margin-top-30" style="margin-bottom: 10vh;">
+  <div class="card ui-g-12 ui-g-nopad" style="padding: 20px 30px;">
+    <div class="form-row ui-g-12 ui-g-nopad">
+      <p class="form-title ui-g-2 ui-g-nopad">광고명</p>
+      <div class="form-data ui-g-10 ui-g-nopad">
+        {{ historyData['title'] }}
+      </div>
+    </div>
+    <div class="form-row ui-g-12 ui-g-nopad">
+      <p class="form-title ui-g-2 ui-g-nopad">미리보기</p>
+      <div class="form-data ui-g-10 ui-g-nopad">
+        <img [src]="historyData['thumb']" alt="미리보기" style="width: 200px;">
+      </div>
+    </div>
+    <div class="form-row ui-g-12 ui-g-nopad">
+      <p class="form-title ui-g-2 ui-g-nopad">전송결과</p>
+      <div class="form-data ui-g-10 ui-g-nopad">
+        총 <span class="c_red"> {{historyDetailRowData.length}}</span>건 (열람 0건 / 미열람 0건)
+        <div class="margin-top-10">
+          <p-table [columns]="historyDetailCols" [value]="historyDetailRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field">
+                  {{col.header}}
+                  <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td>{{item.mediaStorage}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.addressID}}</td>
+                <td>{{item.date}}</td>
+                <td>{{item.status}}</td>
+                <td>{{item.result}}</td>
+                <td>{{item.openDate}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="columns.length + 0" class="emptyMessage">표시할 데이터가 없습니다.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+      <a routerLink="/interactive-service/ad-manage/transmit-history/history-list"><button pButton type="reset" label="목록"></button></a>
+    </div>
+  </div>
+</div>
