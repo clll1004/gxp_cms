@@ -24,7 +24,7 @@ export class AdManageComponent implements OnInit {
       { label: '광고관리', routerLink: ['/interactive-service/ad-manage/manager/manager-list'] },
       { label: '광고전송', routerLink: ['/interactive-service/ad-manage/transmit/transmit-list'] },
       { label: '전송이력', routerLink: ['/interactive-service/ad-manage/transmit-history/history-list'] },
-      { label: '스킨관리', routerLink: ['/interactive-service/ad-manage/skin-manager'] },
+      { label: '스킨관리', routerLink: ['/interactive-service/ad-manage/skin-manager/skin-list'] },
     ];
   }
 }

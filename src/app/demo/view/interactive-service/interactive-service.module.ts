@@ -29,6 +29,9 @@ import { TransmitHistoryComponent } from './components/ad-manage/components/tran
 import { HistoryListComponent } from './components/ad-manage/components/transmit-history/components/history-list/history-list.component';
 import { HistoryDetailComponent } from './components/ad-manage/components/transmit-history/components/history-detail/history-detail.component';
 import { SkinManagerComponent } from './components/ad-manage/components/skin-manager/skin-manager.component';
+import { SkinListComponent } from './components/ad-manage/components/skin-manager/components/skin-list/skin-list.component';
+import { SkinAddComponent } from './components/ad-manage/components/skin-manager/components/skin-add/skin-add.component';
+import { SkinDetailComponent } from './components/ad-manage/components/skin-manager/components/skin-detail/skin-detail.component';
 import { RemoteControlComponent } from './components/remote-control/remote-control.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -88,6 +91,9 @@ import { PickListModule } from 'primeng/picklist';
     HistoryListComponent,
     HistoryDetailComponent,
     SkinManagerComponent,
+    SkinListComponent,
+    SkinAddComponent,
+    SkinDetailComponent,
     RemoteControlComponent,
   ]})
 
