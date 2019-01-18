@@ -40,6 +40,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { PickListModule } from 'primeng/picklist';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     DropdownModule,
     InputTextareaModule,
     InputSwitchModule,
+    PickListModule,
   ],
   exports: [InteractiveServiceComponent],
   declarations: [

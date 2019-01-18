@@ -2040,8 +2040,9 @@ body .ui-fluid .fc .fc-toolbar .ui-button {
   width: auto;
 }
 body .ui-picklist .ui-picklist-caption {
+  text-align: left;
   background-color: #fe875d;
-  color: #ffffff;
+  color: #666;
   border: 1px solid #d6d7d9;
   padding: 0.571em 1.143em;
   font-weight: 700;

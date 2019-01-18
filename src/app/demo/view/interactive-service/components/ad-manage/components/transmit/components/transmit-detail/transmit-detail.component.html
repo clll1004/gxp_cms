@@ -1,1 +1,128 @@
-detail
+<div class="ui-g-nopad ui-g-12 margin-top-30" style="margin-bottom: 10vh;">
+  <div class="card">
+    <form [formGroup]="adTransmitForm" (ngSubmit)="onSubmit(adTransmitForm.value)">
+      <fieldset>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">광고명</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{adTransmitForm.get('adName').value}}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">미리보기</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            <img src="{{adTransmitForm.get('adSrc').value}}" alt="미리보기" style="width: 200px; height: auto;">
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">광고타입</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            <p-radioButton formControlName="adType" name="adType" value="viewingTime" label="시청시간 기준" class="margin-right-30"></p-radioButton>
+            <p-radioButton formControlName="adType" name="adType" value="contentsTime" label="콘텐츠 재생시간 기준" class="margin-right-30"></p-radioButton>
+            <p-radioButton formControlName="adType" name="adType" value="adStandard" label="광고규격 기준" class="margin-right-30"></p-radioButton>
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">세부항목 선택</p>
+          <div class="form-data ui-g-10 ui-g-nopad" *ngIf="adTransmitForm.get('adType').value === 'viewingTime'">
+            시청시간 기준
+          </div>
+          <div class="form-data ui-g-10 ui-g-nopad" *ngIf="adTransmitForm.get('adType').value === 'contentsTime'">
+            콘텐츠 재생시간 기준
+          </div>
+          <div class="form-data ui-g-10 ui-g-nopad" *ngIf="adTransmitForm.get('adType').value === 'adStandard'">
+            광고규격 기준
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">광고전송할 영상</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            <div class="ui-g-12 ui-g-nopad">
+              <input type="text" pInputText placeholder="콘텐츠를 선택해 주세요." style="cursor: pointer;" (click)="searchDialog = true;">
+              <button pButton type="button" label="추가" (click)="searchDialog = true;" class="margin-right-20"></button>
+            </div>
+            <div class="ui-g-12 ui-g-nopad margin-top-20">
+              <button pButton type="button" label="선택 삭제" (click)="deleteSelectItem();"></button> 총 <span class="c_red">{{selectContentsRowData.length}}</span>개
+            </div>
+            <div class="ui-g-12 ui-g-nopad margin-top-10">
+              <p-table [columns]="selectContentsCols" [value]="selectContentsRowData" [(selection)]="tempDeleteItems">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th style="width: 3em">
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th *ngFor="let col of columns">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-content>
+                  <tr [pSelectableRow]="content">
+                    <td>
+                      <p-tableCheckbox [value]="content"></p-tableCheckbox>
+                    </td>
+                    <td>{{content.storage}}</td>
+                    <td>{{content.contentsName}}</td>
+                    <td>{{content.fileName}}</td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                  <tr>
+                    <td [attr.colspan]="columns.length + 1" class="emptyMessage">표시할 데이터가 없습니다.</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+          <a routerLink="/interactive-service/ad-manage/manager/manager-list"><button pButton type="reset" class="btn margin-right-5 ui-button-secondary" label="취소"></button></a>
+          <button pButton type="submit" class="btn" label="전송"></button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<p-dialog [(visible)]="searchDialog" [width]="1000" [modal]="true" [showHeader]="false">
+  <div class="ui-g-12 ui-g-nopad margin-top-15 margin-bottom-20">
+    <div class="txt-right margin-top-15">
+      <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+    </div>
+    <h2 class="txt-center margin-bottom-30">
+      영상 선택
+    </h2>
+    <div class="ui-g-12 ui-g-nopad" style="overflow: hidden;">
+      <div class="transmit_search_sec">
+        <h3 class="txt-center margin-bottom-20">영상 검색</h3>
+        <span class="info-txt">미디어 검색 후 추가 버튼을 눌러주세요.</span><br/>
+        <input type="text" pInputText placeholder="미디어보관함명, 콘텐츠명, 파일명 검색" class="margin-top-10" style="width: calc(100% - 80px); height: 28px;">
+        <button pButton type="button" label="찾기"></button>
+      </div>
+      <div style="float: left; width: 5%;">
+        &nbsp;
+      </div>
+      <div class="transmit_search_sec">
+        <h3 class="txt-center margin-bottom-20">선택한 영상</h3>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-g-nopad margin-top-20">
+      <p-pickList [source]="contentsRowData" [target]="selectContentsRowData"
+                  sourceHeader="미디어보관함&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;콘텐츠명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일명"
+                  targetHeader="미디어보관함&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;콘텐츠명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일명"
+                  [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+        <ng-template let-content pTemplate="item">
+          <div class="ui-helper-clearfix ui-g-nopad">
+            <div class="ui-g-4 ui-g-nopad" style="word-break: break-all;">{{content.storage}}</div>
+            <div class="ui-g-4 ui-g-nopad" style="word-break: break-all;">{{content.contentsName}}</div>
+            <div class="ui-g-4 ui-g-nopad" style="word-break: break-all;">{{content.fileName}}</div>
+          </div>
+        </ng-template>
+      </p-pickList>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-20 margin-bottom-20">
+    <button pButton type="submit" class="btn" (click)="searchDialog=false;" label="선택 완료"></button>
+  </div>
+</p-dialog>
