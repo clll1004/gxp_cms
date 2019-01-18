@@ -14,6 +14,7 @@ export class PlayListService {
     this.usrSeq = this.cookieService.getCookie('usr_seq');
   }
 
+  /*재생목록 타이틀*/
   getPlayListTitle() {
     return this.http.get<any>(`${this.domain}/title?usr_seq=${this.usrSeq}`)
       .toPromise()
@@ -22,6 +23,16 @@ export class PlayListService {
       });
   }
 
+  /*재생목록 관리 리스트*/
+  getSettingPlayList() {
+    return this.http.get<any>(`${this.domain}/boxlist?usr_seq=${this.usrSeq}`)
+      .toPromise()
+      .then((cont) => {
+        return cont;
+      });
+  }
+
+  /*재생목록 별 콘텐츠 리스트*/
   getPlayList(seq:any) {
     let apis:string = '';
     if (seq === 'all') {

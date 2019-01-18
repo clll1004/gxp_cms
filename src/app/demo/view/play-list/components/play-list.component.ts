@@ -37,20 +37,17 @@ export class PlayListComponent implements OnInit {
     TF: '변환실패',
     SF: '배포실패',
     SS: '완료' };
-  public tempCompareItems:any[] = [];
+  public tempItems:any[] = [];
 
   public playListSettingCols:any[] = [
-    { header: '재생목록', field: 'playList' },
-    { header: '콘텐츠 수', field: 'contentsCount' },
-    { header: '크기', field: 'fileSize' },
-    { header: '서비스상태', field: 'status' },
-    { header: '등록일시', field: 'regdate' },
-    { header: '수정일시', field: 'updateDate' },
+    { header: '재생목록', field: 'pl_nm' },
+    { header: '콘텐츠 수', field: 'content_cnt' },
+    { header: '크기', field: 'content_size' },
+    { header: '서비스상태', field: 'service_status' },
+    { header: '등록일시', field: 'pl_reg_dtm' },
+    { header: '수정일시', field: 'updated_at' },
   ];
-  public playListSettingRowData:any[] = [
-    { index: 0, playList: '중학교 1학년 영어', contentsCount: '10', fileSize: '150', status: 'ON', regdate: '2018.10.16', updateDate: '2018.10.16' },
-    { index: 1, playList: '중학교 1학년 국어', contentsCount: '10', fileSize: '150', status: 'ON', regdate: '2018.10.16', updateDate: '2018.10.16' },
-  ];
+  public playListSettingRowData:any[] = [];
   public selectSettingItems:any[] = [];
 
   public settingDialog:boolean = false;
@@ -106,6 +103,13 @@ export class PlayListComponent implements OnInit {
       });
   }
 
+  loadSettingPlayList() {
+    this.playListService.getSettingPlayList()
+      .then((cont) => {
+        this.playListSettingRowData = cont['list'];
+      });
+  }
+
   closePopup() {
     this.settingDialog = false;
     this.moveDialog = false;
@@ -113,7 +117,7 @@ export class PlayListComponent implements OnInit {
   }
 
   movePlayList() {
-    this.tempCompareItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
+    this.tempItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
   }
 }
 

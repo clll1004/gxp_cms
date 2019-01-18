@@ -3,7 +3,7 @@
     <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
       <div class="left">
         <p-dropdown [options]="playListList" [(ngModel)]="selectedPlayList" [style]="{'width': '200px'}" (onChange)="loadPlayList(selectedPlayList);"></p-dropdown>
-        <button type="button" class="margin-left-10 setting_btn" (click)="settingDialog=true;"><i class="fas fa-cog"></i></button>
+        <button type="button" class="margin-left-10 setting_btn" (click)="settingDialog=true; loadSettingPlayList();"><i class="fas fa-cog"></i></button>
       </div>
     </div>
 
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="ui-g-nopad ui-g-12 margin-bottom-30">
-        <p-table #dt class="selectTable" [columns]="playListCols" [value]="playListRowData" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
+        <p-table #dt class="selectTable" [columns]="playListCols" [value]="playListRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempItems">
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
               <col style="width: 3em">
@@ -51,6 +51,11 @@
               <td>{{ playList['ft_size'] }} MB</td>
               <td>{{ playList['ft_reg_dtm'] }}</td>
               <td>{{ playList['ft_status'] }}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="columns.length + 1" class="emptyMessage">표시할 데이터가 없습니다.</td>
             </tr>
           </ng-template>
         </p-table>
@@ -99,13 +104,13 @@
               <p-tableCheckbox [value]="playListSetting"></p-tableCheckbox>
             </td>
             <td>
-              {{ playListSetting['playList'] }}
+              {{ playListSetting['pl_nm'] }}
             </td>
-            <td>{{ playListSetting['contentsCount'] }} 개</td>
-            <td>{{ playListSetting['fileSize'] }} MB</td>
-            <td>{{ playListSetting['status'] }}</td>
-            <td>{{ playListSetting['regdate'] }}</td>
-            <td>{{ playListSetting['updateDate'] }}</td>
+            <td>{{ playListSetting['content_cnt'] }} 개</td>
+            <td>{{ playListSetting['content_size'] }} MB</td>
+            <td>{{ playListSetting['service_status'] }}</td>
+            <td>{{ playListSetting['pl_reg_dtm'] }}</td>
+            <td>{{ playListSetting['updated_at'] }}</td>
           </tr>
         </ng-template>
       </p-table>
