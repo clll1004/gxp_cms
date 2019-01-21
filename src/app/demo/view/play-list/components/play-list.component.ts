@@ -138,7 +138,15 @@ export class PlayListComponent implements OnInit {
   }
 
   deletePlayListItem() {
-    
+    const valueArray:any[] = [];
+    this.tempSelectItems.forEach((item) => {
+      valueArray.push({ 'ft_seq': item.ft_seq });
+    });
+    this.playListService.deletePlayListItem(valueArray)
+      .then(() => {
+        this.tempSelectItems = [];
+        this.loadPlayList();
+      });
   }
 
   /* 재생목록 관리 팝업 */
