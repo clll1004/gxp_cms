@@ -65,4 +65,24 @@ export class MediaStorageService {
         return cont;
       });
   }
+
+  moveStorage(storageSeq, valueArray) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/html',
+      })
+    };
+
+    const data:object = {
+      usr_seq: this.usrSeq,
+      gf_seq: storageSeq,
+      list: valueArray
+    };
+
+    return this.http.post(`${this.domain}/selectmove`, data, httpOptions)
+      .toPromise()
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 }

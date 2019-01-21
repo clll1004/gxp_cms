@@ -13,7 +13,7 @@
     <div class="dataArea margin-bottom-50">
       <div class="ui-g-nopad ui-g-12" style="margin-bottom: 30px;">
         <div class="left">
-          <button pButton type="button" label="선택 이동" class="margin-right-10" (click)="moveStorage();"></button>
+          <button pButton type="button" label="선택 이동" class="margin-right-10" (click)="hasSelectItem();"></button>
           <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
           총 <span class="c_red">{{ mediaStorageRowData.length }}</span>개
         </div>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="ui-g-nopad ui-g-12">
-        <p-table #dt class="selectTable" [columns]="mediaStorageCols" [value]="mediaStorageRowData" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
+        <p-table #dt class="selectTable" [columns]="mediaStorageCols" [value]="mediaStorageRowData" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempSelectItems">
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
               <col style="width: 3em">
@@ -41,21 +41,21 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-rowData let-columns="columns" let-mediaStorage>
-            <tr [pSelectableRow]="mediaStorage" routerLink="/media-storage/detail" style="cursor: pointer;">
+            <tr [pSelectableRow]="mediaStorage">
               <td>
                 <p-tableCheckbox [value]="mediaStorage"></p-tableCheckbox>
               </td>
-              <td>{{ mediaStorage['fo_seq'] }}</td>
-              <td>
+              <td routerLink="/media-storage/detail" style="cursor: pointer;">{{ mediaStorage['fo_seq'] }}</td>
+              <td routerLink="/media-storage/detail" style="cursor: pointer;">
                 <img [src]="mediaStorage['fo_thumb_path']" alt="썸네일" style="width: 100%; height: auto;">
               </td>
-              <td>{{ mediaStorage['gf_nm'] }}</td>
-              <td>{{ mediaStorage['title'] }}</td>
-              <td>{{ mediaStorage['fo_nm'] }}</td>
-              <td>{{ mediaStorage['filetype'] }}</td>
-              <td>{{ mediaStorage['fo_size'] }} MB</td>
-              <td>{{ mediaStorage['status'] }}</td>
-              <td>{{ mediaStorage['fo_reg_dtm'] }}</td>
+              <td routerLink="/media-storage/detail" style="cursor: pointer;">{{ mediaStorage['gf_nm'] }}</td>
+              <td routerLink="/media-storage/detail" style="cursor: pointer;">{{ mediaStorage['title'] }}</td>
+              <td routerLink="/media-storage/detail" style="cursor: pointer;">{{ mediaStorage['fo_nm'] }}</td>
+              <td routerLink="/media-storage/detail" style="cursor: pointer;">{{ mediaStorage['filetype'] }}</td>
+              <td routerLink="/media-storage/detail" style="cursor: pointer;">{{ mediaStorage['fo_size'] }} MB</td>
+              <td routerLink="/media-storage/detail" style="cursor: pointer;">{{ mediaStorage['status'] }}</td>
+              <td routerLink="/media-storage/detail" style="cursor: pointer;">{{ mediaStorage['fo_reg_dtm'] }}</td>
             </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage" let-columns>
@@ -132,11 +132,11 @@
   <div class="txt-center margin-top-30 margin-bottom-30">
     <h2 class="margin-bottom-40">선택파일 이동</h2>
     <span class="margin-right-10">미디어보관함</span>
-    <p-dropdown [options]="storageList" [(ngModel)]="selectedMoveStorage"></p-dropdown>
+    <p-dropdown [options]="originStorageList" [(ngModel)]="selectedMoveStorage"></p-dropdown>
   </div>
   <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
     <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="moveDialog=false;" label="취소"></button>
-    <button pButton type="submit" class="btn" (click)="moveDialog=false;" label="확인"></button>
+    <button pButton type="submit" class="btn" (click)="moveMediaStorage();" label="확인"></button>
   </div>
 </p-dialog>
 

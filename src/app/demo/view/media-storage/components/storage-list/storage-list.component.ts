@@ -11,6 +11,7 @@ import { MediaStorageService } from '../../../../service/mediaStorage.service';
   templateUrl: './storage-list.component.html'})
 
 export class StorageListComponent implements OnInit {
+  public originStorageList:any = [];
   public storageList:any = [];
   public selectedStorage:any = 'all';
 
@@ -26,7 +27,7 @@ export class StorageListComponent implements OnInit {
     { header: '등록일시', field: 'fo_reg_dtm', width: '15%' },
   ];
   public mediaStorageRowData:any[] = [];
-  public tempCompareItems:any[] = [];
+  public tempSelectItems:any[] = [];
 
   public mediaSettingCols:any[] = [
     { header: '미디어보관함 명', field: 'gf_nm' },
@@ -44,7 +45,7 @@ export class StorageListComponent implements OnInit {
   public notSelectDialog:boolean = false;
   public rowIndex:number = 0;
 
-  public selectedMoveStorage:any = 'transmitAd';
+  public selectedMoveStorage:any = '';
 
   constructor(private breadcrumbService: BreadcrumbService, private mediaStorageService: MediaStorageService) {
     this.breadcrumbService.setItems([
@@ -64,12 +65,14 @@ export class StorageListComponent implements OnInit {
   loadMediaStorageListTitle() {
     this.mediaStorageService.getStorageListTitle()
       .then((cont) => {
-        this.storageList = cont['list'].map((item) => {
+        this.originStorageList = cont['list'].map((item) => {
           const temp:object = {};
           temp['label'] = item.title;
           temp['value'] = item.gf_seq;
           return temp;
         });
+        this.selectedMoveStorage = this.originStorageList[0].value;
+        this.storageList = this.originStorageList.slice();
         this.storageList.unshift({
           label: '전체',
           value: 'all',
@@ -92,8 +95,21 @@ export class StorageListComponent implements OnInit {
     this.notSelectDialog = false;
   }
 
-  moveStorage() {
-    this.tempCompareItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
+  hasSelectItem() {
+    this.tempSelectItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
+  }
+
+  moveMediaStorage() {
+    const valueArray:any[] = [];
+    this.tempSelectItems.forEach((item) => {
+      valueArray.push({ 'fo_seq': item.fo_seq });
+    });
+    this.mediaStorageService.moveStorage(this.selectedMoveStorage, valueArray)
+      .then(() => {
+        this.moveDialog = false;
+        this.tempSelectItems = [];
+        this.loadMediaStorageList();
+      });
   }
 
   /* 미디어 보관함 관리 팝업*/
