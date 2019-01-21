@@ -10,8 +10,8 @@
     <div class="dataArea margin-bottom-50">
       <div class="ui-g-nopad ui-g-12 margin-bottom-30">
         <div class="left">
-          <button pButton type="button" label="선택 이동" class="margin-right-10" (click)="movePlayList();"></button>
-          <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
+          <button pButton type="button" label="선택 이동" class="margin-right-10" (click)="hasSelectItem('move');"></button>
+          <button pButton type="button" label="선택 삭제" class="margin-right-10" (click)="hasSelectItem('delete');"></button>
           총 <span class="c_red">{{ playListRowData.length }}</span>개
         </div>
         <div class="right">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="ui-g-nopad ui-g-12 margin-bottom-30">
-        <p-table #dt class="selectTable" [columns]="playListCols" [value]="playListRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempItems">
+        <p-table #dt class="selectTable" [columns]="playListCols" [value]="playListRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempSelectItems">
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
               <col style="width: 3em">
@@ -137,11 +137,11 @@
   <div class="txt-center margin-top-30 margin-bottom-30">
     <h2 class="margin-bottom-40">선택 재생목록으로 이동</h2>
     <span class="margin-right-10">재생목록</span>
-    <p-dropdown [options]="playListList" [(ngModel)]="selectedMovePlayList"></p-dropdown>
+    <p-dropdown [options]="originPlayListList" [(ngModel)]="selectedMovePlayList"></p-dropdown>
   </div>
   <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
     <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="moveDialog=false;" label="취소"></button>
-    <button pButton type="submit" class="btn" (click)="moveDialog=false;" label="확인"></button>
+    <button pButton type="submit" class="btn" (click)="movePlayList();" label="확인"></button>
   </div>
 </p-dialog>
 

@@ -65,4 +65,43 @@ export class PlayListService {
         return cont;
       });
   }
+
+  movePlayListItem(listSeq, valueArray) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/html',
+      })
+    };
+
+    const data:object = {
+      usr_seq: this.usrSeq,
+      pl_seq: listSeq,
+      list: valueArray
+    };
+
+    return this.http.post(`${this.domain}/selectmove`, data, httpOptions)
+      .toPromise()
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  deletePlayListItem(valueArray) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/html',
+      })
+    };
+
+    const data:object = {
+      usr_seq: this.usrSeq,
+      list: valueArray
+    };
+
+    return this.http.post(`${this.domain}/selectdel`, data, httpOptions)
+      .toPromise()
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 }

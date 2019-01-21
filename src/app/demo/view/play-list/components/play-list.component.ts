@@ -14,6 +14,7 @@ import { PlayListService } from '../../../service/playList.service';
 export class PlayListComponent implements OnInit {
   public params:Params;
 
+  public originPlayListList:any = [];
   public playListList:any = [];
   public selectedPlayList: any = 'all';
 
@@ -37,7 +38,7 @@ export class PlayListComponent implements OnInit {
     TF: '변환실패',
     SF: '배포실패',
     SS: '완료' };
-  public tempItems:any[] = [];
+  public tempSelectItems:any[] = [];
 
   public playListSettingCols:any[] = [
     { header: '재생목록', field: 'pl_nm' },
@@ -82,12 +83,14 @@ export class PlayListComponent implements OnInit {
   loadPlayListTitle() {
     this.playListService.getPlayListTitle()
       .then((cont) => {
-        this.playListList = cont['list'].map((item) => {
+        this.originPlayListList = cont['list'].map((item) => {
           const temp:object = {};
           temp['label'] = item.title;
           temp['value'] = item.pl_seq;
           return temp;
         });
+        this.selectedMovePlayList = this.originPlayListList[0].value;
+        this.playListList = this.originPlayListList.slice();
         this.playListList.unshift({
           label: '전체',
           value: 'all',
@@ -113,8 +116,29 @@ export class PlayListComponent implements OnInit {
     this.notSelectDialog = false;
   }
 
+  hasSelectItem(act:string) {
+    if (this.tempSelectItems.length !== 0) {
+      act === 'move' ? this.moveDialog = true : this.deletePlayListItem();
+    } else {
+      this.notSelectDialog = true;
+    }
+  }
+
   movePlayList() {
-    this.tempItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
+    const valueArray:any[] = [];
+    this.tempSelectItems.forEach((item) => {
+      valueArray.push({ 'ft_seq': item.ft_seq });
+    });
+    this.playListService.movePlayListItem(this.selectedMovePlayList, valueArray)
+      .then(() => {
+        this.moveDialog = false;
+        this.tempSelectItems = [];
+        this.loadPlayList();
+      });
+  }
+
+  deletePlayListItem() {
+    
   }
 
   /* 재생목록 관리 팝업 */
