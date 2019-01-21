@@ -1,4 +1,4 @@
-<div class="ui-g-nopad ui-g-12" style="margin-bottom: 150px;">
+<div class="ui-g-nopad ui-g-12" style="margin-bottom: 45vh;">
   <div class="ui-g-nopad ui-g-12 filterArea">
     <div class="left">
       <a routerLink="/interactive-service/ad-manage/manager/manager-detail"><button type="button" pButton class="margin-right-10" label="새 광고 등록"></button></a>
@@ -32,10 +32,10 @@
           <td>
             <p-tableCheckbox [value]="managerRow"></p-tableCheckbox>
           </td>
-          <td><img [src]="managerRow['ad']" alt="광고썸네일" style="width: 100%;"></td>
-          <td>{{ managerRow['title'] }}</td>
-          <td>{{ managerRow['regDate'] }}</td>
-          <td>{{ managerRow['updateAt'] }}</td>
+          <td routerLink="/interactive-service/ad-manage/transmit/transmit-detail" style="cursor: pointer;"><img [src]="managerRow['ad_img']" alt="광고썸네일" style="width: 100%;"></td>
+          <td routerLink="/interactive-service/ad-manage/transmit/transmit-detail" style="cursor: pointer;">{{ managerRow['ad_nm	'] }}</td>
+          <td routerLink="/interactive-service/ad-manage/transmit/transmit-detail" style="cursor: pointer;">{{ managerRow['created_at'] }}</td>
+          <td routerLink="/interactive-service/ad-manage/transmit/transmit-detail" style="cursor: pointer;">{{ managerRow['updated_at'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>

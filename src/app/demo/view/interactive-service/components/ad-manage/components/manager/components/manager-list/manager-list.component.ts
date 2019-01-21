@@ -3,6 +3,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../../../../../../../../breadcrumb.service';
+import { TwoWayService } from '../../../../../../../../../demo/service/twoway.service';
 
 @Component({
   selector: 'manager-list',
@@ -11,19 +12,15 @@ import { BreadcrumbService } from '../../../../../../../../../breadcrumb.service
 
 export class ManagerListComponent implements OnInit {
   public managerCols:any[] = [
-    { header: '광고', field: 'ad', width: '200px' },
-    { header: '제목', field: 'title' },
-    { header: '등록일시', field: 'regDate' },
-    { header: '최종 수정일시', field: 'updateAt' },
+    { header: '광고', field: 'ad_img', width: '200px' },
+    { header: '제목', field: 'ad_nm' },
+    { header: '등록일시', field: 'created_at' },
+    { header: '최종 수정일시', field: 'updated_at' },
   ];
-  public managerRowData:any[] = [
-    { ad: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', title: '광고01', regDate: '2018.10.23', updateAt: '2018.10.23' },
-    { ad: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', title: '광고02', regDate: '2018.10.23', updateAt: '2018.10.23' },
-    { ad: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', title: '광고03', regDate: '2018.10.23', updateAt: '2018.10.23' },
-  ];
+  public managerRowData:any[] = [];
   public tempCompareItems:any[] = [];
 
-  constructor(private breadcrumbService: BreadcrumbService) {
+  constructor(private breadcrumbService: BreadcrumbService, private twoWayService: TwoWayService) {
     this.breadcrumbService.setItems([
       { label: '양방향서비스', routerLink: ['/interactive-service/live-chat/list'] },
       { label: '실시간 광고 전송', routerLink: ['/interactive-service/ad-manage/manager/manager-list'] },
@@ -32,5 +29,18 @@ export class ManagerListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load() {
+    this.loadADList();
+  }
+
+  loadADList() {
+    this.twoWayService.getAdList()
+      .then((cont) => {
+        this.managerRowData = cont['list'];
+        this.managerRowData.reverse();
+      })
   }
 }
