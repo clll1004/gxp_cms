@@ -13,8 +13,8 @@
     <div class="dataArea margin-bottom-50">
       <div class="ui-g-nopad ui-g-12" style="margin-bottom: 30px;">
         <div class="left">
-          <button pButton type="button" label="선택 이동" class="margin-right-10" (click)="hasSelectItem();"></button>
-          <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
+          <button pButton type="button" label="선택 이동" class="margin-right-10" (click)="hasSelectItem('move');"></button>
+          <button pButton type="button" label="선택 삭제" class="margin-right-10" (click)="hasSelectItem('delete');"></button>
           총 <span class="c_red">{{ mediaStorageRowData.length }}</span>개
         </div>
         <div class="right">

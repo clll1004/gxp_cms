@@ -95,8 +95,12 @@ export class StorageListComponent implements OnInit {
     this.notSelectDialog = false;
   }
 
-  hasSelectItem() {
-    this.tempSelectItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
+  hasSelectItem(act:string) {
+    if (this.tempSelectItems.length !== 0) {
+      act === 'move' ? this.moveDialog = true : this.deleteMediaStorageItem();
+    } else {
+      this.notSelectDialog = true;
+    }
   }
 
   moveMediaStorage() {
@@ -104,9 +108,21 @@ export class StorageListComponent implements OnInit {
     this.tempSelectItems.forEach((item) => {
       valueArray.push({ 'fo_seq': item.fo_seq });
     });
-    this.mediaStorageService.moveStorage(this.selectedMoveStorage, valueArray)
+    this.mediaStorageService.moveStorageItem(this.selectedMoveStorage, valueArray)
       .then(() => {
         this.moveDialog = false;
+        this.tempSelectItems = [];
+        this.loadMediaStorageList();
+      });
+  }
+
+  deleteMediaStorageItem() {
+    const valueArray:any[] = [];
+    this.tempSelectItems.forEach((item) => {
+      valueArray.push({ 'fo_seq': item.fo_seq });
+    });
+    this.mediaStorageService.deleteStorageItem(valueArray)
+      .then(() => {
         this.tempSelectItems = [];
         this.loadMediaStorageList();
       });

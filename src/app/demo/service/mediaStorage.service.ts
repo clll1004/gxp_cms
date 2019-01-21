@@ -66,7 +66,7 @@ export class MediaStorageService {
       });
   }
 
-  moveStorage(storageSeq, valueArray) {
+  moveStorageItem(storageSeq, valueArray) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'text/html',
@@ -80,6 +80,25 @@ export class MediaStorageService {
     };
 
     return this.http.post(`${this.domain}/selectmove`, data, httpOptions)
+      .toPromise()
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  deleteStorageItem(valueArray) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/html',
+      })
+    };
+
+    const data:object = {
+      usr_seq: this.usrSeq,
+      list: valueArray
+    };
+
+    return this.http.post(`${this.domain}/selectdel`, data, httpOptions)
       .toPromise()
       .catch((error) => {
         console.log(error);
