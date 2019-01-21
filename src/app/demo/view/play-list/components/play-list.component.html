@@ -1,4 +1,4 @@
-<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 25vh;">
+<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 15vh;">
   <div class="ui-g-12 card" style="padding: 25px;">
     <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
       <div class="left">
@@ -68,7 +68,6 @@
   </div>
 </div>
 
-
 <p-dialog [(visible)]="settingDialog" [width]="900" [modal]="true" [showHeader]="false">
   <div class="txt-right margin-top-15">
     <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
@@ -76,12 +75,12 @@
   <div class="margin-top-40 margin-bottom-50">
     <h2 class="txt-center margin-bottom-40">재생목록 관리</h2>
     <div>
-      <button pButton type="button" class="margin-right-5 margin-bottom-20" label="새로 추가"></button>
-      <button pButton type="button" class="margin-right-5" label="선택 삭제"></button>
-      <button pButton type="button" class="margin-right-5" label="수정"></button>
-      <button pButton type="button" label="상태변경"></button>
+      <button pButton type="button" class="margin-right-5 margin-bottom-20" label="새로 추가" (click)="addPlayList();"></button>
+      <button pButton type="button" class="margin-right-5" label="선택 삭제" (click)="deletePlayList();"></button>
+      <button pButton type="button" class="margin-right-5" label="수정" (click)="modifyPlayList();"></button>
+      <button pButton type="button" label="상태변경" (click)="switchStatus();"></button>
 
-      <p-table class="selectTable" [columns]="playListSettingCols" [value]="playListSettingRowData" [resizableColumns]="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,50,100]" [(selection)]="selectSettingItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
+      <p-table class="selectTable" [columns]="playListSettingCols" [value]="playListSettingRowData" [(selection)]="selectSettingItems">
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
             <col *ngFor="let col of columns" [style.width]="col.width">
@@ -103,12 +102,18 @@
             <td>
               <p-tableCheckbox [value]="playListSetting"></p-tableCheckbox>
             </td>
-            <td>
+            <td *ngIf="playListSetting['mode'] === 'add' || playListSetting['mode'] === 'modify'">
+              <input type="text" [(ngModel)]="playListSetting['pl_nm']" placeholder="재생목록명을 입력해주세요" style="width: 100%; padding: 5px 10px; border: 1px solid #ccc;">
+            </td>
+            <td *ngIf="playListSetting['mode'] === 'normal'">
               {{ playListSetting['pl_nm'] }}
             </td>
-            <td>{{ playListSetting['content_cnt'] }} 개</td>
-            <td>{{ playListSetting['content_size'] }} MB</td>
-            <td>{{ playListSetting['service_status'] }}</td>
+            <td>{{ playListSetting['content_cnt'] }} <span *ngIf="playListSetting['mode'] === 'normal'">개</span></td>
+            <td>{{ playListSetting['content_size'] }} <span *ngIf="playListSetting['mode'] === 'normal'">MB</span></td>
+            <td *ngIf="playListSetting['mode'] !== 'normal'">
+              <p-dropdown [options]="statusOption" [(ngModel)]="playListSetting['service_status']"></p-dropdown>
+            </td>
+            <td *ngIf="playListSetting['mode'] === 'normal'">{{ playListSetting['service_status'] }}</td>
             <td>{{ playListSetting['pl_reg_dtm'] }}</td>
             <td>{{ playListSetting['updated_at'] }}</td>
           </tr>
@@ -121,7 +126,7 @@
   </div>
   <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-40">
     <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="settingDialog=false;" label="취소"></button>
-    <button pButton type="submit" class="btn" (click)="settingDialog=false;" label="저장"></button>
+    <button pButton type="submit" class="btn" (click)="updatePlayList();" label="저장"></button>
   </div>
 </p-dialog>
 

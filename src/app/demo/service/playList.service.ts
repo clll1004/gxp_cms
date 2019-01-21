@@ -2,7 +2,7 @@
  * Created by GRE511 on 2019-01-15.
  */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from './cookie.service';
 
 @Injectable()
@@ -29,6 +29,25 @@ export class PlayListService {
       .toPromise()
       .then((cont) => {
         return cont;
+      });
+  }
+
+  postPlayList(valueArray) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/html',
+      })
+    };
+
+    const data:object = {
+      usr_seq: this.usrSeq,
+      list: valueArray
+    };
+
+    return this.http.post(`${this.domain}/boxadd`, data, httpOptions)
+      .toPromise()
+      .catch((error) => {
+        console.log(error);
       });
   }
 

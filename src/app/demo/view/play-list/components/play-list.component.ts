@@ -47,14 +47,18 @@ export class PlayListComponent implements OnInit {
     { header: '등록일시', field: 'pl_reg_dtm' },
     { header: '수정일시', field: 'updated_at' },
   ];
+  public playListSettingOriginData:any[] = [];
   public playListSettingRowData:any[] = [];
   public selectSettingItems:any[] = [];
+  public rowIndex:number = 0;
 
   public settingDialog:boolean = false;
   public moveDialog:boolean = false;
   public notSelectDialog:boolean = false;
 
   public selectedMovePlayList:any = 'transmitAd';
+
+  public statusOption:any[] = [{ label: 'ON', value: 'ON' }, { label: 'OFF', value: 'OFF' }];
 
   constructor(private activatedRoute: ActivatedRoute, private breadcrumbService: BreadcrumbService, private playListService: PlayListService) {
     this.breadcrumbService.setItems([
@@ -103,13 +107,6 @@ export class PlayListComponent implements OnInit {
       });
   }
 
-  loadSettingPlayList() {
-    this.playListService.getSettingPlayList()
-      .then((cont) => {
-        this.playListSettingRowData = cont['list'];
-      });
-  }
-
   closePopup() {
     this.settingDialog = false;
     this.moveDialog = false;
@@ -118,6 +115,97 @@ export class PlayListComponent implements OnInit {
 
   movePlayList() {
     this.tempItems.length !== 0 ? this.moveDialog = true : this.notSelectDialog = true;
+  }
+
+  /* 재생목록 관리 팝업 */
+  loadSettingPlayList() {
+    this.playListService.getSettingPlayList()
+      .then((cont) => {
+        this.playListSettingOriginData = cont['list'];
+        this.playListSettingRowData = this.playListSettingOriginData;
+        this.playListSettingRowData.forEach((item) => {
+          item.mode = 'normal';
+        });
+      });
+  }
+
+  updatePlayList() {
+    const valueArray:any[] = [];
+    this.playListSettingRowData.forEach((item) => {
+      if (item.pl_nm !== '') {
+        const temp:object = { pl_seq: '', pl_nm: '', service_status: '' };
+        temp['pl_seq'] = item.pl_seq;
+        temp['pl_nm'] = item.pl_nm;
+        temp['service_status'] = item.service_status;
+        valueArray.push(temp);
+      }
+    });
+    this.playListService.postPlayList(valueArray)
+      .then(() => {
+        this.settingDialog = false;
+      });
+  }
+
+  addPlayList() {
+    this.playListSettingRowData.unshift({ rowIndex: `add${this.rowIndex}`, mode: 'add', pl_seq: '', pl_nm: '', service_status: 'ON' });
+    this.rowIndex += 1;
+  }
+
+  deletePlayList() {
+    if (this.selectSettingItems.length === 0) {
+      return false;
+    }
+    console.log(this.selectSettingItems);
+    const deleteSeqArray:any[] = [];
+    this.selectSettingItems.forEach((item) => {
+      item.mode === 'add' ? deleteSeqArray.push(item.rowIndex) : deleteSeqArray.push(item.pl_seq);
+    });
+    deleteSeqArray.forEach((seq) => {
+      for (let i = 0 ; i < this.playListSettingRowData.length ; i += 1) {
+        if (this.playListSettingRowData[i].pl_seq === seq || this.playListSettingRowData[i].rowIndex === seq) {
+          this.playListSettingRowData.splice(i, 1);
+        }
+      }
+    });
+    this.selectSettingItems = [];
+  }
+
+  modifyPlayList() {
+    if (this.selectSettingItems.length === 0) {
+      return false;
+    }
+    const modifySeqArray:any[] = [];
+    this.selectSettingItems.forEach((item) => {
+      if (item.mode === 'normal') {
+        modifySeqArray.push(item.pl_seq);
+      }
+    });
+    modifySeqArray.forEach((seq) => {
+      for (let i = 0 ; i < this.playListSettingRowData.length ; i += 1) {
+        if (this.playListSettingRowData[i].pl_seq === seq) {
+          this.playListSettingRowData[i].mode = 'modify';
+        }
+      }
+    });
+    this.selectSettingItems = [];
+  }
+
+  switchStatus() {
+    if (this.selectSettingItems.length === 0) {
+      return false;
+    }
+    const switchStatusSeqArray:any[] = [];
+    this.selectSettingItems.forEach((item) => {
+      switchStatusSeqArray.push(item.pl_seq);
+    });
+    switchStatusSeqArray.forEach((seq) => {
+      for (let i = 0 ; i < this.playListSettingRowData.length ; i += 1) {
+        if (this.playListSettingRowData[i].pl_seq === seq) {
+          this.playListSettingRowData[i].service_status === 'ON' ? this.playListSettingRowData[i].service_status = 'OFF' : this.playListSettingRowData[i].service_status = 'ON';
+        }
+      }
+    });
+    this.selectSettingItems = [];
   }
 }
 
