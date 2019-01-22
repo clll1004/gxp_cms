@@ -21,6 +21,7 @@ export class LiveListComponent implements OnInit {
   ];
   public liveRowData:any[] = [];
   public tempSelectItems:any[] = [];
+  public notSelectDialog:boolean = false;
 
   constructor(private breadcrumbService: BreadcrumbService, private twoWayService: TwoWayService) {
     this.breadcrumbService.setItems([
@@ -50,6 +51,7 @@ export class LiveListComponent implements OnInit {
 
   deleteSelectItem() {
     if (this.tempSelectItems.length === 0) {
+      this.notSelectDialog = true;
       return false;
     }
 
@@ -62,5 +64,9 @@ export class LiveListComponent implements OnInit {
         this.tempSelectItems = [];
         this.loadLiveChatList();
       });
+  }
+
+  closePopup() {
+    this.notSelectDialog = false;
   }
 }

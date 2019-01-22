@@ -43,3 +43,15 @@
     </p-table>
   </div>
 </div>
+
+<p-dialog [(visible)]="notSelectDialog" [width]="400" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    항목을 선택해주세요.
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="submit" (click)="notSelectDialog=false;" label="확인"></button>
+  </div>
+</p-dialog>
