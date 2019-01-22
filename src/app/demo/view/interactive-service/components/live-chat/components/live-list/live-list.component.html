@@ -1,15 +1,15 @@
-<div class="ui-g-nopad ui-g-12" style="margin-bottom: 45vh;">
+<div class="ui-g-nopad ui-g-12" style="margin-bottom: 50vh;">
   <div class="ui-g-nopad ui-g-12 filterArea">
     <div class="left">
       <a routerLink="/interactive-service/live-chat/add"><button type="button" pButton class="margin-right-10" label="새로운 채팅 등록"></button></a>
-      <button type="button" pButton label="선택 삭제"></button>
+      <button type="button" pButton label="선택 삭제" (click)="deleteSelectItem()"></button>
     </div>
     <div class="right">
       <input type="text" pInputText placeholder="검색">
     </div>
   </div>
   <div class="ui-g-nopad ui-g-12 margin-bottom-50">
-    <p-table #dt class="selectTable" [columns]="liveCols" [value]="liveRowData" [resizableColumns]="true" sortField="regdate" [sortOrder]="-1" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempCompareItems"> <!--selectionMode="multiple" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowSelect()" -->
+    <p-table #dt class="selectTable" [columns]="liveCols" [value]="liveRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempSelectItems">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col *ngFor="let col of columns" [style.width]="col.width">
@@ -28,11 +28,11 @@
           <td>
             <p-tableCheckbox [value]="liveRowData"></p-tableCheckbox>
           </td>
-          <td>{{ liveRowData['chatDate'] }}</td>
-          <td>{{ liveRowData['chatTime'] }}</td>
-          <td><a routerLink="/interactive-service/live-chat/detail" class="c_red" style="border-bottom: 1px solid #fe875d;">{{ liveRowData['contentsName'] }}</a></td>
-          <td>{{ liveRowData['fileName'] }}</td>
-          <td>{{ liveRowData['chatStatus'] }}</td>
+          <td routerLink="/interactive-service/live-chat/detail" style="cursor: pointer;">{{ liveRowData['lc_sdate'] }}</td>
+          <td routerLink="/interactive-service/live-chat/detail" style="cursor: pointer;">{{ liveRowData['chatTime'] }}</td>
+          <td routerLink="/interactive-service/live-chat/detail" style="cursor: pointer;">{{ liveRowData['title'] }}</td>
+          <td routerLink="/interactive-service/live-chat/detail" style="cursor: pointer;">{{ liveRowData['ft_nm'] }}</td>
+          <td routerLink="/interactive-service/live-chat/detail" style="cursor: pointer;">{{ liveRowData['lc_status'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>

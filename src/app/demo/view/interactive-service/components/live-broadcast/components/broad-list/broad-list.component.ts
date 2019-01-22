@@ -3,6 +3,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../../../../../../breadcrumb.service';
+import { TwoWayService } from '../../../../../../../demo/service/twoway.service';
 
 @Component({
   selector: 'broad-list',
@@ -24,7 +25,7 @@ export class BroadListComponent implements OnInit {
   ];
   public tabIndex:number = 0;
 
-  constructor(private breadcrumbService: BreadcrumbService) {
+  constructor(private breadcrumbService: BreadcrumbService, private twoWayService: TwoWayService) {
     this.breadcrumbService.setItems([
       { label: '양방향서비스', routerLink: ['/interactive-service/live-broadcast/list'] },
       { label: '라이브방송', routerLink: ['/interactive-service/live-broadcast/list'] },
@@ -32,6 +33,23 @@ export class BroadListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load() {
+    this.loadLiveBroadList();
+  }
+
+  loadLiveBroadList() {
+    const today = new Date();
+    const month = (today.getMonth() + 1) < 10 ? `0${today.getMonth() + 1}` : (today.getMonth() + 1);
+    const date = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate();
+    const convertDate = `${today.getFullYear()}-${month}-${date}`;
+
+    this.twoWayService.getLiveBroadList(convertDate)
+      .then((cont) => {
+        console.log(cont);
+      });
   }
 
   selectItem(e) {
