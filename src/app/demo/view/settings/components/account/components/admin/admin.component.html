@@ -1,0 +1,66 @@
+<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 40vh">
+  <div class="ui-g-12 card" style="padding: 25px;">
+    <div class="ui-g-12 ui-g-nopad filterArea margin-bottom-50">
+      <div class="left">
+        <button pButton type="button" label="새로 등록" class="margin-right-10" (click)="addAdminDialog = true;"></button>
+        <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
+        총 <span class="c_red">0</span>명
+      </div>
+    </div>
+
+    <div class="ui-g-nopad ui-g-12">
+      <p-table #dt class="selectTable" [columns]="adminCols" [value]="adminRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempSelectItems">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3em">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field">
+              {{ col.header }}
+              <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-admin>
+          <tr [pSelectableRow]="admin">
+            <td>
+              <p-tableCheckbox [value]="admin"></p-tableCheckbox>
+            </td>
+            <td> {{ admin['cmsId'] }} </td>
+            <td> {{ admin['name'] }} </td>
+            <td> {{ admin['email'] }} </td>
+            <td> {{ admin['phone'] }} </td>
+            <td> {{ admin['regDate'] }} </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="columns.length + 1" class="emptyMessage">표시할 데이터가 없습니다.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<p-dialog [(visible)]="addAdminDialog" [width]="550" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="margin-top-30 margin-bottom-30 padding-right-30 padding-left-30">
+    <h2 class="txt-center margin-bottom-40">관리자 등록</h2>
+    <p class="info-txt">CMS에 가입한 회원만 관리자로 등록하실 수 있습니다.<br>등록할 회원의 이름과 이메일을 입력해주세요.</p>
+
+    <div class="margin-top-20 margin-bottom-20">
+      <label for="adminName" class="admin-label margin-bottom-10">관리자 이름</label> <input type="text" pInputText id="adminName" pTooltip="가입 시 등록한 이름을 입력해주세요." tooltipPosition="bottom" style="width: 200px;"><br/>
+      <label for="adminEmail" class="admin-label">이메일</label> <input type="text" pInputText id="adminEmail" pTooltip="가입 시 등록한 이메일을 입력해주세요." tooltipPosition="bottom" style="width: 200px;">
+    </div>
+
+    <p class="info-txt">※ 관리자로 등록되면 해당 회원이 기존 사용하던 CMS는 사용하실 수 없습니다.</p>
+  </div>
+
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="addAdminDialog=false;" label="취소"></button>
+    <button pButton type="submit" class="btn" (click)="addAdmin();" label="확인"></button>
+  </div>
+</p-dialog>

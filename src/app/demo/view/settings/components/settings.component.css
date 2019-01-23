@@ -1,4 +1,11 @@
+* { outline: none; }
+.left { float: left; }
+.right { float: right; }
+.c_red { color: #d01212; }
+.txt-right { text-align: right; }
 .txt-center { text-align: center; }
+.emptyMessage { padding: 20px 0 !important; text-align: center;}
+.info-txt { font-size: 13px; color: #666; }
 
 fieldset { border: none; }
 .form-row { padding: 20px 0; border-bottom: 1px solid #eee; }
@@ -11,3 +18,5 @@ fieldset { border: none; }
 }
 
 #keyCopy:hover { color: #ff6400; }
+.close_btn { border: none; background: #fff; cursor: pointer; }
+.admin-label { display: inline-block; width: 100px; }
