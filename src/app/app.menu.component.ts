@@ -45,8 +45,8 @@ export class AppMenuComponent implements OnInit {
       {
         label: '설정', icon: 'fa fa-fw fa-cog' ,
         items: [
-          { label: '계정설정', routerLink: ['/sample'] },
-          { label: '프리셋설정', routerLink: ['/sample'] },
+          { label: '계정설정', routerLink: ['/settings/account'] },
+          { label: '프리셋설정', routerLink: ['/settings/user-preset'] },
         ]
       },
       {

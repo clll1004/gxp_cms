@@ -19,6 +19,7 @@ import { TransMonitoringComponent } from './demo/view/trans-monitoring/component
 import { MediaStorageComponent } from './demo/view/media-storage/components/media-storage.component';
 import { PlayListComponent } from './demo/view/play-list/components/play-list.component';
 import { InteractiveServiceComponent } from './demo/view/interactive-service/components/interactive-service.component';
+import { SettingsComponent } from './demo/view/settings/components/settings.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
@@ -30,6 +31,7 @@ export const routes: Routes = [
     { path: 'interactive-service/:id', component: InteractiveServiceComponent },
     { path: 'interactive-service/:id/:subId', component: InteractiveServiceComponent },
     { path: 'interactive-service/:id/:subId/:detail', component: InteractiveServiceComponent },
+    { path: 'settings/:id', component: SettingsComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },

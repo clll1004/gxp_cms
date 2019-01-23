@@ -107,6 +107,7 @@ import { MediaStorageModule } from './demo/view/media-storage/media-storage.modu
 import { TransMonitoringModule } from './demo/view/trans-monitoring/trans-monitoring.module';
 import { PlayListModule } from './demo/view/play-list/play-list.module';
 import { InteractiveServiceModule } from './demo/view/interactive-service/interactive-service.module';
+import { SettingsModule } from './demo/view/settings/settings.module';
 
 /*custom service*/
 import { CookieService } from './demo/service/cookie.service';
@@ -194,6 +195,7 @@ import { TwoWayService } from './demo/service/twoway.service';
     PlayListModule,
     TransMonitoringModule,
     InteractiveServiceModule,
+    SettingsModule,
   ],
   declarations: [
     AppComponent,
