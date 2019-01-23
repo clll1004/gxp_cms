@@ -1,5 +1,8 @@
 @charset "UTF-8";
 /* Add your variable customizations of theme here */
+
+.w230 .ui-inputtext { width: 230px!important; }
+
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

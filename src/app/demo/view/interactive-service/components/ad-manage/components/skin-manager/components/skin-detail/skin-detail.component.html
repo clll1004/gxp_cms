@@ -1,6 +1,6 @@
 <div class="ui-g-nopad ui-g-12 margin-top-30" style="margin-bottom: 30vh;">
   <div class="card">
-    <form [formGroup]="skinAddForm" (ngSubmit)="onSubmit(skinAddForm.value)">
+    <form [formGroup]="skinDetailForm" (ngSubmit)="onSubmit(skinDetailForm.value)">
       <fieldset>
         <div class="ui-g-12 ui-g-nopad">
           <div class="form-row ui-g-12 ui-g-nopad">
@@ -13,20 +13,53 @@
           <div class="form-row ui-g-12 ui-g-nopad">
             <p class="form-title ui-g-2 ui-g-nopad">스킨 등록</p>
             <div class="form-data ui-g-10 ui-g-nopad">
-              <input type="file" pInputText formControlName="thumbnail" class="margin-bottom-10" style="cursor: pointer;">
               <div style="width: 300px;">
                 <img src="http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg" alt="미리보기" style="width: 100%; height: auto;">
               </div>
             </div>
           </div>
           <div class="form-row ui-g-12 ui-g-nopad">
-            <p class="info-txt">※ 새로운 스킨등록 후 상세페이지에서 영상과 시간을 지정해주세요.</p>
+            <p class="form-title ui-g-2 ui-g-nopad">상태</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <span class="switchTitle margin-right-5">OFF</span> <p-inputSwitch formControlName="skinUse"></p-inputSwitch> <span class="switchTitle margin-left-5">ON</span>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">변경기간</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <p-radioButton formControlName="skinPeriod" name="skinPeriod" value="realtime" label="실시간 변경" class="margin-right-30" (click)="skinPeriodSetting()"></p-radioButton>
+              <div class="ui-g-12 ui-g-nopad margin-top-10"> <!--사용자 지정 영역-->
+                <p-radioButton formControlName="skinPeriod" name="skinPeriod" value="user" label="사용자 지정" class="margin-right-30" (click)="skinPeriodSetting()"></p-radioButton>
+                <p-calendar class="w230" formControlName="skinPeriodDates" selectionMode="range" [style]="{'width': '300px'}" [showIcon]="true" [showTime]="true" [readonlyInput]="true" [yearNavigator]="true" [yearRange]="yearRange" [monthNavigator]="true" [locale]="localeObject" dateFormat="yy-mm-dd"></p-calendar>
+                <p-checkbox formControlName="periodContinue" binary="true" label="계속"></p-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">변경지점</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad margin-bottom-10"><!--실시간 영역-->
+                <p-radioButton formControlName="skinPoint" name="skinPoint" value="realtime" label="실시간(현재 시청하는 지점)" class="margin-right-30" (click)="skinPointSetting()"></p-radioButton><br/>
+                <p class="margin-top-10 margin-left-30">
+                  - 스킨 적용 후 <input type="number" formControlName="skinPoint_realTime_minutes" pInputText style="width: 50px; text-align: center;" min="0" max="60">분 후 기본 스킨으로 변경
+                  <p-checkbox formControlName="skinPoint_realTime_continue" binary="true" label="영상종료까지 변경된 상태 유지" class="margin-left-30"></p-checkbox>
+                </p>
+              </div>
+              <div class="ui-g-12 ui-g-nopad"><!--구간 설정 영역-->
+                <p-radioButton formControlName="skinPoint" name="skinPoint" value="user" label="구간 설정" class="margin-right-30" (click)="skinPointSetting()"></p-radioButton>
+                <p class="margin-top-10 margin-left-30">
+                  - 영상 <input type="number" formControlName="skinPoint_user_start" pInputText style="width: 50px; text-align: center;" min="0" max="100"> % 지점부터
+                  <input type="number" formControlName="skinPoint_user_end" pInputText style="width: 50px; text-align: center;" min="0" max="100"> % 지점까지 스킨변경
+                  <p-checkbox formControlName="skinPoint_user_continue" binary="true" label="영상종료까지 변경된 상태 유지" class="margin-left-30"></p-checkbox>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
           <a routerLink="/interactive-service/ad-manage/skin-manager/skin-list"><button pButton type="reset" class="btn margin-right-5 ui-button-secondary" label="취소"></button></a>
-          <button pButton type="submit" class="btn" label="저장" [disabled]="!skinAddForm.valid"></button>
+          <button pButton type="submit" class="btn" label="저장" [disabled]="!skinDetailForm.valid"></button>
         </div>
       </fieldset>
     </form>
