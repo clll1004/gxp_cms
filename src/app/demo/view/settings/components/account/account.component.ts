@@ -21,7 +21,10 @@ export class AccountComponent implements OnInit {
     });
 
     this.tabMenuItems = [
-      { label: '계정정보', routerLink: ['/statistics/play-statistics/byDate'] },
+      { label: '계정정보', routerLink: ['/settings/account/info'] },
+      { label: '관리자 설정', routerLink: ['/settings/account/admin'] },
+      { label: '서비스 관리', routerLink: ['/settings/account/service'] },
+      { label: '결제 관리', routerLink: ['/settings/account/payment'] },
     ];
   }
 }

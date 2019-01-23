@@ -1,0 +1,99 @@
+<div class="ui-g-12 ui-g-nopad margin-bottom-50">
+  <div class="ui-g-12 ui-lg-6 margin-bottom-50">
+    <p-panel header="소속기관" class="ui-g-12 ui-g-nopad margin-bottom-30">
+      <form>
+        <fieldset>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-3 ui-g-nopad">소속기관</p>
+            <div class="form-data ui-g-9 ui-g-nopad">
+              {{ agency['name'] }}
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-3 ui-g-nopad">담당자</p>
+            <div class="form-data ui-g-9 ui-g-nopad">
+              {{ agency['charge'] }}
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-3 ui-g-nopad">담당자 E-Mail</p>
+            <div class="form-data ui-g-9 ui-g-nopad">
+              {{ agency['chargeEmail'] }}
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-3 ui-g-nopad">담당자 연락처</p>
+            <div class="form-data ui-g-9 ui-g-nopad">
+              {{ agency['chargePhone'] }}
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </p-panel>
+    <p-panel header="API 인증키 정보" class="ui-g-12 ui-g-nopad">
+      <form>
+        <fieldset>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-3 ui-g-nopad">도메인</p>
+            <div class="form-data ui-g-9 ui-g-nopad">
+              {{ apiLicense['domain'] }}
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-3 ui-g-nopad">발급일</p>
+            <div class="form-data ui-g-9 ui-g-nopad">
+              {{ apiLicense['issueDate'] }}
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-3 ui-g-nopad">만료일</p>
+            <div class="form-data ui-g-9 ui-g-nopad">
+              {{ apiLicense['terminationDate'] }}
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-3 ui-g-nopad">인증키</p>
+            <div class="form-data ui-g-9 ui-g-nopad">
+              <span id="keyCopy" (click)="copyClipboard()" pTooltip="클립보드에 복사하기" tooltipPosition="bottom" style="cursor: pointer;">{{ apiLicense['keyValue'] }}</span>
+              <button type="button" class="margin-left-20" (click)="copyClipboard()" pButton label="복사"></button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </p-panel>
+  </div>
+  <p-panel header="비밀번호 변경" class="ui-g-12 ui-lg-6 margin-bottom-50">
+    <form [formGroup]="passwordForm" (ngSubmit)="onSubmit(passwordForm.value)">
+      <fieldset>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-3 ui-g-nopad">현재 비밀번호</p>
+          <div class="form-data ui-g-9 ui-g-nopad">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"><i class="fas fa-unlock-alt"></i></span><input type="password" pPassword formControlName="password" placeholder="현재 비밀번호">
+            </div>
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-3 ui-g-nopad">새로운 비밀번호</p>
+          <div class="form-data ui-g-9 ui-g-nopad">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"><i class="fas fa-unlock-alt"></i></span><input type="password" pPassword formControlName="newPassword" placeholder="새로운 비밀번호">
+            </div>
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-3 ui-g-nopad">새로운 비밀번호 확인</p>
+          <div class="form-data ui-g-9 ui-g-nopad">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"><i class="fas fa-unlock-alt"></i></span><input type="password" pPassword formControlName="newPasswordConfirm" placeholder="새로운 비밀번호 확인">
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+          <button pButton type="submit" class="btn" label="비밀번호 변경"></button>
+        </div>
+      </fieldset>
+    </form>
+  </p-panel>
+</div>

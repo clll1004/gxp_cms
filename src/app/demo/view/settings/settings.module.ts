@@ -9,9 +9,15 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 import { SettingsComponent } from './components/settings.component';
 import { AccountComponent } from './components/account/account.component';
+import { InfoComponent } from './components/account/components/info/info.component';
 import { UserPresetComponent } from './components/user-preset/user-preset.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   imports: [
@@ -21,12 +27,18 @@ import { TabMenuModule } from 'primeng/tabmenu';
     ReactiveFormsModule,
     BreadcrumbModule,
     TabMenuModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    PanelModule,
+    TooltipModule,
   ],
   exports: [SettingsComponent],
   declarations: [
     SettingsComponent,
     AccountComponent,
     UserPresetComponent,
+    InfoComponent,
   ]})
 
 export class SettingsModule {

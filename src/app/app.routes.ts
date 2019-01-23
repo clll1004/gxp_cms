@@ -32,6 +32,7 @@ export const routes: Routes = [
     { path: 'interactive-service/:id/:subId', component: InteractiveServiceComponent },
     { path: 'interactive-service/:id/:subId/:detail', component: InteractiveServiceComponent },
     { path: 'settings/:id', component: SettingsComponent },
+    { path: 'settings/:id/:subId', component: SettingsComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },
