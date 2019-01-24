@@ -59,8 +59,16 @@ export class TwoWayService {
 
 /* 라이브 방송 */
   /*라이브 방송 리스트*/
-  getLiveBroadList(today) {
+  getLiveBroadWeekList(today) {
     return this.http.get<any>(`${this.domain}/live/weeklist?usr_seq=${this.usrSeq}&today=${today}`)
+      .toPromise()
+      .then((cont) => {
+        return cont;
+      });
+  }
+
+  getLiveBroadList() {
+    return this.http.get<any>(`${this.domain}/live/list?usr_seq=${this.usrSeq}`)
       .toPromise()
       .then((cont) => {
         return cont;

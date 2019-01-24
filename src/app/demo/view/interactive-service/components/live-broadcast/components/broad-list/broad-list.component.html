@@ -1,4 +1,4 @@
-<div class="ui-g-nopad ui-g-12" style="margin-bottom: 26vh;">
+<div class="ui-g-nopad ui-g-12" style="margin-bottom: 43vh;">
   <div class="ui-g-nopad ui-g-12">
     <button class="ui-g-1 ui-g-nopad change_date_btn" (click)="loadPrevWeek();"><i class="fas fa-angle-left"></i></button>
     <ul class="ui-g-10 ui-g-nopad select_tab_menu" id="selectTab">
@@ -31,14 +31,14 @@
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-broad>
         <tr routerLink="/interactive-service/live-broadcast/detail" style="cursor: pointer;">
-          <td>{{ broad['time'] }}</td>
+          <td>{{ broad['li_stime'] }} ~ {{ broad['li_etime'] }}</td>
           <td>
-            <img [src]="broad['thumbnail']" alt="썸네일" style="width: 100%; height: auto;">
+            <img [src]="broad['li_img']" alt="썸네일" style="width: 100%; height: auto;">
           </td>
-          <td>{{ broad['broadName'] }}</td>
-          <td>{{ broad['contentsName'] }}</td>
-          <td>{{ broad['regdate'] }}</td>
-          <td>{{ broad['updateDate'] }}</td>
+          <td>{{ broad['li_title'] }}</td>
+          <td>{{ broad['ft_title'] }}</td>
+          <td>{{ broad['created_at'] }}</td>
+          <td>{{ broad['updated_at'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>
