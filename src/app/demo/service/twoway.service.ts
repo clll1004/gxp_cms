@@ -59,8 +59,8 @@ export class TwoWayService {
 
 /* 라이브 방송 */
   /*라이브 방송 리스트*/
-  getLiveBroadList(selectDate) {
-    return this.http.get<any>(`${this.domain}/live/weeklist?usr_seq=${this.usrSeq}&today=${selectDate}`)
+  getLiveBroadList(today) {
+    return this.http.get<any>(`${this.domain}/live/weeklist?usr_seq=${this.usrSeq}&today=${today}`)
       .toPromise()
       .then((cont) => {
         return cont;
@@ -76,6 +76,22 @@ export class TwoWayService {
       .toPromise()
       .then((cont) => {
         return cont;
+      });
+  }
+
+  addAd(valueObject) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/html',
+      })
+    };
+
+    valueObject.usr_seq = this.usrSeq;
+
+    return this.http.post(`${this.domain}/ad/add`, valueObject, httpOptions)
+      .toPromise()
+      .catch((error) => {
+        console.log(error);
       });
   }
 

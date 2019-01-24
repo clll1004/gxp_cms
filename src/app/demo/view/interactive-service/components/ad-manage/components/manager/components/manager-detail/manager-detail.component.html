@@ -2,35 +2,35 @@
   <div class="card">
     <form [formGroup]="adAddForm" (ngSubmit)="onSubmit(adAddForm.value)">
       <fieldset>
-        <div class="ui-g-7 ui-g-nopad">
+        <div class="ui-g-7">
           <div class="form-row ui-g-12 ui-g-nopad">
             <p class="form-title ui-g-2 ui-g-nopad">광고명</p>
             <div class="form-data ui-g-10 ui-g-nopad">
-              <input type="text" formControlName="adName" [(ngModel)]="adNameLength" pInputText placeholder="광고명을 입력해주세요."> &nbsp;&nbsp;
+              <input type="text" formControlName="ad_nm" [(ngModel)]="adNameLength" pInputText placeholder="광고명을 입력해주세요."> &nbsp;&nbsp;
               <span [class]="adNameLength.length > 15 ? 'c_red' : ''">({{ adNameLength.length }} / 15)</span>
             </div>
           </div>
           <div class="form-row ui-g-12 ui-g-nopad">
             <p class="form-title ui-g-2 ui-g-nopad">이미지 등록</p>
             <div class="form-data ui-g-10 ui-g-nopad">
-              <input type="file" pInputText formControlName="thumbnail">
+              <input type="file" pInputText formControlName="fileToUpload[]" accept="image/*" (change)="loadTumbnail($event);">
             </div>
           </div>
           <div class="form-row ui-g-12 ui-g-nopad">
             <p class="form-title ui-g-2 ui-g-nopad">등록일시</p>
             <div class="form-data ui-g-10 ui-g-nopad">
-              {{ adAddForm.get('regDate').value }}
+              <!--{{ adAddForm.get('created_at').value }}-->
             </div>
           </div>
           <div class="form-row ui-g-12 ui-g-nopad">
             <p class="form-title ui-g-2 ui-g-nopad">최종수정일시</p>
             <div class="form-data ui-g-10 ui-g-nopad">
-              {{ adAddForm.get('updateAt').value }}
+              <!--{{ adAddForm.get('updated_at').value }}-->
             </div>
           </div>
         </div>
-        <div class="ui-g-5 ui-g-nopad">
-          <img src="http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg" alt="미리보기" style="width: 100%; height: auto;">
+        <div class="ui-g-5">
+          <img [src]="thumbSrc" style="width: 100%;">
         </div>
 
         <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
@@ -41,3 +41,15 @@
     </form>
   </div>
 </div>
+
+<p-dialog [(visible)]="completeDialog" [width]="400" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" routerLink="/interactive-service/ad-manage/manager/manager-list" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    등록 완료되었습니다.
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="submit" (click)="completeDialog=false;" routerLink="/interactive-service/ad-manage/manager/manager-list" label="확인"></button>
+  </div>
+</p-dialog>

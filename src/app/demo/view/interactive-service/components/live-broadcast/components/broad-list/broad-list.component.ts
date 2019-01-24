@@ -23,6 +23,9 @@ export class BroadListComponent implements OnInit {
     { time: '12:00 ~ 13:00', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/fLayoutTest/KakaoTalk_Video_20170612_1744_48_996/KakaoTalk_Video_20170612_1744_48_9960001.jpg', broadName: '2018 영어문법특강 1강', contentsName: '자격증 교육', regdate: '2019-09-09 05:30', updateDate: '2019-09-09 05:30' },
     { time: '12:00 ~ 13:00', thumbnail: 'http://str.gomgxp.com/thail/GXP/2018/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%95/%EA%B3%B5%EC%9D%B8%EC%A4%91%EA%B0%9C%EC%82%AC%20%EC%A4%91%EA%B0%9C%EC%82%AC%EB%B2%95%20%EC%95%94%EA%B8%B0%EB%B2%95%ED%8A%B9%EA%B0%950001.jpg', broadName: '2018 영어문법특강 1강', contentsName: '자격증 교육', regdate: '2019-09-09 05:30', updateDate: '2019-09-09 05:30' },
   ];
+  public convertToday:string = '';
+  public originTabData:any [] = [];
+  public tabItem:any[] = [];
   public tabIndex:number = 0;
 
   constructor(private breadcrumbService: BreadcrumbService, private twoWayService: TwoWayService) {
@@ -37,19 +40,30 @@ export class BroadListComponent implements OnInit {
   }
 
   load() {
-    this.loadLiveBroadList();
-  }
-
-  loadLiveBroadList() {
     const today = new Date();
     const month = (today.getMonth() + 1) < 10 ? `0${today.getMonth() + 1}` : (today.getMonth() + 1);
     const date = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate();
-    const convertDate = `${today.getFullYear()}-${month}-${date}`;
+    this.convertToday = `${today.getFullYear()}-${month}-${date}`;
+    this.loadLiveBroadList(this.convertToday);
+  }
 
-    this.twoWayService.getLiveBroadList(convertDate)
+  loadLiveBroadList(dateForLoadWeek) {
+    this.tabItem = [];
+    this.twoWayService.getLiveBroadList(dateForLoadWeek)
       .then((cont) => {
-        console.log(cont);
+        this.originTabData = cont['list'];
+        for (let i = 1 ; i < this.originTabData.length - 1 ; i += 1) {
+          this.tabItem.push(this.originTabData[i]);
+        }
       });
+  }
+
+  loadPrevWeek() {
+    this.loadLiveBroadList(this.originTabData[0].date);
+  }
+
+  loadNextWeek() {
+    this.loadLiveBroadList(this.originTabData[this.originTabData.length - 1].date);
   }
 
   selectItem(e) {
