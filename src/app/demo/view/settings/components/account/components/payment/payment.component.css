@@ -1,0 +1,18 @@
+* { outline: none; }
+.left { float: left; }
+.right { float: right; }
+.c_red { color: #d01212; }
+.txt-right { text-align: right; }
+.txt-center { text-align: center; }
+.emptyMessage { padding: 20px 0 !important; text-align: center;}
+.info-txt { font-size: 13px; color: #666; }
+
+fieldset { border: none; }
+.form-row { padding: 10px 0; border-bottom: 1px solid #eee; }
+.form-title { font-weight: bold; margin: 14px 0; }
+.form-data {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}

@@ -12,6 +12,7 @@ import { AccountComponent } from './components/account/account.component';
 import { InfoComponent } from './components/account/components/info/info.component';
 import { AdminComponent } from './components/account/components/admin/admin.component';
 import { ServiceManageComponent } from './components/account/components/service-manage/service-manage.component';
+import { PaymentComponent } from './components/account/components/payment/payment.component';
 import { UserPresetComponent } from './components/user-preset/user-preset.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -46,6 +47,7 @@ import { DialogModule } from 'primeng/dialog';
     InfoComponent,
     AdminComponent,
     ServiceManageComponent,
+    PaymentComponent,
     UserPresetComponent,
   ]})
 
