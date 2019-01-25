@@ -14,6 +14,9 @@ import { AdminComponent } from './components/account/components/admin/admin.comp
 import { ServiceManageComponent } from './components/account/components/service-manage/service-manage.component';
 import { PaymentComponent } from './components/account/components/payment/payment.component';
 import { UserPresetComponent } from './components/user-preset/user-preset.component';
+import { PlayerPresetComponent } from './components/user-preset/components/player-preset/player-preset.component';
+import { EncodingPresetComponent } from './components/user-preset/components/encoding-preset/encoding-preset.component';
+import { LogoWartermarkComponent } from './components/user-preset/components/logo-wartermark-preset/logo-wartermark-preset.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
 import { InputTextModule } from 'primeng/inputtext';
@@ -49,6 +52,9 @@ import { DialogModule } from 'primeng/dialog';
     ServiceManageComponent,
     PaymentComponent,
     UserPresetComponent,
+    PlayerPresetComponent,
+    EncodingPresetComponent,
+    LogoWartermarkComponent,
   ]})
 
 export class SettingsModule {
