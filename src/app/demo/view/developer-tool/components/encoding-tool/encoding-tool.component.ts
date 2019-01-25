@@ -21,7 +21,6 @@ export class EncodingToolComponent implements OnInit {
   }
 
   copyClipboard() {
-    console.log('1');
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';

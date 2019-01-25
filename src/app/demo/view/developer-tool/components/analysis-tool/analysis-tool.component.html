@@ -1,1 +1,25 @@
-analysis
+<div class="ui-g-12 ui-g-nopad">
+  <div class="ui-g-12 card margin-bottom-50 padding-30">
+    <h2>둘러보기</h2>
+    <p class="info-txt">
+      GXP 플레이어를 웹사이트 또는 어플리케이션에 임베드할 수 있습니다.<br/>
+      플레이어의 기능과 디자인을 컨트롤하는 파라미터는 플레이어 Parameters 문서를 참고하시기 바랍니다.<br/><br/>
+      동영상의 삽입은 아래의 Play URL을 포함한 iframe 코드를 작성하여 웹페이지에<br/>
+      배포 패키지에 포함된 특정 동영상을 재생하는 플레이어를 삽입할 수 있습니다.
+    </p>
+  </div>
+  <div class="ui-g-12 card margin-bottom-50 padding-30">
+    <h2>분석 임베디드</h2>
+    <p class="info-txt">
+      웹사이트 또는 어플리케이션에 미디어 업로드 및 관리, 목록 조회, 상세 정보 조회 등의 기능을 탑재할 수 있습니다.
+    </p>
+    <pre style="display: inline-block; width: calc(100% - 100px); vertical-align: top;"><code id="copyArea" class="language-javascript">
+var bitanalyticsConfig = {{ '{' }}
+  key: 'e8982196-d321-4f02-ab87-34a043ff8edc',
+  player: bitmovin.analytics.Players.BITMOVIN
+{{ '}' }}
+
+</code></pre>
+    <button pButton (click)="copyClipboard()" label="COPY" class="margin-top-5 margin-left-10"></button>
+  </div>
+</div>
