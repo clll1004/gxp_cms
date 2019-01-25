@@ -20,6 +20,7 @@ import { MediaStorageComponent } from './demo/view/media-storage/components/medi
 import { PlayListComponent } from './demo/view/play-list/components/play-list.component';
 import { InteractiveServiceComponent } from './demo/view/interactive-service/components/interactive-service.component';
 import { SettingsComponent } from './demo/view/settings/components/settings.component';
+import { DeveloperToolComponent } from './demo/view/developer-tool/components/developer-tool.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
@@ -33,6 +34,7 @@ export const routes: Routes = [
     { path: 'interactive-service/:id/:subId/:detail', component: InteractiveServiceComponent },
     { path: 'settings/:id', component: SettingsComponent },
     { path: 'settings/:id/:subId', component: SettingsComponent },
+    { path: 'developer-tool/:id', component: DeveloperToolComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },

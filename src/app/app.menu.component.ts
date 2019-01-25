@@ -52,9 +52,9 @@ export class AppMenuComponent implements OnInit {
       {
         label: '개발자도구', icon: 'fa fa-fw fa-code',
         items: [
-          { label: '인코딩', routerLink: ['/sample'] },
-          { label: '플레이어', routerLink: ['/sample'] },
-          { label: '분석', routerLink: ['/sample'] },
+          { label: '인코딩', routerLink: ['/developer-tool/encoding'] },
+          { label: '플레이어', routerLink: ['/developer-tool/player'] },
+          { label: '분석', routerLink: ['/developer-tool/analysis'] },
         ]
       },
     ];

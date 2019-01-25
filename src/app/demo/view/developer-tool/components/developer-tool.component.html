@@ -1,0 +1,5 @@
+<p-tabMenu [model]="tabMenuItems"></p-tabMenu>
+<div class="margin-bottom-30"></div>
+<encoding-tool *ngIf="params['id'] === 'encoding'"></encoding-tool>
+<player-tool *ngIf="params['id'] === 'player'"></player-tool>
+<analysis-tool *ngIf="params['id'] === 'analysis'"></analysis-tool>

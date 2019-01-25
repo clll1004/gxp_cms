@@ -108,6 +108,7 @@ import { TransMonitoringModule } from './demo/view/trans-monitoring/trans-monito
 import { PlayListModule } from './demo/view/play-list/play-list.module';
 import { InteractiveServiceModule } from './demo/view/interactive-service/interactive-service.module';
 import { SettingsModule } from './demo/view/settings/settings.module';
+import { DeveloperToolModule } from './demo/view/developer-tool/developer-tool.module';
 
 /*custom service*/
 import { CookieService } from './demo/service/cookie.service';
@@ -196,6 +197,7 @@ import { TwoWayService } from './demo/service/twoway.service';
     TransMonitoringModule,
     InteractiveServiceModule,
     SettingsModule,
+    DeveloperToolModule,
   ],
   declarations: [
     AppComponent,
