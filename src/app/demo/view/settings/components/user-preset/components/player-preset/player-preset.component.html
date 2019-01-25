@@ -1,1 +1,53 @@
-a
+<div class="ui-g-12 ui-g-nopad margin-bottom-50">
+  <p class="info-txt">클릭하여 추가/삭제하실 수 있습니다.</p>
+  <form class="padding-top-30 padding-bottom-30" style="overflow: hidden;">
+    <fieldset>
+      <div class="ui-g-2 ui-g-nopad button-area">
+        <label class="presetLabel on" for="playbackRate" (click)="setPlayerPreset($event)">배속버튼</label>
+        <label class="presetLabel on" for="loopPortion" (click)="setPlayerPreset($event)">구간반복</label>
+        <label class="presetLabel on" for="bookmark" (click)="setPlayerPreset($event)">북마크</label>
+        <label class="presetLabel on" for="prevVideo" (click)="setPlayerPreset($event)">이전 영상</label>
+        <label class="presetLabel on" for="nextVideo" (click)="setPlayerPreset($event)">다음 영상</label>
+        <label class="presetLabel on" for="canDragSeekingBar" (click)="setPlayerPreset($event)">재생바 드래그</label>
+        <label class="presetLabel on" for="control10seconds" (click)="setPlayerPreset($event)">10초 앞으로/뒤로</label>
+      </div>
+      <div class="ui-g-8 ui-g-nopad player-view-area">
+        <img src="../../../../../../../../assets/layout/images/gxp/player-section.png" alt="default player view" id="defaultImg">
+        <div class="overlay-area">
+          <input type="checkbox" class="presetCheckbox" id="playbackRate" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/playbackRate.png" alt="배속버튼" id="playbackRateImg">
+          <input type="checkbox" class="presetCheckbox" id="loopPortion" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/loopPortion.png" alt="구간반복" id="loopPortionImg">
+          <input type="checkbox" class="presetCheckbox" id="bookmark" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/bookmark.png" alt="북마크" id="bookmarkImg">
+          <input type="checkbox" class="presetCheckbox" id="nextVideo" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/nextVideo.png" alt="다음 영상"  id="nextVideoImg">
+          <input type="checkbox" class="presetCheckbox" id="control10seconds" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/control10seconds.png" alt="10초 앞으로/뒤로" id="control10secondsImg">
+          <input type="checkbox" class="presetCheckbox" id="setting" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/setting.png" alt="설정버튼" id="settingImg">
+          <input type="checkbox" class="presetCheckbox" id="fullscreen" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/fullscreen.png" alt="전체화면" id="fullscreenImg">
+          <input type="checkbox" class="presetCheckbox" id="cinemaMode" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/cinemaMode.png" alt="영화관화면" id="cinemaModeImg">
+          <input type="checkbox" class="presetCheckbox" id="title" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/title.png" alt="타이틀" id="titleImg">
+          <input type="checkbox" class="presetCheckbox" id="quality" binary="true" checked>
+          <img src="../../../../../../../../assets/layout/images/gxp/quality.png" alt="화질선택" id="qualityImg">
+        </div>
+      </div>
+      <div class="ui-g-2 ui-g-nopad button-area">
+        <label class="presetLabel on" for="setting" (click)="setPlayerPreset($event)">설정버튼</label>
+        <label class="presetLabel on" for="fullscreen" (click)="setPlayerPreset($event)">전체화면</label>
+        <label class="presetLabel on" for="cinemaMode" (click)="setPlayerPreset($event)">영화관화면</label>
+        <label class="presetLabel on" for="title" (click)="setPlayerPreset($event)">타이틀</label>
+        <label class="presetLabel on" for="allCycle" (click)="setPlayerPreset($event)">전체 반복</label>
+        <label class="presetLabel on" for="quality" (click)="setPlayerPreset($event)">화질선택</label>
+      </div>
+      <div class="ui-g-12 ui-g-nopad margin-top-40 btn-sec">
+        <button type="button" class="btn margin-right-10"><i class="fas fa-history"></i> 초기화</button>
+        <button type="submit" class="btn"><i class="fas fa-check"></i> 적용</button>
+      </div>
+    </fieldset>
+  </form>
+</div>

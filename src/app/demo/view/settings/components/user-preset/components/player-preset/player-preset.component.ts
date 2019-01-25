@@ -20,4 +20,9 @@ export class PlayerPresetComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  setPlayerPreset(e) {
+    const target:HTMLElement = e.currentTarget;
+    target.getAttribute('class') === 'presetLabel on' ? target.setAttribute('class', 'presetLabel') : target.setAttribute('class', 'presetLabel on');
+  }
 }
