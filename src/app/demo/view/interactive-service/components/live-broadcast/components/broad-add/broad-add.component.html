@@ -1,4 +1,4 @@
-<div class="ui-g-nopad ui-g-12" style="margin-bottom: 30vh;">
+<div class="ui-g-nopad ui-g-12" style="margin-bottom: 10vh;">
   <div class="card">
     <form [formGroup]="broadAddForm" (ngSubmit)="onSubmit(broadAddForm.value)">
       <fieldset>
@@ -11,19 +11,16 @@
         <div class="form-row ui-g-12 ui-g-nopad">
           <p class="form-title ui-g-2 ui-g-nopad">방송제목</p>
           <div class="form-data ui-g-10 ui-g-nopad">
-            <input type="text" pInputText placeholder="제목을 입력해주세요." formControlName="broadTitle">
+            <input type="text" pInputText placeholder="제목을 입력해주세요." formControlName="li_title">
           </div>
         </div>
         <div class="form-row ui-g-12 ui-g-nopad">
           <p class="form-title ui-g-2 ui-g-nopad">영상선택</p>
           <div class="form-data ui-g-10 ui-g-nopad">
-            <div class=" ui-g-6 ui-g-nopad">
-              <input type="text" pInputText placeholder="콘텐츠를 선택해 주세요." style="cursor: pointer;" (click)="searchDialog = true;">
-              <button pButton type="button" label="찾기" (click)="searchDialog = true;" class="margin-right-20 margin-bottom-10"></button><br>
-              <span class="c_red margin-right-10"> {{ selectedContent['contentsName'] }} </span> {{ selectedContent['fileName'] }}
-            </div>
-            <div class="ui-g-6 ui-g-nopad">
-              <img src="../../../../../../../../assets/layout/images/gxp/preivew.png" alt="미리보기" style="width: 100%; height: auto;">
+            <div class=" ui-g-12 ui-g-nopad">
+              <input type="text" pInputText formControlName="li_ft_seq" placeholder="콘텐츠를 선택해 주세요." style="cursor: pointer;" (click)="searchDialog = true; loadSelectContents();">
+              <button pButton type="button" label="찾기" (click)="searchDialog = true; loadSelectContents();" class="margin-right-20 margin-bottom-10"></button><br>
+              <span class="c_red margin-right-10"> {{ selectedContent['title'] }} </span> {{ selectedContent['fo_nm'] }}
             </div>
           </div>
         </div>
@@ -31,12 +28,11 @@
           <p class="form-title ui-g-2 ui-g-nopad">썸네일 등록</p>
           <div class="form-data ui-g-10 ui-g-nopad">
             <div class="ui-g-6 ui-g-nopad">
-              <input type="file" pInputText formControlName="thumbnail" style="width: calc(100% - 80px);">
-              <button type="button" pButton label="전송" style="height: 34px;"></button>
+              <input type="file" pInputText formControlName="fileToUpload[]" accept="image/*" (change)="loadTumbnail($event);" style="cursor: pointer;">
             </div>
 
             <div class="ui-g-6 ui-g-nopad">
-              <img src="../../../../../../../../assets/layout/images/gxp/preivew.png" alt="미리보기" style="width: 100%; height: auto;">
+              <img [src]="thumbSrc" alt="미리보기" style="width: 100%; height: auto;" *ngIf="thumbSrc">
             </div>
           </div>
         </div>
@@ -67,8 +63,8 @@
     </h2>
     <div class="margin-bottom-20">
       <h3 class="margin-right-20 fw-bold">미디어보관함</h3>
-      <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage" class="ui-g-3 ui-g-nopad margin-right-10"></p-dropdown>
-      <input type="text" pInputText placeholder="콘텐츠 명 또는 파일명을 입력해주세요." class="ui-g-6 ui-g-nopad" style="height: 29px;">
+      <p-dropdown [options]="storageList" [(ngModel)]="selectedStorage" (onChange)="loadMediaStorageList(selectedStorage);" class="margin-right-10" [style]="{'width': '150px'}"></p-dropdown>
+      <input type="text" pInputText placeholder="콘텐츠 명 또는 파일명을 입력해주세요." style="width: 340px; height: 29px;">
       <button pButton type="button" label="찾기"></button>
     </div>
     <div class="margin-bottom-40">
@@ -104,6 +100,18 @@
   </div>
   <div class="txt-center margin-top-20 margin-bottom-20">
     <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" (click)="searchDialog=false;" label="취소"></button>
-    <button pButton type="submit" class="btn" (click)="searchDialog=false;" label="선택 완료"></button>
+    <button pButton type="submit" class="btn" (click)="searchDialog=false; selectContentComplete()" label="선택 완료"></button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="completeDialog" [width]="400" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" routerLink="/interactive-service/live-broadcast/list" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    등록 완료되었습니다.
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="submit" (click)="completeDialog=false;" routerLink="/interactive-service/live-broadcast/list" label="확인"></button>
   </div>
 </p-dialog>

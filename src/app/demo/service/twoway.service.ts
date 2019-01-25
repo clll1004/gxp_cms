@@ -75,6 +75,25 @@ export class TwoWayService {
       });
   }
 
+  addLiveBroad(valueObject) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'text/html',
+      })
+    };
+
+    valueObject.usr_seq = this.usrSeq;
+
+    return this.http.post(`${this.domain}/live/add`, valueObject, httpOptions)
+      .toPromise()
+      .then((status) => {
+        return status;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
+
 /* 이벤트 플레이어 */
 
 /* 실시간 광고전송 */
