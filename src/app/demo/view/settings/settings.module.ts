@@ -11,6 +11,7 @@ import { SettingsComponent } from './components/settings.component';
 import { AccountComponent } from './components/account/account.component';
 import { InfoComponent } from './components/account/components/info/info.component';
 import { AdminComponent } from './components/account/components/admin/admin.component';
+import { ServiceManageComponent } from './components/account/components/service-manage/service-manage.component';
 import { UserPresetComponent } from './components/user-preset/user-preset.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -44,6 +45,7 @@ import { DialogModule } from 'primeng/dialog';
     AccountComponent,
     InfoComponent,
     AdminComponent,
+    ServiceManageComponent,
     UserPresetComponent,
   ]})
 
