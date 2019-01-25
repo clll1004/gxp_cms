@@ -6,6 +6,7 @@ import { BreadcrumbService } from '../../../../../breadcrumb.service';
 
 @Component({
   selector: 'encoding-tool',
+  styleUrls: ['../developer-tool.component.css'],
   templateUrl: './encoding-tool.component.html'})
 
 export class EncodingToolComponent implements OnInit {
@@ -17,5 +18,20 @@ export class EncodingToolComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  copyClipboard() {
+    console.log('1');
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = document.getElementById('copyArea').innerText;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 }

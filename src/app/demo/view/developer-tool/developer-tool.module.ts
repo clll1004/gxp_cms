@@ -13,6 +13,7 @@ import { PlayerToolComponent } from './components/player-tool/player-tool.compon
 import { AnalysisToolComponent } from './components/analysis-tool/analysis-tool.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
     ReactiveFormsModule,
     BreadcrumbModule,
     TabMenuModule,
+    ButtonModule,
   ],
   exports: [DeveloperToolComponent],
   declarations: [
