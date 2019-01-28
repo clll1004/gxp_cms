@@ -42,8 +42,8 @@ export class LoginService {
     this.cookieService.setCookie('grp_seq', groupSeq, 7);
   }
 
-  checkUserInfo() {
-    if (!(this.cookieService.getCookie('usr_seq'))) {
+  checkUserInfo(url) {
+    if (!(this.cookieService.getCookie('usr_seq')) && url !== '/login' && url !== '/new-password') {
       this.clearUserInfo();
     }
   }

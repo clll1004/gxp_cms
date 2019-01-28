@@ -113,6 +113,7 @@ import { DeveloperToolModule } from './demo/view/developer-tool/developer-tool.m
 /*custom components*/
 import { ContactUsComponent } from './demo/view/contact-us.component';
 import { LoginComponent } from './demo/view/login/login.component';
+import { NewPasswordComponent } from './demo/view/login/new-password.component';
 
 /*custom service*/
 import { CookieService } from './demo/service/cookie.service';
@@ -231,6 +232,7 @@ import { LoginService } from './demo/service/login.service';
     DocumentationComponent,
     ContactUsComponent,
     LoginComponent,
+    NewPasswordComponent,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

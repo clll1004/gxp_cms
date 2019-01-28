@@ -54,11 +54,11 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.loginService.checkUserInfo();
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if (event.url === '/login') {
+        this.loginService.checkUserInfo(event.url);
+        if (event.url === '/login' || event.url === '/new-password') {
           this.loginService.logout();
           this.isLayoutShow = false;
         } else {
