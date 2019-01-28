@@ -1,6 +1,9 @@
 /*Badge*/
 /* RouteBar */
 /* Add your variable customizations of layout here */
+.close_btn { border: none; background: #fff; cursor: pointer; }
+.txt-right { text-align: right; }
+.txt-center { text-align: center; }
 button {
   outline: none;
 }
@@ -1179,13 +1182,13 @@ button {
   margin: 0;
   color: #ffffff;
 }
-.landing-wrapper .footer a {
+.landing-wrapper .footer li {
   color: #9faebf;
   font-size: 14px;
   display: block;
   opacity: 0.9;
 }
-.landing-wrapper .footer a:hover {
+.landing-wrapper .footer li:hover {
   color: #ffffff;
 }
 .landing-wrapper .footer a i {
@@ -2336,11 +2339,10 @@ body a {
   list-style: none;
   float: left;
   margin-right: 15px;
-}
-.layout-footer a {
   color: #9faebf;
+  cursor: pointer;
 }
-.layout-footer a:hover {
+.layout-footer .footer-list li:hover {
   color: #ffffff;
 }
 .layout-footer address {
@@ -2350,7 +2352,7 @@ body a {
 }
 
 /* Add your customizations of layout here */
-.txt-center { width: 350px; margin: 0 auto; }
+.text-center { width: 350px; margin: 0 auto; }
 .dashboardUseService { margin-bottom: 30px; font-size: 15px; }
 .dashboardUseService .useService { display: inline-block; margin-right: 20px; font-weight: bold; color: #f87910; }
 .price_info_sec { width: 100%; box-sizing: border-box; text-align: center; }
