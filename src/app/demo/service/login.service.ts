@@ -43,7 +43,7 @@ export class LoginService {
   }
 
   checkUserInfo(url) {
-    if (!(this.cookieService.getCookie('usr_seq')) && url !== '/login' && url !== '/new-password' && url !== '/new-password-complete' && url !== '/reset-password') {
+    if (!(this.cookieService.getCookie('usr_seq')) && url !== '/login' && url !== '/new-password' && url !== '/new-password-complete' && url !== '/reset-password' && url !== '/expiration' && url !== '/contact-us') {
       this.clearUserInfo();
     }
   }

@@ -26,6 +26,7 @@ import { LoginComponent } from './demo/view/login/login.component';
 import { NewPasswordComponent } from './demo/view/login/new-password.component';
 import { NewPasswordCompleteComponent } from './demo/view/login/new-password-complete.component';
 import { ResetPasswordComponent } from './demo/view/login/reset-password.component';
+import { ExpirationComponent } from './demo/view/login/expiration.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
@@ -45,6 +46,7 @@ export const routes: Routes = [
     { path: 'new-password', component: NewPasswordComponent },
     { path: 'new-password-complete', component: NewPasswordCompleteComponent },
     { path: 'reset-password', component: ResetPasswordComponent },
+    { path: 'expiration', component: ExpirationComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },

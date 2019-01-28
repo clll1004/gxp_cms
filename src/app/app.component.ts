@@ -58,7 +58,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.loginService.checkUserInfo(event.url);
-        if (event.url === '/login' || event.url === '/new-password' || event.url === '/new-password-complete' || event.url === '/reset-password') {
+        if (event.url === '/login' || event.url === '/new-password' || event.url === '/new-password-complete' || event.url === '/reset-password' || event.url === '/expiration' || event.url === '/contact-us') {
           this.loginService.logout();
           this.isLayoutShow = false;
         } else {
