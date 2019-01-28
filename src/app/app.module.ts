@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -110,6 +110,9 @@ import { InteractiveServiceModule } from './demo/view/interactive-service/intera
 import { SettingsModule } from './demo/view/settings/settings.module';
 import { DeveloperToolModule } from './demo/view/developer-tool/developer-tool.module';
 
+/*custom components*/
+import { ContactUsComponent } from './demo/view/contact-us.component';
+
 /*custom service*/
 import { CookieService } from './demo/service/cookie.service';
 import { DashboardService } from './demo/service/dashboard.service';
@@ -122,6 +125,7 @@ import { TwoWayService } from './demo/service/twoway.service';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutes,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -222,7 +226,8 @@ import { TwoWayService } from './demo/service/twoway.service';
     ChartsDemoComponent,
     EmptyDemoComponent,
     FileDemoComponent,
-    DocumentationComponent
+    DocumentationComponent,
+    ContactUsComponent,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
