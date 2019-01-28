@@ -1,6 +1,10 @@
+.txt-left { text-align: left; }
+.txt-right { text-align: right; }
+.c_red { color: #d01212; }
+p { margin: 10px 0; }
 fieldset { border: none; }
-.login-container {width: 500px; margin: 280px auto 0; border: 1px solid #ddd; border-radius: 10px;  box-sizing: border-box; text-align: center;}
-.login-container .info-container input {width: 90%; height: 40px;}
+.login-container { width: 500px; margin-top: 170px; margin-left: calc(50% - 115px - 250px); text-align: center; }
+.login-container .info-container input {width: 100%; height: 40px;}
 
 .login-btn { border: none !important; border-radius: 10px; background: #ff6400 !important;}
 .login-btn:hover, .login-btn:focus {background: #ea5c00 !important;}
