@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {NgModule} from '@angular/core';
-import { AppComponent} from './app.component';
+import { LoginService } from './demo/service/login.service';
+import { AppComponent } from './app.component';
 
 @Component({
   selector: 'app-topbar',
@@ -8,5 +8,9 @@ import { AppComponent} from './app.component';
 })
 export class AppTopBarComponent {
 
-    constructor(public app: AppComponent) {}
+  constructor(public app: AppComponent, private loginService: LoginService) {}
+
+  logout() {
+    this.loginService.logout();
+  }
 }

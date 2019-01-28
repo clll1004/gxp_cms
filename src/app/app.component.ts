@@ -1,12 +1,14 @@
-import {Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy} from '@angular/core';
+import {Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import {ScrollPanel} from 'primeng/primeng';
+import { LoginService } from './demo/service/login.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
 
   layoutMode = 'static';
 
@@ -44,13 +46,32 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ScrollPanel;
 
-  constructor(public renderer: Renderer2) {
-    document.cookie = 'usr_seq=11';
-    document.cookie = 'grp_seq=24';
+  public isLayoutShow: boolean = false;
+
+  constructor(public renderer: Renderer2, private loginService: LoginService, private router: Router) {
+    // document.cookie = 'usr_seq=11';
+    // document.cookie = 'grp_seq=24';
+  }
+
+  ngOnInit() {
+    this.loginService.checkUserInfo();
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/login') {
+          this.loginService.logout();
+          this.isLayoutShow = false;
+        } else {
+          this.isLayoutShow = true;
+        }
+      }
+    });
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {this.layoutMenuScrollerViewChild.moveBar(); }, 100);
+    if (this.isLayoutShow) {
+      setTimeout(() => {this.layoutMenuScrollerViewChild.moveBar(); }, 100);
+    }
   }
 
   onLayoutClick() {

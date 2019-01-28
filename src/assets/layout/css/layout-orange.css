@@ -1932,27 +1932,28 @@ body a {
   right: 0px;
   left: auto;
 }
-.usermenu li a {
+.usermenu li div {
   display: block;
   padding: 10px 15px;
   color: #666;
   text-align: left;
+  cursor: pointer;
 }
-.usermenu li a i {
+.usermenu li div i {
   margin-right: 9px;
   vertical-align: middle;
 }
-.usermenu li a i.layout-menuitem-toggler {
+.usermenu li div i.layout-menuitem-toggler {
   -moz-transition: transform 0.2s;
   -o-transition: transform 0.2s;
   -webkit-transition: transform 0.2s;
   transition: transform 0.2s;
 }
-.usermenu li a span, .usermenu li a img {
+.usermenu li div span, .usermenu li div img {
   display: inline-block;
   vertical-align: middle;
 }
-.usermenu li a:hover {
+.usermenu li div:hover {
   background-color: #f1f1f1;
 }
 .usermenu li ul {

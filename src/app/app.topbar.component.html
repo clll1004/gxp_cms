@@ -14,13 +14,13 @@
 
     <ul id="topbar-usermenu" class="usermenu usermenu-overlay fadeInDown" [ngClass]="{'usermenu-active': app.topbarMenuActive}">
         <li>
-            <a href="#">
+            <div href="#">
                 <i class="fa fa-fw fa-user"></i>
                 <span class="topbar-item-name">user@gomcorp.com</span>
-            </a>
+            </div>
         </li>
         <li>
-            <a href="#">
+            <div href="#">
                 <i class="fa fa-fw fa-info"></i>
                 <span class="topbar-item-name">사용 중인 서비스</span>
 
@@ -28,19 +28,19 @@
                     <span class="topbar-item-name">트라이얼 버전</span>
                     <span class="topbar-item-name">2018.10.24 ~ 2018.11.23</span>
                 </div>
-            </a>
+            </div>
         </li>
         <li>
-            <a href="#">
+            <div>
                 <i class="fa fa-fw fa-cog"></i>
                 <span class="topbar-item-name">설정</span>
-            </a>
+            </div>
         </li>
-        <li>
-            <a href="#">
+        <li (click)="logout()">
+            <div>
                 <i class="fa fa-fw fa-power-off"></i>
                 <span class="topbar-item-name">로그아웃</span>
-            </a>
+            </div>
         </li>
     </ul>
 </div>

@@ -112,6 +112,7 @@ import { DeveloperToolModule } from './demo/view/developer-tool/developer-tool.m
 
 /*custom components*/
 import { ContactUsComponent } from './demo/view/contact-us.component';
+import { LoginComponent } from './demo/view/login/login.component';
 
 /*custom service*/
 import { CookieService } from './demo/service/cookie.service';
@@ -120,6 +121,7 @@ import { MediaStorageService } from './demo/service/mediaStorage.service';
 import { PlayListService } from './demo/service/playList.service';
 import { MediaTransformService } from './demo/service/mediaTransform.service';
 import { TwoWayService } from './demo/service/twoway.service';
+import { LoginService } from './demo/service/login.service';
 
 @NgModule({
   imports: [
@@ -228,11 +230,12 @@ import { TwoWayService } from './demo/service/twoway.service';
     FileDemoComponent,
     DocumentationComponent,
     ContactUsComponent,
+    LoginComponent,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     CarService, CountryService, EventService, NodeService, BreadcrumbService,
-    CookieService, DashboardService, MediaStorageService, PlayListService, MediaTransformService, TwoWayService,
+    CookieService, DashboardService, MediaStorageService, PlayListService, MediaTransformService, TwoWayService, LoginService,
   ],
   bootstrap: [AppComponent]
 })

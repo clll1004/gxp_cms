@@ -3,11 +3,11 @@
                 'layout-wrapper-overlay-sidebar-active': overlayMenuActive,
                 'layout-wrapper-sidebar-inactive': staticMenuDesktopInactive,
                 'layout-wrapper-sidebar-mobile-active': staticMenuMobileActive}">
-    <app-topbar></app-topbar>
+    <app-topbar *ngIf="isLayoutShow"></app-topbar>
 
-    <app-megamenu></app-megamenu>
+    <app-megamenu *ngIf="isLayoutShow"></app-megamenu>
 
-    <div class="layout-sidebar" (click)="onMenuClick($event)"
+    <div class="layout-sidebar" (click)="onMenuClick($event)" *ngIf="isLayoutShow"
          [ngClass]="{'layout-sidebar-dark': menuMode !== 'light',
          'layout-sidebar-gradient':  menuMode === 'gradient'}">
         <p-scrollPanel #layoutMenuScroller [style]="{height: '100%' }">
@@ -18,15 +18,15 @@
         </p-scrollPanel>
     </div>
 
-    <app-rightpanel></app-rightpanel>
+    <app-rightpanel *ngIf="isLayoutShow"></app-rightpanel>
 
     <div class="layout-main">
-        <app-breadcrumb></app-breadcrumb>
+        <app-breadcrumb *ngIf="isLayoutShow"></app-breadcrumb>
 
         <div class="layout-main-content">
             <router-outlet></router-outlet>
         </div>
 
-        <app-footer></app-footer>
+        <app-footer *ngIf="isLayoutShow"></app-footer>
     </div>
 </div>

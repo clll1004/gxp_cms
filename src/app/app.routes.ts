@@ -22,6 +22,7 @@ import { InteractiveServiceComponent } from './demo/view/interactive-service/com
 import { SettingsComponent } from './demo/view/settings/components/settings.component';
 import { DeveloperToolComponent } from './demo/view/developer-tool/components/developer-tool.component';
 import { ContactUsComponent } from './demo/view/contact-us.component';
+import { LoginComponent } from './demo/view/login/login.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
@@ -37,6 +38,7 @@ export const routes: Routes = [
     { path: 'settings/:id/:subId', component: SettingsComponent },
     { path: 'developer-tool/:id', component: DeveloperToolComponent },
     { path: 'contact-us', component: ContactUsComponent },
+    { path: 'login', component: LoginComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },
