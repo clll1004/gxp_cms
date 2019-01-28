@@ -115,6 +115,7 @@ import { ContactUsComponent } from './demo/view/contact-us.component';
 import { LoginComponent } from './demo/view/login/login.component';
 import { NewPasswordComponent } from './demo/view/login/new-password.component';
 import { NewPasswordCompleteComponent } from './demo/view/login/new-password-complete.component';
+import { ResetPasswordComponent } from './demo/view/login/reset-password.component';
 
 /*custom service*/
 import { CookieService } from './demo/service/cookie.service';
@@ -235,6 +236,7 @@ import { LoginService } from './demo/service/login.service';
     LoginComponent,
     NewPasswordComponent,
     NewPasswordCompleteComponent,
+    ResetPasswordComponent,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

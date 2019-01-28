@@ -25,6 +25,7 @@ import { ContactUsComponent } from './demo/view/contact-us.component';
 import { LoginComponent } from './demo/view/login/login.component';
 import { NewPasswordComponent } from './demo/view/login/new-password.component';
 import { NewPasswordCompleteComponent } from './demo/view/login/new-password-complete.component';
+import { ResetPasswordComponent } from './demo/view/login/reset-password.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
@@ -43,6 +44,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'new-password', component: NewPasswordComponent },
     { path: 'new-password-complete', component: NewPasswordCompleteComponent },
+    { path: 'reset-password', component: ResetPasswordComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },
