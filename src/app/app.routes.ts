@@ -24,6 +24,7 @@ import { DeveloperToolComponent } from './demo/view/developer-tool/components/de
 import { ContactUsComponent } from './demo/view/contact-us.component';
 import { LoginComponent } from './demo/view/login/login.component';
 import { NewPasswordComponent } from './demo/view/login/new-password.component';
+import { NewPasswordCompleteComponent } from './demo/view/login/new-password-complete.component';
 
 export const routes: Routes = [
     { path: '', component: DashboardDemoComponent },
@@ -41,6 +42,7 @@ export const routes: Routes = [
     { path: 'contact-us', component: ContactUsComponent },
     { path: 'login', component: LoginComponent },
     { path: 'new-password', component: NewPasswordComponent },
+    { path: 'new-password-complete', component: NewPasswordCompleteComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },
