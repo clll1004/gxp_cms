@@ -21,7 +21,7 @@
     <app-rightpanel *ngIf="isLayoutShow"></app-rightpanel>
 
     <div class="layout-main">
-        <app-breadcrumb *ngIf="isLayoutShow"></app-breadcrumb>
+        <app-breadcrumb [ngClass]="{'login-breadcrumb': !isLayoutShow}"></app-breadcrumb>
 
         <div class="layout-main-content">
             <router-outlet></router-outlet>
