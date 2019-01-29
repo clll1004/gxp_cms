@@ -31,7 +31,7 @@
       <p class="txt-left c_red">필수 약관에 동의해주세요.</p>
 
       <button pButton type="button" class="ui-button-secondary margin-right-10 margin-top-20" routerLink="/" label="취소"></button>
-      <button pButton type="submit" label="확인" [disabled]="!newAccountForm.valid || (newAccountForm.get('policy').value === false) || (newAccountForm.get('privacy').value === false)"></button>
+      <button pButton type="submit" label="확인" routerLink="/new-account-complete" [disabled]="!newAccountForm.valid || (newAccountForm.get('policy').value === false) || (newAccountForm.get('privacy').value === false)"></button>
     </fieldset>
   </form>
 </div>

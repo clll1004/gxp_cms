@@ -118,6 +118,7 @@ import { NewPasswordCompleteComponent } from './demo/view/login/new-password-com
 import { ResetPasswordComponent } from './demo/view/login/reset-password.component';
 import { ExpirationComponent } from './demo/view/login/expiration.component';
 import { NewAccountComponent } from './demo/view/login/new-account.component';
+import { NewAccountCompleteComponent } from './demo/view/login/new-account-complete.component';
 
 /*custom service*/
 import { CookieService } from './demo/service/cookie.service';
@@ -241,6 +242,7 @@ import { LoginService } from './demo/service/login.service';
     ResetPasswordComponent,
     ExpirationComponent,
     NewAccountComponent,
+    NewAccountCompleteComponent,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
