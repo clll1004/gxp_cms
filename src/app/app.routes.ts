@@ -42,6 +42,7 @@ export const routes: Routes = [
     { path: 'interactive-service/:id/:subId/:detail', component: InteractiveServiceComponent },
     { path: 'settings/:id', component: SettingsComponent },
     { path: 'settings/:id/:subId', component: SettingsComponent },
+    { path: 'settings/:id/:subId/:detail', component: SettingsComponent },
     { path: 'developer-tool/:id', component: DeveloperToolComponent },
     { path: 'contact-us', component: ContactUsComponent },
     { path: 'login', component: LoginComponent },

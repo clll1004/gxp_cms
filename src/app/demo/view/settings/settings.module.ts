@@ -16,6 +16,8 @@ import { PaymentComponent } from './components/account/components/payment/paymen
 import { UserPresetComponent } from './components/user-preset/user-preset.component';
 import { PlayerPresetComponent } from './components/user-preset/components/player-preset/player-preset.component';
 import { EncodingPresetComponent } from './components/user-preset/components/encoding-preset/encoding-preset.component';
+import { EncodingListComponent } from './components/user-preset/components/encoding-preset/components/encoding-list/encoding-list.component';
+import { EncodingDetailComponent } from './components/user-preset/components/encoding-preset/components/encoding-detail/encoding-detail.component';
 import { LogoWartermarkComponent } from './components/user-preset/components/logo-wartermark-preset/logo-wartermark-preset.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -54,6 +56,8 @@ import { DialogModule } from 'primeng/dialog';
     UserPresetComponent,
     PlayerPresetComponent,
     EncodingPresetComponent,
+    EncodingListComponent,
+    EncodingDetailComponent,
     LogoWartermarkComponent,
   ]})
 

@@ -22,7 +22,7 @@ export class UserPresetComponent implements OnInit {
 
     this.tabMenuItems = [
       { label: '플레이어 프리셋', routerLink: ['/settings/user-preset/player'] },
-      { label: '인코딩 프리셋', routerLink: ['/settings/user-preset/encoding'] },
+      { label: '인코딩 프리셋', routerLink: ['/settings/user-preset/encoding/list'] },
       { label: '로고/워터마크 설정', routerLink: ['/settings/user-preset/etc'] },
     ];
   }
