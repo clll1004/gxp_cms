@@ -1,1 +1,99 @@
-list
+<div class="ui-g-12 ui-g-nopad margin-bottom-50" style="overflow-x: scroll;">
+  <div class="ui-g-12 ui-g-nopad margin-bottom-50" style="min-width: 1020px;">
+    <p>
+      <span style="font-weight: bold;">사용 중 인코딩 프리셋</span>
+      <span class="info-txt" style="float: right;">'사용 중 인코딩 프리셋'또는 하단 표를 클릭하여 프리셋 값을 변경하실 수 있습니다.</span>
+    </p>
+    <div class="ui-g-12 ui-g-nopad encoding-preset">
+      <ul class="ui-g-3 ui-g-nopad encoding-list">
+        <li>
+          <p-radioButton name="encodingPreset" value="encoding0" label="포맷 변환용"></p-radioButton>
+        </li>
+        <li>
+          <p-radioButton name="encodingPreset" value="encoding1" label="스마트폰 / 태블릿"></p-radioButton>
+        </li>
+        <li>
+          <p-radioButton name="encodingPreset" value="encoding2" label="오디오 추출용"></p-radioButton>
+        </li>
+        <li>
+          <p-radioButton name="encodingPreset" value="encoding3" label="사용자 지정"></p-radioButton> &nbsp;&nbsp;<span class="c_red">영상 편집용</span>
+        </li>
+        <li>
+          <p-radioButton name="encodingPreset" value="encoding4" label="사용자 지정"></p-radioButton> &nbsp;&nbsp;<span class="c_red">인트로 영상용</span>
+        </li>
+        <li>
+          <p-radioButton name="encodingPreset" value="encoding4" label="사용자 지정"></p-radioButton> &nbsp;&nbsp;<span class="c_red">포맷 변환용</span>
+        </li>
+      </ul>
+      <div class="ui-g-9 ui-g-nopad encoding-detail">
+        <form [formGroup]="encodingForm" (ngSubmit)="onSubmit(encodingForm.value)">
+          <div class="ui-g-12">
+            <p class="ui-g-2" style="font-weight: bold;">
+              영상 설정
+            </p>
+            <div class="ui-g-10">
+              <div class="ui-g-6"><span class="title">화면크기</span><p-dropdown [options]="sizeOption" formControlName="size" [style]="{'width': 'calc(100% - 80px)', 'float': 'right'}"></p-dropdown></div>
+              <div class="ui-g-6"><span class="title">비율</span><p-dropdown [options]="ratioOption" formControlName="ratio" [style]="{'width': 'calc(100% - 80px)', 'float': 'right'}"></p-dropdown></div>
+              <div class="ui-g-6"><span class="title">화질/용량</span><p-dropdown [options]="pixelOption" formControlName="pixel" [style]="{'width': 'calc(100% - 80px)', 'float': 'right'}"></p-dropdown></div>
+              <div class="ui-g-6"><span class="title">파일형식</span><p-dropdown [options]="fileTypeOption" formControlName="fileType" [style]="{'width': 'calc(100% - 80px)', 'float': 'right'}"></p-dropdown></div>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <p class="ui-g-2" style="font-weight: bold;">
+              오디오 설정
+            </p>
+            <div class="ui-g-10">
+              <div class="ui-g-12">
+                <span class="title">샘플레이트</span><p-dropdown [options]="sampleOption" formControlName="sample" [style]="{'width': '200px'}"></p-dropdown>
+                <p-radioButton name="sample" value="모노" label="모노" formControlName="sampleOption" class="margin-left-15 margin-right-15"></p-radioButton>
+                <p-radioButton name="sample" value="스테레오" label="스테레오" formControlName="sampleOption"></p-radioButton>
+              </div>
+              <div class="ui-g-12">
+                <p-checkbox binary="true" formControlName="normal" label="노멀라이저" class="margin-right-20"></p-checkbox>
+                <p-slider formControlName="normal_size" [style]="{'width':'200px', 'display': 'inline-block'}"></p-slider> <input type="text" class="margin-left-10 txt-center" style="width: 50px;" pInputText [value]="encodingForm.get('normal_size').value" disabled="disabled">
+              </div>
+              <div class="ui-g-12"><p-checkbox binary="true" formControlName="mute" label="음소거"></p-checkbox></div>
+            </div>
+          </div>
+          <div class="ui-g-12 txt-center">
+            <button pButton type="submit" label="저장"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui-g-nopad ui-g-12 margin-bottom-30" style="min-width: 1020px;">
+    <button pButton type="button" class="margin-right-10" label="새 인코딩 타입"></button>
+    <button pButton type="button" class="margin-right-10" label="선택 삭제"></button>
+    <button pButton type="button" label="사용자 프리셋으로 지정"></button>
+  </div>
+  <div class="ui-g-nopad ui-g-12 margin-bottom-50" style="min-width: 1020px;">
+    <p-table #dt class="selectTable" [columns]="encodingCols" [value]="encodingRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempSelectItems">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field">
+            {{ col.header }}
+            <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-encoding>
+        <tr [pSelectableRow]="encoding">
+          <td>
+            <p-tableCheckbox [value]="encoding"></p-tableCheckbox>
+          </td>
+          <td> {{ encoding['type'] }} </td>
+          <td> {{ encoding['size'] }} </td>
+          <td> {{ encoding['pixel'] }} </td>
+          <td> {{ encoding['audio'] }} </td>
+          <td> {{ encoding['fileType'] }} </td>
+          <td> {{ encoding['regDate'] }} </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

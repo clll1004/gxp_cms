@@ -1,0 +1,12 @@
+li { list-style: none; }
+.info-txt { font-size: 13px; color: #666; font-style: italic; }
+.c_red { color: #ff6400; }
+.txt-center { text-align: center; }
+.txt-right { text-align: right; }
+
+.encoding-preset { border: 1px solid #ddd; background: #272624; color: #ddd; }
+.encoding-preset .encoding-list { margin: 0; padding: 30px 15px; }
+.encoding-preset .encoding-list li { margin-bottom: 15px; }
+.encoding-preset .encoding-list li:last-child { margin-bottom: 0; }
+.encoding-preset .encoding-detail { border-left: 1px solid #ddd; background: #fff; color: #555; }
+.encoding-preset .encoding-detail span.title { display: inline-block; width: 75px; }

@@ -28,6 +28,10 @@ import { PanelModule } from 'primeng/panel';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { DropdownModule } from 'primeng/dropdown';
+import { SliderModule } from 'primeng/slider';
 
 @NgModule({
   imports: [
@@ -44,6 +48,10 @@ import { DialogModule } from 'primeng/dialog';
     TooltipModule,
     TableModule,
     DialogModule,
+    CheckboxModule,
+    RadioButtonModule,
+    DropdownModule,
+    SliderModule,
   ],
   exports: [SettingsComponent],
   declarations: [
