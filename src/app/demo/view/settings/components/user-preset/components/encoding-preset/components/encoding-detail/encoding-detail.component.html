@@ -1,1 +1,72 @@
-detail
+<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 28vh;">
+  <div class="ui-g-12 ui-g-nopad margin-top-20 margin-bottom-50">
+    <div class="card">
+      <form [formGroup]="addEncodingForm" (ngSubmit)="onSubmit(addEncodingForm.value)">
+        <fieldset>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">프리셋 명</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <input type="text" pInputText formControlName="name" placeholder="10자 이내 입력">
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">영상 설정</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad margin-bottom-10">
+                <span class="form-sub-title">화면크기</span> <p-dropdown [options]="sizeOption" formControlName="size" [style]="{'width': '200px'}"></p-dropdown>
+              </div>
+              <div class="ui-g-12 ui-g-nopad margin-bottom-10">
+                <span class="form-sub-title">화질/용량</span> <p-dropdown [options]="pixelOption" formControlName="pixel" [style]="{'width': '200px'}"></p-dropdown>
+              </div>
+              <div class="ui-g-12 ui-g-nopad margin-bottom-10">
+                <span class="form-sub-title">비율</span> <p-dropdown [options]="ratioOption" formControlName="ratio" [style]="{'width': '200px'}"></p-dropdown>
+              </div>
+              <div class="ui-g-12 ui-g-nopad">
+                <span class="form-sub-title">파일형식</span> <p-dropdown [options]="fileTypeOption" formControlName="fileType" [style]="{'width': '200px'}"></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">오디오 설정</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <div class="ui-g-12 ui-g-nopad margin-bottom-10">
+                <span class="form-sub-title">샘플레이트</span> <p-dropdown [options]="sampleOption" formControlName="sample" [style]="{'width': '200px'}"></p-dropdown>
+                <p-radioButton name="sample" value="모노" label="모노" formControlName="sampleOption" class="margin-left-15 margin-right-15"></p-radioButton>
+                <p-radioButton name="sample" value="스테레오" label="스테레오" formControlName="sampleOption"></p-radioButton>
+              </div>
+              <div class="ui-g-12 ui-g-nopad margin-bottom-10">
+                <p-checkbox binary="true" formControlName="normal" label="노멀라이저" class="margin-right-20"></p-checkbox>
+                <p-slider formControlName="normal_size" [style]="{'width':'200px', 'display': 'inline-block'}"></p-slider> <input type="text" class="margin-left-10 txt-center" style="width: 50px;" pInputText [value]="addEncodingForm.get('normal_size').value" disabled="disabled">
+              </div>
+              <div class="ui-g-12 ui-g-nopad"><p-checkbox binary="true" formControlName="mute" label="음소거"></p-checkbox></div>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">파일명 규칙</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              <p-dropdown [options]="fileNameOption" formControlName="fileNameRule" [style]="{'width': '300px'}"></p-dropdown>
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">생성일a</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              {{ addEncodingForm.get('regDate').value }}
+            </div>
+          </div>
+          <div class="form-row ui-g-12 ui-g-nopad">
+            <p class="form-title ui-g-2 ui-g-nopad">최종 수정일시</p>
+            <div class="form-data ui-g-10 ui-g-nopad">
+              {{ addEncodingForm.get('updateDate').value }}
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+            <button pButton type="reset" class="btn margin-right-5 ui-button-secondary" label="초기화"></button>
+            <button pButton type="button" class="btn margin-right-5 ui-button-secondary" label="취소" routerLink="/settings/user-preset/encoding/list"></button>
+            <button pButton type="submit" class="btn" label="변경사항 저장"></button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

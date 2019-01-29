@@ -64,7 +64,7 @@
   </div>
 
   <div class="ui-g-nopad ui-g-12 margin-bottom-30" style="min-width: 1020px;">
-    <button pButton type="button" class="margin-right-10" label="새 인코딩 타입"></button>
+    <button pButton type="button" class="margin-right-10" label="새 인코딩 타입" routerLink="/settings/user-preset/encoding/detail"></button>
     <button pButton type="button" class="margin-right-10" label="선택 삭제"></button>
     <button pButton type="button" label="사용자 프리셋으로 지정"></button>
   </div>
@@ -86,12 +86,12 @@
           <td>
             <p-tableCheckbox [value]="encoding"></p-tableCheckbox>
           </td>
-          <td> {{ encoding['type'] }} </td>
-          <td> {{ encoding['size'] }} </td>
-          <td> {{ encoding['pixel'] }} </td>
-          <td> {{ encoding['audio'] }} </td>
-          <td> {{ encoding['fileType'] }} </td>
-          <td> {{ encoding['regDate'] }} </td>
+          <td routerLink="/settings/user-preset/encoding/detail" style="cursor: pointer;"> {{ encoding['type'] }} </td>
+          <td routerLink="/settings/user-preset/encoding/detail" style="cursor: pointer;"> {{ encoding['size'] }} </td>
+          <td routerLink="/settings/user-preset/encoding/detail" style="cursor: pointer;"> {{ encoding['pixel'] }} </td>
+          <td routerLink="/settings/user-preset/encoding/detail" style="cursor: pointer;"> {{ encoding['audio'] }} </td>
+          <td routerLink="/settings/user-preset/encoding/detail" style="cursor: pointer;"> {{ encoding['fileType'] }} </td>
+          <td routerLink="/settings/user-preset/encoding/detail" style="cursor: pointer;"> {{ encoding['regDate'] }} </td>
         </tr>
       </ng-template>
     </p-table>

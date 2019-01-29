@@ -10,3 +10,14 @@ li { list-style: none; }
 .encoding-preset .encoding-list li:last-child { margin-bottom: 0; }
 .encoding-preset .encoding-detail { border-left: 1px solid #ddd; background: #fff; color: #555; }
 .encoding-preset .encoding-detail span.title { display: inline-block; width: 75px; }
+
+fieldset { border: none; }
+.form-row { padding: 20px 0; border-bottom: 1px solid #eee; }
+.form-title { font-weight: bold; }
+.form-data {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.form-sub-title { display: inline-block; width: 100px; margin-right: 10px; text-align: right; }
