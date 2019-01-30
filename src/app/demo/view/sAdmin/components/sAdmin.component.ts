@@ -16,7 +16,6 @@ export class SAdminComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       this.params = params;
-      console.log(this.params);
     });
   }
 }

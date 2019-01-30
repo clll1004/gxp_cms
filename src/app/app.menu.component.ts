@@ -27,8 +27,8 @@ export class AppMenuComponent implements OnInit {
       {
         label: '모니터링', icon: 'fas fa-fw fa-desktop' ,
         items: [
-          { label: '실시간서버 모니터링', routerLink: ['/'] },
-          { label: '인코딩 모니터링', routerLink: ['/'] },
+          { label: '실시간서버 모니터링', routerLink: ['/admin/realtime-monitoring'] },
+          { label: '인코딩 모니터링', routerLink: ['/admin/encoding-monitoring'] },
         ],
       },
       { label: '회원관리', icon: 'fas fa-fw fa-user-tie', routerLink: ['/'] },

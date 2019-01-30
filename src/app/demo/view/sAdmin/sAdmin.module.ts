@@ -9,6 +9,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 import { SAdminComponent } from './components/sAdmin.component';
 import { RealTimeMonitoringComponent } from './components/realtime-monitoring/realtime-monitoring.component';
+import { EncodingMonitoringComponent } from './components/encoding-monitoring/encoding-monitoring.component';
 
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -29,6 +30,7 @@ import { InputTextModule } from 'primeng/inputtext';
   declarations: [
     SAdminComponent,
     RealTimeMonitoringComponent,
+    EncodingMonitoringComponent,
   ]})
 
 export class SAdminModule {
