@@ -8,7 +8,7 @@ import { CookieService } from '../app/demo/service/cookie.service';
   selector: 'app-menu',
   template: `
       <ul app-submenu [item]="user === 'admin' ? adminMenu : cmsMenu" root="true" class="layout-menu"
-          [reset]="reset" visible="true" parentActive="true"></ul> {{ user }}
+          [reset]="reset" visible="true" parentActive="true"></ul>
   `
 })
 export class AppMenuComponent implements OnInit {
@@ -25,16 +25,16 @@ export class AppMenuComponent implements OnInit {
 
     this.adminMenu = [
       {
-        label: '모니터링', icon: 'fa fa-fw fa-chart-pie' ,
+        label: '모니터링', icon: 'fas fa-fw fa-desktop' ,
         items: [
           { label: '실시간서버 모니터링', routerLink: ['/'] },
           { label: '인코딩 모니터링', routerLink: ['/'] },
         ],
       },
-      { label: '회원관리', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
-      { label: '고객사 관리', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
-      { label: 'API 인증키관리', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
-      { label: '고객지원', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
+      { label: '회원관리', icon: 'fas fa-fw fa-user-tie', routerLink: ['/'] },
+      { label: '고객사 관리', icon: 'fas fa-fw fa-building', routerLink: ['/'] },
+      { label: 'API 인증키관리', icon: 'fas fa-fw fa-key', routerLink: ['/'] },
+      { label: '고객지원', icon: 'fas fa-fw fa-headset', routerLink: ['/'] },
     ];
     this.cmsMenu = [
       { label: '대시보드', icon: 'fa fa-fw fa-home', routerLink: ['/dashboard'] },
@@ -91,7 +91,7 @@ export class AppMenuComponent implements OnInit {
                  [attr.tabindex]="!visible ? '-1' : null" [attr.target]="child.target">
                   <i [ngClass]="child.icon"></i><span>{{child.label}}</span>
                   <span class="menuitem-badge" *ngIf="child.badge">{{child.badge}}</span>
-                  <i class="fa fa-fw fa-angle-down layout-menuitem-toggler" *ngIf="child.items"></i>
+                  <i class="fa fa-fw fa-angle-down layout-menuitem-toggler" style="margin-top: 7px;" *ngIf="child.items"></i>
               </a>
 
               <a (click)="itemClick($event,child,i)" class="ripplelink" *ngIf="child.routerLink"
@@ -99,7 +99,7 @@ export class AppMenuComponent implements OnInit {
                  [routerLinkActiveOptions]="{exact: true}" [attr.tabindex]="!visible ? '-1' : null" [attr.target]="child.target">
                   <i [ngClass]="child.icon"></i><span>{{child.label}}</span>
                   <span class="menuitem-badge" *ngIf="child.badge">{{child.badge}}</span>
-                  <i class="fa fa-fw fa-angle-down layout-menuitem-toggler" *ngIf="child.items"></i>
+                  <i class="fa fa-fw fa-angle-down layout-menuitem-toggler" style="margin-top: 7px;" *ngIf="child.items"></i>
               </a>
               <div class="submenu-arrow" *ngIf="child.items"></div>
               <ul app-submenu [item]="child" *ngIf="child.items" [visible]="isActive(i)" [reset]="reset" [parentActive]="isActive(i)"

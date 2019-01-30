@@ -1,5 +1,5 @@
 <div class="layout-topbar">
-    <a class="logo" [routerLink]="user === 'cms' ? '/dashboard' : '/admin'">
+    <a class="logo" [routerLink]="user === 'cms' ? '/dashboard' : '/admin/realtime-monitoring'">
         <img src="assets/layout/images/gxp/logo-icon.png" alt="logo" class="logo-icon" />
         <img src="assets/layout/images/gxp/logo-text.png" alt="logo" class="logo-text"/>
     </a>
@@ -20,7 +20,7 @@
             </div>
         </li>
         <li *ngIf="user === 'cms'">
-            <div href="#">
+            <div routerLink="/settings/account/info">
                 <i class="fa fa-fw fa-info"></i>
                 <span class="topbar-item-name">사용 중인 서비스</span>
 
@@ -31,7 +31,7 @@
             </div>
         </li>
         <li *ngIf="user === 'cms'">
-            <div>
+            <div routerLink="/settings/account/service-manage">
                 <i class="fa fa-fw fa-cog"></i>
                 <span class="topbar-item-name">설정</span>
             </div>

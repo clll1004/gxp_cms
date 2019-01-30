@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.loginService.setLogin();
     if (value.user_id === 'admin') {
       this.loginService.setCookieData(0, 0);
-      this.router.navigate(['/admin']);
+      this.router.navigate(['/admin/realtime-monitoring']);
     } else {
       this.loginService.setCookieData(11, 24);
       this.router.navigate(['/dashboard']);

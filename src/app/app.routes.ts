@@ -54,7 +54,7 @@ export const routes: Routes = [
     { path: 'expiration', component: ExpirationComponent },
     { path: 'new-account', component: NewAccountComponent },
     { path: 'new-account-complete', component: NewAccountCompleteComponent },
-    { path: 'admin', component: SAdminComponent },
+    { path: 'admin/:id', component: SAdminComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },
