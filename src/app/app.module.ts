@@ -109,6 +109,7 @@ import { PlayListModule } from './demo/view/play-list/play-list.module';
 import { InteractiveServiceModule } from './demo/view/interactive-service/interactive-service.module';
 import { SettingsModule } from './demo/view/settings/settings.module';
 import { DeveloperToolModule } from './demo/view/developer-tool/developer-tool.module';
+import { SAdminModule } from './demo/view/sAdmin/sAdmin.module';
 
 /*custom components*/
 import { ContactUsComponent } from './demo/view/contact-us.component';
@@ -210,6 +211,7 @@ import { LoginService } from './demo/service/login.service';
     InteractiveServiceModule,
     SettingsModule,
     DeveloperToolModule,
+    SAdminModule,
   ],
   declarations: [
     AppComponent,

@@ -29,9 +29,11 @@ import { ResetPasswordComponent } from './demo/view/login/reset-password.compone
 import { ExpirationComponent } from './demo/view/login/expiration.component';
 import { NewAccountComponent } from './demo/view/login/new-account.component';
 import { NewAccountCompleteComponent } from './demo/view/login/new-account-complete.component';
+import { SAdminComponent } from './demo/view/sAdmin/components/sAdmin.component';
 
 export const routes: Routes = [
-    { path: '', component: DashboardDemoComponent },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'dashboard', component: DashboardDemoComponent },
     { path: 'media-storage/:id', component: MediaStorageComponent },
     { path: 'trans-monitoring', component: TransMonitoringComponent },
     { path: 'play-list', component: PlayListComponent },
@@ -52,6 +54,7 @@ export const routes: Routes = [
     { path: 'expiration', component: ExpirationComponent },
     { path: 'new-account', component: NewAccountComponent },
     { path: 'new-account-complete', component: NewAccountCompleteComponent },
+    { path: 'admin', component: SAdminComponent },
     { path: 'sample', component: SampleDemoComponent },
     { path: 'forms', component: FormsDemoComponent },
     { path: 'data', component: DataDemoComponent },

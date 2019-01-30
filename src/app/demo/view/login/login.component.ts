@@ -29,8 +29,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit(value) {
     this.loginService.setLogin();
-    this.loginService.setCookieData(11, 24);
-    this.router.navigate(['']);
+    if (value.user_id === 'admin') {
+      this.loginService.setCookieData(0, 0);
+      this.router.navigate(['/admin']);
+    } else {
+      this.loginService.setCookieData(11, 24);
+      this.router.navigate(['/dashboard']);
+    }
     // this.submitted = true;
     //
     // this.userData.userId = value.user_id;

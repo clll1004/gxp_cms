@@ -33,7 +33,7 @@ export class DashboardDemoComponent implements OnInit {
 
   constructor(private breadcrumbService: BreadcrumbService, private dashboardService: DashboardService) {
     this.breadcrumbService.setItems([
-      { label: '대시보드', routerLink: [''] }
+      { label: '대시보드', routerLink: ['/dashboard'] }
     ]);
   }
 

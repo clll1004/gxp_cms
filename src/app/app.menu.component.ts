@@ -1,25 +1,43 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {trigger, state, style, transition, animate} from '@angular/animations';
-import {MenuItem} from 'primeng/primeng';
-import {AppComponent} from './app.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MenuItem } from 'primeng/primeng';
+import { AppComponent } from './app.component';
+import { CookieService } from '../app/demo/service/cookie.service';
 
 @Component({
-    selector: 'app-menu',
-    template: `
-        <ul app-submenu [item]="model" root="true" class="layout-menu"
-            [reset]="reset" visible="true" parentActive="true"></ul>
-    `
+  selector: 'app-menu',
+  template: `
+      <ul app-submenu [item]="user === 'admin' ? adminMenu : cmsMenu" root="true" class="layout-menu"
+          [reset]="reset" visible="true" parentActive="true"></ul> {{ user }}
+  `
 })
 export class AppMenuComponent implements OnInit {
   @Input() reset: boolean;
 
-  model: any[];
+  public user:string = '';
+  public adminMenu:any[] = [];
+  public cmsMenu:any[] = [];
 
-  constructor(public app: AppComponent) {}
+  constructor(public app: AppComponent, private cookieService: CookieService) {}
 
   ngOnInit() {
-    this.model = [
-      { label: '대시보드', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
+    this.cookieService.getCookie('usr_seq') !== '0' ? this.user = 'cms' : this.user = 'admin';
+
+    this.adminMenu = [
+      {
+        label: '모니터링', icon: 'fa fa-fw fa-chart-pie' ,
+        items: [
+          { label: '실시간서버 모니터링', routerLink: ['/'] },
+          { label: '인코딩 모니터링', routerLink: ['/'] },
+        ],
+      },
+      { label: '회원관리', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
+      { label: '고객사 관리', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
+      { label: 'API 인증키관리', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
+      { label: '고객지원', icon: 'fa fa-fw fa-home', routerLink: ['/'] },
+    ];
+    this.cmsMenu = [
+      { label: '대시보드', icon: 'fa fa-fw fa-home', routerLink: ['/dashboard'] },
       { label: '미디어보관함', icon: 'fas fa-fw fa-hdd', routerLink: ['/media-storage/list'] },
       { label: '변환 모니터링', icon: 'fa fa-fw fa-desktop', routerLink: ['/trans-monitoring'] },
       { label: '재생목록', icon: 'fa fa-fw fa-list', routerLink: ['/play-list'] },

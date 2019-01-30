@@ -1,5 +1,5 @@
 <div class="layout-topbar">
-    <a class="logo" href="/">
+    <a class="logo" [routerLink]="user === 'cms' ? '/dashboard' : '/admin'">
         <img src="assets/layout/images/gxp/logo-icon.png" alt="logo" class="logo-icon" />
         <img src="assets/layout/images/gxp/logo-text.png" alt="logo" class="logo-text"/>
     </a>
@@ -8,7 +8,7 @@
     </a>
 
     <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
-        <span>김주영</span>
+        <p>김주영 <span *ngIf="user === 'admin'">(슈퍼관리자)</span></p>
         <i class="fa fa-fw fa-angle-down"></i>
     </a>
 
@@ -19,7 +19,7 @@
                 <span class="topbar-item-name">user@gomcorp.com</span>
             </div>
         </li>
-        <li>
+        <li *ngIf="user === 'cms'">
             <div href="#">
                 <i class="fa fa-fw fa-info"></i>
                 <span class="topbar-item-name">사용 중인 서비스</span>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </li>
-        <li>
+        <li *ngIf="user === 'cms'">
             <div>
                 <i class="fa fa-fw fa-cog"></i>
                 <span class="topbar-item-name">설정</span>

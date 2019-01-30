@@ -1399,11 +1399,12 @@ body a {
   width: 40px;
   height: 40px;
 }
-.layout-wrapper .layout-topbar #topbar-menu-button span {
+.layout-wrapper .layout-topbar #topbar-menu-button p {
   display: inline-block;
+  margin: 0;
   vertical-align: middle;
 }
-.layout-wrapper .layout-topbar #topbar-menu-button span:hover {
+.layout-wrapper .layout-topbar #topbar-menu-button p:hover {
   text-decoration: underline;
 }
 @media screen and (max-width: 1024px) {

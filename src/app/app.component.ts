@@ -1,7 +1,8 @@
-import {Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, OnInit } from '@angular/core';
-import {ScrollPanel} from 'primeng/primeng';
+import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, OnInit } from '@angular/core';
+import { ScrollPanel } from 'primeng/primeng';
 import { LoginService } from './demo/service/login.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { CookieService } from './demo/service/cookie.service';
 
 @Component({
   selector: 'app-root',
@@ -48,17 +49,16 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   public isLayoutShow: boolean = false;
 
-  constructor(public renderer: Renderer2, private loginService: LoginService, private router: Router) {
+  constructor(public renderer: Renderer2, private loginService: LoginService, private router: Router, private cookieService: CookieService) {
     // document.cookie = 'usr_seq=11';
     // document.cookie = 'grp_seq=24';
   }
 
   ngOnInit() {
-
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.loginService.checkUserInfo(event.url);
-        if (event.url === '/login' || event.url === '/new-password' || event.url === '/new-password-complete' || event.url === '/reset-password' || event.url === '/expiration' || event.url === '/new-account' || event.url === '/new-account-complete') {
+        if (event.url === '/' || event.url === '/login' || event.url === '/new-password' || event.url === '/new-password-complete' || event.url === '/reset-password' || event.url === '/expiration' || event.url === '/new-account' || event.url === '/new-account-complete') {
           this.loginService.logout();
           this.isLayoutShow = false;
         } else {
