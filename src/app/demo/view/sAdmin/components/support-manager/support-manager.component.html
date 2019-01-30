@@ -1,0 +1,49 @@
+<div class="ui-g-12 ui-g-nopad" style="margin-bottom: 50vh;">
+  <div class="ui-g-nopad ui-g-12 margin-bottom-30">
+    <div class="left">
+      <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
+    </div>
+    <div class="right">
+      <input type="text" pInputText />
+    </div>
+  </div>
+  <div class="ui-g-12 ui-g-nopad margin-bottom-50">
+    <p-table #dt class="selectTable" [columns]="supportCols" [value]="supportRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempItems">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col style="width: 3em">
+          <col *ngFor="let col of columns" [style.width]="col.width">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
+            {{ col.header }}
+            <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-item>
+        <tr [pSelectableRow]="item">
+          <td>
+            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+          </td>
+          <td>{{ item['title'] }}</td>
+          <td>{{ item['charge'] }}</td>
+          <td>{{ item['replyStatus'] }}</td>
+          <td>{{ item['createdAt'] }}</td>
+          <td>{{ item['replyAt'] }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length + 1" class="emptyMessage">표시할 데이터가 없습니다.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+

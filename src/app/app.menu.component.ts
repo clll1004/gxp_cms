@@ -34,7 +34,7 @@ export class AppMenuComponent implements OnInit {
       { label: '회원관리', icon: 'fas fa-fw fa-user-tie', routerLink: ['/admin/user-manager'] },
       { label: '고객사 관리', icon: 'fas fa-fw fa-building', routerLink: ['/admin/client-manager'] },
       { label: 'API 인증키관리', icon: 'fas fa-fw fa-key', routerLink: ['/admin/license-manager'] },
-      { label: '고객지원', icon: 'fas fa-fw fa-headset', routerLink: ['/admin/user-manager'] },
+      { label: '고객지원', icon: 'fas fa-fw fa-headset', routerLink: ['/admin/support-manager'] },
     ];
     this.cmsMenu = [
       { label: '대시보드', icon: 'fa fa-fw fa-home', routerLink: ['/dashboard'] },

@@ -13,6 +13,7 @@ import { EncodingMonitoringComponent } from './components/encoding-monitoring/en
 import { UserManagerComponent } from './components/user-manager/user-manager.component';
 import { ClientManagerComponent } from './components/client-manager/client-manager.component';
 import { LicenseManagerComponent } from './components/license-manager/license-manager.component';
+import { SupportManagerComponent } from './components/support-manager/support-manager.component';
 
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -37,6 +38,7 @@ import { InputTextModule } from 'primeng/inputtext';
     UserManagerComponent,
     ClientManagerComponent,
     LicenseManagerComponent,
+    SupportManagerComponent,
   ]})
 
 export class SAdminModule {
