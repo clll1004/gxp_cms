@@ -32,13 +32,12 @@
           <td>
             <p-tableCheckbox [value]="transMonitoring"></p-tableCheckbox>
           </td>
-          <td>{{ transMonitoring['name'] }}</td>
-          <td>{{ transMonitoring['email'] }}</td>
           <td>{{ transMonitoring['clientName'] }}</td>
           <td>{{ transMonitoring['usingService'] }}</td>
-          <td>{{ transMonitoring['createdAt'] }}</td>
+          <td>{{ transMonitoring['sdate'] }}</td>
+          <td>{{ transMonitoring['edate'] }}</td>
+          <td>{{ transMonitoring['status'] }}</td>
           <td>{{ transMonitoring['userType'] }}</td>
-          <td>{{ transMonitoring['forWithdrawal'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>

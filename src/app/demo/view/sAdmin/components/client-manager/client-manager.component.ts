@@ -5,26 +5,25 @@ import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../../../../breadcrumb.service';
 
 @Component({
-  selector: 'user-manager',
+  selector: 'client-manager',
   styleUrls: ['../sAdmin.component.css'],
-  templateUrl: './user-manager.component.html'})
+  templateUrl: './client-manager.component.html'})
 
-export class UserManagerComponent implements OnInit {
+export class ClientManagerComponent implements OnInit {
   public userCols:any[] = [
-    { header: '회원이름', field: 'name' },
-    { header: '이메일', field: 'email' },
     { header: '고객사명', field: 'clientName' },
     { header: '사용 중 서비스', field: 'usingService' },
-    { header: '가입일', field: 'createdAt' },
+    { header: '서비스 시작일', field: 'sdate' },
+    { header: '서비스 종료일', field: 'edate' },
+    { header: '상태', field: 'status' },
     { header: '회원구분', field: 'userType' },
-    { header: '탈퇴여부', field: 'forWithdrawal' },
   ];
   public userRowData:any[] = [];
   public tempItems:any[] = [];
 
   constructor(private breadcrumbService: BreadcrumbService) {
     this.breadcrumbService.setItems([
-      { label: '회원관리', routerLink: ['/admin/user-manager'] },
+      { label: '고객사관리', routerLink: ['/admin/client-manager'] },
     ]);
   }
 
