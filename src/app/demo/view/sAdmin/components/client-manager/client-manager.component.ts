@@ -10,7 +10,7 @@ import { BreadcrumbService } from '../../../../../breadcrumb.service';
   templateUrl: './client-manager.component.html'})
 
 export class ClientManagerComponent implements OnInit {
-  public userCols:any[] = [
+  public clientCols:any[] = [
     { header: '고객사명', field: 'clientName' },
     { header: '사용 중 서비스', field: 'usingService' },
     { header: '서비스 시작일', field: 'sdate' },
@@ -18,7 +18,7 @@ export class ClientManagerComponent implements OnInit {
     { header: '상태', field: 'status' },
     { header: '회원구분', field: 'userType' },
   ];
-  public userRowData:any[] = [];
+  public clientRowData:any[] = [];
   public tempItems:any[] = [];
 
   constructor(private breadcrumbService: BreadcrumbService) {

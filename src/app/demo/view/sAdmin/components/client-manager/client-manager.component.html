@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="ui-g-12 ui-g-nopad margin-bottom-50">
-    <p-table #dt class="selectTable" [columns]="userCols" [value]="userRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempItems">
+    <p-table #dt class="selectTable" [columns]="clientCols" [value]="clientRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempItems">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col style="width: 3em">
@@ -27,17 +27,17 @@
           </th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowData let-columns="columns" let-transMonitoring>
-        <tr [pSelectableRow]="transMonitoring">
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-item>
+        <tr [pSelectableRow]="item">
           <td>
-            <p-tableCheckbox [value]="transMonitoring"></p-tableCheckbox>
+            <p-tableCheckbox [value]="item"></p-tableCheckbox>
           </td>
-          <td>{{ transMonitoring['clientName'] }}</td>
-          <td>{{ transMonitoring['usingService'] }}</td>
-          <td>{{ transMonitoring['sdate'] }}</td>
-          <td>{{ transMonitoring['edate'] }}</td>
-          <td>{{ transMonitoring['status'] }}</td>
-          <td>{{ transMonitoring['userType'] }}</td>
+          <td>{{ item['clientName'] }}</td>
+          <td>{{ item['usingService'] }}</td>
+          <td>{{ item['sdate'] }}</td>
+          <td>{{ item['edate'] }}</td>
+          <td>{{ item['status'] }}</td>
+          <td>{{ item['userType'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>

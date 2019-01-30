@@ -1,15 +1,15 @@
 <div class="ui-g-12 ui-g-nopad" style="margin-bottom: 50vh;">
   <div class="ui-g-nopad ui-g-12 margin-bottom-30">
     <div class="left">
-      <button pButton type="button" label="선택 삭제" class="margin-right-10"></button>
-      오늘 기준 총 <span class="c_red">100</span>명(일반회원 <span class="c_red">50</span>명 / 탈퇴회원 <span class="c_red">50</span>명)
+      <button pButton type="button" label="기간 변경" class="margin-right-10"></button>
+      <button pButton type="button" label="선택 삭제"></button>
     </div>
     <div class="right">
       <input type="text" pInputText />
     </div>
   </div>
   <div class="ui-g-12 ui-g-nopad margin-bottom-50">
-    <p-table #dt class="selectTable" [columns]="userCols" [value]="userRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempItems">
+    <p-table #dt class="selectTable" [columns]="licenseCols" [value]="licenseRowData" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20,50,100]" [(selection)]="tempItems">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col style="width: 3em">
@@ -32,13 +32,12 @@
           <td>
             <p-tableCheckbox [value]="item"></p-tableCheckbox>
           </td>
-          <td>{{ item['name'] }}</td>
-          <td>{{ item['email'] }}</td>
           <td>{{ item['clientName'] }}</td>
-          <td>{{ item['usingService'] }}</td>
+          <td>{{ item['licenseKey'] }}</td>
+          <td>{{ item['domain'] }}</td>
+          <td>{{ item['status'] }}</td>
           <td>{{ item['createdAt'] }}</td>
-          <td>{{ item['userType'] }}</td>
-          <td>{{ item['forWithdrawal'] }}</td>
+          <td>{{ item['updatedAt'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>

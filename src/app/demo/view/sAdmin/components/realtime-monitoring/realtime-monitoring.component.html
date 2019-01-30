@@ -35,16 +35,16 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns" let-transMonitoring>
-          <tr [pSelectableRow]="transMonitoring">
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-item>
+          <tr [pSelectableRow]="item">
             <td>
-              <p-tableCheckbox [value]="transMonitoring"></p-tableCheckbox>
+              <p-tableCheckbox [value]="item"></p-tableCheckbox>
             </td>
-            <td>{{ transMonitoring['ip'] }}</td>
-            <td>{{ transMonitoring['purpose'] }}</td>
-            <td>{{ transMonitoring['usage'] }}</td>
-            <td>{{ transMonitoring['regDate'] }}</td>
-            <td>{{ transMonitoring['upDateAt'] }}</td>
+            <td>{{ item['ip'] }}</td>
+            <td>{{ item['purpose'] }}</td>
+            <td>{{ item['usage'] }}</td>
+            <td>{{ item['regDate'] }}</td>
+            <td>{{ item['upDateAt'] }}</td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage" let-columns>

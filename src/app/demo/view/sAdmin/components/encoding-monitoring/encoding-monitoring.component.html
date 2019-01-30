@@ -35,20 +35,20 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns" let-transMonitoring>
-          <tr [pSelectableRow]="transMonitoring">
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-item>
+          <tr [pSelectableRow]="item">
             <td>
-              <p-tableCheckbox [value]="transMonitoring"></p-tableCheckbox>
+              <p-tableCheckbox [value]="item"></p-tableCheckbox>
             </td>
-            <td>{{ transMonitoring['gf_nm'] }}</td>
-            <td>{{ transMonitoring['fo_nm'] }}</td>
-            <td>{{ transMonitoring['fo_path'] }}</td>
-            <td>{{ transMonitoring['status'] }}</td>
-            <td>{{ transMonitoring['ft_progress'] }}%</td>
-            <td>{{ transMonitoring['fo_size'] }}MB</td>
-            <td>{{ transMonitoring['ft_size'] }}MB</td>
-            <td>{{ transMonitoring['ft_start_dtm'] }}</td>
-            <td>{{ transMonitoring['ft_end_dtm'] }}</td>
+            <td>{{ item['gf_nm'] }}</td>
+            <td>{{ item['fo_nm'] }}</td>
+            <td>{{ item['fo_path'] }}</td>
+            <td>{{ item['status'] }}</td>
+            <td>{{ item['ft_progress'] }}%</td>
+            <td>{{ item['fo_size'] }}MB</td>
+            <td>{{ item['ft_size'] }}MB</td>
+            <td>{{ item['ft_start_dtm'] }}</td>
+            <td>{{ item['ft_end_dtm'] }}</td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage" let-columns>
