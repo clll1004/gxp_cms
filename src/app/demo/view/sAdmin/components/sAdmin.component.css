@@ -9,7 +9,6 @@
   background: #fe875d !important;
   border: 0 none !important;
 }
-
 .select_tab_menu li {
   position: static;
   display: block;
@@ -28,7 +27,6 @@
   border-bottom: 4px solid transparent;
   white-space: nowrap;
 }
-
 .select_tab_menu li a { display: block; padding: 0.571em 1.714em 0.571em 1.143em; color: #ffffff; cursor: pointer; }
 .select_tab_menu li.on { border-bottom: 4px solid #B34621; }
 .select_tab_menu li:not(.on):hover {
@@ -36,8 +34,15 @@
   border-top: 4px solid rgba(0,0,0,0) !important;
   border-bottom: 4px solid #B34621 !important;
 }
-
-td {
-  word-break: break-all;
-}
+td { word-break: break-all; }
 .emptyMessage { padding: 20px 0 !important; text-align: center;}
+
+fieldset { border: none; }
+.form-row { padding: 20px 0; border-bottom: 1px solid #eee; }
+.form-title { font-weight: bold; }
+.form-data {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}

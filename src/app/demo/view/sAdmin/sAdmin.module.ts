@@ -13,11 +13,14 @@ import { EncodingMonitoringComponent } from './components/encoding-monitoring/en
 import { UserManagerComponent } from './components/user-manager/user-manager.component';
 import { ClientManagerComponent } from './components/client-manager/client-manager.component';
 import { LicenseManagerComponent } from './components/license-manager/license-manager.component';
+import { LicenseDetailomponent } from './components/license-detail/license-detail.component';
 import { SupportManagerComponent } from './components/support-manager/support-manager.component';
 
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   imports: [
@@ -29,6 +32,8 @@ import { InputTextModule } from 'primeng/inputtext';
     ButtonModule,
     TableModule,
     InputTextModule,
+    DialogModule,
+    CalendarModule,
   ],
   exports: [SAdminComponent],
   declarations: [
@@ -38,6 +43,7 @@ import { InputTextModule } from 'primeng/inputtext';
     UserManagerComponent,
     ClientManagerComponent,
     LicenseManagerComponent,
+    LicenseDetailomponent,
     SupportManagerComponent,
   ]})
 

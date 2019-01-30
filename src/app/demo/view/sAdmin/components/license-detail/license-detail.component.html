@@ -1,0 +1,73 @@
+<div class="ui-g-nopad ui-g-12 margin-top-30" style="margin-bottom: 10vh;">
+  <div class="card">
+    <form [formGroup]="licenseForm" (ngSubmit)="onSubmit(licenseForm.value)">
+      <fieldset>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">고객사명</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ licenseForm.get('clientName').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">도메인 <span class="c_red">*</span></p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ licenseForm.get('domain').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">사용서비스</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ licenseForm.get('usingService').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">인증키</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ licenseForm.get('licenseKey').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">사용기간</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            <p-calendar formControlName="duration" selectionMode="range" [readonlyInput]="true" [showIcon]="true"  dateFormat="yy.mm.dd"></p-calendar>
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">발급일</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ licenseForm.get('sdate').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">만료일</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ licenseForm.get('edate').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">최종 수정일시</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ licenseForm.get('updateAt').value }}
+          </div>
+        </div>
+
+        <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+          <a routerLink="/admin/license-manager"><button pButton type="reset" class="btn margin-right-5 ui-button-secondary" label="취소"></button></a>
+          <button pButton type="submit" class="btn" label="기간 갱신"></button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<p-dialog [(visible)]="completeDialog" [width]="400" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    기간갱신이 완료되었습니다.
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="submit" (click)="completeDialog=false;" label="확인"></button>
+  </div>
+</p-dialog>

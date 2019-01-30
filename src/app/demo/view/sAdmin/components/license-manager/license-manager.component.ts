@@ -18,7 +18,10 @@ export class LicenseManagerComponent implements OnInit {
     { header: '발급일시', field: 'createdAt' },
     { header: '최종 수정일시', field: 'updatedAt' },
   ];
-  public licenseRowData:any[] = [];
+  public licenseRowData:any[] = [
+    { clientName: 'a', licenseKey: 'a', domain: 'a', status: 'a', createdAt: 'a', updatedAt: 'a' },
+    { clientName: 'b', licenseKey: 'b', domain: 'b', status: 'b', createdAt: 'b', updatedAt: 'b' },
+  ];
   public tempItems:any[] = [];
 
   constructor(private breadcrumbService: BreadcrumbService) {

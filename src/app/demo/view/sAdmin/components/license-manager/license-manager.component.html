@@ -32,12 +32,12 @@
           <td>
             <p-tableCheckbox [value]="item"></p-tableCheckbox>
           </td>
-          <td>{{ item['clientName'] }}</td>
-          <td>{{ item['licenseKey'] }}</td>
-          <td>{{ item['domain'] }}</td>
-          <td>{{ item['status'] }}</td>
-          <td>{{ item['createdAt'] }}</td>
-          <td>{{ item['updatedAt'] }}</td>
+          <td routerLink="/admin/license-detail" style="cursor: pointer;">{{ item['clientName'] }}</td>
+          <td routerLink="/admin/license-detail" style="cursor: pointer;">{{ item['licenseKey'] }}</td>
+          <td routerLink="/admin/license-detail" style="cursor: pointer;">{{ item['domain'] }}</td>
+          <td routerLink="/admin/license-detail" style="cursor: pointer;">{{ item['status'] }}</td>
+          <td routerLink="/admin/license-detail" style="cursor: pointer;">{{ item['createdAt'] }}</td>
+          <td routerLink="/admin/license-detail" style="cursor: pointer;">{{ item['updatedAt'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>
