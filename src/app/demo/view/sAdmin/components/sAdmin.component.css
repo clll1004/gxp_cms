@@ -46,3 +46,5 @@ fieldset { border: none; }
   margin-inline-start: 0px;
   margin-inline-end: 0px;
 }
+input, textarea { border : 1px solid #ccc; }
+textarea { width: 100%; height: 150px; padding: 10px; box-sizing: border-box; resize: none; }

@@ -13,8 +13,9 @@ import { EncodingMonitoringComponent } from './components/encoding-monitoring/en
 import { UserManagerComponent } from './components/user-manager/user-manager.component';
 import { ClientManagerComponent } from './components/client-manager/client-manager.component';
 import { LicenseManagerComponent } from './components/license-manager/license-manager.component';
-import { LicenseDetailomponent } from './components/license-detail/license-detail.component';
+import { LicenseDetailComponent } from './components/license-detail/license-detail.component';
 import { SupportManagerComponent } from './components/support-manager/support-manager.component';
+import { SupportDetailComponent } from './components/support-detail/support-detail.component';
 
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -43,8 +44,9 @@ import { CalendarModule } from 'primeng/calendar';
     UserManagerComponent,
     ClientManagerComponent,
     LicenseManagerComponent,
-    LicenseDetailomponent,
+    LicenseDetailComponent,
     SupportManagerComponent,
+    SupportDetailComponent,
   ]})
 
 export class SAdminModule {

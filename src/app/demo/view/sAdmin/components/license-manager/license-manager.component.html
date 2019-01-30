@@ -23,7 +23,7 @@
           </th>
           <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
             {{ col.header }}
-            <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           </th>
         </tr>
       </ng-template>

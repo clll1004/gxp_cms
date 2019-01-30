@@ -22,7 +22,7 @@
           </th>
           <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field" pResizableColumn>
             {{ col.header }}
-            <p-sortIcon *ngIf="i !== 0" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           </th>
         </tr>
       </ng-template>
@@ -31,11 +31,11 @@
           <td>
             <p-tableCheckbox [value]="item"></p-tableCheckbox>
           </td>
-          <td>{{ item['title'] }}</td>
-          <td>{{ item['charge'] }}</td>
-          <td>{{ item['replyStatus'] }}</td>
-          <td>{{ item['createdAt'] }}</td>
-          <td>{{ item['replyAt'] }}</td>
+          <td routerLink="/admin/support-detail" style="cursor: pointer;">{{ item['title'] }}</td>
+          <td routerLink="/admin/support-detail" style="cursor: pointer;">{{ item['charge'] }}</td>
+          <td routerLink="/admin/support-detail" style="cursor: pointer;">{{ item['replyStatus'] }}</td>
+          <td routerLink="/admin/support-detail" style="cursor: pointer;">{{ item['createdAt'] }}</td>
+          <td routerLink="/admin/support-detail" style="cursor: pointer;">{{ item['replyAt'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>

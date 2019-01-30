@@ -1,0 +1,67 @@
+<div class="ui-g-nopad ui-g-12 margin-top-30" style="margin-bottom: 10vh;">
+  <div class="card">
+    <form [formGroup]="supportForm" (ngSubmit)="onSubmit(supportForm.value)">
+      <fieldset>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">제목<span class="c_red">*</span></p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ supportForm.get('title').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">작성자</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ supportForm.get('charge').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">문의일</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ supportForm.get('createdAt').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">문의내용</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ supportForm.get('contents').value }}
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">첨부파일</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">답변</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            <textarea formControlName="reply"></textarea>
+          </div>
+        </div>
+        <div class="form-row ui-g-12 ui-g-nopad">
+          <p class="form-title ui-g-2 ui-g-nopad">답변처리일</p>
+          <div class="form-data ui-g-10 ui-g-nopad">
+            {{ supportForm.get('replyAt').value }}
+          </div>
+        </div>
+
+        <div class="ui-g-12 ui-g-nopad margin-top-40 margin-bottom-20 txt-center">
+          <a routerLink="/admin/support-manager"><button pButton type="reset" class="btn margin-right-5 ui-button-secondary" label="취소"></button></a>
+          <button pButton type="submit" class="btn" label="답변보내기"></button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<p-dialog [(visible)]="completeDialog" [width]="400" [modal]="true" [showHeader]="false">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    답변 처리가 완료되었습니다.
+  </div>
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="submit" (click)="completeDialog=false;" label="확인"></button>
+  </div>
+</p-dialog>

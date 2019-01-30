@@ -3,14 +3,14 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../../../../breadcrumb.service';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'license-detail',
   styleUrls: ['../sAdmin.component.css'],
   templateUrl: './license-detail.component.html'})
 
-export class LicenseDetailomponent implements OnInit {
+export class LicenseDetailComponent implements OnInit {
   public licenseForm:FormGroup;
   public completeDialog:boolean = false;
 

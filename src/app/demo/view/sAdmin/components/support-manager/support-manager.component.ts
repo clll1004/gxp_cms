@@ -17,7 +17,10 @@ export class SupportManagerComponent implements OnInit {
     { header: '등록일시', field: 'createdAt' },
     { header: '처리일시', field: 'replyAt' },
   ];
-  public supportRowData:any[] = [];
+  public supportRowData:any[] = [
+    { title: 'a', charge: 'a', replyStatus: 'a', createdAt: 'a', replyAt: 'a' },
+    { title: 'b', charge: 'b', replyStatus: 'b', createdAt: 'b', replyAt: 'b' },
+  ];
   public tempItems:any[] = [];
 
   constructor(private breadcrumbService: BreadcrumbService) {
