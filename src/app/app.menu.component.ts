@@ -31,10 +31,10 @@ export class AppMenuComponent implements OnInit {
           { label: '인코딩 모니터링', routerLink: ['/admin/encoding-monitoring'] },
         ],
       },
-      { label: '회원관리', icon: 'fas fa-fw fa-user-tie', routerLink: ['/'] },
-      { label: '고객사 관리', icon: 'fas fa-fw fa-building', routerLink: ['/'] },
-      { label: 'API 인증키관리', icon: 'fas fa-fw fa-key', routerLink: ['/'] },
-      { label: '고객지원', icon: 'fas fa-fw fa-headset', routerLink: ['/'] },
+      { label: '회원관리', icon: 'fas fa-fw fa-user-tie', routerLink: ['/admin/user-manager'] },
+      { label: '고객사 관리', icon: 'fas fa-fw fa-building', routerLink: ['/admin/user-manager'] },
+      { label: 'API 인증키관리', icon: 'fas fa-fw fa-key', routerLink: ['/admin/user-manager'] },
+      { label: '고객지원', icon: 'fas fa-fw fa-headset', routerLink: ['/admin/user-manager'] },
     ];
     this.cmsMenu = [
       { label: '대시보드', icon: 'fa fa-fw fa-home', routerLink: ['/dashboard'] },
