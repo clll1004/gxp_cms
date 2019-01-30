@@ -18,7 +18,7 @@ import { PlayerPresetComponent } from './components/user-preset/components/playe
 import { EncodingPresetComponent } from './components/user-preset/components/encoding-preset/encoding-preset.component';
 import { EncodingListComponent } from './components/user-preset/components/encoding-preset/components/encoding-list/encoding-list.component';
 import { EncodingDetailComponent } from './components/user-preset/components/encoding-preset/components/encoding-detail/encoding-detail.component';
-import { LogoWartermarkComponent } from './components/user-preset/components/logo-wartermark-preset/logo-wartermark-preset.component';
+import { LogoWatermarkComponent } from './components/user-preset/components/logo-watermark-preset/logo-watermark-preset.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
 import { InputTextModule } from 'primeng/inputtext';
@@ -32,6 +32,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { SliderModule } from 'primeng/slider';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 @NgModule({
   imports: [
@@ -52,6 +54,8 @@ import { SliderModule } from 'primeng/slider';
     RadioButtonModule,
     DropdownModule,
     SliderModule,
+    InputSwitchModule,
+    ColorPickerModule,
   ],
   exports: [SettingsComponent],
   declarations: [
@@ -66,7 +70,7 @@ import { SliderModule } from 'primeng/slider';
     EncodingPresetComponent,
     EncodingListComponent,
     EncodingDetailComponent,
-    LogoWartermarkComponent,
+    LogoWatermarkComponent,
   ]})
 
 export class SettingsModule {
