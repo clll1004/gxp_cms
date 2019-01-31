@@ -32,12 +32,12 @@
           <td>
             <p-tableCheckbox [value]="item"></p-tableCheckbox>
           </td>
-          <td>{{ item['clientName'] }}</td>
-          <td>{{ item['usingService'] }}</td>
-          <td>{{ item['sdate'] }}</td>
-          <td>{{ item['edate'] }}</td>
-          <td>{{ item['status'] }}</td>
-          <td>{{ item['userType'] }}</td>
+          <td routerLink="/admin/client-detail" style="cursor: pointer;">{{ item['clientName'] }}</td>
+          <td routerLink="/admin/client-detail" style="cursor: pointer;">{{ item['usingService'] }}</td>
+          <td routerLink="/admin/client-detail" style="cursor: pointer;">{{ item['sdate'] }}</td>
+          <td routerLink="/admin/client-detail" style="cursor: pointer;">{{ item['edate'] }}</td>
+          <td routerLink="/admin/client-detail" style="cursor: pointer;">{{ item['status'] }}</td>
+          <td routerLink="/admin/client-detail" style="cursor: pointer;">{{ item['userType'] }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>

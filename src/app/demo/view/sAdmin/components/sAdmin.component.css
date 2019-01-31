@@ -38,6 +38,8 @@ td { word-break: break-all; }
 .emptyMessage { padding: 20px 0 !important; text-align: center;}
 
 fieldset { border: none; }
+.form-border { padding: 0 20px; border: 1px solid #ddd; }
+.form-header { padding: 20px 20px; border-radius: 10px 10px 0 0; background: #272624; color: #ddd; }
 .form-row { padding: 20px 0; border-bottom: 1px solid #eee; }
 .form-title { font-weight: bold; }
 .form-data {
@@ -48,3 +50,88 @@ fieldset { border: none; }
 }
 input, textarea { border : 1px solid #ccc; }
 textarea { width: 100%; height: 150px; padding: 10px; box-sizing: border-box; resize: none; }
+
+.button-area label {
+  display: inline-block;
+  width: 100%; height: 40px;
+  line-height: 40px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #ddd;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+.button-area label:hover {
+  background: #ccc;
+}
+.button-area label.on {
+  background: #ff6400;
+  color: #fff;
+}
+.button-area label.on:hover {
+  background: #ee5d00;
+  color: #fff;
+}
+.player-view-area {
+  position: relative;
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.player-view-area img#defaultImg {
+  display: block;
+  width: 100%;
+}
+.player-view-area .overlay-area img {
+  display: none;
+  position: absolute;
+}
+.player-view-area .overlay-area input[type='checkbox'] {
+  display: none;
+}
+.player-view-area .overlay-area input[type='checkbox']:checked + img {
+  display: block;
+}
+.player-view-area .overlay-area img#titleImg {
+  top: 2%; left: 3%;
+  width: 7%;
+}
+.player-view-area .overlay-area img#bookmarkImg {
+  top: 2%; right: 7%;
+  width: 4%;
+}
+.player-view-area .overlay-area img#settingImg {
+  top: 2%; right: 3%;
+  width: 4%;
+}
+.player-view-area .overlay-area img#nextVideoImg {
+  bottom: 0; left: 7.8%;
+  width: 4%;
+}
+.player-view-area .overlay-area img#control10secondsImg {
+  top: 45%; left: 30.5%;
+  width: 38%;
+}
+.player-view-area .overlay-area img#playbackRateImg {
+  top: 27%; left: 10%;
+  width: 7%;
+}
+.player-view-area .overlay-area img#loopPortionImg {
+  bottom: 0; right: 16%;
+  width: 4%;
+}
+.player-view-area .overlay-area img#qualityImg {
+  bottom: 0; right: 12%;
+  width: 4%;
+}
+.player-view-area img#cinemaModeImg {
+  bottom: 0; right: 8%;
+  width: 4%;
+}
+.player-view-area img#fullscreenImg {
+  bottom: 0; right: 4%;
+  width: 4%;
+}

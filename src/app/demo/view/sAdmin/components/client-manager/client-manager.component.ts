@@ -18,7 +18,10 @@ export class ClientManagerComponent implements OnInit {
     { header: '상태', field: 'status' },
     { header: '회원구분', field: 'userType' },
   ];
-  public clientRowData:any[] = [];
+  public clientRowData:any[] = [
+    { clientName: 'a', usingService: 'a', sdate: 'a', edate: 'a', status: 'a', userType: 'a' },
+    { clientName: 'b', usingService: 'b', sdate: 'b', edate: 'b', status: 'b', userType: 'b' },
+  ];
   public tempItems:any[] = [];
 
   constructor(private breadcrumbService: BreadcrumbService) {
