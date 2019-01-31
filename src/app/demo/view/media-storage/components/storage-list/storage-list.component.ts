@@ -48,6 +48,7 @@ export class StorageListComponent implements OnInit {
   public selectedMoveStorage:any = '';
 
   public uploadDialog:boolean = false;
+  public uploadDialogTitle:string = '파일올리기';
   public uploadFiles:any;
   public uploadCols:any[] = [
     { header: '미디어보관함', field: 'gf_nm', width: '12%' },
@@ -64,6 +65,9 @@ export class StorageListComponent implements OnInit {
     { gf_nm: '초등교육', fo_nm: '파일명.mp4', filetype: 'mp4', content_size: '134.13MB', status: '대기', progress: '5' },
   ];
   public encodingPreset:string = 'origin';
+  public selectSections:any[] = [
+    { startTime: '03:04:05', endTime: '03:54:33', fullTime: '00:01:55', selectRange: [0, 100] },
+  ];
 
   constructor(private breadcrumbService: BreadcrumbService, private mediaStorageService: MediaStorageService) {
     this.breadcrumbService.setItems([
@@ -214,6 +218,25 @@ export class StorageListComponent implements OnInit {
         }
       }
     });
+  }
+
+  changeDialogTitle(e) {
+    this.uploadDialogTitle = e.index === 0 ? '파일 올리기' : '편집해서 올리기';
+  }
+
+  addSelectSection() {
+    if (this.selectSections.length < 3) {
+      this.selectSections.push({
+        startTime: null,
+        endTime: null,
+        fullTime: '00:01:55',
+        selectRange: [0, 100],
+      });
+    }
+  }
+
+  removeSelectSection(index) {
+    this.selectSections.splice(index, 1);
   }
 }
 

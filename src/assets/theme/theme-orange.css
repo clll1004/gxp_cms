@@ -790,10 +790,9 @@ body .ui-slider.ui-slider-vertical .ui-slider-handle {
   margin-left: -0.5715em;
 }
 body .ui-slider .ui-slider-handle {
-  height: 1.143em;
-  width: 1.143em;
-  background-color: #fe875d;
-  border: 2px solid #fe875d;
+  width: 20px !important; height: 20px !important;
+  background: #fff !important;
+  border: 5px solid #fe875d;
   -moz-border-radius: 100%;
   -webkit-border-radius: 100%;
   border-radius: 100%;
@@ -801,13 +800,10 @@ body .ui-slider .ui-slider-handle {
   -o-transition: border-color 0.2s;
   -webkit-transition: border-color 0.2s;
   transition: border-color 0.2s;
+  cursor: pointer;
 }
 body .ui-slider .ui-slider-range {
   background-color: #fe612a;
-}
-body .ui-slider:not(.ui-state-disabled) .ui-slider-handle:hover {
-  background-color: #fe7444;
-  border: 2px solid #fe7444;
 }
 body .ui-datepicker {
   padding: 0;

@@ -157,9 +157,9 @@
     <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
   </div>
   <div class="txt-center margin-top-30 margin-bottom-30">
-    <h2 class="margin-bottom-40">파일 올리기</h2>
+    <h2 class="margin-bottom-40">{{ uploadDialogTitle }}</h2>
   </div>
-  <p-tabView>
+  <p-tabView (onChange)="changeDialogTitle($event)">
     <p-tabPanel header="파일올리기">
       <div>
         <span class="margin-right-10">미디어보관함</span>
@@ -198,7 +198,29 @@
       </div>
     </p-tabPanel>
     <p-tabPanel header="편집해서 올리기">
-      Content 2
+      <div>
+        <span class="margin-right-10">미디어보관함</span>
+        <p-dropdown [options]="originStorageList" [(ngModel)]="selectedMoveStorage" [style]="{'width': '150px', 'height': '32px', 'padding-left': '10px', 'vertical-align': 'top', 'text-align': 'left', 'background': '#fff'}"></p-dropdown>
+        <input type="file" pInputText [(ngModel)]="uploadFiles" placeholder="파일 추가" class="margin-left-10" style="width: 300px; border: 1px solid #ddd; cursor: pointer;">
+      </div>
+      <div class="margin-top-10 margin-bottom10 txt-center">
+        <img src="../../../../../../assets/layout/images/gxp/preivew.png" alt="미리보기 플레이어 영역">
+      </div>
+      <div class="select-section">
+        <ul class="sec_list ui-g-nopad">
+          <li class="first_sec" *ngFor="let item of selectSections; let i = index;">
+            <button class="close_btn" *ngIf="i !== 0" (click)="removeSelectSection(i)"><i class="fas fa-times"></i></button>
+            <span>구간 선택</span>
+            <div class="time_sec">
+              <input type="text" title="구간 시작 시간" [value]="item.startTime" /> ~ <input type="text" title="구간 끝 시간" [value]="item.endTime" /> / 재생시간 <span>{{ item.fullTime }}</span>
+              <div style="padding: 20px 10px;">
+                <p-slider [(ngModel)]="item.selectRange" [range]="true"></p-slider>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <button type="button" pButton label="구간 추가" (click)="addSelectSection();" style="display: block; margin: 0 auto;"></button>
+      </div>
     </p-tabPanel>
   </p-tabView>
 

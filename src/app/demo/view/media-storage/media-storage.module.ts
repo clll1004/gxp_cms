@@ -21,6 +21,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { TabViewModule } from 'primeng/tabview';
 import { AccordionModule } from 'primeng/accordion';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { SliderModule } from 'primeng/slider';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     TabViewModule,
     AccordionModule,
     RadioButtonModule,
+    SliderModule,
   ],
   exports: [
     MediaStorageComponent,
