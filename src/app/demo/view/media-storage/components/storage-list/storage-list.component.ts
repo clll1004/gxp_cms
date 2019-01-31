@@ -49,6 +49,8 @@ export class StorageListComponent implements OnInit {
 
   public uploadDialog:boolean = false;
   public uploadDialogTitle:string = '파일올리기';
+  public isFileUploading:boolean = false;
+  public isCompleteUploading:boolean = false;
   public uploadFiles:any;
   public uploadCols:any[] = [
     { header: '미디어보관함', field: 'gf_nm', width: '12%' },
@@ -222,6 +224,11 @@ export class StorageListComponent implements OnInit {
 
   changeDialogTitle(e) {
     this.uploadDialogTitle = e.index === 0 ? '파일 올리기' : '편집해서 올리기';
+  }
+
+  startUploadFiles(txt) {
+    this.uploadDialogTitle = txt;
+    this.isFileUploading = true;
   }
 
   addSelectSection() {
