@@ -15,3 +15,12 @@ table caption { display: none; }
 table tr th { text-align: left; padding: 5px 10px; }
 td { padding: 5px 10px; word-break: break-all; }
 .emptyMessage { padding: 20px 0 !important; text-align: center;}
+
+li { list-style: none; }
+.encoding-preset { border: 1px solid #ddd; background: #fff; color: #555; }
+.encoding-preset .encoding-list { margin: 0; padding: 30px 15px; background: #272624; color: #ddd; }
+.encoding-preset .encoding-list li { margin-bottom: 15px; }
+.encoding-preset .encoding-list li:last-child { margin-bottom: 0; }
+.encoding-preset .encoding-detail { border-left: 1px solid #ddd; }
+.encoding-preset .encoding-detail span.title { display: inline-block; width: 80px; }
+

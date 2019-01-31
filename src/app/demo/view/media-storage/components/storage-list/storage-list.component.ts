@@ -47,6 +47,24 @@ export class StorageListComponent implements OnInit {
 
   public selectedMoveStorage:any = '';
 
+  public uploadDialog:boolean = false;
+  public uploadFiles:any;
+  public uploadCols:any[] = [
+    { header: '미디어보관함', field: 'gf_nm', width: '12%' },
+    { header: '파일명', field: 'fo_nm', width: '18%' },
+    { header: '파일형식', field: 'filetype', width: '8%' },
+    { header: '크기', field: 'content_size', width: '12%' },
+    { header: '변환상태', field: 'status', width: '8%' },
+    { header: '진행률', field: 'progress', width: '10%' },
+  ];
+  public uploadRowData:any[] = [
+    { gf_nm: '초등교육', fo_nm: 'gomedu2.mp4', filetype: 'mp4', content_size: '134.13MB', status: '대기', progress: '30' },
+    { gf_nm: '초등교육', fo_nm: '파일명.mp4', filetype: 'mp4', content_size: '134.13MB', status: '대기', progress: '10' },
+    { gf_nm: '초등교육', fo_nm: 'gomedu2.mp4', filetype: 'mp4', content_size: '134.13MB', status: '대기', progress: '25' },
+    { gf_nm: '초등교육', fo_nm: '파일명.mp4', filetype: 'mp4', content_size: '134.13MB', status: '대기', progress: '5' },
+  ];
+  public encodingPreset:string = 'origin';
+
   constructor(private breadcrumbService: BreadcrumbService, private mediaStorageService: MediaStorageService) {
     this.breadcrumbService.setItems([
       { label: '미디어보관함', routerLink: ['/media-storage'] },
@@ -93,6 +111,7 @@ export class StorageListComponent implements OnInit {
     this.settingDialog = false;
     this.moveDialog = false;
     this.notSelectDialog = false;
+    this.uploadDialog = false;
   }
 
   hasSelectItem(act:string) {

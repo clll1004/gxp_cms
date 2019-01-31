@@ -17,6 +17,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { PanelModule } from 'primeng/panel';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { TabViewModule } from 'primeng/tabview';
+import { AccordionModule } from 'primeng/accordion';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   imports: [
@@ -31,6 +35,10 @@ import { PanelModule } from 'primeng/panel';
     TableModule,
     DialogModule,
     PanelModule,
+    ProgressBarModule,
+    TabViewModule,
+    AccordionModule,
+    RadioButtonModule,
   ],
   exports: [
     MediaStorageComponent,

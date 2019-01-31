@@ -6,7 +6,7 @@
         <button type="button" class="margin-left-10 setting_btn" (click)="settingDialog=true; loadMediaStorage();"><i class="fas fa-cog"></i></button>
       </div>
       <div class="right">
-        <button pButton type="button" label="파일 올리기"></button>
+        <button pButton type="button" label="파일 올리기" (click)="uploadDialog = true;"></button>
       </div>
     </div>
 
@@ -149,5 +149,116 @@
   </div>
   <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
     <button pButton type="submit" (click)="notSelectDialog=false;" label="확인"></button>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="uploadDialog" [width]="750" [modal]="true" [showHeader]="false" [style]="{'max-height': '750px', 'overflow-y': 'scroll'}">
+  <div class="txt-right margin-top-15">
+    <button type="button" class="close_btn" (click)="closePopup()" label="close button"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="txt-center margin-top-30 margin-bottom-30">
+    <h2 class="margin-bottom-40">파일 올리기</h2>
+  </div>
+  <p-tabView>
+    <p-tabPanel header="파일올리기">
+      <div>
+        <span class="margin-right-10">미디어보관함</span>
+        <p-dropdown [options]="originStorageList" [(ngModel)]="selectedMoveStorage" [style]="{'width': '150px', 'height': '32px', 'padding-left': '10px', 'vertical-align': 'top', 'text-align': 'left', 'background': '#fff'}"></p-dropdown>
+        <input type="file" pInputText [(ngModel)]="uploadFiles" placeholder="파일 추가" class="margin-left-10" style="width: 300px; border: 1px solid #ddd; cursor: pointer;">
+      </div>
+      <div class="margin-top-30 margin-bottom-30" style="max-height: 200px; overflow-y: scroll;">
+        총 <span class="c_red">{{ uploadRowData.length }}</span>개 / <span class="c_red">555</span>MB
+        <p-table #dt class="selectTable" [columns]="uploadCols" [value]="uploadRowData">
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" [style.width]="col.width">
+              <col style="width: 2em;">
+            </colgroup>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns; let i = index" [pSortableColumn]="col.field">
+                {{ col.header }}
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-item>
+            <tr>
+              <td>{{ item.gf_nm }}</td>
+              <td>{{ item.fo_nm }}</td>
+              <td>{{ item.filetype }}</td>
+              <td>{{ item.content_size }} MB</td>
+              <td>{{ item.status }}</td>
+              <td><p-progressBar [value]="item.progress"></p-progressBar></td>
+              <td><button type="button" style="border: none; background: none; color: #ff6400; cursor: pointer;"><i class="fas fa-times"></i></button></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="편집해서 올리기">
+      Content 2
+    </p-tabPanel>
+  </p-tabView>
+
+  <p-accordion class="margin-top-10">
+    <p-accordionTab>
+      <p-header>
+        인코딩 프리셋 선택 <span routerLink="/settings/user-preset/encoding/list" style="float: right; font-weight: normal; font-size: 13px; text-decoration: underline;">인코딩 프리셋 설정 &gt;</span>
+      </p-header>
+      <div class="ui-g-12 ui-g-nopad encoding-preset">
+        <ul class="ui-g-5 ui-g-nopad encoding-list">
+          <li>
+            <p-radioButton name="encodingPreset" [(ngModel)]="encodingPreset" value="origin" label="원본"></p-radioButton>
+          </li>
+          <li>
+            <p-radioButton name="encodingPreset" [(ngModel)]="encodingPreset" value="encoding0" label="포맷 변환용"></p-radioButton>
+          </li>
+          <li>
+            <p-radioButton name="encodingPreset" [(ngModel)]="encodingPreset" value="encoding1" label="스마트폰 / 태블릿"></p-radioButton>
+          </li>
+          <li>
+            <p-radioButton name="encodingPreset" [(ngModel)]="encodingPreset" value="encoding2" label="오디오 추출용"></p-radioButton>
+          </li>
+          <li>
+            <p-radioButton name="encodingPreset" [(ngModel)]="encodingPreset" value="encoding3" label="사용자 지정"></p-radioButton> &nbsp;&nbsp;<span class="c_red">영상 편집용</span>
+          </li>
+          <li>
+            <p-radioButton name="encodingPreset" [(ngModel)]="encodingPreset" value="encoding4" label="사용자 지정"></p-radioButton> &nbsp;&nbsp;<span class="c_red">인트로 영상용</span>
+          </li>
+          <li>
+            <p-radioButton name="encodingPreset" [(ngModel)]="encodingPreset" value="encoding4" label="사용자 지정"></p-radioButton> &nbsp;&nbsp;<span class="c_red">포맷 변환용</span>
+          </li>
+        </ul>
+        <div class="ui-g-7 ui-g-nopad encoding-detail">
+          <div class="ui-g-12">
+            <p class="ui-g-4" style="font-weight: bold;">
+              영상 설정
+            </p>
+            <div class="ui-g-8">
+              <div class="ui-g-12"><span class="title">화면크기</span> 340</div>
+              <div class="ui-g-12"><span class="title">비율</span> 자동으로 확장</div>
+              <div class="ui-g-12"><span class="title">화질/용량</span> 2048Kbps</div>
+              <div class="ui-g-12"><span class="title">파일형식</span> MP4</div>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <p class="ui-g-4" style="font-weight: bold;">
+              오디오 설정
+            </p>
+            <div class="ui-g-8">
+              <div class="ui-g-12"><span class="title">샘플레이트</span> 48000 Hz 모노</div>
+              <div class="ui-g-12"><span class="title">노멀라이저</span> 40</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+
+  <div class="ui-g-12 ui-g-nopad txt-center margin-top-40 margin-bottom-30">
+    <button pButton type="submit" (click)="uploadDialog=false;" label="취소" class="margin-right-10"></button>
+    <button pButton type="submit" (click)="uploadDialog=false;" label="업로드"></button>
   </div>
 </p-dialog>
