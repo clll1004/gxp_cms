@@ -40,3 +40,18 @@
 td {
   word-break: break-all;
 }
+
+li { list-style: none; }
+.encoding-preset { border: 1px solid #ddd; background: #fff; color: #555; }
+.encoding-preset .encoding-list { margin: 0; padding: 30px 15px; background: #272624; color: #ddd; }
+.encoding-preset .encoding-list li { margin-bottom: 15px; }
+.encoding-preset .encoding-list li:last-child { margin-bottom: 0; }
+.encoding-preset .encoding-detail { border-left: 1px solid #ddd; }
+.encoding-preset .encoding-detail span.title { display: inline-block; width: 80px; }
+
+.select-section .sec_list li {border: 1px solid #ccc; padding: 15px; margin: 15px auto; box-sizing: border-box; position: relative;}
+.select-section .sec_list li button.close_btn {position: absolute; top: 10px; right: 10px; border: none; cursor: pointer;}
+.select-section .sec_list li .time_sec {width: 100%;}
+.select-section .sec_list li .time_sec input {width: 100px; height: 30px; margin-top: 15px; border: 1px solid #ddd; padding-left: 10px; box-sizing: border-box;}
+.select-section .sec_list li .time_sec .timebar_sec {width: 100%; height: 6px; margin-top: 15px; background: #eee; position: relative;}
+.select-section .sec_list li .time_sec .timebar_sec .select_sec {height: 100%; background: #ff6400; position: absolute; top: 0;}

@@ -11,6 +11,14 @@ import { TransMonitoringComponent } from './components/trans-monitoring.componen
 
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { PanelModule } from 'primeng/panel';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { TabViewModule } from 'primeng/tabview';
+import { AccordionModule } from 'primeng/accordion';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SliderModule } from 'primeng/slider';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   imports: [
@@ -21,6 +29,14 @@ import { TableModule } from 'primeng/table';
     BreadcrumbModule,
     ButtonModule,
     TableModule,
+    DialogModule,
+    PanelModule,
+    ProgressBarModule,
+    TabViewModule,
+    AccordionModule,
+    RadioButtonModule,
+    SliderModule,
+    DropdownModule,
   ],
   exports: [TransMonitoringComponent],
   declarations: [
