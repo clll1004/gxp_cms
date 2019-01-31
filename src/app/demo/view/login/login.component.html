@@ -1,5 +1,5 @@
 <div class="login-container">
-  <h1 class="margin-bottom-50">로그인</h1>
+  <p class="margin-bottom-50"><img src="../../../../assets/layout/images/gxp/logo.png"></p>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="info-container">
     <fieldset>
       <div class="margin-bottom-30">
@@ -8,15 +8,15 @@
         <p class="txt-left c_red">올바른 이메일 주소를 입력해주세요.</p>
       </div>
 
-      <div class="margin-bottom-30">
+      <div class="margin-bottom-40">
         <label for="input-pswd"></label>
         <input type="password" id="input-pswd" formControlName="user_password" class="margin-bottom-5 padding-left-10" title="비밀번호 입력" placeholder="비밀번호 입력 *" name="userPassword" />
-        <div class="txt-right"><a routerLink="/new-password">비밀번호 재설정</a></div>
+        <div class="txt-right"><a routerLink="/new-password" style="text-decoration: underline;">비밀번호 재설정</a></div>
       </div>
 
       <p class="txt-left c_red">이메일 또는 비밀번호가 일치하지 않습니다. 확인 후 다시 입력해주세요.</p>
 
-      <button pButton type="button" class="ui-button-secondary margin-right-10 margin-top-20" label="새로운 계정 만들기" routerLink="/new-account"></button>
+      <button pButton type="button" class="ui-button-secondary margin-right-10 margin-top-30" label="새로운 계정 만들기" routerLink="/new-account"></button>
       <button pButton type="submit" label="로그인" [disabled]="!loginForm.valid"></button>
     </fieldset>
   </form>

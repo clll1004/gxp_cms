@@ -3,11 +3,11 @@
         <img src="assets/layout/images/gxp/logo-icon.png" alt="logo" class="logo-icon" />
         <img src="assets/layout/images/gxp/logo-text.png" alt="logo" class="logo-text"/>
     </a>
-    <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)">
+    <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)" *ngIf="isLayoutShow">
         <i class="fa fa-align-left"></i>
     </a>
 
-    <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
+    <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)" *ngIf="isLayoutShow">
         <p>김주영 <span *ngIf="user === 'admin'">(슈퍼관리자)</span></p>
         <i class="fa fa-fw fa-angle-down"></i>
     </a>
